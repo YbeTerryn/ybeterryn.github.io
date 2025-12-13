@@ -1,10 +1,10 @@
 const stories = [
   {
     title: "Window I – The First Night",
-    text: "On the first night, the city held its breath..."
+    pdf: "pdfs/window-01.pdf"
   },
   {
     title: "Window II – The Second Candle",
-    text: "The candle burned longer than it should have..."
+    pdf: "pdfs/window-02.pdf"
   }
 ];
