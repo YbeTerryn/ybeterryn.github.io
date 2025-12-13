@@ -1,23 +1,34 @@
-const building = document.getElementById("building");
-const modal = document.getElementById("storyModal");
-const closeBtn = document.getElementById("closeBtn");
-const storyTitle = document.getElementById("storyTitle");
-const storyText = document.getElementById("storyText");
+const windowsContainer = document.getElementById("windows");
+const modal = document.getElementById("modal");
+const pdf = document.getElementById("pdf");
+const closeBtn = document.getElementById("close");
+
+// Night detection (local time)
+const hour = new Date().getHours();
+const isNight = hour >= 19 || hour <= 6;
 
 stories.forEach((story, index) => {
-  const windowDiv = document.createElement("div");
-  windowDiv.className = "window";
+  const w = document.createElement("div");
+  w.className = "window";
 
-  windowDiv.addEventListener("click", () => {
-    storyTitle.textContent = story.title;
-    storyText.textContent = story.text;
+  if (isNight) w.classList.add("lit");
+
+  w.onclick = () => {
+    w.classList.add("open");
+    pdf.src = story.pdf;
     modal.style.display = "block";
-  });
+  };
 
-  building.appendChild(windowDiv);
+  windowsContainer.appendChild(w);
 });
 
-closeBtn.onclick = () => modal.style.display = "none";
-window.onclick = e => {
-  if (e.target === modal) modal.style.display = "none";
+closeBtn.onclick = () => {
+  modal.style.display = "none";
+  pdf.src = "";
+  document.querySelectorAll(".window").forEach(w => w.classList.remove("open"));
 };
+
+window.onclick = e => {
+  if (e.target === modal) closeBtn.onclick();
+};
+
