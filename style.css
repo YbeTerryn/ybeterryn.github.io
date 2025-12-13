@@ -109,3 +109,18 @@ iframe {
   }
 }
 
+.window-number {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+  font-family: "Georgia", serif;
+  pointer-events: none;
+}
+
+/* Slightly darker when window is lit */
+.window.lit .window-number {
+  color: rgba(60,40,10,0.7);
+}
+
