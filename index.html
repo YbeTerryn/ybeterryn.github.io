@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>The Windows of Night – Ybe Terryn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,14 +14,15 @@
 </header>
 
 <main>
-  <div id="building"></div>
+  <div id="building">
+    <div id="windows"></div>
+  </div>
 </main>
 
-<div id="storyModal" class="modal">
-  <div class="modal-content">
-    <span id="closeBtn">&times;</span>
-    <h2 id="storyTitle"></h2>
-    <p id="storyText"></p>
+<div id="modal">
+  <div id="modal-content">
+    <span id="close">&times;</span>
+    <iframe id="pdf"></iframe>
   </div>
 </div>
 
