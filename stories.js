@@ -1,6 +1,6 @@
 const stories = [
   {
-    title: "Window I – The First Night",
-    pdf: "pdfs/window-01.pdf"
+    title: "Offer 1",
+    pdf: "file:///C:/Users/Ybe%20Terryn/OneDrive%20-%20UGent/Documenten/Schrijver/Sesjats%20Offerande.pdf"
   },
 ];
