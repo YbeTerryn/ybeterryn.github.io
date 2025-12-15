@@ -2,57 +2,38 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Offer</title>
+  <title>Schrijfsel</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <nav>
   <a href="index.html">Home</a>
-  <a href="offers.html">Offers voor Sesjat</a>
+  <a href="offers.html">Offers aan Sesjat</a>
+  <a href="theater.html">Theater</a>
+  <a href="reviews.html">Pieter Paul Tybbe</a>
 </nav>
 
-<main class="story-view">
-  <div id="text-container"></div>
-
-  <p class="download">
-    <a id="pdf-link" target="_blank">📄 Download als PDF</a>
-  </p>
+<main class="reader">
+  <article id="text-container" class="literary-text"></article>
 
   <section class="reader-feedback">
-    <h2>Reacties van lezers</h2>
+    <h2>Reacties</h2>
 
-    <!-- GISCUS -->
-    <script src="https://giscus.app/client.js"
-      data-repo="GITHUBNAAM/REPONAAM"
-      data-category="Stories"
-      data-mapping="pathname"
-      data-reactions-enabled="1"
-      data-theme="dark"
-      crossorigin="anonymous"
-      async>
-    </script>
+    <div
+      id="cusdis_thread"
+      data-host="https://cusdis.com"
+      data-app-id="JOUW_CUSDIS_APP_ID">
+    </div>
+
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
   </section>
 </main>
 
+<script src="data/stories.js"></script>
+<script src="js/story.js"></script>
+</body>
+</html>
 
-  <!-- COMMENTS & LIKES -->
-<section class="reader-feedback">
-  <h2>Reacties van lezers</h2>
-
-  <script src="https://giscus.app/client.js"
-          data-repo="YbeTerryn/ybeterryn.github.io"
-          data-repo-id="R_kgDOQoKr_Q"
-          data-category="General"
-          data-category-id="DIC_kwDOQoKr_c4Cz0bF"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="preferred_color_scheme"
-          data-lang="en"
-          crossorigin="anonymous"
-          async>
   </script>
 </section>
