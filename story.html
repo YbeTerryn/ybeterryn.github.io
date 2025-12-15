@@ -13,8 +13,28 @@
 </nav>
 
 <main class="story-view">
-  <h1 id="title"></h1>
-  <iframe id="reader"></iframe>
+  <div id="text-container"></div>
+
+  <p class="download">
+    <a id="pdf-link" target="_blank">📄 Download als PDF</a>
+  </p>
+
+  <section class="reader-feedback">
+    <h2>Reacties van lezers</h2>
+
+    <!-- GISCUS -->
+    <script src="https://giscus.app/client.js"
+      data-repo="GITHUBNAAM/REPONAAM"
+      data-category="Stories"
+      data-mapping="pathname"
+      data-reactions-enabled="1"
+      data-theme="dark"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+</main>
+
 
   <!-- COMMENTS & LIKES -->
 <section class="reader-feedback">
