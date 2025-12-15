@@ -22,3 +22,18 @@
 .literary-text p {
   margin-bottom: 1.4rem;
 }
+
+.reader-feedback {
+  max-width: 42rem;
+  margin: 4rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.reader-feedback h2 {
+  font-weight: normal;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
