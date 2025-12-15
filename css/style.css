@@ -1,8 +1,122 @@
+/* ===== BASIS ===== */
+
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: linear-gradient(#0b132b, #1c2541);
+  color: #fff;
+}
+
+a {
+  color: #ffd166;
+  text-decoration: none;
+}
+
+/* ===== NAVIGATIE ===== */
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #0b132b;
+  padding: 1rem;
+}
+
+nav a {
+  font-variant: small-caps;
+}
+
+nav a.donate {
+  border: 1px solid #ffd166;
+  padding: 0.3rem 0.7rem;
+}
+
+/* ===== SESJAT HEADER (gedeeld door alle tabs) ===== */
+
+.sesjat-header {
+  text-align: center;
+  padding: 4rem 1rem 3rem;
+  background:
+    radial-gradient(circle at top, rgba(255,209,102,0.15), transparent 60%),
+    linear-gradient(#0b132b, #1c2541);
+}
+
+.sesjat-header .glyph {
+  font-size: 2rem;
+  color: #ffd166;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.sesjat-header h1 {
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+  font-weight: normal;
+  margin: 0.5rem 0;
+}
+
+.sesjat-header .subtitle {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* ===== GRID + CARDS ===== */
+
+.grid {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+}
+
+.card {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.03),
+      rgba(0,0,0,0.3)
+    );
+  border-left: 3px solid #ffd166;
+  padding: 1.5rem 1.5rem 1.8rem;
+  border-radius: 6px;
+  position: relative;
+}
+
+.card::before {
+  content: "𓏤";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  opacity: 0.25;
+}
+
+.card h2 {
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  margin-top: 0;
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ===== LEESPAGINA ===== */
+
 .reader {
   max-width: 900px;
   margin: auto;
   padding: 3rem 1rem 4rem;
 }
+
+/* ===== LITERAIRE TEKST ===== */
 
 .literary-text {
   max-width: 42rem;
@@ -16,12 +130,16 @@
 .literary-text h1 {
   text-align: center;
   font-weight: normal;
+  letter-spacing: 0.08em;
   margin-bottom: 3rem;
 }
 
 .literary-text p {
   margin-bottom: 1.4rem;
+  text-align: left;
 }
+
+/* ===== REACTIES ===== */
 
 .reader-feedback {
   max-width: 42rem;
