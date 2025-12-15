@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: linear-gradient(#0b132b, #1c2541);
+  color: #fff;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #0b132b;
+  padding: 1rem;
+}
+
+nav a {
+  color: #ffd166;
+  text-decoration: none;
+  font-variant: small-caps;
+}
+
+nav a.donate {
+  border: 1px solid #ffd166;
+  padding: 0.3rem 0.7rem;
+}
+
+/* Cards */
+.grid {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+}
+
+.card {
+  background: rgba(0,0,0,0.3);
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.card a {
+  color: #ffd166;
+  text-decoration: none;
+}
+
+/* Story view */
+.story-view {
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+.story-view iframe {
+  width: 100%;
+  height: 85vh;
+  border: none;
+  background: white;
+}
