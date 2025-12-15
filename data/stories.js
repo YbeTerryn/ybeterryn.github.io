@@ -1,9 +1,10 @@
 const stories = [
   {
     id: "offer-01",
-    title: "Sesjats offerande",
-    date: "januari 2026",
-    pdf: "pdfs/offer-01.pdf",
-    likes: 12
+    title: "Sesjats Offerande",
+    date: "januari 2025",
+    text: "texts/offer-01.html",
+    pdf: "pdfs/offer-01.pdf"
   }
 ];
+
