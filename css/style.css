@@ -229,18 +229,23 @@ nav {
 }
 /* Specifieke styling voor de Bio pagina */
 .bio-container {
-    max-width: 900px;      /* Zorgt dat het tekstvlak niet te breed wordt om te lezen */
-    margin: 40px auto;     /* Centreert het vlak op de pagina */
-    background-color: rgba(255, 255, 255, 0.05); /* Subtiele achtergrondkleur */
-    padding: 30px;
+    max-width: 800px;      /* Beperkt de breedte zodat het niet de hele pagina vult */
+    margin-top: 40px;      /* Ruimte aan de bovenkant */
+    margin-bottom: 40px;   /* Ruimte aan de onderkant */
+    margin-left: 5%;       /* Zorgt voor een marge aan de linkerkant */
+    margin-right: auto;    /* Zorgt dat de rest van de ruimte rechts leeg blijft */
+    
+    background-color: rgba(255, 255, 255, 0.05); 
+    padding: 40px;
     border-radius: 8px;
-    border-left: 4px solid #ffcc00; /* Een gouden accentlijn */
+    border-left: 4px solid #ffcc00; 
 }
 
 .bio-content {
     display: flex;
-    gap: 40px;             /* Ruimte tussen foto en tekst */
+    gap: 40px;             
     align-items: flex-start;
+    text-align: left;      /* Dwingt alle tekst naar links */
 }
 
 .bio-image {
