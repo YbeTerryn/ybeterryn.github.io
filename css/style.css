@@ -195,3 +195,18 @@ nav a.donate {
     width: 100%;           /* Maak de afbeelding breed op mobiel */
     height: auto;
   }
+/* ===== Ko-fi ===== */
+.kofi-button {
+  background-color: #29abe0; /* De typische Ko-fi blauwe kleur */
+  color: white !important;   /* Zorgt dat de tekst wit blijft */
+  padding: 5px 15px;
+  border-radius: 20px;       /* Ronde hoeken voor een knop-look */
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.kofi-button:hover {
+  background-color: #ff5e5b; /* Verandert naar rood bij hover */
+  transform: scale(1.05);    /* Maakt de knop iets groter bij hover */
+}
