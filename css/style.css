@@ -196,20 +196,3 @@ nav a.donate {
     width: 100%;           /* Maak de afbeelding breed op mobiel */
     height: auto;
   }
-
-/* ===== link als knop ===== */
-.read-link {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 8px 16px;
-  background-color: #ffcc00; /* Verander dit naar jouw themakleur */
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-
-.read-link:hover {
-  background-color: #e6b800; /* Kleur als je eroverheen hovert */
-}
