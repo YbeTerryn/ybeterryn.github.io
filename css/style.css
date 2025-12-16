@@ -258,3 +258,17 @@ nav {
 .bio-text {
     flex: 1;
 }.
+  /* Geef de tweede titel extra ruimte aan de bovenkant */
+.extra-space {
+    margin-top: 50px; /* Pas dit getal aan (bijv. 80px) voor meer ruimte */
+    display: block;   /* Zorgt dat de marge goed berekend wordt */
+}
+
+/* Zorg dat de links opvallen en klikbaar zijn */
+.read-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    color: #ffcc00;
+    text-decoration: underline;
+}
