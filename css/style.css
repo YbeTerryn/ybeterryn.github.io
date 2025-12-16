@@ -166,7 +166,7 @@ nav a.donate {
 /* De afbeelding kleiner maken */
 .sesjat-thumb {
   width: auto;        /* Pas dit aan naar de gewenste grootte */
-  height: 150px;;
+  height: 60px;
   border-radius: 5px;
   flex-shrink: 0;      /* Voorkomt dat de afbeelding wordt samengedrukt */
 }
