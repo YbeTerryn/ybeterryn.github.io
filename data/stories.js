@@ -1,8 +1,8 @@
 const stories = [
   {
-    id: "offer-01",
+    id: "Prélude",
     title: "Sesjats Offerande",
-    date: "januari 2025",
+    date: "Prélude",
     text: "texts/offer-01.html"
   }
 ];
