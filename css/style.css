@@ -162,7 +162,20 @@ nav a.donate {
   gap: 20px;               /* Vaste ruimte tussen beeld en tekst */
   padding: 15px;
 }
+/* Zorg dat de tekst de rest van de ruimte opeist en groter is */
+.card-text {
+  flex: 1;
+}
 
+.card-text h2 {
+  font-size: 1.8rem;
+  margin-top: 0;           /* Zorgt dat de titel op dezelfde hoogte begint als de foto */
+}
+
+.card-text p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
 /* De universele instellingen voor ELKE afbeelding in een kaart */
 .card-image {
   width: 120px;            /* Vaste breedte */
