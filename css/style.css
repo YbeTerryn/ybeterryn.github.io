@@ -155,13 +155,12 @@ nav a.donate {
   opacity: 0.8;
   margin-bottom: 1.5rem;
 }
-C
+/* ===== Card ontwerp ===== */
 .card-content {
   display: flex;          /* Zet elementen naast elkaar */
   align-items: center;    /* Centreert tekst verticaal t.o.v. de afbeelding */
   gap: 20px;              /* Ruimte tussen de afbeelding en de tekst */
 }
-/* ===== Card ontwerp ===== */
 
 .card-image {
   width: 1000px;           /* Pas de breedte naar wens aan */
