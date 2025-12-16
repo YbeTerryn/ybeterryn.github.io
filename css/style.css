@@ -227,3 +227,50 @@ nav {
   gap: 15px;
   flex-wrap: wrap;       /* Zorgt dat het menu op mobiel netjes naar de volgende regel springt */
 }
+/* Specifieke styling voor de Bio pagina */
+.bio-container {
+    max-width: 900px;      /* Zorgt dat het tekstvlak niet te breed wordt om te lezen */
+    margin: 40px auto;     /* Centreert het vlak op de pagina */
+    background-color: rgba(255, 255, 255, 0.05); /* Subtiele achtergrondkleur */
+    padding: 30px;
+    border-radius: 8px;
+    border-left: 4px solid #ffcc00; /* Een gouden accentlijn */
+}
+
+.bio-content {
+    display: flex;
+    gap: 40px;             /* Ruimte tussen foto en tekst */
+    align-items: flex-start;
+}
+
+.bio-image {
+    width: 250px;          /* Iets groter dan de kaartjes op de homepagina */
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+}
+
+.bio-text h2 {
+    margin-top: 0;
+    font-size: 2.5rem;
+    color: #ffcc00;
+}
+
+.bio-text p {
+    font-size: 1.2rem;
+    line-height: 1.8;      /* Meer witruimte tussen regels voor een rustige leeservaring */
+    margin-bottom: 20px;
+}
+
+/* Zorgt dat op mobiel de foto boven de tekst komt */
+@media (max-width: 768px) {
+    .bio-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .bio-image {
+        width: 200px;
+    }
+}
