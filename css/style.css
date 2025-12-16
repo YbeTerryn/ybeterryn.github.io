@@ -164,7 +164,7 @@ C
 /* ===== Card ontwerp ===== */
 
 .card-image {
-  width: 150px;           /* Pas de breedte naar wens aan */
+  width: 1000px;           /* Pas de breedte naar wens aan */
   height: auto;
   border-radius: 8px;     /* Optioneel: afgeronde hoeken */
 }
