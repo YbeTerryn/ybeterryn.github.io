@@ -155,18 +155,44 @@ nav a.donate {
   opacity: 0.8;
   margin-bottom: 1.5rem;
 }
+/* Container die alles naast elkaar zet */
 .card-content {
-  display: flex;          /* Zet elementen naast elkaar */
-  align-items: center;    /* Centreert tekst verticaal t.o.v. de afbeelding */
-  gap: 20px;              /* Ruimte tussen de afbeelding en de tekst */
+  display: flex;
+  align-items: center; /* Zorgt dat tekst verticaal in het midden staat */
+  gap: 25px;           /* Ruimte tussen plaatje en tekst */
+  padding: 20px;
 }
 
-.card-image {
-  width: 150px;           /* Pas de breedte naar wens aan */
+/* De afbeelding kleiner maken */
+.sesjat-thumb {
+  width: 120px;        /* Pas dit aan naar de gewenste grootte */
   height: auto;
-  border-radius: 8px;     /* Optioneel: afgeronde hoeken */
+  border-radius: 5px;
+  flex-shrink: 0;      /* Voorkomt dat de afbeelding wordt samengedrukt */
 }
 
-.card-text {
-  flex: 1;                /* Zorgt dat de tekst de resterende ruimte vult */
+/* De tekst groter maken */
+.sesjat-text h2 {
+  font-size: 1.8rem;   /* Grotere kop */
+  margin-bottom: 10px;
+}
+
+.highlight-title {
+  font-size: 1.4rem;   /* Grotere titel voor het offer */
+  font-weight: bold;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.read-link {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #ffcc00;      /* Of jouw accentkleur */
 }
