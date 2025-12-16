@@ -155,22 +155,48 @@ nav a.donate {
   opacity: 0.8;
   margin-bottom: 1.5rem;
 }
-/* ===== Card ontwerp ===== */
+/* De container die afbeelding en tekst naast elkaar zet */
 .card-content {
-  display: flex;          /* Zet elementen naast elkaar */
-  align-items: center;    /* Centreert tekst verticaal t.o.v. de afbeelding */
-  gap: 20px;              /* Ruimte tussen de afbeelding en de tekst */
+  display: flex;
+  align-items: flex-start; /* Lijn uit op de bovenkant van de tekst */
+  gap: 20px;               /* Vaste ruimte tussen beeld en tekst */
+  padding: 15px;
 }
 
+/* De universele instellingen voor ELKE afbeelding in een kaart */
 .card-image {
-  width: 90px;           /* Pas de breedte naar wens aan */
-  height: auto;
-  border-radius: 8px;     /* Optioneel: afgeronde hoeken */
+  width: 120px;            /* Vaste breedte */
+  height: 160px;           /* Vaste hoogte (bijv. boeken- of posterformaat) */
+  object-fit: cover;       /* Snijdt de foto netjes bij zonder te vervormen */
+  flex-shrink: 0;          /* Zorgt dat de afbeelding niet kleiner wordt bij veel tekst */
+  border-radius: 4px;      /* Een subtiele afronding */
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3); /* Geeft diepte aan het plaatje */
 }
 
+/* Zorg dat de tekst de rest van de ruimte opeist en groter is */
 .card-text {
-  flex: 1;                /* Zorgt dat de tekst de resterende ruimte vult */
+  flex: 1;
 }
+
+.card-text h2 {
+  font-size: 1.8rem;
+  margin-top: 0;           /* Zorgt dat de titel op dezelfde hoogte begint als de foto */
+}
+
+.card-text p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+@media (max-width: 600px) {
+  .card-content {
+    flex-direction: column; /* Zet afbeelding en tekst onder elkaar op mobiel */
+    align-items: center;
+  }
+  .card-image {
+    width: 100%;           /* Maak de afbeelding breed op mobiel */
+    height: auto;
+  }
+
 /* ===== link als knop ===== */
 .read-link {
   display: inline-block;
