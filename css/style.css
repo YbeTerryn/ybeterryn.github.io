@@ -163,7 +163,7 @@ nav a.donate {
 }
 
 .card-image {
-  width: 100px;           /* Pas de breedte naar wens aan */
+  width: 90px;           /* Pas de breedte naar wens aan */
   height: auto;
   border-radius: 8px;     /* Optioneel: afgeronde hoeken */
 }
