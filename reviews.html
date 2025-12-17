@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <title>Reviews - Pieter Paul Tybbe</title> <link rel="stylesheet" href="css/style.css">
+  <title>Reviews - Pieter Paul Tybbe</title> 
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   
 <header id="main-header">
-  <nav id="main-nav">
-    </nav>
+  <nav id="main-nav"></nav>
 </header>
 
 <header class="sesjat-header">
@@ -26,8 +26,7 @@
   </div>
 </div>
 
-<main class="grid" id="main-container">
-  </main>
+<main class="grid" id="main-container"></main>
 
 <script src="data/stories.js"></script>
 
@@ -36,7 +35,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
 
-    // 1. Bepaal de lijst op basis van de paginatitel
     let currentList = [];
     const pageTitle = document.title;
     
@@ -48,25 +46,22 @@ window.addEventListener('DOMContentLoaded', () => {
         currentList = reviewStories;
     }
 
-    // 2. De Render functie
     function render(filter = "") {
         container.innerHTML = "";
         const searchTerm = filter.toLowerCase();
 
-        // Filter de lijst
         const filtered = currentList.filter(item => {
             return item.title.toLowerCase().includes(searchTerm) || 
-                   (item.year && item.year.includes(searchTerm)) ||
+                   (item.year && item.year.toString().includes(searchTerm)) ||
                    (item.director && item.director.toLowerCase().includes(searchTerm)) ||
                    (item.date && item.date.toLowerCase().includes(searchTerm));
         });
 
-       // Toon de kaartjes (Nieuwste eerst)
         filtered.slice().reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
             
-            // Logica voor icoontjes
+            // --- NIEUW: LOGICA VOOR ICOONTJES ---
             let iconHtml = "";
             if (item.platform === "letterboxd") {
                 iconHtml = '<i class="fab fa-letterboxd"></i> ';
@@ -74,13 +69,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 iconHtml = '<i class="fas fa-book-open"></i> ';
             }
             
-            // Logica voor knoppen en links
-            const isExternal = item.link ? true : false;
+            const isExternal = !!item.link;
             const link = isExternal ? item.link : `story.html?id=${item.id}`;
             const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
             const buttonClass = isExternal ? 'read-link letterboxd-link' : 'read-link';
             
-            // Hier voegen we iconHtml toe voor de buttonText
+            // Voeg iconHtml toe aan de knoptekst
             const buttonText = isExternal ? `${iconHtml}LEES ↗` : 'LEES';
 
             card.innerHTML = `
@@ -90,31 +84,27 @@ window.addEventListener('DOMContentLoaded', () => {
                         <h2>${item.title}</h2>
                         <p class="meta">${item.year || item.date || ""}</p>
                         ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" ${target} class="death-link ${buttonClass}">${buttonText}</a>
+                        <a href="${link}" ${target} class="${buttonClass}">${buttonText}</a>
                     </div>
                 </div>
             `;
             container.appendChild(card);
         });
-      
 
-        // Lege status
         if (filtered.length === 0) {
             container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
         }
     }
 
-    // 3. Event Listeners
     if (searchInput) {
         searchInput.addEventListener('input', (e) => render(e.target.value));
     }
 
-    render(); // Start de eerste weergave
+    render();
 });
 </script>
 
 <script>
-  // Menu ophalen
   fetch('nav.html').then(res => res.text()).then(data => {
     document.getElementById('main-nav').innerHTML = data;
   });
