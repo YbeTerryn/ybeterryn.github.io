@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Archief</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  
+<header id="main-header">
+  <nav id="main-nav">
+    </nav>
+</header>
+
+<header class="sesjat-header">
+  <img src="Draft/Profiel.jpg" alt="Logo Ybe Terryn" class="logo-img">
+  <h1>Archief</h1>
+  <p class="subtitle">
+  Uiteenlopende verzameling aan rottende schrijfsels, voor wie echt niet kans stoppen. 
+  </p>
+</header>
+  
+<article class="card">
+    <div class="card-content">
+      <img src="Draft/Sesjat.jpg" alt="Sesjat" class="card-image">
+      <div class="card-text">
+        <h2>Sesjats Offerande</h2>
+        <p>Prélude</p>
+        <a href="offers.html" class="read-link">LEES</a>
+      </div>
+    </div>
+  </article>
+</main>
+  
+<script>
+  // Dit script haalt het menu op uit nav.html
+  fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('main-nav').innerHTML = data;
+    })
+    .catch(error => console.error('Fout bij laden menu:', error));
+</script>
+  
+</body>
+</html>
