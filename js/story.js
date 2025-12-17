@@ -7,20 +7,26 @@ let story = stories.find(s => s.id === id) || archiveStories.find(s => s.id === 
 if (!story) {
     document.getElementById("text-container").innerHTML = "<p>Schrijfsel niet gevonden.</p>";
 } else {
-    // 1. Vul de titel in
-    const titleElement = document.getElementById("story-title");
-    if (titleElement) {
-        titleElement.innerText = story.title;
-    }
+    // 1. Tekst laden
+    fetch(story.text)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("text-container").innerHTML = html;
+            
+            // 2. Titel invullen
+            if(document.getElementById("story-title")) {
+                document.getElementById("story-title").innerText = story.title;
+            }
 
-    // 2. Vul de afbeelding in (Zodat deze rechts verschijnt)
-    const imgElement = document.getElementById("story-image");
-    if (imgElement) {
-        imgElement.src = story.image;
-        imgElement.alt = story.title;
-        imgElement.style.display = "block"; // Zorg dat hij zichtbaar is
-    }
-    
+            // 3. AFBEELDING INVULLEN (Cruciaal voor je vraag!)
+            const imgElement = document.getElementById("story-image");
+            if(imgElement) {
+                imgElement.src = story.image; // Pakt "Draft/Sesjat.jpg"
+                imgElement.alt = story.title;
+                imgElement.style.display = "block"; // Zorgt dat hij niet verborgen blijft
+            }
+        });
+}
     // 3. Haal de HTML tekst op uit de map 'texts'
     fetch(story.text)
         .then(res => {
