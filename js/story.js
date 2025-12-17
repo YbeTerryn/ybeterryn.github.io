@@ -2,12 +2,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
-    // 1. Zoek het verhaal
+    // 1. Zoek het verhaal in de data
     let story = stories.find(s => s.id === id) || archiveStories.find(s => s.id === id);
 
     if (!story) {
         const container = document.getElementById("text-container");
-        if(container) container.innerHTML = "<p>Schrijfsel niet gevonden.</p>";
+        if (container) container.innerHTML = "<p>Schrijfsel niet gevonden.</p>";
     } else {
         // 2. Haal de tekst op
         fetch(story.text)
@@ -18,11 +18,11 @@ window.addEventListener('DOMContentLoaded', () => {
             .then(html => {
                 // Vul tekst en titel
                 document.getElementById("text-container").innerHTML = html;
-                if(document.getElementById("story-title")) {
+                if (document.getElementById("story-title")) {
                     document.getElementById("story-title").innerText = story.title;
                 }
 
-                // 3. LIKES INJECTEREN (Dit moet binnen de .then gebeuren!)
+                // 3. LIKES INJECTEREN (Gebeurt pas als tekst geladen is)
                 const likeContainer = document.getElementById("like-container");
                 if (likeContainer) {
                     likeContainer.innerHTML = `
@@ -33,12 +33,13 @@ window.addEventListener('DOMContentLoaded', () => {
                             data-lyket-color-primary="#ffd166"
                         ></div>
                     `;
+                    // Activeer de Lyket widget
                     if (window.lyket) {
                         window.lyket.reinit();
                     }
                 }
 
-                // 4. Cusdis laden
+                // 4. Cusdis reacties laden
                 const thread = document.getElementById("cusdis_thread");
                 if (thread && window.CUSDIS) {
                     thread.setAttribute("data-page-id", story.id);
@@ -47,6 +48,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     window.CUSDIS.renderTo(thread);
                 }
             })
-            .catch(err => console.error("Fout:", err));
+            .catch(err => console.error("Fout bij laden:", err));
     }
 });
