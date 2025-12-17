@@ -1,21 +1,19 @@
-deconst stories = [
+const stories = [
   {
-    id: "Prélude",
+    id: "prelude",
     title: "Sesjats Offerande",
     image: "Draft/Sesjat.jpg",
     date: "Prélude",
-    text: "texts/prelude.html"
+    text: "texts/prelude.html" // Dit klopt, want op GitHub is dit ook kleine letters
   }
 ];
 
-// Je NIEUWE lijst (Archief)
 const archiveStories = [
   {
     id: "archief-01",
     title: "Drie gebroken principes",
     image: "Draft/archief.jpg",
     date: "2023",
-    text: "texts/Drie-gebroken-principes.html"
+    text: "texts/Drie-gebroken-principes.html" // De 'D' moet hier een hoofdletter zijn!
   }
 ];
-
