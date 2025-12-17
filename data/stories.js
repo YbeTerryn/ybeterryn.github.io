@@ -59,6 +59,14 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/szamanka/",
     platform: "letterboxd"
   },
+    {
+    title: "Max, Mischa & het Tet-offensief",
+    year: "2015",
+    director: "Johan Harstad",
+    image: "Draft/misha.jpg",
+    link: "https://app.thestorygraph.com/reviews/a6b913f0-bcd7-4ed1-a432-f402c2061222",
+    platform: "storygraph"
+  },
   {
     title: "Zabriskie Point",
     year: "1970",
@@ -74,6 +82,14 @@ const reviewStories = [
     image: "Draft/babylon.jpg",
     link: "https://letterboxd.com/pieterpaultybbe/film/babylon-2022/",
     platform: "letterboxd"
+  },
+ {
+    title: "Sirenen",
+    year: "2017",
+    director: "Jan Cremer",
+    image: "Draft/sirenen.jpg",
+    link: "https://app.thestorygraph.com/reviews/59fb3d85-8a88-4404-ab12-c0d551ea8618",
+    platform: "storygraph"
   },
   {
     title: "Den Sidste Viking",
