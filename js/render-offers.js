@@ -1,6 +1,6 @@
 const container = document.getElementById("offers");
 
-stories.forEach(story => {
+stories.slice().reverse()forEach(story => {
   const card = document.createElement("article");
   card.className = "card";
   card.innerHTML = `
