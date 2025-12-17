@@ -1,5 +1,4 @@
 /* ===== BASIS ===== */
-
 body {
   margin: 0;
   font-family: Georgia, serif;
@@ -13,6 +12,15 @@ a {
 }
 
 /* ===== NAVIGATIE ===== */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #0d1b2a;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    padding: 10px 0;
+}
 
 nav {
   display: flex;
@@ -22,17 +30,10 @@ nav {
   padding: 1rem;
 }
 
-nav a {
-  font-variant: small-caps;
-}
+nav a { font-variant: small-caps; }
+nav a.donate { border: 1px solid #ffd166; padding: 0.3rem 0.7rem; }
 
-nav a.donate {
-  border: 1px solid #ffd166;
-  padding: 0.3rem 0.7rem;
-}
-
-/* ===== SESJAT HEADER (gedeeld door alle tabs) ===== */
-
+/* ===== SESJAT HEADER ===== */
 .sesjat-header {
   text-align: center;
   padding: 4rem 1rem 3rem;
@@ -56,14 +57,54 @@ nav a.donate {
   margin: 0.5rem 0;
 }
 
-.sesjat-header .subtitle {
-  font-size: 0.95rem;
-  opacity: 0.85;
-  line-height: 1.6;
+/* ===== ZOEKBALK (Gecorrigeerd & Donker) ===== */
+.filter-section {
+    width: 100%;
+    max-width: 900px; /* Gelijk aan grid */
+    margin: 20px auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
-/* ===== GRID + CARDS ===== */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
 
+.search-icon {
+    position: absolute;
+    left: 18px;
+    color: #ffd166;
+    font-size: 1.1rem;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.search-bar {
+    width: 100% !important;
+    padding: 15px 15px 15px 50px !important; 
+    background-color: #080e1e !important;    /* De gewenste donkere kleur */
+    border: 1px solid rgba(255, 209, 102, 0.2) !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.search-bar:focus {
+    border-color: #ffd166 !important;
+    box-shadow: 0 0 10px rgba(255, 209, 102, 0.1);
+}
+
+.search-bar::placeholder { color: rgba(255, 255, 255, 0.4) !important; }
+
+/* ===== GRID + CARDS ===== */
 .grid {
   max-width: 900px;
   margin: auto;
@@ -73,281 +114,59 @@ nav a.donate {
 }
 
 .card {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,0.03),
-      rgba(0,0,0,0.3)
-    );
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.3));
   border-left: 3px solid #ffd166;
-  padding: 1.5rem 1.5rem 1.8rem;
   border-radius: 6px;
   position: relative;
 }
 
-.card::before {
-  content: "𓏤";
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.2rem;
-  opacity: 0.25;
-}
-
-.card h2 {
-  font-weight: normal;
-  letter-spacing: 0.05em;
-  margin-top: 0;
-}
-
-.card a {
-  display: inline-block;
-  margin-top: 0.8rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-/* ===== LEESPAGINA ===== */
-
-.reader {
-  max-width: 900px;
-  margin: auto;
-  padding: 3rem 1rem 4rem;
-}
-
-/* ===== LITERAIRE TEKST ===== */
-
-.literary-text {
-  max-width: 42rem;
-  margin: auto;
-  font-family: Georgia, serif;
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: #f5f5f5;
-}
-
-.literary-text h1 {
-  text-align: center;
-  font-weight: normal;
-  letter-spacing: 0.08em;
-  margin-bottom: 3rem;
-}
-
-.literary-text p {
-  margin-bottom: 1.4rem;
-  text-align: left;
-}
-
-/* ===== REACTIES ===== */
-
-.reader-feedback {
-  max-width: 42rem;
-  margin: 4rem auto 0;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255,255,255,0.2);
-}
-
-.reader-feedback h2 {
-  font-weight: normal;
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-  opacity: 0.8;
-  margin-bottom: 1.5rem;
-}
-/* De container die afbeelding en tekst naast elkaar zet */
 .card-content {
   display: flex;
-  align-items: flex-start; /* Lijn uit op de bovenkant van de tekst */
-  gap: 20px;               /* Vaste ruimte tussen beeld en tekst */
+  align-items: flex-start;
+  gap: 20px;
   padding: 15px;
 }
-/* Zorg dat de tekst de rest van de ruimte opeist en groter is */
-.card-text {
-  flex: 1;
-}
 
-.card-text h2 {
-  font-size: 1.8rem;
-  margin-top: 0;           /* Zorgt dat de titel op dezelfde hoogte begint als de foto */
-}
-
-.card-text p {
-  font-size: 1.1rem;
-  line-height: 1.5;
-}
-/* De universele instellingen voor ELKE afbeelding in een kaart */
 .card-image {
-  width: 120px;            /* Vaste breedte */
-  height: 160px;           /* Vaste hoogte (bijv. boeken- of posterformaat) */
-  object-fit: cover;       /* Snijdt de foto netjes bij zonder te vervormen */
-  flex-shrink: 0;          /* Zorgt dat de afbeelding niet kleiner wordt bij veel tekst */
-  border-radius: 4px;      /* Een subtiele afronding */
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.3); /* Geeft diepte aan het plaatje */
+  width: 120px;
+  height: 160px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 4px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
 
-@media (max-width: 600px) {
-  .card-content {
-    flex-direction: column; /* Zet afbeelding en tekst onder elkaar op mobiel */
-    align-items: center;
-  }
-  .card-image {
-    width: 100%;           /* Maak de afbeelding breed op mobiel */
-    height: auto;
-  }
-/* ===== Ko-fi ===== */
-.kofi-button {
-  background-color: #29abe0; /* De typische Ko-fi blauwe kleur */
-  color: white !important;   /* Zorgt dat de tekst wit blijft */
-  padding: 5px 15px;
-  border-radius: 20px;       /* Ronde hoeken voor een knop-look */
-  font-weight: bold;
-  text-decoration: none;
-  transition: transform 0.2s ease;
+.card-text { flex: 1; }
+.card-text h2 { font-size: 1.8rem; margin-top: 0; }
+.meta-info { font-style: italic; color: #a0a0a0; margin-bottom: 15px; display: block; }
+
+/* ===== KNOPPEN ===== */
+.read-link {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
-.kofi-button:hover {
-  background-color: #ff5e5b; /* Verandert naar rood bij hover */
-  transform: scale(1.05);    /* Maakt de knop iets groter bij hover */
-}
-
-header {
-    position: sticky;      /* Dit is de "magische" regel voor het vastplakken */
-    top: 0;                /* Zorgt dat hij precies aan de bovenkant stopt */
-    z-index: 1000;         /* Zorgt dat het menu ALTIJD bovenop je afbeeldingen ligt */
-    background-color: #0d1b2a; /* GEBRUIK HIER JE EIGEN ACHTERGRONDKLEUR */
-    width: 100%;           /* Zorgt dat het menu de volledige breedte beslaat */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Optioneel: een schaduw voor diepte */
-    padding: 10px 0;
-}
-/* Specifieke styling voor de Letterboxd knop */
 .letterboxd-link {
-    background-color: #202428; /* Donkergrijs zoals Letterboxd */
-    color: #ff8000 !important; /* Letterboxd oranje tekst */
+    background-color: #202428;
+    color: #ff8000 !important;
     border: 1px solid #ff8000;
     padding: 8px 12px;
     border-radius: 4px;
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
 }
 
-.letterboxd-link:hover {
-    background-color: #ff8000; /* Knoppen worden oranje bij hover */
-    color: #ffffff !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 128, 0, 0.3);
-}
-.meta-info {
-  font-style: italic;
-  color: #a0a0a0; /* Of een kleur die past bij je thema */
-  margin-bottom: 15px;
-  display: block;
+.kofi-button {
+  background-color: #29abe0;
+  color: white !important;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
-.meta-info {
-  font-style: italic;
-  color: #a0a0a0; /* Of een kleur die past bij je thema */
-  margin-bottom: 15px;
-  display: block;
-}
-  /* Container die de balk centreert en breed maakt */
-.filter-section {
-    width: 100%;
-    max-width: 1200px; /* Of de breedte van je grid */
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-/* De wrapper die het icoontje en de input samenbrengt */
-.search-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-/* Het loep-icoontje */
-.search-icon {
-    position: absolute;
-    left: 15px;
-    color: #888;
-    font-size: 1.2rem;
-    pointer-events: none; /* Zorgt dat je door het icoon heen kunt klikken op de balk */
-}
-
-/* Container die exact even breed is als je grid (900px) */
-.filter-section {
-    width: 100%;
-    max-width: 900px; /* Gelijk aan je .grid breedte */
-    margin: 20px auto;
-    padding: 0 1rem;
-    box-sizing: border-box;
-}
-
-/* De wrapper */
-.search-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-/* Het loep-icoontje */
-.search-icon {
-    position: absolute;
-    left: 18px;
-    color: #ffd166; /* Dezelfde goudkleur als je accenten */
-    font-size: 1.1rem;
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* De balk zelf - Iets donkerder dan de body background */
-.search-bar {
-    width: 100% !important;
-    padding: 15px 15px 15px 50px !important; 
-    background-color: #080e1e !important;    /* Donkerder dan #0b132b */
-    border: 1px solid rgba(255, 209, 102, 0.2) !important; /* Subtiel goud randje */
-    border-radius: 8px !important;
-    color: #ffffff !important;               /* Tekst die je typt */
-    font-family: Georgia, serif;
-    font-size: 1rem;
-    outline: none;
-    box-sizing: border-box;
-    appearance: none;
-    -webkit-appearance: none;
-}
-
-/* Focus effect */
-.search-bar:focus {
-    border-color: #ffd166 !important;
-    box-shadow: 0 0 10px rgba(255, 209, 102, 0.1);
-}
-
-/* Placeholder tekst kleur */
-.search-bar::placeholder {
-    color: rgba(255, 255, 255, 0.4) !important;
-}
-
-/* Fix voor witte balk bij klikken (autofill) */
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #080e1e inset !important;
-    -webkit-text-fill-color: white !important;
-}
-.filter-section {
-    width: 100%;
-    max-width: 900px; /* Dit zorgt dat hij net zo breed is als je grid */
-    margin: 20px auto; /* Dit centreert de balk */
-    padding: 0 1rem;
-    box-sizing: border-box;
-}
-
-.search-bar {
-    width: 100% !important; /* Forceert de volledige breedte van de container */
-    background-color: #080e1e !important;
-    color: white !important;
-    /* ... rest van je instellingen ... */
+/* ===== MOBIEL ===== */
+@media (max-width: 600px) {
+  .card-content { flex-direction: column; align-items: center; }
+  .card-image { width: 100%; height: auto; }
 }
