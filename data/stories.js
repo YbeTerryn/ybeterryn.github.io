@@ -15,7 +15,7 @@ const archiveStories = [
     title: "Drie gebroken principes",
     image: "Draft/archief.jpg",
     date: "2023",
-    text: "Drie gebroken principes.txt"
+    text: "Drie gebroken principes.html"
   }
 ];
 
