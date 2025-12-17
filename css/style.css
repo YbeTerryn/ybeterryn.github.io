@@ -248,3 +248,9 @@ header {
   display: block;
 }
 
+.meta-info {
+  font-style: italic;
+  color: #a0a0a0; /* Of een kleur die past bij je thema */
+  margin-bottom: 15px;
+  display: block;
+}
