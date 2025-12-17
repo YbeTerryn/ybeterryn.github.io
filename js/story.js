@@ -22,13 +22,26 @@ if (!story) {
                 document.getElementById("story-title").innerText = story.title;
             }
 
-            // 4. Vul de afbeelding in (Cruciaal voor de rechterkant!)
+            // 4. Vul de afbeelding in
             const imgElement = document.getElementById("story-image");
             if(imgElement) {
                 imgElement.src = story.image;
                 imgElement.alt = story.title;
                 imgElement.style.display = "block"; 
             }
+
+            // ===== NIEUW: LYKET LIKES LADEN =====
+            const likeContainer = document.getElementById("like-container");
+            if (likeContainer) {
+                // Koppel het unieke ID van het verhaal aan de like-knop
+                likeContainer.setAttribute("data-lyket-id", story.id);
+                
+                // Als Lyket al in de browser geladen is, heractiveer de knop voor dit nieuwe verhaal
+                if (window.lyket) {
+                    window.lyket.reinit();
+                }
+            }
+            // ====================================
 
             // 5. Cusdis reacties laden
             const thread = document.getElementById("cusdis_thread");
@@ -42,6 +55,6 @@ if (!story) {
         .catch(err => {
             console.error(err);
             document.getElementById("text-container").innerHTML = 
-                `<p>Fout: Kan het bestand niet laden (${story.text}). Check hoofdletters op GitHub!</p>`;
+                `<p>Fout: Kan het bestand niet laden. Check GitHub!</p>`;
         });
 }
