@@ -11,6 +11,8 @@ if (!story) {
 if (!story) {
     // Als hij in geen van beide lijsten staat:
     document.getElementById("text-container").innerHTML = "<p>Schrijfsel niet gevonden.</p>";
+// ... (bovenkant van je script blijft hetzelfde)
+
 } else {
     // Als hij wel gevonden is, laad dan de tekst:
     fetch(story.text)
@@ -18,12 +20,16 @@ if (!story) {
         .then(html => {
             document.getElementById("text-container").innerHTML = html;
             
-            // Vergeet de titels en afbeeldingen niet in te vullen als je die layout gebruikt!
+            // 1. Vul de titel in
             if(document.getElementById("story-title")) {
                 document.getElementById("story-title").innerText = story.title;
             }
+
+            // 2. VOEG DIT TOE: Vul de afbeelding in
+            if(document.getElementById("story-image")) {
+                const imgElement = document.getElementById("story-image");
+                imgElement.src = story.image; // Pakt "Draft/Sesjat.jpg" uit je lijst
+                imgElement.alt = story.title;
+            }
         })
-        .catch(err => {
-            document.getElementById("text-container").innerHTML = "<p>Bestand kon niet worden geladen. Check de bestandsnaam!</p>";
-        });
-}
+// ... (rest van je script)
