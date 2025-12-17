@@ -2,8 +2,9 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Offers voor Sesjat</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   
@@ -17,18 +18,41 @@
   <h1>Offers voor Sesjat</h1>
   <p class="subtitle">
     Maandelijks een literair werk<br>
-    Een offers aan de godin van het schrift
+    Een offer aan de godin van het schrift
   </p>
 </header>
 
-<main class="grid" id="offers">
-  <!-- Cards worden hier via JS geladen -->
+<main class="grid">
+  <div id="offers"></div>
 </main>
 
 <script src="data/stories.js"></script>
-<script src="js/render-offers.js"></script>
+
 <script>
-  // Dit script haalt het menu op uit nav.html
+  // Wacht tot de pagina geladen is
+  window.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById("offers");
+
+    // Controleer of de lijst 'stories' bestaat
+    if (typeof stories !== 'undefined' && container) {
+      // We draaien de lijst om zodat de nieuwste bovenaan staat
+      stories.slice().reverse().forEach(story => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <h2>${story.title}</h2>
+          <p class="meta">${story.date}</p>
+          <a href="story.html?id=${story.id}" class="read-button">LEES</a>
+        `;
+        container.appendChild(card);
+      });
+    } else {
+      console.error("Fout: stories lijst niet gevonden of container 'offers' mist.");
+    }
+  });
+</script>
+
+<script>
   fetch('nav.html')
     .then(response => response.text())
     .then(data => {
@@ -36,7 +60,6 @@
     })
     .catch(error => console.error('Fout bij laden menu:', error));
 </script>
+
 </body>
 </html>
-
-
