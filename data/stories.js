@@ -1,10 +1,10 @@
-const stories = [
+deconst stories = [
   {
     id: "Prélude",
     title: "Sesjats Offerande",
     image: "Draft/Sesjat.jpg",
     date: "Prélude",
-    text: "texts/offer-01.html"
+    text: "texts/prelude.html"
   }
 ];
 
