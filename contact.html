@@ -1,58 +1,47 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <title>Contact — Ybe Terryn</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-
-<header id="main-header">
-  <nav id="main-nav">
-    </nav>
-</header>
-  
-<header class="sesjat-header">
-  <p class="glyph">𓎛</p>
-  <h1>Contact</h1>
-  <p class="subtitle">
-    Correspondentie en praktische gegevens
-  </p>
-</header>
-
+<main class="grid">
   <article class="card">
     <h2>E-mail</h2>
+    <p>Voor correspondentie, vragen of samenwerkingen:</p>
     <p>
       <a href="mailto:ybeterryn@gmail.com">
-        ybeterryn@gmail.com
+        <i class="fas fa-envelope"></i> ybeterryn@gmail.com
+      </a>
+    </p>
+  </article>
+
+  <article class="card">
+    <h2>Sociale Media</h2>
+    <p>Volg mijn dagelijkse updates en korte schrijfsels:</p>
+    <p>
+      <a href="https://www.instagram.com/JOUW_NAAM" target="_blank" style="margin-right: 15px;">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a href="https://www.facebook.com/JOUW_NAAM" target="_blank">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+    </p>
+  </article>
+
+  <article class="card">
+    <h2>Recensies & Leeslijsten</h2>
+    <p>Mijn kijk- en leeservaringen op andere platformen:</p>
+    <p>
+      <a href="https://letterboxd.com/pieterpaultybbe/" target="_blank" style="margin-right: 15px;">
+        <i class="fab fa-letterboxd"></i> Letterboxd
+      </a>
+      <a href="https://app.thestorygraph.com/JOUW_NAAM" target="_blank">
+        <i class="fas fa-book-open"></i> StoryGraph
       </a>
     </p>
   </article>
 
   <article class="card">
     <h2>Ondersteuning</h2>
-    <p>
-      Wie het werk wil ondersteunen kan dat
-      via Ko-fi.
-    </p>
+    <p>Wie het werk wil ondersteunen kan dat via Ko-fi:</p>
     <p>
       <a href="https://ko-fi.com/ybeterryn" target="_blank">
-        ko-fi.com/ybeterryn
+        <i class="fas fa-coffee"></i> ko-fi.com/ybeterryn
       </a>
     </p>
   </article>
 </main>
-
-  <script>
-  // Dit script haalt het menu op uit nav.html
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('main-nav').innerHTML = data;
-    })
-    .catch(error => console.error('Fout bij laden menu:', error));
-</script>
-  
-</body>
-</html>
