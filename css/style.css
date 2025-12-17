@@ -337,3 +337,17 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #080e1e inset !important;
     -webkit-text-fill-color: white !important;
 }
+.filter-section {
+    width: 100%;
+    max-width: 900px; /* Dit zorgt dat hij net zo breed is als je grid */
+    margin: 20px auto; /* Dit centreert de balk */
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.search-bar {
+    width: 100% !important; /* Forceert de volledige breedte van de container */
+    background-color: #080e1e !important;
+    color: white !important;
+    /* ... rest van je instellingen ... */
+}
