@@ -1,20 +1,20 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-// 1. Zoek in beide lijsten (Raamvertelling en Archief)
+// 1. Zoek het verhaal in de data
 let story = stories.find(s => s.id === id) || archiveStories.find(s => s.id === id);
 
 if (!story) {
     document.getElementById("text-container").innerHTML = "<p>Schrijfsel niet gevonden.</p>";
 } else {
-    // 2. Haal de tekst op uit de map 'texts'
+    // 2. Haal de tekst op van GitHub/Server
     fetch(story.text)
         .then(res => {
-            if (!res.ok) throw new Error('Bestand niet gevonden op GitHub');
+            if (!res.ok) throw new Error('Bestand niet gevonden');
             return res.text();
         })
         .then(html => {
-            // Vul de tekst
+            // Vul de tekst in de pagina
             document.getElementById("text-container").innerHTML = html;
             
             // 3. Vul de titel in
@@ -22,7 +22,7 @@ if (!story) {
                 document.getElementById("story-title").innerText = story.title;
             }
 
-            // 4. Vul de afbeelding in
+            // 4. Vul de afbeelding in (indien aanwezig)
             const imgElement = document.getElementById("story-image");
             if(imgElement) {
                 imgElement.src = story.image;
@@ -30,10 +30,10 @@ if (!story) {
                 imgElement.style.display = "block"; 
             }
 
-         // ===== NIEUW: LYKET LIKES LADEN =====
+            // 5. LIKES INJECTEREN EN ACTIVEREN
             const likeContainer = document.getElementById("like-container");
             if (likeContainer) {
-                // We maken de knop helemaal opnieuw aan in de lege div
+                // We bouwen de HTML knop hier pas op, met het juiste verhaal-ID
                 likeContainer.innerHTML = `
                     <div 
                         data-lyket-type="updown" 
@@ -43,14 +43,13 @@ if (!story) {
                     ></div>
                 `;
                 
-                // Activeer de nieuwe knop
+                // Vertel Lyket dat er een nieuwe knop is om te laden
                 if (window.lyket) {
                     window.lyket.reinit();
                 }
             }
-            // ====================================
 
-            // 5. Cusdis reacties laden
+            // 6. Cusdis reacties laden
             const thread = document.getElementById("cusdis_thread");
             if (thread && window.CUSDIS) {
                 thread.setAttribute("data-page-id", story.id);
@@ -62,6 +61,6 @@ if (!story) {
         .catch(err => {
             console.error(err);
             document.getElementById("text-container").innerHTML = 
-                `<p>Fout: Kan het bestand niet laden. Check GitHub!</p>`;
+                `<p>Fout bij laden: ${err.message}</p>`;
         });
 }
