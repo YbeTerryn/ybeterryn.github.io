@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Schrijfsel</title>
+  <title>Schrijfsel — Pieter Paul Tybbe</title>
   <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_f2e3a6c20056637e1e699564177264"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
@@ -14,14 +14,14 @@
 </header>
 
 <main class="reader">
+  <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif;"></h1>
 
   <article id="text-container" class="literary-text"></article>
 
- <div class="like-section" style="text-align: center; padding: 20px 0;">
-  <p style="font-style: italic; font-size: 0.9rem; margin-bottom: 10px;">Vond je dit een mooi schrijfsel?</p>
-  
-  <div id="like-container"></div>
-</div>
+  <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
+    <p style="font-style: italic; font-size: 0.9rem; margin-bottom: 15px; font-family: serif;">Vond je dit een mooi schrijfsel?</p>
+    <div id="like-container"></div>
+  </div>
 
   <section class="reader-feedback">
     <h2>Reacties</h2>
@@ -34,11 +34,12 @@
       data-page-title="">
     </div>
   </section>
-
 </main>
 
 <script src="data/stories.js"></script>
-<script src="js/story.js"></script> <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+<script src="js/story.js"></script> 
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
 <script>
   // Navigatie laden
   fetch('nav.html')
