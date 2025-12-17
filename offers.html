@@ -29,20 +29,23 @@
 <script src="data/stories.js"></script>
 
 <script>
-  // Wacht tot de pagina geladen is
   window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("offers");
 
-    // Controleer of de lijst 'stories' bestaat
     if (typeof stories !== 'undefined' && container) {
-      // We draaien de lijst om zodat de nieuwste bovenaan staat
       stories.slice().reverse().forEach(story => {
         const card = document.createElement("article");
         card.className = "card";
+        // Hier hebben we de afbeelding toegevoegd in de 'card-content' structuur
         card.innerHTML = `
-          <h2>${story.title}</h2>
-          <p class="meta">${story.date}</p>
-          <a href="story.html?id=${story.id}" class="read-button">LEES</a>
+          <div class="card-content">
+            <img src="${story.image}" alt="${story.title}" class="card-image">
+            <div class="card-text">
+              <h2>${story.title}</h2>
+              <p class="meta">${story.date}</p>
+              <a href="story.html?id=${story.id}" class="read-link">LEES</a>
+            </div>
+          </div>
         `;
         container.appendChild(card);
       });
