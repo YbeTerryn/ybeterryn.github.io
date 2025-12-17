@@ -30,13 +30,20 @@ if (!story) {
                 imgElement.style.display = "block"; 
             }
 
-            // ===== NIEUW: LYKET LIKES LADEN =====
+         // ===== NIEUW: LYKET LIKES LADEN =====
             const likeContainer = document.getElementById("like-container");
             if (likeContainer) {
-                // Koppel het unieke ID van het verhaal aan de like-knop
-                likeContainer.setAttribute("data-lyket-id", story.id);
+                // We maken de knop helemaal opnieuw aan in de lege div
+                likeContainer.innerHTML = `
+                    <div 
+                        data-lyket-type="updown" 
+                        data-lyket-id="${story.id}" 
+                        data-lyket-namespace="verhalen"
+                        data-lyket-color-primary="#ffd166"
+                    ></div>
+                `;
                 
-                // Als Lyket al in de browser geladen is, heractiveer de knop voor dit nieuwe verhaal
+                // Activeer de nieuwe knop
                 if (window.lyket) {
                     window.lyket.reinit();
                 }
