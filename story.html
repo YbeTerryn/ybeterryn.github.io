@@ -4,25 +4,31 @@
   <meta charset="UTF-8">
   <title>Schrijfsel</title>
   <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_f2e3a6c20056637e1e699564177264"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   
 <header id="main-header">
-  <nav id="main-nav">
-    </nav>
+  <nav id="main-nav"></nav>
 </header>
 
 <main class="reader">
 
-  <!-- TEKST -->
   <article id="text-container" class="literary-text"></article>
 
-  <!-- REACTIES -->
+  <div class="like-section" style="text-align: center; padding: 20px 0;">
+    <p style="font-style: italic; font-size: 0.9rem; margin-bottom: 10px;">Vond je dit een mooi schrijfsel?</p>
+    <div 
+      id="like-container"
+      data-lyket-type="updown" 
+      data-lyket-namespace="verhalen"
+      data-lyket-color-primary="#ffd166"
+    ></div>
+  </div>
+
   <section class="reader-feedback">
     <h2>Reacties</h2>
-
     <div
       id="cusdis_thread"
       data-host="https://cusdis.com"
@@ -31,24 +37,14 @@
       data-page-url=""
       data-page-title="">
     </div>
-
   </section>
 
 </main>
 
 <script src="data/stories.js"></script>
-<script src="js/story.js"></script>
-<script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_f2e3a6c20056637e1e699564177264"></script>
-
-<div 
-  data-lyket-type="updown" 
-  data-lyket-id="${story.id}" 
-  data-lyket-namespace="verhalen"
-  data-lyket-color-primary="#ffd166"
-></div>
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+<script src="js/story.js"></script> <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 <script>
-  // Dit script haalt het menu op uit nav.html
+  // Navigatie laden
   fetch('nav.html')
     .then(response => response.text())
     .then(data => {
@@ -59,4 +55,3 @@
   
 </body>
 </html>
-
