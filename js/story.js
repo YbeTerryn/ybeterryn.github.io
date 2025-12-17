@@ -1,21 +1,29 @@
-// Wacht tot de basispagina geladen is
+// Zorg dat het script pas start als de basisstructuur er is
 window.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
+    // 1. Zoek het verhaal
     let story = stories.find(s => s.id === id) || archiveStories.find(s => s.id === id);
 
     if (story) {
+        // 2. Haal de tekst op
         fetch(story.text)
             .then(res => res.text())
             .then(html => {
-                // 1. Vul de tekst
-                document.getElementById("text-container").innerHTML = html;
-                document.getElementById("story-title").innerText = story.title;
+                // Vul de tekst en de titel
+                const textContainer = document.getElementById("text-container");
+                const titleElement = document.getElementById("story-title");
+                
+                if (textContainer) textContainer.innerHTML = html;
+                if (titleElement) titleElement.innerText = story.title;
 
-                // 2. Injecteer de like-knop
+                // 3. LIKES INJECTEREN
+                // We zoeken de container NU pas, nadat de tekst er staat
                 const likeContainer = document.getElementById("like-container");
+                
                 if (likeContainer) {
+                    // Injecteer de knop direct
                     likeContainer.innerHTML = `
                         <div 
                             data-lyket-type="updown" 
@@ -25,13 +33,13 @@ window.addEventListener('DOMContentLoaded', () => {
                         ></div>
                     `;
                     
-                    // Forceer Lyket om te scannen
+                    // Forceer Lyket om de nieuwe HTML te scannen en te activeren
                     if (window.lyket) {
                         window.lyket.reinit();
                     }
                 }
 
-                // 3. Cusdis configureren
+                // 4. Cusdis reacties laden
                 const thread = document.getElementById("cusdis_thread");
                 if (thread && window.CUSDIS) {
                     thread.setAttribute("data-page-id", story.id);
@@ -39,6 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     thread.setAttribute("data-page-url", window.location.href);
                     window.CUSDIS.renderTo(thread);
                 }
-            });
+            })
+            .catch(err => console.error("Fout bij laden verhaal:", err));
     }
 });
