@@ -278,32 +278,62 @@ header {
     pointer-events: none; /* Zorgt dat je door het icoon heen kunt klikken op de balk */
 }
 
-/* De eigenlijke balk - geforceerd donker */
-.search-bar {
+/* Container die exact even breed is als je grid (900px) */
+.filter-section {
     width: 100%;
+    max-width: 900px; /* Gelijk aan je .grid breedte */
+    margin: 20px auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+/* De wrapper */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Het loep-icoontje */
+.search-icon {
+    position: absolute;
+    left: 18px;
+    color: #ffd166; /* Dezelfde goudkleur als je accenten */
+    font-size: 1.1rem;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* De balk zelf - Iets donkerder dan de body background */
+.search-bar {
+    width: 100% !important;
     padding: 15px 15px 15px 50px !important; 
-    background-color: #121212 !important;    /* Donkere achtergrond */
-    border: 1px solid #333 !important;       /* Donkere rand */
+    background-color: #080e1e !important;    /* Donkerder dan #0b132b */
+    border: 1px solid rgba(255, 209, 102, 0.2) !important; /* Subtiel goud randje */
     border-radius: 8px !important;
-    color: #ffffff !important;               /* Witte tekst bij het typen */
+    color: #ffffff !important;               /* Tekst die je typt */
+    font-family: Georgia, serif;
     font-size: 1rem;
     outline: none;
-    appearance: none;                        /* Verwijdert standaard browser styling */
+    box-sizing: border-box;
+    appearance: none;
     -webkit-appearance: none;
-    transition: all 0.3s ease;
 }
 
-/* Zorg dat de achtergrond donker blijft, zelfs als de browser wil 'helpen' met autofill */
-.search-bar:-webkit-autofill,
-.search-bar:-webkit-autofill:hover, 
-.search-bar:-webkit-autofill:focus {
-    -webkit-text-fill-color: white !important;
-    -webkit-box-shadow: 0 0 0px 1000px #121212 inset !important;
-    transition: background-color 5000s ease-in-out 0s;
+/* Focus effect */
+.search-bar:focus {
+    border-color: #ffd166 !important;
+    box-shadow: 0 0 10px rgba(255, 209, 102, 0.1);
 }
 
-/* Placeholder tekst iets lichter maken voor leesbaarheid */
+/* Placeholder tekst kleur */
 .search-bar::placeholder {
-    color: #888 !important;
-    opacity: 1;
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Fix voor witte balk bij klikken (autofill) */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #080e1e inset !important;
+    -webkit-text-fill-color: white !important;
 }
