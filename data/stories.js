@@ -8,4 +8,14 @@ const stories = [
   }
 ];
 
+// Je NIEUWE lijst (Archief)
+const archiveStories = [
+  {
+    id: "archief-01",
+    title: "Drie gebroken principes",
+    image: "Draft/archief.jpg",
+    date: "2023",
+    text: "Drie gebroken principes.txt"
+  }
+];
 
