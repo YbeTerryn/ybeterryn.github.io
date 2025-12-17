@@ -7,8 +7,10 @@
 </head>
 <body>
 
-<nav id="main-nav">
-  </nav>
+<header id="main-header">
+  <nav id="main-nav">
+    </nav>
+</header>
 
 <header class="sesjat-header">
   <p class="glyph">𓎛</p>
@@ -54,7 +56,16 @@
     <a href="https://thisishowweread.be/column-op-woensdag-luxuria/" target="_blank" class="read-link">LEES</a>
   </div>
 </article>
- 
+  
+<script>
+  // Dit script haalt het menu op uit nav.html
+  fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('main-nav').innerHTML = data;
+    })
+    .catch(error => console.error('Fout bij laden menu:', error));
+</script> 
 
 </body>
 </html>
