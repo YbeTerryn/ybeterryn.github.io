@@ -179,3 +179,48 @@ nav a.donate {
   .card-content { flex-direction: column; align-items: center; }
   .card-image { width: 100%; height: auto; }
 }
+/* ===== LITERAIRE TEKST (De eigenlijke verhalen) ===== */
+
+.literary-text {
+  max-width: 42rem;           /* Optimale breedte voor leesbaarheid */
+  margin: 4rem auto;          /* Centreert het verhaal met ruimte boven/onder */
+  font-family: Georgia, serif;
+  font-size: 1.15rem;         /* Iets groter voor comfortabel lezen */
+  line-height: 1.85;          /* Ruime interlinie voor de "boek-vibe" */
+  color: #f5f5f5;             /* Zacht wit tegen de donkere achtergrond */
+  padding: 0 1.5rem;          /* Ruimte aan de zijkanten op mobiel */
+}
+
+.literary-text h1 {
+  text-align: center;
+  font-family: "Cinzel", Georgia, serif;
+  font-weight: normal;
+  font-size: 2.5rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 3.5rem;      /* Veel ruimte onder de titel */
+  color: #fff;
+}
+
+.literary-text p {
+  margin-bottom: 1.6rem;      /* Ruimte tussen de alinea's */
+  text-align: justify;        /* Tekst vult de hele breedte (optioneel) */
+  hyphens: auto;              /* Woorden netjes afbreken indien nodig */
+}
+
+/* De eerste letter van het verhaal groter maken (optioneel voor extra sfeer) */
+.literary-text p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5rem;
+  line-height: 1;
+  padding-right: 0.5rem;
+  color: #ffd166;             /* De gouden accentkleur */
+  font-family: "Cinzel", serif;
+}
+
+/* ===== LEESPAGINA CONTAINER ===== */
+.reader {
+  max-width: 1000px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.15); /* Subtiele schaduw achter de tekstkolom */
+  border-radius: 8px;
+}
