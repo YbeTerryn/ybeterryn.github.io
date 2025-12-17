@@ -220,3 +220,31 @@ header {
     box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Optioneel: een schaduw voor diepte */
     padding: 10px 0;
 }
+/* Specifieke styling voor de Letterboxd knop */
+.letterboxd-link {
+    background-color: #202428; /* Donkergrijs zoals Letterboxd */
+    color: #ff8000 !important; /* Letterboxd oranje tekst */
+    border: 1px solid #ff8000;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.letterboxd-link:hover {
+    background-color: #ff8000; /* Knoppen worden oranje bij hover */
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 128, 0, 0.3);
+}
+.meta-info {
+  font-style: italic;
+  color: #a0a0a0; /* Of een kleur die past bij je thema */
+  margin-bottom: 15px;
+  display: block;
+}
+
