@@ -7,8 +7,10 @@
 </head>
 <body>
 
-<nav id="main-nav">
-  </nav>
+<header id="main-header">
+  <nav id="main-nav">
+    </nav>
+</header>
   
 <header class="sesjat-header">
   <p class="glyph">𓏭</p>
@@ -33,6 +35,16 @@
       </div>
     </div>
   </article>
+
+  <script>
+  // Dit script haalt het menu op uit nav.html
+  fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('main-nav').innerHTML = data;
+    })
+    .catch(error => console.error('Fout bij laden menu:', error));
+</script>
 
 </body>
 </html>
