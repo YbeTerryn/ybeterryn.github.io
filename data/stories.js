@@ -84,6 +84,15 @@ const reviewStories = [
     platform: "letterboxd"
   },
   {
+   title: "Grand Hotel Europa",
+    year: "2018",
+    director: "Ilja Leonard Pfeijffer",
+    image: "Draft/grand.jpg",
+    link: "https://app.thestorygraph.com/reviews/f55d85a0-b36b-436c-8703-d4d6cdcf636c",
+    platform: "storygraph"
+  },
+
+  {
     title: "Paris Is Burning",
     year: "1990",
     director: "Jennie Livingston",
