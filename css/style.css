@@ -158,28 +158,27 @@ nav a.donate {
   margin-bottom: 15px;
   display: block;
 }
-/* ===== KNOPPEN (LEES Blokje met Icoon) ===== */
-.read-link, .letterboxd-link {
+/* Algemene stijl voor alle review links (Letterboxd & StoryGraph) */
+.review-link {
     display: inline-block;
     margin-top: 0.8rem;
     font-size: 0.85rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #ffd166 !important; /* De gouden accentkleur */
-    transition: all 0.2s ease;
+    color: #ffd166 !important;
     text-decoration: none;
+    transition: all 0.2s ease;
 }
 
-/* Specifiek voor het Letterboxd icoontje in de kaart */
-.letterboxd-link i {
-    margin-right: 8px; /* Ruimte tussen icoon en "LEES" */
+.review-link i {
+    margin-right: 8px;
     font-size: 1rem;
     vertical-align: middle;
 }
 
-.read-link:hover, .letterboxd-link:hover {
-    opacity: 0.7;
-    transform: translateX(5px); /* Subtiel effect naar rechts bij hover */
+/* Specifieke kleur bij hover voor StoryGraph (optioneel) */
+.review-link:hover i.fa-book-open {
+    color: #f38221; /* De oranje kleur van StoryGraph */
 }
 
 /* ===== MOBIEL ===== */
