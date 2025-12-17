@@ -8,16 +8,6 @@ const stories = [
   }
 ];
 
-const archiveStories = [
-  {
-    id: "archief-01",
-    title: "Drie gebroken principes",
-    image: "Draft/archief.jpg",
-    date: "2023",
-    text: "texts/Drie-gebroken-principes.html" // De 'D' moet hier een hoofdletter zijn!
-  }
-];
-
 const reviewStories = [
   {
     title: "La Vie sexuelle des Belges 1950–1978",
@@ -95,3 +85,8 @@ const reviewStories = [
     title: "O Agente Secreto",
     year: "2025",
     director: "Kleber Mendonça Filho",
+    image: "Draft/secretagent.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-secret-agent-2025/",
+    platform: "letterboxd"
+  }
+];
