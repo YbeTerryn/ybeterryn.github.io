@@ -4,24 +4,5 @@
 <a href="reviews.html">Pieter Paul Tybbe</a>
 <a href="bio.html">Bio</a>
 <a href="contact.html">Contact</a>
-<a href="https://ko-fi.com/ybeterryn" target="_blank" class="kofi-button">
-  ☕ Steun me
-</a>
+<a href="https://ko-fi.com/ybeterryn" target="_blank" class="kofi-button">☕ Steun me</a>
 
-<script>
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('main-nav').innerHTML = data;
-      
-      // Optioneel: Dit zorgt dat de 'active' kleur werkt op de juiste pagina
-      const links = document.querySelectorAll('#main-nav a');
-      const currentPath = window.location.pathname.split("/").pop() || "index.html";
-      
-      links.forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-          link.classList.add('active');
-        }
-      });
-    });
-</script>
