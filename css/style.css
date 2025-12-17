@@ -254,3 +254,51 @@ header {
   margin-bottom: 15px;
   display: block;
 }
+  /* Container die de balk centreert en breed maakt */
+.filter-section {
+    width: 100%;
+    max-width: 1200px; /* Of de breedte van je grid */
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* De wrapper die het icoontje en de input samenbrengt */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Het loep-icoontje */
+.search-icon {
+    position: absolute;
+    left: 15px;
+    color: #888;
+    font-size: 1.2rem;
+    pointer-events: none; /* Zorgt dat je door het icoon heen kunt klikken op de balk */
+}
+
+/* De eigenlijke balk */
+.search-bar {
+    width: 100%;
+    padding: 15px 15px 15px 50px; /* Extra padding links voor het icoontje */
+    background-color: #121212;    /* Donkere achtergrond */
+    border: 1px solid #333;       /* Subtiele rand */
+    border-radius: 8px;           /* Iets minder rond voor een moderne look */
+    color: #fff;                  /* Witte tekst */
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Effect bij klikken/typen */
+.search-bar:focus {
+    background-color: #1a1a1a;
+    border-color: #ff8000;       /* Oranje gloed bij focus */
+    box-shadow: 0 0 15px rgba(255, 128, 0, 0.2);
+}
+
+/* Placeholder kleur aanpassen */
+.search-bar::placeholder {
+    color: #666;
+}
