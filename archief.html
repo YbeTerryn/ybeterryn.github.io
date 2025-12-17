@@ -2,8 +2,8 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Archief</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archief - Sesjat</title> <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   
@@ -13,27 +13,97 @@
 </header>
 
 <header class="sesjat-header">
-  <h1>Archief</h1>
-  <p class="subtitle">
-  Uiteenlopende verzameling aan rottende schrijfsels, voor wie zichzelf echt niet kan inhouden
-  </p>
+  <p class="glyph">𓁺</p>
+  <h1>Het Archief</h1>
+  <p class="subtitle">Eerdere offerandes aan de godin</p>
 </header>
-  
-<main class="grid" id="archive-container">
+
+<div class="filter-section">
+  <input type="text" id="searchInput" class="search-bar" placeholder="Zoek in het archief...">
+</div>
+
+<main class="grid" id="main-container">
   </main>
 
 <script src="data/stories.js"></script>
-<script src="js/archive.js"></script>
-  
+
 <script>
-  // Dit script haalt het menu op uit nav.html
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('main-nav').innerHTML = data;
-    })
-    .catch(error => console.error('Fout bij laden menu:', error));
+window.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById("main-container");
+    const searchInput = document.getElementById("searchInput");
+
+    // 1. Bepaal de lijst op basis van de paginatitel
+    let currentList = [];
+    const pageTitle = document.title;
+    
+    if (pageTitle.includes("Offers")) {
+        currentList = stories;
+    } else if (pageTitle.includes("Archief")) {
+        currentList = archiveStories;
+    } else if (pageTitle.includes("Reviews")) {
+        currentList = reviewStories;
+    }
+
+    // 2. De Render functie
+    function render(filter = "") {
+        container.innerHTML = "";
+        const searchTerm = filter.toLowerCase();
+
+        // Filter de lijst
+        const filtered = currentList.filter(item => {
+            return item.title.toLowerCase().includes(searchTerm) || 
+                   (item.year && item.year.includes(searchTerm)) ||
+                   (item.director && item.director.toLowerCase().includes(searchTerm)) ||
+                   (item.date && item.date.toLowerCase().includes(searchTerm));
+        });
+
+        // Toon de kaartjes (Nieuwste eerst)
+        filtered.slice().reverse().forEach(item => {
+            const card = document.createElement("article");
+            card.className = "card";
+            
+            // Logica voor knoppen en links
+            const isExternal = item.link ? true : false;
+            const link = isExternal ? item.link : `story.html?id=${item.id}`;
+            const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+            const buttonClass = isExternal ? 'read-link letterboxd-link' : 'read-link';
+            const buttonText = isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES';
+
+            card.innerHTML = `
+                <div class="card-content">
+                    <img src="${item.image}" alt="${item.title}" class="card-image">
+                    <div class="card-text">
+                        <h2>${item.title}</h2>
+                        <p class="meta">${item.year || item.date || ""}</p>
+                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+                        <a href="${link}" ${target} class="death-link ${buttonClass}">${buttonText}</a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Lege status
+        if (filtered.length === 0) {
+            container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
+        }
+    }
+
+    // 3. Event Listeners
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => render(e.target.value));
+    }
+
+    render(); // Start de eerste weergave
+});
 </script>
-  
+
+<script>
+  // Menu ophalen
+  fetch('nav.html').then(res => res.text()).then(data => {
+    document.getElementById('main-nav').innerHTML = data;
+  });
+</script>
+
 </body>
 </html>
