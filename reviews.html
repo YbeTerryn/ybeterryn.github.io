@@ -2,187 +2,61 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Pieter Paul Tybbe</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews - Pieter Paul Tybbe</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+  
 <header id="main-header">
-  <nav id="main-nav">
-    </nav>
+  <nav id="main-nav"></nav>
 </header>
 
 <header class="sesjat-header">
-  <p class="glyph">𓂋</p>
   <h1>Pieter Paul Tybbe</h1>
-  <p class="subtitle">
-   Recent recensent Pieter Paul Tybbe beoordeelt<br>
-    scherp, aandachtig en slechts licht bevooroordeeld
-  </p>
+  <p class="subtitle">Scherp, aandachtig en slechts licht bevooroordeeld</p>
 </header>
 
-
 <main class="grid">
+  <div id="reviews-container"></div>
+</main>
 
-  
-  
-  <article class="card">
-    <div class="card-content">
-      <img src="Draft/secretagent.jpg" alt="O Agente Secreto" class="card-image">
-      
-      <div class="card-text">
-        <h2>O Agente Secreto</h2>
-        <p>2025</p>
-        <p class="meta-info"><em>Kleber Mendonça Filho</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/the-secret-agent-2025/ 
-           class="read-link">LEES</a>
-      </div>
-    </div>
-  </article>
-  
+<script src="data/stories.js"></script>
 
-  <article class="card">
-    <div class="card-content">
-      <img src="Draft/Paris.jpg" alt="Paris Is Burning" class="card-image">
-      
-      <div class="card-text">
-        <h2>Paris Is Burning</h2>
-        <p>1990</p>
-        <p class="meta-info"><em>Jennie Livingston</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/paris-is-burning/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-  </article>
-  
-<article class="card">
-    <div class="card-content">
-      <img src="Draft/viking.jpg" alt="Den Sidste Viking" class="card-image">
-      
-      <div class="card-text">
-        <h2>Den Sidste Viking</h2>
-        <p>2025</p>
-        <p class="meta-info"><em>Anders Thomas Jensen</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/the-last-viking-2025/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-</article>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById("reviews-container");
 
-<article class="card">
-    <div class="card-content">
-      <img src="Draft/babylon.jpg" alt="Babylon" class="card-image">
-      
-      <div class="card-text">
-        <h2>Babylon</h2>
-        <p>2022</p>
-        <p class="meta-info"><em>Damien Chazelle</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/babylon-2022/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-</article>
-  
-  <article class="card">
-    <div class="card-content">
-      <img src="Draft/point.jpg" alt="Zabriskie Point" class="card-image">
-      
-      <div class="card-text">
-        <h2>Zabriskie Point</h2>
-        <p>1970</p>
-        <p class="meta-info"><em>Michelangelo Antonioni</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/zabriskie-point/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-</article>
-  
-  <article class="card">
-    <div class="card-content">
-      <img src="Draft/szamanka.jpg" alt="Szamanka" class="card-image">
-      
-      <div class="card-text">
-        <h2>Szamanka</h2>
-        <p>1996</p>
-        <p class="meta-info"><em>Andrzej Żuławski</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/szamanka/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-</article>
-
-  <article class="card">
-    <div class="card-content">
-      <img src="Draft/caligari.jpg" alt="Dr. Caligari" class="card-image">
-      
-      <div class="card-text">
-        <h2>Dr. Caligari</h2>
-        <p>1986</p>
-        <p class="meta-info"><em>Stephen Sayadian</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/dr-caligari/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-</article>
-
-  <article class="card">
-    <div class="card-content">
-      <img src="Draft/bout.jpg" alt="À bout de souffle" class="card-image">
-      
-      <div class="card-text">
-        <h2>À bout de souffle</h2>
-        <p>1960</p>
-        <p class="meta-info"><em>Jean-Luc Godard</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/breathless/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-</article>
-  
-<article class="card">
-    <div class="card-content">
-      <img src="Draft/napoleon.jpg" alt="Napoleon" class="card-image">
-      
-      <div class="card-text">
-        <h2>Napoleon</h2>
-        <p>1927</p>
-        <p class="meta-info"><em>Abel Gance</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/napoleon/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-</article> 
-
-  <article class="card">
-    <div class="card-content">
-      <img src="Draft/vie.jpg" alt="La Vie sexuelle des Belges 1950–1978" class="card-image">
-      
-      <div class="card-text">
-        <h2>La Vie sexuelle des Belges 1950–1978</h2>
-        <p>1994</p>
-        <p class="meta-info"><em>Jan Bucquoy</em></p>
-        <a href=https://letterboxd.com/pieterpaultybbe/film/the-sexual-life-of-the-belgians/
-           class="read-link">LEES</a>
-      </div>
-    </div>
-</article> 
-
-
-
-
-
-
-
-
-  <script>
-  // Dit script haalt het menu op uit nav.html
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('main-nav').innerHTML = data;
-    })
-    .catch(error => console.error('Fout bij laden menu:', error));
+    if (typeof reviewStories !== 'undefined' && container) {
+      // We tonen ze in volgorde van de lijst
+      reviewStories.forEach(review => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-content">
+            <img src="${review.image}" alt="${review.title}" class="card-image">
+            <div class="card-text">
+              <h2>${review.title}</h2>
+              <p>${review.year}</p>
+              <p class="meta-info"><em>${review.director}</em></p>
+              <a href="${review.link}" 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="read-link">LEES</a>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+  });
 </script>
-  
+
+<script>
+  fetch('nav.html').then(res => res.text()).then(data => {
+    document.getElementById('main-nav').innerHTML = data;
+  });
+</script>
+
 </body>
 </html>
