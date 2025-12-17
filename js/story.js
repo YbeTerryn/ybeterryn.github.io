@@ -1,47 +1,109 @@
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archief - Sesjat</title> <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  
+<header id="main-header">
+  <nav id="main-nav">
+    </nav>
+</header>
 
-// 1. Zoek het verhaal in beide lijsten
-let story = stories.find(s => s.id === id) || archiveStories.find(s => s.id === id);
+<header class="sesjat-header">
+  <p class="glyph">𓁺</p>
+  <h1>Het Archief</h1>
+  <p class="subtitle">Eerdere offerandes aan de godin</p>
+</header>
 
-if (!story) {
-    document.getElementById("text-container").innerHTML = "<p>Schrijfsel niet gevonden.</p>";
-} else {
-    // 2. Haal de HTML tekst op uit de map 'texts'
-    fetch(story.text)
-        .then(res => {
-            if (!res.ok) throw new Error('Bestand niet gevonden op GitHub');
-            return res.text();
-        })
-        .then(html => {
-            // Vul de tekstcontainer
-            document.getElementById("text-container").innerHTML = html;
-            
-            // 3. Vul de titel in
-            if(document.getElementById("story-title")) {
-                document.getElementById("story-title").innerText = story.title;
-            }
+<div class="filter-section">
+  <input type="text" id="searchInput" class="search-bar" placeholder="Zoek in het archief...">
+</div>
 
-            // 4. Vul de afbeelding in (Cruciaal!)
-            const imgElement = document.getElementById("story-image");
-            if(imgElement) {
-                imgElement.src = story.image;
-                imgElement.alt = story.title;
-                imgElement.style.display = "block"; // Zorg dat de afbeelding zichtbaar wordt
-            }
+<main class="grid" id="main-container">
+  </main>
 
-            // 5. Cusdis reacties metadata instellen
-            const thread = document.getElementById("cusdis_thread");
-            if (thread && window.CUSDIS) {
-                thread.setAttribute("data-page-id", story.id);
-                thread.setAttribute("data-page-title", story.title);
-                thread.setAttribute("data-page-url", window.location.href);
-                window.CUSDIS.renderTo(thread);
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            document.getElementById("text-container").innerHTML = 
-                `<p>Fout: Kan het tekstbestand niet laden (${story.text}). Check de bestandsnaam en hoofdletters op GitHub!</p>`;
+<script src="data/stories.js"></script>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById("main-container");
+    const searchInput = document.getElementById("searchInput");
+
+    // 1. Bepaal de lijst op basis van de paginatitel
+    let currentList = [];
+    const pageTitle = document.title;
+    
+    if (pageTitle.includes("Offers")) {
+        currentList = stories;
+    } else if (pageTitle.includes("Archief")) {
+        currentList = archiveStories;
+    } else if (pageTitle.includes("Reviews")) {
+        currentList = reviewStories;
+    }
+
+    // 2. De Render functie
+    function render(filter = "") {
+        container.innerHTML = "";
+        const searchTerm = filter.toLowerCase();
+
+        // Filter de lijst
+        const filtered = currentList.filter(item => {
+            return item.title.toLowerCase().includes(searchTerm) || 
+                   (item.year && item.year.includes(searchTerm)) ||
+                   (item.director && item.director.toLowerCase().includes(searchTerm)) ||
+                   (item.date && item.date.toLowerCase().includes(searchTerm));
         });
-}
+
+        // Toon de kaartjes (Nieuwste eerst)
+        filtered.slice().reverse().forEach(item => {
+            const card = document.createElement("article");
+            card.className = "card";
+            
+            // Logica voor knoppen en links
+            const isExternal = item.link ? true : false;
+            const link = isExternal ? item.link : `story.html?id=${item.id}`;
+            const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+            const buttonClass = isExternal ? 'read-link letterboxd-link' : 'read-link';
+            const buttonText = isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES';
+
+            card.innerHTML = `
+                <div class="card-content">
+                    <img src="${item.image}" alt="${item.title}" class="card-image">
+                    <div class="card-text">
+                        <h2>${item.title}</h2>
+                        <p class="meta">${item.year || item.date || ""}</p>
+                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+                        <a href="${link}" ${target} class="death-link ${buttonClass}">${buttonText}</a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Lege status
+        if (filtered.length === 0) {
+            container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
+        }
+    }
+
+    // 3. Event Listeners
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => render(e.target.value));
+    }
+
+    render(); // Start de eerste weergave
+});
+</script>
+
+<script>
+  // Menu ophalen
+  fetch('nav.html').then(res => res.text()).then(data => {
+    document.getElementById('main-nav').innerHTML = data;
+  });
+</script>
+
+</body>
+</html>
