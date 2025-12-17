@@ -1,58 +1,84 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <title>Contact — Ybe Terryn</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Ybe Terryn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <header id="main-header">
-  <nav id="main-nav">
-    </nav>
+  <nav id="main-nav">
+    </nav>
 </header>
-  
+  
 <header class="sesjat-header">
-  <p class="glyph">𓎛</p>
-  <h1>Contact</h1>
-  <p class="subtitle">
-    Correspondentie en praktische gegevens
-  </p>
+  <p class="glyph">𓎛</p>
+  <h1>Contact</h1>
+  <p class="subtitle">
+    Correspondentie en praktische gegevens
+  </p>
 </header>
 
-  <article class="card">
-    <h2>E-mail</h2>
-    <p>
-      <a href="mailto:ybeterryn@gmail.com">
-        ybeterryn@gmail.com
-      </a>
-    </p>
-  </article>
+<main class="grid">
+  <article class="card">
+    <h2>E-mail</h2>
+    <p>Voor correspondentie, vragen of samenwerkingen:</p>
+    <p>
+      <a href="mailto:ybeterryn@gmail.com" class="read-link">
+        <i class="fas fa-envelope"></i> ybeterryn@gmail.com
+      </a>
+    </p>
+  </article>
 
-  <article class="card">
-    <h2>Ondersteuning</h2>
-    <p>
-      Wie het werk wil ondersteunen kan dat
-      via Ko-fi.
-    </p>
-    <p>
-      <a href="https://ko-fi.com/ybeterryn" target="_blank">
-        ko-fi.com/ybeterryn
-      </a>
-    </p>
-  </article>
+  <article class="card">
+    <h2>Sociale Media</h2>
+    <p>Volg mijn dagelijkse updates en korte schrijfsels:</p>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+      <a href="https://www.instagram.com/JOUW_INSTAGRAM" target="_blank" class="read-link">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a href="https://www.facebook.com/JOUW_FACEBOOK" target="_blank" class="read-link">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2>Recensies & Leeslijsten</h2>
+    <p>Mijn kijk- en leeservaringen op andere platformen:</p>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+      <a href="https://letterboxd.com/pieterpaultybbe/" target="_blank" class="read-link">
+        <i class="fab fa-letterboxd"></i> Letterboxd
+      </a>
+      <a href="https://app.thestorygraph.com/JOUW_STORYGRAPH" target="_blank" class="read-link">
+        <i class="fas fa-book-open"></i> StoryGraph
+      </a>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2>Ondersteuning</h2>
+    <p>Wie het werk wil ondersteunen kan dat via Ko-fi:</p>
+    <p>
+      <a href="https://ko-fi.com/ybeterryn" target="_blank" class="read-link">
+        <i class="fas fa-coffee"></i> ko-fi.com/ybeterryn
+      </a>
+    </p>
+  </article>
 </main>
 
-  <script>
-  // Dit script haalt het menu op uit nav.html
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('main-nav').innerHTML = data;
-    })
-    .catch(error => console.error('Fout bij laden menu:', error));
+<script>
+  // Dit script haalt het menu op uit nav.html
+  fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('main-nav').innerHTML = data;
+    })
+    .catch(error => console.error('Fout bij laden menu:', error));
 </script>
-  
+  
 </body>
 </html>
