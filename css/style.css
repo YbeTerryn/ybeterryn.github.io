@@ -4,6 +4,7 @@ body {
   font-family: Georgia, serif;
   background: linear-gradient(#0b132b, #1c2541);
   color: #fff;
+  min-height: 100vh;
 }
 
 a {
@@ -11,8 +12,8 @@ a {
   text-decoration: none;
 }
 
-/* ===== NAVIGATIE ===== */
-header {
+/* ===== NAVIGATIE & HEADER ===== */
+header#main-header {
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -31,7 +32,6 @@ nav {
 }
 
 nav a { font-variant: small-caps; }
-nav a.donate { border: 1px solid #ffd166; padding: 0.3rem 0.7rem; }
 
 /* ===== SESJAT HEADER ===== */
 .sesjat-header {
@@ -57,10 +57,10 @@ nav a.donate { border: 1px solid #ffd166; padding: 0.3rem 0.7rem; }
   margin: 0.5rem 0;
 }
 
-/* ===== ZOEKBALK (Gecorrigeerd & Donker) ===== */
+/* ===== ZOEKBALK ===== */
 .filter-section {
     width: 100%;
-    max-width: 900px; /* Gelijk aan grid */
+    max-width: 900px;
     margin: 20px auto;
     padding: 0 1rem;
     box-sizing: border-box;
@@ -85,26 +85,16 @@ nav a.donate { border: 1px solid #ffd166; padding: 0.3rem 0.7rem; }
 .search-bar {
     width: 100% !important;
     padding: 15px 15px 15px 50px !important; 
-    background-color: #080e1e !important;    /* De gewenste donkere kleur */
+    background-color: #080e1e !important;
     border: 1px solid rgba(255, 209, 102, 0.2) !important;
     border-radius: 8px !important;
     color: #ffffff !important;
     font-family: Georgia, serif;
     font-size: 1rem;
     outline: none;
-    box-sizing: border-box;
-    appearance: none;
-    -webkit-appearance: none;
 }
 
-.search-bar:focus {
-    border-color: #ffd166 !important;
-    box-shadow: 0 0 10px rgba(255, 209, 102, 0.1);
-}
-
-.search-bar::placeholder { color: rgba(255, 255, 255, 0.4) !important; }
-
-/* ===== GRID + CARDS ===== */
+/* ===== GRID + CARDS (De 'leukere' story window stijl) ===== */
 .grid {
   max-width: 900px;
   margin: auto;
@@ -116,6 +106,7 @@ nav a.donate { border: 1px solid #ffd166; padding: 0.3rem 0.7rem; }
 .card {
   background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.3));
   border-left: 3px solid #ffd166;
+  padding: 1.5rem 1.5rem 1.8rem; /* Ruime padding zoals in de story window */
   border-radius: 6px;
   position: relative;
 }
@@ -124,7 +115,6 @@ nav a.donate { border: 1px solid #ffd166; padding: 0.3rem 0.7rem; }
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  padding: 15px;
 }
 
 .card-image {
@@ -137,32 +127,43 @@ nav a.donate { border: 1px solid #ffd166; padding: 0.3rem 0.7rem; }
 }
 
 .card-text { flex: 1; }
-.card-text h2 { font-size: 1.8rem; margin-top: 0; }
-.meta-info { font-style: italic; color: #a0a0a0; margin-bottom: 15px; display: block; }
+.card h2 { font-weight: normal; letter-spacing: 0.05em; margin-top: 0; font-size: 1.8rem; }
 
-/* ===== KNOPPEN ===== */
+.meta-info {
+  font-style: italic;
+  color: #a0a0a0;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* ===== KNOPPEN (LEES blokje stijl) ===== */
 .read-link {
     display: inline-block;
     margin-top: 0.8rem;
     font-size: 0.85rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    color: #ffd166; /* Dezelfde goudkleur */
 }
 
+/* Letterboxd/Review knop: nu hetzelfde als 'LEES' maar met pijltje */
 .letterboxd-link {
-    background-color: #202428;
-    color: #ff8000 !important;
-    border: 1px solid #ff8000;
-    padding: 8px 12px;
-    border-radius: 4px;
+    /* Geen aparte achtergrond of border meer, gewoon tekststijl */
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    color: #ffd166 !important; 
 }
 
-.kofi-button {
-  background-color: #29abe0;
-  color: white !important;
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-weight: bold;
+/* ===== Ko-fi (Vorige stijl) ===== */
+nav a.donate {
+  border: 1px solid #ffd166;
+  padding: 0.3rem 0.7rem;
+  color: #ffd166;
+}
+
+nav a.donate:hover {
+  background: rgba(255, 209, 102, 0.1);
 }
 
 /* ===== MOBIEL ===== */
