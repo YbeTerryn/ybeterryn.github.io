@@ -212,28 +212,11 @@ nav a.donate {
 }
 
 header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;          /* Zorgt dat het menu altijd bovenop de kaarten ligt */
-  background-color: #0d1b2a; /* Zorg dat dit de achtergrondkleur van je site is */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Optioneel: geeft een schaduw als je scrollt */
-  padding-bottom: 10px;
+    position: sticky;      /* Dit is de "magische" regel voor het vastplakken */
+    top: 0;                /* Zorgt dat hij precies aan de bovenkant stopt */
+    z-index: 1000;         /* Zorgt dat het menu ALTIJD bovenop je afbeeldingen ligt */
+    background-color: #0d1b2a; /* GEBRUIK HIER JE EIGEN ACHTERGRONDKLEUR */
+    width: 100%;           /* Zorgt dat het menu de volledige breedte beslaat */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Optioneel: een schaduw voor diepte */
+    padding: 10px 0;
 }
-  
-<script>
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('main-nav').innerHTML = data;
-      
-      // Optioneel: Dit zorgt dat de 'active' kleur werkt op de juiste pagina
-      const links = document.querySelectorAll('#main-nav a');
-      const currentPath = window.location.pathname.split("/").pop() || "index.html";
-      
-      links.forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-          link.classList.add('active');
-        }
-      });
-    });
-</script>
