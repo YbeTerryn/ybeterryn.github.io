@@ -1,28 +1,19 @@
+// Wacht tot de basispagina geladen is
 window.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
-    // 1. Zoek het verhaal in de data
     let story = stories.find(s => s.id === id) || archiveStories.find(s => s.id === id);
 
-    if (!story) {
-        const container = document.getElementById("text-container");
-        if (container) container.innerHTML = "<p>Schrijfsel niet gevonden.</p>";
-    } else {
-        // 2. Haal de tekst op
+    if (story) {
         fetch(story.text)
-            .then(res => {
-                if (!res.ok) throw new Error('Bestand niet gevonden');
-                return res.text();
-            })
+            .then(res => res.text())
             .then(html => {
-                // Vul tekst en titel
+                // 1. Vul de tekst
                 document.getElementById("text-container").innerHTML = html;
-                if (document.getElementById("story-title")) {
-                    document.getElementById("story-title").innerText = story.title;
-                }
+                document.getElementById("story-title").innerText = story.title;
 
-                // 3. LIKES INJECTEREN (Gebeurt pas als tekst geladen is)
+                // 2. Injecteer de like-knop
                 const likeContainer = document.getElementById("like-container");
                 if (likeContainer) {
                     likeContainer.innerHTML = `
@@ -33,13 +24,14 @@ window.addEventListener('DOMContentLoaded', () => {
                             data-lyket-color-primary="#ffd166"
                         ></div>
                     `;
-                    // Activeer de Lyket widget
+                    
+                    // Forceer Lyket om te scannen
                     if (window.lyket) {
                         window.lyket.reinit();
                     }
                 }
 
-                // 4. Cusdis reacties laden
+                // 3. Cusdis configureren
                 const thread = document.getElementById("cusdis_thread");
                 if (thread && window.CUSDIS) {
                     thread.setAttribute("data-page-id", story.id);
@@ -47,7 +39,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     thread.setAttribute("data-page-url", window.location.href);
                     window.CUSDIS.renderTo(thread);
                 }
-            })
-            .catch(err => console.error("Fout bij laden:", err));
+            });
     }
 });
