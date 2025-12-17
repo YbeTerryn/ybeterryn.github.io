@@ -91,6 +91,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/paris-is-burning/",
     platform: "letterboxd"
   },
+    {
+    title: "Leven om het te vertellen",
+    year: "2002",
+    director: "Gabriel García Márquez",
+    image: "Draft/vertellen.jpg",
+    link: "https://app.thestorygraph.com/reviews/8109815d-7157-4bd9-bfff-7da7d2b465bb",
+    platform: "storygraph"
+  },
+  
   {
     title: "O Agente Secreto",
     year: "2025",
