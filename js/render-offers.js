@@ -1,12 +1,29 @@
-const container = document.getElementById("offers");
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
-stories.slice().reverse()forEach(story => {
-  const card = document.createElement("article");
-  card.className = "card";
-  card.innerHTML = `
-    <h2>${story.title}</h2>
-    <p class="meta">${story.date}</p>
-    <a href="story.html?id=${story.id}">Lees</a>
-  `;
-  container.appendChild(card);
-});
+// Deze regel zoekt in BEIDE lijsten:
+let story = stories.find(s => s.id === id);
+
+if (!story) {
+    story = archiveStories.find(s => s.id === id);
+}
+
+if (!story) {
+    // Als hij in geen van beide lijsten staat:
+    document.getElementById("text-container").innerHTML = "<p>Schrijfsel niet gevonden.</p>";
+} else {
+    // Als hij wel gevonden is, laad dan de tekst:
+    fetch(story.text)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("text-container").innerHTML = html;
+            
+            // Vergeet de titels en afbeeldingen niet in te vullen als je die layout gebruikt!
+            if(document.getElementById("story-title")) {
+                document.getElementById("story-title").innerText = story.title;
+            }
+        })
+        .catch(err => {
+            document.getElementById("text-container").innerHTML = "<p>Bestand kon niet worden geladen. Check de bestandsnaam!</p>";
+        });
+}
