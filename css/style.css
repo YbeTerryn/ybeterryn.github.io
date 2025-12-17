@@ -278,27 +278,32 @@ header {
     pointer-events: none; /* Zorgt dat je door het icoon heen kunt klikken op de balk */
 }
 
-/* De eigenlijke balk */
+/* De eigenlijke balk - geforceerd donker */
 .search-bar {
     width: 100%;
-    padding: 15px 15px 15px 50px; /* Extra padding links voor het icoontje */
-    background-color: #121212;    /* Donkere achtergrond */
-    border: 1px solid #333;       /* Subtiele rand */
-    border-radius: 8px;           /* Iets minder rond voor een moderne look */
-    color: #fff;                  /* Witte tekst */
+    padding: 15px 15px 15px 50px !important; 
+    background-color: #121212 !important;    /* Donkere achtergrond */
+    border: 1px solid #333 !important;       /* Donkere rand */
+    border-radius: 8px !important;
+    color: #ffffff !important;               /* Witte tekst bij het typen */
     font-size: 1rem;
     outline: none;
+    appearance: none;                        /* Verwijdert standaard browser styling */
+    -webkit-appearance: none;
     transition: all 0.3s ease;
 }
 
-/* Effect bij klikken/typen */
-.search-bar:focus {
-    background-color: #1a1a1a;
-    border-color: #ff8000;       /* Oranje gloed bij focus */
-    box-shadow: 0 0 15px rgba(255, 128, 0, 0.2);
+/* Zorg dat de achtergrond donker blijft, zelfs als de browser wil 'helpen' met autofill */
+.search-bar:-webkit-autofill,
+.search-bar:-webkit-autofill:hover, 
+.search-bar:-webkit-autofill:focus {
+    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: 0 0 0px 1000px #121212 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
-/* Placeholder kleur aanpassen */
+/* Placeholder tekst iets lichter maken voor leesbaarheid */
 .search-bar::placeholder {
-    color: #666;
+    color: #888 !important;
+    opacity: 1;
 }
