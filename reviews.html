@@ -61,17 +61,27 @@ window.addEventListener('DOMContentLoaded', () => {
                    (item.date && item.date.toLowerCase().includes(searchTerm));
         });
 
-        // Toon de kaartjes (Nieuwste eerst)
+       // Toon de kaartjes (Nieuwste eerst)
         filtered.slice().reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
+            
+            // Logica voor icoontjes
+            let iconHtml = "";
+            if (item.platform === "letterboxd") {
+                iconHtml = '<i class="fab fa-letterboxd"></i> ';
+            } else if (item.platform === "storygraph") {
+                iconHtml = '<i class="fas fa-book-open"></i> ';
+            }
             
             // Logica voor knoppen en links
             const isExternal = item.link ? true : false;
             const link = isExternal ? item.link : `story.html?id=${item.id}`;
             const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
             const buttonClass = isExternal ? 'read-link letterboxd-link' : 'read-link';
-            const buttonText = isExternal ? 'LEES↗' : 'LEES';
+            
+            // Hier voegen we iconHtml toe voor de buttonText
+            const buttonText = isExternal ? `${iconHtml}LEES ↗` : 'LEES';
 
             card.innerHTML = `
                 <div class="card-content">
@@ -86,6 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
             `;
             container.appendChild(card);
         });
+      
 
         // Lege status
         if (filtered.length === 0) {
