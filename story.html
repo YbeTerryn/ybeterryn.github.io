@@ -7,9 +7,10 @@
 </head>
 <body>
   
-<nav id="main-nav">
-  </nav>
-
+<header id="main-header">
+  <nav id="main-nav">
+    </nav>
+</header>
 
 <main class="reader">
 
@@ -36,7 +37,16 @@
 <script src="data/stories.js"></script>
 <script src="js/story.js"></script>
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-
+<script>
+  // Dit script haalt het menu op uit nav.html
+  fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('main-nav').innerHTML = data;
+    })
+    .catch(error => console.error('Fout bij laden menu:', error));
+</script>
+  
 </body>
 </html>
 
