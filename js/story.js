@@ -1,53 +1,58 @@
-// Zorg dat het script pas start als de basisstructuur er is
-window.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+/**
+ * Script voor de verhalenpagina (story.html)
+ * Verantwoordelijk voor het laden van tekst, likes en reacties.
+ */
 
-    // 1. Zoek het verhaal
-    let story = stories.find(s => s.id === id) || archiveStories.find(s => s.id === id);
+window.addEventListener('load', () => {
+    // 1. Haal het ID op uit de URL (bijv. ?id=prelude)
+    const params = new URLSearchParams(window.location.search);
+    const storyId = params.get("id");
+
+    // 2. Zoek het bijbehorende verhaal in stories.js (bevat stories en archiveStories)
+    const allStories = [...(typeof stories !== 'undefined' ? stories : []), ...(typeof archiveStories !== 'undefined' ? archiveStories : [])];
+    const story = allStories.find(s => s.id === storyId);
 
     if (story) {
-        // 2. Haal de tekst op
+        // 3. Haal de tekst (HTML-bestand) op van de server/GitHub
         fetch(story.text)
-            .then(res => res.text())
-            .then(html => {
-                // Vul de tekst en de titel
+            .then(res => {
+                if (!res.ok) throw new Error('Bestand niet gevonden');
+                return res.text();
+            })
+            .then(htmlContent => {
+                // Vul de tekst en titel op de pagina
                 const textContainer = document.getElementById("text-container");
                 const titleElement = document.getElementById("story-title");
-                
-                if (textContainer) textContainer.innerHTML = html;
+
+                if (textContainer) textContainer.innerHTML = htmlContent;
                 if (titleElement) titleElement.innerText = story.title;
 
-                // 3. LIKES INJECTEREN
-                // We zoeken de container NU pas, nadat de tekst er staat
-                const likeContainer = document.getElementById("like-container");
-                
-                if (likeContainer) {
-                    // Injecteer de knop direct
-                    likeContainer.innerHTML = `
-                        <div 
-                            data-lyket-type="updown" 
-                            data-lyket-id="${story.id}" 
-                            data-lyket-namespace="verhalen"
-                            data-lyket-color-primary="#ffd166"
-                        ></div>
-                    `;
+                // 4. LIKES UPDATEN
+                const likeBtn = document.getElementById("like-container");
+                if (likeBtn) {
+                    // Zet het correcte ID voor Lyket
+                    likeBtn.setAttribute("data-lyket-id", story.id);
                     
-                    // Forceer Lyket om de nieuwe HTML te scannen en te activeren
+                    // Re-initialiseer Lyket zodat de knop geladen wordt
                     if (window.lyket) {
                         window.lyket.reinit();
                     }
                 }
 
-                // 4. Cusdis reacties laden
-                const thread = document.getElementById("cusdis_thread");
-                if (thread && window.CUSDIS) {
-                    thread.setAttribute("data-page-id", story.id);
-                    thread.setAttribute("data-page-title", story.title);
-                    thread.setAttribute("data-page-url", window.location.href);
-                    window.CUSDIS.renderTo(thread);
+                // 5. CUSDIS REACTIES UPDATEN
+                const cusdisThread = document.getElementById("cusdis_thread");
+                if (cusdisThread && window.CUSDIS) {
+                    cusdisThread.setAttribute("data-page-id", story.id);
+                    cusdisThread.setAttribute("data-page-title", story.title);
+                    cusdisThread.setAttribute("data-page-url", window.location.href);
+                    window.CUSDIS.renderTo(cusdisThread);
                 }
             })
-            .catch(err => console.error("Fout bij laden verhaal:", err));
+            .catch(error => {
+                console.error("Fout bij het laden van het verhaal:", error);
+                document.getElementById("text-container").innerHTML = "<p>Excuses, het schrijfsel kon niet worden geladen.</p>";
+            });
+    } else {
+        document.getElementById("text-container").innerHTML = "<p>Schrijfsel niet gevonden.</p>";
     }
 });
