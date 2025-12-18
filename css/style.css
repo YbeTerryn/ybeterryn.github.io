@@ -1,4 +1,5 @@
 
+
 /* ===== BASIS ===== */
 body {
   margin: 0;
@@ -162,77 +163,47 @@ nav a.donate {
   margin-bottom: 15px;
   display: block;
 }
-/* Zorg dat de body altijd het thema heeft */
-body {
-    margin: 0;
-    font-family: Georgia, serif;
-    background: linear-gradient(#0b132b, #1c2541);
-    color: #fff;
-    min-height: 100vh;
-}
-
-/* De Foto: iets groter en stijlvoller */
+/* Specifieke stijl voor de Bio pagina */
 .bio-image {
-    width: 100%;
-    max-width: 300px; /* Iets groter dan voorheen */
-    height: auto;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 209, 102, 0.3);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    flex-shrink: 0;
+  display: block;
+  width: 100%;
+  max-width: 250px; /* Hier bepaal je hoe klein de foto moet zijn */
+  height: auto;
+  border-radius: 8px;
+  margin: 0 auto 2rem; /* Centreert de foto en geeft ruimte onderaan */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* De Bio Kaart */
-.card-bio {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(5px);
-    border-left: 3px solid #ffd166;
-    padding: 2rem;
-    border-radius: 8px;
-}
-
-/* Prijzenkaart: De hele kaart is nu een knop */
-.prijzen-grid {
-    display: grid;
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.prijs-kaart {
-    display: block; /* Maakt de hele kaart klikbaar */
-    text-decoration: none;
-    background: linear-gradient(135deg, rgba(255,209,102,0.05), rgba(0,0,0,0.2));
-    border: 1px solid rgba(255, 209, 102, 0.2);
-    padding: 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    color: #fff !important;
-}
-
-.prijs-kaart:hover {
-    transform: translateY(-5px);
-    border-color: #ffd166;
-    background: rgba(255, 209, 102, 0.1);
-    box-shadow: 0 5px 20px rgba(255, 209, 102, 0.2);
-}
-
-.prijs-kaart h2 {
-    color: #ffd166;
-    margin: 0 0 0.5rem 0;
-    font-family: "Cinzel", serif;
-    font-size: 1.4rem;
-}
-
-.prijs-kaart p {
-    margin: 0;
-    font-style: italic;
-    opacity: 0.8;
-}
-
-/* Uitvullen van tekst */
 .bio-text {
-    text-align: justify;
-    line-height: 1.8;
+  text-align: justify; /* Vult de tekst uit over de volledige breedte */
+  hyphens: auto;       /* Zorgt voor nette afbrekingen van lange woorden */
+  line-height: 1.8;    /* Iets meer ruimte tussen de regels voor leesbaarheid */
+}
+
+/* De prijzen kopjes buiten de kaarten */
+article h2 {
+    text-align: center;
+    font-family: "Cinzel", serif;
+    margin: 3rem 0 1rem;
+}
+
+/* Verbetering voor desktop: Foto en tekst naast elkaar in de kaart */
+@media (min-width: 768px) {
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .card-bio {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  
+  .bio-image {
+    margin: 0; /* Haalt centrering weg op desktop */
+    flex-shrink: 0;
+  }
 }
 /* ===== LITERAIRE TEKST ===== */
 .literary-text {
@@ -301,3 +272,4 @@ body {
     margin: 20px;
     padding: 20px 0;
 }
+
