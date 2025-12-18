@@ -1,206 +1,233 @@
-/* ===== 1. BASIS INSTELLINGEN & THEMA ===== */
-:root {
-  --bg-color-1: #0b132b;
-  --bg-color-2: #1c2541;
-  --nav-bg: #0d1b2a;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --text-color: #f5f5f5;
-  --text-muted: #a0a0a0;
-  --accent-color: #ffd166;
-  --search-bg: #080e1e;
-}
-
+/* ===== BASIS ===== */
 body {
   margin: 0;
   font-family: Georgia, serif;
-  background: linear-gradient(var(--bg-color-1), var(--bg-color-2));
-  background-attachment: fixed; /* Houdt de gradient op zijn plek */
-  color: var(--text-color);
+  background: linear-gradient(#0b132b, #1c2541);
+  color: #fff;
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: var(--accent-color);
+  color: #ffd166;
   text-decoration: none;
-  transition: opacity 0.2s ease;
 }
 
-a:hover {
-  opacity: 0.8;
-}
-
-/* ===== 2. NAVIGATIE ===== */
+/* ===== NAVIGATIE ===== */
 header#main-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: var(--nav-bg);
-  width: 100%;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #0d1b2a;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    padding: 10px 0;
 }
 
 nav {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
+  background: #0b132b;
   padding: 1rem;
-  flex-wrap: wrap;
 }
 
-nav a { 
-  font-variant: small-caps; 
-  padding: 0.5rem;
-  color: var(--accent-color) !important;
-}
+nav a { font-variant: small-caps; }
 
+/* Ko-fi Menu Stijl */
 nav a.donate {
-  border: 1px solid var(--accent-color);
+  border: 1px solid #ffd166;
   padding: 0.3rem 0.7rem;
+  color: #ffd166;
 }
 
-/* ===== 3. SESJAT HEADER & TITELS ===== */
-h1, h2, h3 {
-  color: var(--accent-color);
-  font-family: "Cinzel", Georgia, serif;
-  font-weight: normal;
-}
-
+/* ===== SESJAT HEADER ===== */
 .sesjat-header {
   text-align: center;
   padding: 4rem 1rem 3rem;
-  background: radial-gradient(circle at top, rgba(255,209,102,0.15), transparent 60%);
+  background:
+    radial-gradient(circle at top, rgba(255,209,102,0.15), transparent 60%),
+    linear-gradient(#0b132b, #1c2541);
 }
 
 .sesjat-header .glyph {
   font-size: 2rem;
-  color: var(--accent-color);
+  color: #ffd166;
   opacity: 0.8;
   margin-bottom: 1rem;
 }
 
 .sesjat-header h1 {
+  font-family: "Cinzel", Georgia, serif;
   font-size: 2.5rem;
   letter-spacing: 0.15em;
+  font-weight: normal;
   margin: 0.5rem 0;
 }
 
-/* ===== 4. BIO SECTIE SPECIFIEK ===== */
-.bio-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
+/* ===== ZOEKBALK (Donker & Gecentreerd) ===== */
+.filter-section {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-  .bio-container {
-    flex-direction: row;
-    align-items: flex-start;
-  }
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.bio-image {
-  width: 100%;
-  max-width: 320px;
-  height: auto;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 209, 102, 0.3);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  flex-shrink: 0;
+.search-icon {
+    position: absolute;
+    left: 18px;
+    color: #ffd166;
+    font-size: 1.1rem;
+    z-index: 2;
+    pointer-events: none;
 }
 
-.bio-text {
-  text-align: justify;
-  line-height: 1.85;
-  hyphens: auto;
+.search-bar {
+    width: 100% !important;
+    padding: 15px 15px 15px 50px !important; 
+    background-color: #080e1e !important;
+    border: 1px solid rgba(255, 209, 102, 0.2) !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    outline: none;
 }
 
-/* ===== 5. CARDS & PRIJZEN ===== */
-.card {
-  background: var(--card-bg);
-  border-left: 3px solid var(--accent-color);
-  padding: 1.5rem 1.5rem 1.8rem;
-  border-radius: 6px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  margin-bottom: 2rem;
-}
-
-.prijzen-grid {
+/* ===== GRID + CARDS (Herstelde Story Window) ===== */
+.grid {
+  max-width: 900px;
+  margin: auto;
   display: grid;
   gap: 1.5rem;
-  margin-top: 2rem;
+  padding: 2rem 1rem;
 }
 
-.prijs-kaart {
+.card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.3));
+  border-left: 3px solid #ffd166;
+  padding: 1.5rem 1.5rem 1.8rem;
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* De kleine glyph rechtsboven */
+.card::before {
+  content: "𓏤";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  opacity: 0.25;
+}
+
+.card-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.card-image {
+  width: 120px;
+  height: 160px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.card-text { flex: 1; }
+
+.card h2 { 
+  font-weight: normal; 
+  letter-spacing: 0.05em; 
+  margin-top: 0; 
+  font-size: 1.8rem; 
+  font-family: "Cinzel", Georgia, serif; 
+}
+
+.meta-info {
+  font-style: italic;
+  color: #a0a0a0;
+  margin-bottom: 15px;
   display: block;
-  text-decoration: none;
-  background: linear-gradient(135deg, rgba(255,209,102,0.05), rgba(0,0,0,0.2));
-  border: 1px solid rgba(255, 209, 102, 0.2);
-  padding: 1.5rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  color: var(--text-color) !important;
+}
+/* Algemene stijl voor alle review links (Letterboxd & StoryGraph) */
+.review-link {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffd166 !important;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
 
-.prijs-kaart:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent-color);
-  background: rgba(255, 209, 102, 0.1);
-  box-shadow: 0 5px 20px rgba(255, 209, 102, 0.2);
+.review-link i {
+    margin-right: 8px;
+    font-size: 1rem;
+    vertical-align: middle;
 }
 
-/* ===== 6. LITERAIRE TEKST (VERHALEN) ===== */
+/* Specifieke kleur bij hover voor StoryGraph (optioneel) */
+.review-link:hover i.fa-book-open {
+    color: #f38221; /* De oranje kleur van StoryGraph */
+}
+
+/* ===== MOBIEL ===== */
+@media (max-width: 600px) {
+  .card-content { flex-direction: column; align-items: center; }
+  .card-image { width: 100%; height: auto; }
+}
+/* ===== LITERAIRE TEKST (De eigenlijke verhalen) ===== */
+
 .literary-text {
-  max-width: 42rem;
-  margin: 4rem auto;
-  font-size: 1.15rem;
-  line-height: 1.85;
-  padding: 0 1.5rem;
+  max-width: 42rem;           /* Optimale breedte voor leesbaarheid */
+  margin: 4rem auto;          /* Centreert het verhaal met ruimte boven/onder */
+  font-family: Georgia, serif;
+  font-size: 1.15rem;         /* Iets groter voor comfortabel lezen */
+  line-height: 1.85;          /* Ruime interlinie voor de "boek-vibe" */
+  color: #f5f5f5;             /* Zacht wit tegen de donkere achtergrond */
+  padding: 0 1.5rem;          /* Ruimte aan de zijkanten op mobiel */
+}
+
+.literary-text h1 {
+  text-align: center;
+  font-family: "Cinzel", Georgia, serif;
+  font-weight: normal;
+  font-size: 2.5rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 3.5rem;      /* Veel ruimte onder de titel */
+  color: #fff;
 }
 
 .literary-text p {
-  text-align: justify;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.6rem;      /* Ruimte tussen de alinea's */
+  text-align: justify;        /* Tekst vult de hele breedte (optioneel) */
+  hyphens: auto;              /* Woorden netjes afbreken indien nodig */
 }
 
+/* De eerste letter van het verhaal groter maken (optioneel voor extra sfeer) */
 .literary-text p:first-of-type::first-letter {
   float: left;
   font-size: 3.5rem;
   line-height: 1;
   padding-right: 0.5rem;
-  color: var(--accent-color);
+  color: #ffd166;             /* De gouden accentkleur */
   font-family: "Cinzel", serif;
 }
 
-/* ===== 7. ZOEKBALK & CUSDIS ===== */
-.filter-section {
-  width: 100%;
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 0 1rem;
-}
-
-.search-bar {
-  width: 100% !important;
-  padding: 15px 15px 15px 50px !important; 
-  background-color: var(--search-bg) !important;
-  border: 1px solid rgba(255, 209, 102, 0.2) !important;
-  border-radius: 8px !important;
-  color: #fff !important;
-  font-size: 16px !important;
-  outline: none;
-}
-
-#cusdis_thread {
-  color-scheme: dark;
-  margin: 20px 0;
-}
-
-/* ===== 8. MOBIEL OPTIMALISATIE ===== */
-@media (max-width: 600px) {
-  .sesjat-header h1 { font-size: 1.8rem; }
-  .bio-text, .literary-text p { text-align: left; }
-  .bio-image { max-width: 260px; }
-  nav { gap: 0.8rem; font-size: 0.9rem; }
+/* ===== LEESPAGINA CONTAINER ===== */
+.reader {
+  max-width: 1000px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.15); /* Subtiele schaduw achter de tekstkolom */
+  border-radius: 8px;
 }
