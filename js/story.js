@@ -2,6 +2,7 @@ window.addEventListener('load', () => {
     const params = new URLSearchParams(window.location.search);
     const storyId = params.get("id");
 
+    // Zoek het verhaal in beide mogelijke lijsten
     const allStories = [
         ...(typeof stories !== 'undefined' ? stories : []), 
         ...(typeof archiveStories !== 'undefined' ? archiveStories : [])
@@ -13,10 +14,11 @@ window.addEventListener('load', () => {
         fetch(story.text)
             .then(res => res.text())
             .then(htmlContent => {
+                // Vul de pagina met content
                 document.getElementById("text-container").innerHTML = htmlContent;
                 document.getElementById("story-title").innerText = story.title;
 
-                // LIKES INJECTEREN
+                // Injecteer de Lyket knop
                 const container = document.getElementById("like-container");
                 if (container) {
                     container.innerHTML = `<div 
@@ -26,12 +28,13 @@ window.addEventListener('load', () => {
                         data-lyket-color-primary="#ffd166"
                     ></div>`;
                     
+                    // Initialiseer Lyket opnieuw voor de nieuwe elementen
                     if (window.lyket) {
                         window.lyket.reinit();
                     }
                 }
 
-                // CUSDIS REACTIES
+                // Initialiseer Cusdis reacties
                 const cusdisThread = document.getElementById("cusdis_thread");
                 if (cusdisThread && window.CUSDIS) {
                     cusdisThread.setAttribute("data-page-id", story.id);
@@ -39,6 +42,6 @@ window.addEventListener('load', () => {
                     window.CUSDIS.renderTo(cusdisThread);
                 }
             })
-            .catch(err => console.error("Fout bij laden:", err));
+            .catch(err => console.error("Fout bij het laden van het verhaal:", err));
     }
 });
