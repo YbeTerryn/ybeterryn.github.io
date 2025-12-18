@@ -25,25 +25,12 @@
         <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
             Vond je dit een mooi schrijfsel?
         </p>
-        
-        <div 
-            id="like-container"
-            data-lyket-type="updown" 
-            data-lyket-namespace="verhalen"
-            data-lyket-color-primary="#ffd166"
-            data-lyket-id="placeholder"
-        ></div>
+        <div id="like-container"></div>
     </div>
 
     <section class="reader-feedback">
         <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
-        <div 
-            id="cusdis_thread" 
-            data-host="https://cusdis.com" 
-            data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f"
-            data-page-id=""
-            data-page-title=""
-        ></div>
+        <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f"></div>
     </section>
 </main>
 
@@ -52,13 +39,9 @@
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
 <script>
-    // Navigatie menu ophalen uit nav.html
-    fetch('nav.html')
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('main-nav').innerHTML = data;
-        })
-        .catch(err => console.error('Menu kon niet laden:', err));
+    fetch('nav.html').then(res => res.text()).then(data => {
+        document.getElementById('main-nav').innerHTML = data;
+    });
 </script>
 
 </body>
