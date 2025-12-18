@@ -162,7 +162,48 @@ nav a.donate {
   margin-bottom: 15px;
   display: block;
 }
+/* Specifieke stijl voor de Bio pagina */
+.bio-image {
+  display: block;
+  width: 100%;
+  max-width: 250px; /* Hier bepaal je hoe klein de foto moet zijn */
+  height: auto;
+  border-radius: 8px;
+  margin: 0 auto 2rem; /* Centreert de foto en geeft ruimte onderaan */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
 
+.bio-text {
+  text-align: justify; /* Vult de tekst uit over de volledige breedte */
+  hyphens: auto;       /* Zorgt voor nette afbrekingen van lange woorden */
+  line-height: 1.8;    /* Iets meer ruimte tussen de regels voor leesbaarheid */
+}
+
+/* De prijzen kopjes buiten de kaarten */
+article h2 {
+    text-align: center;
+    font-family: "Cinzel", serif;
+    margin: 3rem 0 1rem;
+}
+
+/* Verbetering voor desktop: Foto en tekst naast elkaar in de kaart */
+@media (min-width: 768px) {
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .card-bio {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  
+  .bio-image {
+    margin: 0; /* Haalt centrering weg op desktop */
+    flex-shrink: 0;
+  }
+}
 /* ===== LITERAIRE TEKST ===== */
 .literary-text {
   max-width: 42rem;
