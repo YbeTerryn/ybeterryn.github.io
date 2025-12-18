@@ -231,3 +231,163 @@ nav a.donate {
   background: rgba(0, 0, 0, 0.15); /* Subtiele schaduw achter de tekstkolom */
   border-radius: 8px;
 }
+/* ===== 1. VARIABELEN & BASIS ===== */
+:root {
+  --bg-color-1: #0b132b;
+  --bg-color-2: #1c2541;
+  --nav-bg: #0d1b2a;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --text-color: #f5f5f5;
+  --text-muted: #a0a0a0;
+  --accent-color: #ffd166;
+  --search-bg: #080e1e;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: linear-gradient(var(--bg-color-1), var(--bg-color-2));
+  background-attachment: fixed;
+  color: var(--text-color);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== 2. NAVIGATIE ===== */
+header#main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--nav-bg);
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Zorgt dat links uit nav.html goud zijn */
+nav a, #main-nav a { 
+  color: var(--accent-color) !important;
+  text-decoration: none;
+  font-variant: small-caps;
+  padding: 0.5rem;
+  transition: opacity 0.2s;
+}
+
+nav a:hover { opacity: 0.8; }
+
+/* ===== 3. SESJAT HEADER (BIO TITEL) ===== */
+.sesjat-header {
+  text-align: center;
+  padding: 4rem 1rem 3rem;
+  background: radial-gradient(circle at top, rgba(255,209,102,0.15), transparent 60%);
+}
+
+.sesjat-header .glyph {
+  font-size: 2rem;
+  color: var(--accent-color);
+  opacity: 0.8;
+}
+
+.sesjat-header h1 {
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-color);
+  margin: 0.5rem 0;
+}
+
+/* ===== 4. BIO SECTIE (FOTO + TEKST) ===== */
+.bio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .bio-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.bio-image {
+  width: 100%;
+  max-width: 300px; /* Iets groter op jouw verzoek */
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 209, 102, 0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  flex-shrink: 0;
+}
+
+.bio-text {
+  text-align: justify;
+  line-height: 1.85;
+  hyphens: auto;
+}
+
+/* ===== 5. PRIJZEN & KAARTEN ===== */
+.card {
+  background: var(--card-bg);
+  border-left: 3px solid var(--accent-color);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+}
+
+.prijzen-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin: 2rem 0 4rem;
+}
+
+.prijs-kaart {
+  display: block;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(255,209,102,0.05), rgba(0,0,0,0.2));
+  border: 1px solid rgba(255, 209, 102, 0.2);
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  color: var(--text-color) !important;
+}
+
+.prijs-kaart:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-color);
+  background: rgba(255, 209, 102, 0.1);
+  box-shadow: 0 5px 20px rgba(255, 209, 102, 0.2);
+}
+
+.prijs-kaart h2 {
+  margin: 0 0 0.5rem 0;
+  font-family: "Cinzel", serif;
+  color: var(--accent-color);
+}
+
+/* ===== 6. LITERAIRE TEKST (OVERIG) ===== */
+.literary-text p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5rem;
+  line-height: 1;
+  padding-right: 0.5rem;
+  color: var(--accent-color);
+  font-family: "Cinzel", serif;
+}
+
+/* ===== 7. MOBIEL OPTIMALISATIE ===== */
+@media (max-width: 600px) {
+  .sesjat-header h1 { font-size: 1.8rem; }
+  .bio-text { text-align: left; }
+  .bio-image { max-width: 250px; }
+  nav { gap: 0.8rem; font-size: 0.9rem; }
+}
