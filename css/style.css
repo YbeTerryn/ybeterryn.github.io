@@ -1,119 +1,68 @@
-
-/* ===== BASIS THEMA ===== */
+/* ===== 1. VARIABELEN & BASIS ===== */
 :root {
   --accent-color: #ffd166;
   --bg-dark: #0b132b;
   --bg-gradient: linear-gradient(#0b132b, #1c2541);
   --text-white: #ffffff;
+  --text-muted: #a0a0a0;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --search-bg: #080e1e;
+  --transition-speed: 0.3s;
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: Georgia, serif;
   background: var(--bg-gradient);
-  background-attachment: fixed; /* Houdt de gradient op zijn plek bij scrollen */
+  background-attachment: fixed;
   color: var(--text-white);
   min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ===== NAVIGATIE HERSTEL ===== */
-nav a, 
-header#main-header a,
-#main-nav a {
+/* ===== 2. NAVIGATIE & HEADINGS ===== */
+header#main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #0d1b2a;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+nav a, #main-nav a {
   color: var(--accent-color) !important;
   text-decoration: none;
   font-variant: small-caps;
-  transition: opacity 0.2s;
+  transition: opacity var(--transition-speed);
+  padding: 0.5rem;
 }
 
-nav a:hover {
-  opacity: 0.8;
+nav a.donate {
+  border: 1px solid var(--accent-color);
+  padding: 0.3rem 0.7rem;
 }
 
-/* ===== HEADINGS HERSTEL ===== */
 h1, h2, h3 {
   color: var(--accent-color);
   font-family: "Cinzel", Georgia, serif;
   font-weight: normal;
 }
 
-/* ===== BIO SPECIFIEK ===== */
-.bio-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2.5rem;
-}
-
-@media (min-width: 768px) {
-    .bio-container {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-}
-
-.bio-image {
-    width: 100%;
-    max-width: 320px; /* Iets groter op verzoek */
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 209, 102, 0.3);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.bio-text {
-    text-align: justify;
-    line-height: 1.85;
-    hyphens: auto;
-}
-
-/* ===== PRIJZEN KAARTEN ===== */
-.prijzen-grid {
-    display: grid;
-    gap: 1.5rem;
-    margin: 2rem 0 4rem;
-}
-
-.prijs-kaart {
-    display: block;
-    text-decoration: none !important; /* Geen onderstreping */
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 209, 102, 0.2);
-    padding: 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.prijs-kaart:hover {
-    background: rgba(255, 209, 102, 0.08);
-    border-color: var(--accent-color);
-    transform: translateY(-3px);
-}
-
-.prijs-kaart h2 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.4rem;
-}
-
-.prijs-kaart p {
-    color: var(--text-white);
-    margin: 0;
-    opacity: 0.9;
-}
-
-/* Ko-fi Menu Stijl */
-nav a.donate {
-  border: 1px solid var(--accent-color);
-  padding: 0.3rem 0.7rem;
-  color: var(--accent-color);
-}
-
-/* ===== SESJAT HEADER ===== */
+/* ===== 3. SESJAT HEADER ===== */
 .sesjat-header {
   text-align: center;
   padding: 4rem 1rem 3rem;
-  background:
-    radial-gradient(circle at top, rgba(255,209,102,0.15), transparent 60%);
+  background: radial-gradient(circle at top, rgba(255,209,102,0.15), transparent 60%);
 }
 
 .sesjat-header .glyph {
@@ -124,242 +73,52 @@ nav a.donate {
 }
 
 .sesjat-header h1 {
-  font-family: "Cinzel", Georgia, serif;
   font-size: 2.5rem;
   letter-spacing: 0.15em;
-  font-weight: normal;
   margin: 0.5rem 0;
 }
 
-/* ===== ZOEKBALK ===== */
-.filter-section {
-    width: 100%;
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 0 1rem;
-    box-sizing: border-box;
+/* ===== 4. BIO SECTIE SPECIFIEK ===== */
+.bio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
 }
 
-.search-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
+@media (min-width: 768px) {
+  .bio-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 }
 
-.search-icon {
-    position: absolute;
-    left: 18px;
-    color: var(--accent-color);
-    font-size: 1.1rem;
-    z-index: 2;
-    pointer-events: none;
+.bio-image {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 209, 102, 0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  flex-shrink: 0;
 }
 
-.search-bar {
-    width: 100% !important;
-    padding: 15px 15px 15px 50px !important; 
-    background-color: var(--search-bg) !important;
-    border: 1px solid rgba(255, 209, 102, 0.2) !important;
-    border-radius: 8px !important;
-    color: var(--text-color) !important;
-    font-family: Georgia, serif;
-    font-size: 16px !important;
-    outline: none;
-    transition: all var(--transition-speed);
+.bio-text {
+  text-align: justify;
+  line-height: 1.85;
+  hyphens: auto;
 }
 
-/* ===== GRID + CARDS ===== */
-.grid {
-  max-width: 900px;
-  margin: auto;
-  display: grid;
-  gap: 1.5rem;
-  padding: 2rem 1rem;
-}
-
+/* ===== 5. CARDS & PRIJZEN ===== */
 .card {
   background: var(--card-bg);
   border-left: 3px solid var(--accent-color);
   padding: 1.5rem 1.5rem 1.8rem;
   border-radius: 6px;
-  position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.card::before {
-  content: "𓏤";
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.2rem;
-  opacity: 0.25;
-}
-
-.card-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.card-image {
-  width: 120px;
-  height: 160px;
-  object-fit: cover;
-  flex-shrink: 0;
-  border-radius: 4px;
-}
-
-.card h2 { 
-  font-weight: normal; 
-  letter-spacing: 0.05em; 
-  margin-top: 0; 
-  font-size: 1.8rem; 
-  font-family: "Cinzel", Georgia, serif; 
-}
-
-.meta-info {
-  font-style: italic;
-  color: var(--text-muted);
-  margin-bottom: 15px;
-  display: block;
-}
-/* Zorg dat de body altijd het thema heeft */
-body {
-    margin: 0;
-    font-family: Georgia, serif;
-    background: linear-gradient(#0b132b, #1c2541);
-    color: #fff;
-    min-height: 100vh;
-}
-
-/* De Foto: iets groter en stijlvoller */
-.bio-image {
-    width: 100%;
-    max-width: 300px; /* Iets groter dan voorheen */
-    height: auto;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 209, 102, 0.3);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    flex-shrink: 0;
-}
-
-/* De Bio Kaart */
-.card-bio {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(5px);
-    border-left: 3px solid #ffd166;
-    padding: 2rem;
-    border-radius: 8px;
-}
-
-/* Prijzenkaart: De hele kaart is nu een knop */
 .prijzen-grid {
-    display: grid;
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.prijs-kaart {
-    display: block; /* Maakt de hele kaart klikbaar */
-    text-decoration: none;
-    background: linear-gradient(135deg, rgba(255,209,102,0.05), rgba(0,0,0,0.2));
-    border: 1px solid rgba(255, 209, 102, 0.2);
-    padding: 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    color: #fff !important;
-}
-
-.prijs-kaart:hover {
-    transform: translateY(-5px);
-    border-color: #ffd166;
-    background: rgba(255, 209, 102, 0.1);
-    box-shadow: 0 5px 20px rgba(255, 209, 102, 0.2);
-}
-
-.prijs-kaart h2 {
-    color: #ffd166;
-    margin: 0 0 0.5rem 0;
-    font-family: "Cinzel", serif;
-    font-size: 1.4rem;
-}
-
-.prijs-kaart p {
-    margin: 0;
-    font-style: italic;
-    opacity: 0.8;
-}
-
-/* Uitvullen van tekst */
-.bio-text {
-    text-align: justify;
-    line-height: 1.8;
-}
-/* ===== LITERAIRE TEKST ===== */
-.literary-text {
-  max-width: 42rem;
-  margin: 4rem auto;
-  font-size: 1.15rem;
-  line-height: 1.85;
-  color: var(--text-color);
-  padding: 0 1.5rem;
-}
-
-.literary-text h1 {
-  text-align: center;
-  font-family: "Cinzel", Georgia, serif;
-  font-weight: normal;
-  font-size: 2.5rem;
-  letter-spacing: 0.1em;
-  margin-bottom: 3.5rem;
-}
-
-.literary-text p {
-  margin-bottom: 1.6rem;
-  text-align: justify;
-  hyphens: auto;
-}
-
-.literary-text p:first-of-type::first-letter {
-  float: left;
-  font-size: 3.5rem;
-  line-height: 1;
-  padding-right: 0.5rem;
-  color: var(--accent-color);
-  font-family: "Cinzel", serif;
-}
-
-/* ===== MOBIEL OPTIMALISATIE ===== */
-@media (max-width: 600px) {
-  .sesjat-header h1 { font-size: 1.8rem; }
-  
-  .card-content { flex-direction: column; align-items: center; text-align: center; }
-  
-  .card-image { width: 100%; max-width: 200px; height: auto; }
-
-  .literary-text {
-    margin: 2rem auto;
-    font-size: 1.1rem;
-    text-align: left;
-  }
-
-  .literary-text p { text-align: left; }
-
-  .literary-text h1 { font-size: 1.8rem; }
-  
-  nav { gap: 0.8rem; font-size: 0.9rem; }
-}
-
-/* ===== FEEDBACK / CUSDIS ===== */
-.reader {
-  max-width: 1000px;
-  margin: auto;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-}
-
-#cusdis_thread {
-    margin: 20px;
-    padding: 20px 0;
-}
+  display: grid;
+  gap: 1.5rem
