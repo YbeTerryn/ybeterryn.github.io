@@ -391,3 +391,41 @@ nav a:hover { opacity: 0.8; }
   .bio-image { max-width: 250px; }
   nav { gap: 0.8rem; font-size: 0.9rem; }
 }
+/* ===== BIO WRAPPING STIJL ===== */
+
+.bio-card {
+    background: var(--card-bg, rgba(255, 255, 255, 0.05));
+    border-left: 3px solid var(--accent-color, #ffd166);
+    padding: 2rem;
+    border-radius: 8px;
+    overflow: hidden; /* Zorgt dat de kaart de floatende foto omsluit */
+}
+
+.bio-image-wrap {
+    float: left; /* Dit is de 'magic' waardoor tekst doorloopt */
+    width: 280px; /* Grootte van de foto */
+    margin-right: 2rem; /* Ruimte tussen foto en tekst */
+    margin-bottom: 1rem; /* Ruimte onder de foto voor de tekst die doorloopt */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 209, 102, 0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.bio-text {
+    text-align: justify;
+    line-height: 1.8;
+}
+
+/* Mobiel herstel: op kleine schermen foto weer boven de tekst zetten */
+@media (max-width: 600px) {
+    .bio-image-wrap {
+        float: none;
+        display: block;
+        margin: 0 auto 1.5rem;
+        width: 100%;
+        max-width: 300px;
+    }
+    .bio-text {
+        text-align: left;
+    }
+}
