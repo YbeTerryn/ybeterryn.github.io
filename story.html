@@ -2,8 +2,11 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schrijfsel — Pieter Paul Tybbe</title>
+    
     <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_f2e3a6c20056637e1e699564177264"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -14,17 +17,33 @@
 </header>
 
 <main class="reader">
-    <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif;"></h1>
+    <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif; color: #ffd166;"></h1>
     
     <article id="text-container" class="literary-text"></article>
 
     <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
-        <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif;">Vond je dit een mooi schrijfsel?</p>
-        <div id="like-container"></div> </div>
+        <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
+            Vond je dit een mooi schrijfsel?
+        </p>
+        
+        <div 
+            id="like-container"
+            data-lyket-type="updown" 
+            data-lyket-namespace="verhalen"
+            data-lyket-color-primary="#ffd166"
+            data-lyket-id="placeholder"
+        ></div>
+    </div>
 
     <section class="reader-feedback">
-        <h2>Reacties</h2>
-        <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f"></div>
+        <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
+        <div 
+            id="cusdis_thread" 
+            data-host="https://cusdis.com" 
+            data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f"
+            data-page-id=""
+            data-page-title=""
+        ></div>
     </section>
 </main>
 
@@ -33,10 +52,13 @@
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
 <script>
-    // Navigatie inladen
-    fetch('nav.html').then(res => res.text()).then(data => {
-        document.getElementById('main-nav').innerHTML = data;
-    });
+    // Navigatie menu ophalen uit nav.html
+    fetch('nav.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById('main-nav').innerHTML = data;
+        })
+        .catch(err => console.error('Menu kon niet laden:', err));
 </script>
 
 </body>
