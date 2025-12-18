@@ -1,42 +1,104 @@
 
-/* ===== BASIS ===== */
+/* ===== BASIS THEMA ===== */
+:root {
+  --accent-color: #ffd166;
+  --bg-dark: #0b132b;
+  --bg-gradient: linear-gradient(#0b132b, #1c2541);
+  --text-white: #ffffff;
+}
+
 body {
   margin: 0;
   font-family: Georgia, serif;
-  background: linear-gradient(var(--bg-color-1), var(--bg-color-2));
-  color: var(--text-color);
+  background: var(--bg-gradient);
+  background-attachment: fixed; /* Houdt de gradient op zijn plek bij scrollen */
+  color: var(--text-white);
   min-height: 100vh;
-  transition: background var(--transition-speed), color var(--transition-speed);
-  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: var(--accent-color);
+/* ===== NAVIGATIE HERSTEL ===== */
+nav a, 
+header#main-header a,
+#main-nav a {
+  color: var(--accent-color) !important;
   text-decoration: none;
+  font-variant: small-caps;
+  transition: opacity 0.2s;
 }
 
-/* ===== NAVIGATIE ===== */
-header#main-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: var(--nav-bg);
+nav a:hover {
+  opacity: 0.8;
+}
+
+/* ===== HEADINGS HERSTEL ===== */
+h1, h2, h3 {
+  color: var(--accent-color);
+  font-family: "Cinzel", Georgia, serif;
+  font-weight: normal;
+}
+
+/* ===== BIO SPECIFIEK ===== */
+.bio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+    .bio-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.bio-image {
     width: 100%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    max-width: 320px; /* Iets groter op verzoek */
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 209, 102, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 1rem;
-  flex-wrap: wrap;
+.bio-text {
+    text-align: justify;
+    line-height: 1.85;
+    hyphens: auto;
 }
 
-nav a { 
-  font-variant: small-caps; 
-  padding: 0.5rem;
-  transition: color var(--transition-speed);
+/* ===== PRIJZEN KAARTEN ===== */
+.prijzen-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin: 2rem 0 4rem;
+}
+
+.prijs-kaart {
+    display: block;
+    text-decoration: none !important; /* Geen onderstreping */
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 209, 102, 0.2);
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.prijs-kaart:hover {
+    background: rgba(255, 209, 102, 0.08);
+    border-color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.prijs-kaart h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.4rem;
+}
+
+.prijs-kaart p {
+    color: var(--text-white);
+    margin: 0;
+    opacity: 0.9;
 }
 
 /* Ko-fi Menu Stijl */
