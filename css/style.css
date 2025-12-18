@@ -1,4 +1,18 @@
 /* ===== BASIS ===== */
+html {
+    /* Voorkomt dat mobiele browsers zelf de tekstgrootte aanpassen */
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+.literary-text p {
+    font-size: 1.15rem !important; /* Hierdoor blijft het overal gelijk */
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
 body {
   margin: 0;
   font-family: Georgia, serif;
