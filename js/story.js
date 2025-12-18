@@ -2,7 +2,6 @@ window.addEventListener('load', () => {
     const params = new URLSearchParams(window.location.search);
     const storyId = params.get("id");
 
-    // Zoek het verhaal in beide mogelijke lijsten
     const allStories = [
         ...(typeof stories !== 'undefined' ? stories : []), 
         ...(typeof archiveStories !== 'undefined' ? archiveStories : [])
@@ -14,9 +13,32 @@ window.addEventListener('load', () => {
         fetch(story.text)
             .then(res => res.text())
             .then(htmlContent => {
-                // Vul de pagina met content
-                document.getElementById("text-container").innerHTML = htmlContent;
-                document.getElementById("story-title").innerText = story.title;
+                const textContainer = document.getElementById("text-container");
+                const titleElement = document.getElementById("story-title");
+
+                if (titleElement) titleElement.innerText = story.title;
+
+                if (textContainer) {
+                    // --- AUTOMATISCHE OPMAAK START ---
+                    let formattedContent = htmlContent;
+                    
+                    // Controleer of de tekst HTML-tags mist. Zo ja: zet enters om naar paragrafen.
+                    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+                        formattedContent = htmlContent
+                            .split('\n')
+                            .filter(line => line.trim() !== '')
+                            .map(line => `<p>${line}</p>`)
+                            .join('');
+                    }
+
+                    // Vul de container
+                    textContainer.innerHTML = formattedContent;
+
+                    // Zet hier de lettergrootte vast voor alle verhalen
+                    textContainer.style.fontSize = "1.15rem"; 
+                    textContainer.style.lineHeight = "1.7";
+                    // --- AUTOMATISCHE OPMAAK EIND ---
+                }
 
                 // Injecteer de Lyket knop
                 const container = document.getElementById("like-container");
@@ -28,7 +50,6 @@ window.addEventListener('load', () => {
                         data-lyket-color-primary="#ffd166"
                     ></div>`;
                     
-                    // Initialiseer Lyket opnieuw voor de nieuwe elementen
                     if (window.lyket) {
                         window.lyket.reinit();
                     }
