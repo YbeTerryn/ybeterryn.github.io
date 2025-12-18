@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body> <header id="main-header">
+<body>
+
+<header id="main-header">
     <nav id="main-nav"></nav>
 </header>
 
@@ -37,6 +39,7 @@
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
 <script>
+    // Navigatie laden
     fetch('nav.html').then(res => res.text()).then(data => {
         document.getElementById('main-nav').innerHTML = data;
     });
