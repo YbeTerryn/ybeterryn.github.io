@@ -174,5 +174,13 @@ const reviewStories = [
     image: "Draft/secretagent.jpg",
     link: "https://letterboxd.com/pieterpaultybbe/film/the-secret-agent-2025/",
     platform: "letterboxd"
+  },
+{
+    title: "Beladonna of Sadness",
+    year: "1973",
+    director: "Eiichi Yamamoto",
+    image: "Draft/belladonna.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/belladonna-of-sadness/",
+    platform: "letterboxd"
   }
-];
+
