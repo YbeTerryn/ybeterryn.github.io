@@ -9,12 +9,18 @@ const stories = [
 ];
 
 const archiveStories = [
+   {
+    id: "archief-02",
+    title: "De nacht is duisternis",
+    image: "Draft/archief.jpg",
+    date: "2022",
+    text: "texts/duisternis.html" 
+  },
   {
     id: "archief-01",
     title: "Drie gebroken principes",
     image: "Draft/archief.jpg",
     date: "2023",
-    likes: 10,
     text: "texts/Drie-gebroken-principes.html" 
   }
 ];
