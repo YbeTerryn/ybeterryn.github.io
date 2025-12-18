@@ -1,46 +1,44 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schrijfsel — Pieter Paul Tybbe</title>
+window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+    const storyId = params.get("id");
+
+    const allStories = [
+        ...(typeof stories !== 'undefined' ? stories : []), 
+        ...(typeof archiveStories !== 'undefined' ? archiveStories : [])
+    ];
     
-    <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_f4710b1a96a37346a7b9faedf0c733"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body> <header id="main-header">
-    <nav id="main-nav"></nav>
-</header>
+    const story = allStories.find(s => s.id === storyId);
 
-<main class="reader">
-    <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif; color: #ffd166;"></h1>
-    
-    <article id="text-container" class="literary-text"></article>
+    if (story) {
+        fetch(story.text)
+            .then(res => res.text())
+            .then(htmlContent => {
+                document.getElementById("text-container").innerHTML = htmlContent;
+                document.getElementById("story-title").innerText = story.title;
 
-    <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
-        <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
-            Laat weten wat je ervan vond!
-        </p>
-        <div id="like-container"></div>
-    </div>
+                // LIKES INJECTEREN
+                const container = document.getElementById("like-container");
+                if (container) {
+                    container.innerHTML = `<div 
+                        data-lyket-type="updown" 
+                        data-lyket-id="${story.id}" 
+                        data-lyket-namespace="verhalen"
+                        data-lyket-color-primary="#ffd166"
+                    ></div>`;
+                    
+                    if (window.lyket) {
+                        window.lyket.reinit();
+                    }
+                }
 
-    <section class="reader-feedback">
-        <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
-        <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f"></div>
-    </section>
-</main>
-
-<script src="data/stories.js"></script>
-<script src="js/story.js"></script>
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-
-<script>
-    fetch('nav.html').then(res => res.text()).then(data => {
-        document.getElementById('main-nav').innerHTML = data;
-    });
-</script>
-
-</body>
-</html>
+                // CUSDIS REACTIES
+                const cusdisThread = document.getElementById("cusdis_thread");
+                if (cusdisThread && window.CUSDIS) {
+                    cusdisThread.setAttribute("data-page-id", story.id);
+                    cusdisThread.setAttribute("data-page-title", story.title);
+                    window.CUSDIS.renderTo(cusdisThread);
+                }
+            })
+            .catch(err => console.error("Fout bij laden:", err));
+    }
+});
