@@ -9,12 +9,48 @@ const stories = [
 ];
 
 const archiveStories = [
+  
+    {
+    id: "archief-06",
+    title: "Muziek",
+    image: "Draft/archief.jpg",
+    date: "2024",
+    text: "texts/muziek.html" 
+  },
+    {
+    id: "archief-05",
+    title: "kanker",
+    image: "Draft/archief.jpg",
+    date: "2024",
+    text: "texts/Kanker.html" 
+  },
+   {
+    id: "archief-04",
+    title: "Wintertijd",
+    image: "Draft/archief.jpg",
+    date: "2023",
+    text: "texts/wintertijd.html" 
+  },
+   {
+    id: "archief-03",
+    title: "Ik wil alles",
+    image: "Draft/archief.jpg",
+    date: "2022",
+    text: "texts/Ik_wil_alles.html" 
+  },
    {
     id: "archief-02",
     title: "De nacht is duisternis",
     image: "Draft/archief.jpg",
     date: "2022",
     text: "texts/duisternis.html" 
+  },
+    {
+    id: "archief-07",
+    title: "Over de verloren wijs van het lijdend onderwerp",
+    image: "Draft/archief.jpg",
+    date: "2022",
+    text: "texts/verloren_wijs.html" 
   },
   {
     id: "archief-01",
