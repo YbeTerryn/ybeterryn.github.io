@@ -183,4 +183,4 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/belladonna-of-sadness/",
     platform: "letterboxd"
   }
-
+];
