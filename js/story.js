@@ -19,10 +19,7 @@ window.addEventListener('load', () => {
                 if (titleElement) titleElement.innerText = story.title;
 
                 if (textContainer) {
-                    // --- AUTOMATISCHE OPMAAK START ---
                     let formattedContent = htmlContent;
-                    
-                    // Controleer of de tekst HTML-tags mist. Zo ja: zet enters om naar paragrafen.
                     if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
                         formattedContent = htmlContent
                             .split('\n')
@@ -30,17 +27,12 @@ window.addEventListener('load', () => {
                             .map(line => `<p>${line}</p>`)
                             .join('');
                     }
-
-                    // Vul de container
                     textContainer.innerHTML = formattedContent;
-
-                    // Zet hier de lettergrootte vast voor alle verhalen
                     textContainer.style.fontSize = "1.15rem"; 
                     textContainer.style.lineHeight = "1.7";
-                    // --- AUTOMATISCHE OPMAAK EIND ---
                 }
 
-                // Injecteer de Lyket knop
+                // --- LIKES INITIALISEREN ---
                 const container = document.getElementById("like-container");
                 if (container) {
                     container.innerHTML = `<div 
@@ -50,12 +42,22 @@ window.addEventListener('load', () => {
                         data-lyket-color-primary="#ffd166"
                     ></div>`;
                     
-                    if (window.lyket) {
-                        window.lyket.reinit();
-                    }
+                    // Definieer de functie om de knop te activeren
+                    const activateLyket = () => {
+                        if (window.lyket) {
+                            window.lyket.reinit();
+                            console.log("Lyket succesvol geïnitialiseerd voor: " + story.id);
+                        }
+                    };
+
+                    // Probeer het meteen...
+                    activateLyket();
+
+                    // ...en probeer het nog een keer na 1 seconde voor trage verbindingen
+                    setTimeout(activateLyket, 1000);
                 }
 
-                // Initialiseer Cusdis reacties
+                // Initialiseer Cusdis
                 const cusdisThread = document.getElementById("cusdis_thread");
                 if (cusdisThread && window.CUSDIS) {
                     cusdisThread.setAttribute("data-page-id", story.id);
