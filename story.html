@@ -28,19 +28,18 @@
         <div id="like-container"></div>
     </div>
 
-    <section class="reader-feedback">
-        <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
-        <div id="cusdis_thread" 
-             data-host="https://cusdis.com" 
-             data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f" 
-             data-lang="nl">
-        </div>
-    </section>
-</main>
+<section class="reader-feedback">
+    <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
+    <div id="cusdis_thread" 
+         data-host="https://cusdis.com" 
+         data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f" 
+         data-lang="nl"
+         data-theme="dark"> </div>
+</section>
 
 <script src="data/stories.js"></script>
 <script src="js/story.js"></script>
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
 
 <script>
     // Navigatie laden
@@ -48,6 +47,6 @@
         document.getElementById('main-nav').innerHTML = data;
     });
 </script>
-
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
 </html>
