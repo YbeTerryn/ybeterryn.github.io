@@ -9,11 +9,11 @@ window.addEventListener('load', () => {
         if (featuredContainer) {
             featuredContainer.innerHTML = `
                 <div class="featured-card">
-                    <span class="new-label">NIEUWSTE AANBOD</span>
+                    <span class="new-label">NIEUWSTE OFFER</span>
                     <h4>${latest.title}</h4>
-                    <p>${latest.description || 'Ontdek mijn nieuwste pennenvrucht.'}</p>
+                    <p>${latest.description || 'Ontdek het volgend verhaal.'}</p>
                     <a href="story.html?id=${latest.id}" class="read-more-btn">
-                        Lees dit verhaal →
+                        Lees→
                     </a>
                 </div>
             `;
