@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schrijfsel — Pieter Paul Tybbe</title>
-    
-    <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_f4710b1a96a37346a7b9faedf0c733"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -52,6 +49,11 @@
 <script src="data/stories.js"></script>
 <script src="js/story.js"></script>
 
+<script src="data/stories.js"></script>
+<script src="js/story.js"></script>
+
+<script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_f4710b1a96a37346a7b9faedf0c733"></script>
+
 <script>
     // 1. Navigatie laden
     fetch('nav.html').then(res => res.text()).then(data => {
@@ -61,12 +63,11 @@
     // 2. Forceer Nederlandse taal voor Cusdis
     window.cusdis_lang = 'nl';
 
-    // 3. Lyket Herstarten (voor de likes)
-    // We wachten heel even tot story.js de HTML heeft geplaatst
+    // 3. Lyket Herstarten (voor de zekerheid als fallback)
     setTimeout(() => {
         if (window.lyket) {
             window.lyket.reinit();
-            console.log("Lyket is opnieuw geïnitialiseerd");
+            console.log("Lyket handmatig ververst");
         }
     }, 500);
 </script>
