@@ -9,25 +9,28 @@ window.addEventListener('load', () => {
     
     const story = allStories.find(s => s.id === storyId);
 
-    if (story) {
-        fetch(story.text)
-            .then(res => res.text())
-            .then(htmlContent => {
-                const textContainer = document.getElementById("text-container");
-                const titleElement = document.getElementById("story-title");
+   // ... in het .then(htmlContent => { blok ...
 
-                if (titleElement) titleElement.innerText = story.title;
+const textContainer = document.getElementById("text-container");
+const titleElement = document.getElementById("story-title");
 
-                if (textContainer) {
-                    let formattedContent = htmlContent;
-                    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-                        formattedContent = htmlContent
-                            .split('\n')
-                            .filter(line => line.trim() !== '')
-                            .map(line => `<p>${line}</p>`)
-                            .join('');
-                    }
-                    textContainer.innerHTML = formattedContent;
+if (titleElement) {
+    titleElement.innerText = story.title;
+    
+    // VOEG DEZE REGEL HIER TOE:
+    document.title = `${story.title} | Ybe Terryn - Offers voor Sesjat`;
+}
+
+if (textContainer) {
+    let formattedContent = htmlContent;
+    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+        formattedContent = htmlContent
+            .split('\n')
+            .filter(line => line.trim() !== '')
+            .map(line => `<p>${line}</p>`)
+            .join('');
+    }
+    textContainer.innerHTML = formattedContent;
                     //textContainer.style.fontSize = "1.15rem"; 
                     //textContainer.style.lineHeight = "1.7";
                 }
