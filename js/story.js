@@ -57,17 +57,21 @@ window.addEventListener('load', () => {
                     setTimeout(activateLyket, 1000);
                 }
 
-#cusdis_thread {
-    background-color: transparent !important; /* Neemt kleur van je site over */
-    color: #f5f5f5 !important;
-    min-height: 200px;
-    margin-top: 4rem;
-}
+// --- CUSDIS INITIALISEREN ---
+const cusdisThread = document.getElementById("cusdis_thread");
+if (cusdisThread && window.CUSDIS) {
+    // Verwijder oude inhoud om dubbele widgets te voorkomen
+    cusdisThread.innerHTML = ''; 
 
-/* Forceer de kleuren binnen de widget (indien mogelijk) */
-#cusdis_thread iframe {
-    color-scheme: dark; /* Vertelt de browser dat de inhoud donker is */
+    // Stel de eigenschappen in
+    cusdisThread.setAttribute("data-page-id", story.id);
+    cusdisThread.setAttribute("data-page-title", story.title);
+    cusdisThread.setAttribute("data-lang", "nl"); // Nederlands
+    cusdisThread.setAttribute("data-theme", "dark"); // Donker thema
+    
+    // Initialiseer de widget
+    window.CUSDIS.renderTo(cusdisThread);
 }
-            .catch(err => console.error("Fout bij het laden van het verhaal:", err));
+    .catch(err => console.error("Fout bij het laden van het verhaal:", err));
     }
 });
