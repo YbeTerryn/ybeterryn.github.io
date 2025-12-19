@@ -19,7 +19,7 @@ const archiveStories = [
   },
     {
     id: "archief-05",
-    title: "kanker",
+    title: "Kanker",
     image: "Draft/archief.jpg",
     date: "2024",
     text: "texts/Kanker.html" 
