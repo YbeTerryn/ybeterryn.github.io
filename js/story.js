@@ -28,8 +28,8 @@ window.addEventListener('load', () => {
                             .join('');
                     }
                     textContainer.innerHTML = formattedContent;
-                    textContainer.style.fontSize = "1.15rem"; 
-                    textContainer.style.lineHeight = "1.7";
+                    //textContainer.style.fontSize = "1.15rem"; 
+                    //textContainer.style.lineHeight = "1.7";
                 }
 
                 // --- LIKES INITIALISEREN ---
