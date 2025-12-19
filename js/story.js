@@ -35,18 +35,26 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-                // 3. Virtueel Applaus (De betrouwbare vervanger voor Lyket)
-                const likeContainer = document.getElementById('like-container');
-                if (likeContainer) {
-                    likeContainer.innerHTML = `
-                        <div style="margin-top: 20px;">
-                            <a href="mailto:ybeterryn@gmail.com?subject=Applaus voor: ${story.title}" 
-                               style="text-decoration: none; font-size: 1.2rem; border: 1px solid #ffd166; padding: 12px 24px; border-radius: 5px; color: #ffd166; display: inline-block; font-variant: small-caps;">
-                               👏 Geef een virtueel applaus
-                            </a>
-                        </div>
-                    `;
-                }
+     // Zoek dit gedeelte in je story.js en vervang het:
+const likeContainer = document.getElementById('like-container');
+if (likeContainer) {
+    likeContainer.innerHTML = `
+        <span class="likebtn-wrapper" 
+            data-identifier="${story.id}" 
+            data-theme="dark" 
+            data-lang="nl" 
+            data-ef_voting="grow" 
+            data-show_like_label="false"
+            data-dislike_enabled="false"
+            data-icon_l_c_v="#ffd166">
+        </span>
+    `;
+
+    // Activeer de knop handmatig nadat de HTML is geplaatst
+    if (typeof LikeBtn !== 'undefined') {
+        LikeBtn.init();
+    }
+}
 
                 // 4. Cusdis initialiseren (Nu als hoofd-interactie)
                 if (window.CUSDIS) {
