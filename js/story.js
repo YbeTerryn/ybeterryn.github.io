@@ -35,15 +35,16 @@ window.addEventListener('load', () => {
 
 const likeContainer = document.getElementById('like-container');
 if (likeContainer) {
-    // We maken een directe link naar de Lyket-server voor dit verhaal
-    // De 'updown' is voor de pijltjes, 'reddit' is de stijl
-    const lyketUrl = `https://lyket.dev/api/widget/updown/schrijfsels/${story.id}?apiKey=pt_f4710b1a96a37346a7b9faedf0c733&template=reddit`;
+    // Lyket verwacht de API key als een 'header' of specifiek onderdeel van de URL
+    // We gebruiken hier de meest stabiele opbouw voor hun API:
+    const lyketUrl = `https://lyket.dev/api/widget/updown?apiKey=pt_f4710b1a96a37346a7b9faedf0c733&id=${story.id}&namespace=schrijfsels&template=reddit`;
     
     likeContainer.innerHTML = `
         <iframe 
             src="${lyketUrl}" 
             style="width: 100%; height: 80px; border: none; overflow: hidden; display: block; margin: 0 auto;"
             scrolling="no"
+            title="Lyket Widget"
         ></iframe>
     `;
 }
