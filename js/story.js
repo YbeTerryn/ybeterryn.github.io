@@ -33,18 +33,23 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-                // LYKET IFRAME FIX
+                // --- LYKET RESET EN HERSTART ---
                 const likeContainer = document.getElementById('like-container');
                 if (likeContainer) {
-                    // Nieuwe URL structuur voor Lyket Iframe
-                    const lyketUrl = `https://lyket.com/w/updown/schrijfsels/${story.id}?apiKey=pt_f4710b1a96a37346a7b9faedf0c733&template=reddit`;
-                    
+                    // We zetten de pure HTML klaar
                     likeContainer.innerHTML = `
-                        <iframe 
-                            src="${lyketUrl}" 
-                            style="width: 200px; height: 60px; border: none; overflow: hidden;"
-                            scrolling="no">
-                        </iframe>`;
+                        <div 
+                          data-lyket-type="updown" 
+                          data-lyket-id="${story.id}" 
+                          data-lyket-namespace="schrijfsels"
+                          data-lyket-template="reddit"
+                        ></div>
+                    `;
+
+                    // We forceren Lyket om de pagina opnieuw te scannen
+                    if (window.lyket) {
+                        window.lyket.reinit();
+                    }
                 }
 
                 if (window.CUSDIS) {
