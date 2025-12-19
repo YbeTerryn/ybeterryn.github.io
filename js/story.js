@@ -35,51 +35,50 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-     // Zoek dit gedeelte in je story.js en vervang het:
-const likeContainer = document.getElementById('like-container');
-if (likeContainer) {
-    likeContainer.innerHTML = `
-        <span class="likebtn-wrapper" 
-            data-identifier="${story.id}" 
-            data-theme="dark" 
-            data-lang="nl" 
-            data-ef_voting="grow" 
-            data-show_like_label="false"
-            data-dislike_enabled="false"
-            data-icon_l_c_v="#ffd166">
-        </span>
-    `;
+                // 3. LikeBtn Integratie (De verfijnde gouden look)
+                const likeContainer = document.getElementById('like-container');
+                if (likeContainer) {
+                    // Centrering en witruimte instellen
+                    likeContainer.style.textAlign = "center";
+                    likeContainer.style.margin = "30px 0";
 
-    // 3. LikeBtn Integratie (Verfijnde Look)
-const likeContainer = document.getElementById('like-container');
-if (likeContainer) {
-    // We centreren de container eerst
-    likeContainer.style.textAlign = "center";
-    likeContainer.style.margin = "30px 0";
+                    likeContainer.innerHTML = `
+                        <span class="likebtn-wrapper" 
+                            data-identifier="${story.id}" 
+                            data-theme="custom" 
+                            data-btn_size="32"
+                            data-f_size="16"
+                            data-icon_l="heart"
+                            data-icon_l_c="#ffd166" 
+                            data-icon_l_c_v="#ffd166"
+                            data-label_c="#ffd166"
+                            data-label_c_v="#ffd166"
+                            data-counter_l_c="#ffd166"
+                            data-bg_c="transparent"
+                            data-brdr_c="transparent"
+                            data-ef_voting="bounce"
+                            data-show_like_label="false"
+                            data-dislike_enabled="false"
+                            data-lang="nl">
+                        </span>
+                    `;
 
-    likeContainer.innerHTML = `
-        <span class="likebtn-wrapper" 
-            data-identifier="${story.id}" 
-            data-theme="custom" 
-            data-btn_size="32"
-            data-f_size="16"
-            data-icon_l="heart"
-            data-icon_l_c="#ffd166" 
-            data-icon_l_c_v="#ffd166"
-            data-label_c="#ffd166"
-            data-label_c_v="#ffd166"
-            data-counter_l_c="#ffd166"
-            data-bg_c="transparent"
-            data-brdr_c="transparent"
-            data-ef_voting="bounce"
-            data-show_like_label="false"
-            data-dislike_enabled="false"
-            data-lang="nl">
-        </span>
-    `;
+                    // Herinitialiseer de knop zodat hij verschijnt
+                    if (typeof LikeBtn !== 'undefined') {
+                        LikeBtn.init();
+                    }
+                }
 
-    // Herinitialiseer de knop
-    if (typeof LikeBtn !== 'undefined') {
-        LikeBtn.init();
+                // 4. Cusdis initialiseren (Reacties)
+                if (window.CUSDIS) {
+                    const cusdisThread = document.getElementById("cusdis_thread");
+                    if (cusdisThread) {
+                        cusdisThread.setAttribute("data-page-id", story.id);
+                        cusdisThread.setAttribute("data-page-title", story.title);
+                        window.CUSDIS.renderTo(cusdisThread);
+                    }
+                }
+            })
+            .catch(err => console.error("Fout bij laden:", err));
     }
-}
+});
