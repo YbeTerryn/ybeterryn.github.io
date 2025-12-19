@@ -35,16 +35,14 @@ window.addEventListener('load', () => {
 
 const likeContainer = document.getElementById('like-container');
 if (likeContainer) {
-    // Lyket verwacht de API key als een 'header' of specifiek onderdeel van de URL
-    // We gebruiken hier de meest stabiele opbouw voor hun API:
+    // Gebruik deze exacte URL-structuur zonder extra spaties
     const lyketUrl = `https://lyket.dev/api/widget/updown?apiKey=pt_f4710b1a96a37346a7b9faedf0c733&id=${story.id}&namespace=schrijfsels&template=reddit`;
     
     likeContainer.innerHTML = `
         <iframe 
             src="${lyketUrl}" 
-            style="width: 100%; height: 80px; border: none; overflow: hidden; display: block; margin: 0 auto;"
+            style="width: 100%; height: 80px; border: none; overflow: hidden; display: block; margin: 0 auto; background: transparent;"
             scrolling="no"
-            title="Lyket Widget"
         ></iframe>
     `;
 }
