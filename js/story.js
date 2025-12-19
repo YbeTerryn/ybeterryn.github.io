@@ -41,25 +41,25 @@ if (likeContainer) {
     likeContainer.style.textAlign = "center";
     likeContainer.style.margin = "40px 0";
 
-    // Zoek dit stukje in je story.js:
-likeContainer.innerHTML = `
-    <span class="likebtn-wrapper" 
-        data-identifier="${story.id}" 
-        data-theme="custom" 
-        data-icon_l="heart"
-        data-icon_l_c="#ffd166" 
-        data-icon_l_c_v="#ffd166"
-        data-label_c="#ffd166"
-        data-counter_l_c="#ffd166"
-        data-bg_c="transparent"
-        data-brdr_c="transparent"
-        data-ef_voting="bounce"
-        data-show_like_label="false"
-        data-dislike_enabled="false"
-        data-popup_disabled="true"
-        data-lang="nl">
-    </span>
-`;
+ // 3. LikeBtn Integratie (Basisversie)
+const likeContainer = document.getElementById('like-container');
+if (likeContainer) {
+    likeContainer.style.textAlign = "center";
+    likeContainer.style.margin = "40px 0";
+
+    // Alleen de noodzakelijke data, de rest doen we in het dashboard
+    likeContainer.innerHTML = `
+        <span class="likebtn-wrapper" 
+            data-identifier="${story.id}" 
+            data-lang="nl"
+            data-theme="dark">
+        </span>
+    `;
+
+    if (typeof LikeBtn !== 'undefined') {
+        LikeBtn.init();
+    }
+}
     // We wachten heel even (100ms) tot de HTML echt 'geland' is
     setTimeout(() => {
         if (typeof LikeBtn !== 'undefined') {
