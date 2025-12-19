@@ -444,17 +444,20 @@ nav a:hover { opacity: 0.8; }
         text-align: left;
     }
 }
-/* Zorg dat de container van de reacties meegroeit */
+/* --- Volledige Cusdis Fix --- */
+
+/* Zorg dat de container van de reacties meegroeit en geen balken toont */
 #cusdis_thread {
     width: 100%;
     min-height: 200px;
     display: block;
-    overflow: visible !important; /* Voorkom dat de container zaken afkapt */
+    overflow: visible !important;
 }
 
-/* Verwijder eventuele beperkingen op het iframe zelf */
+/* Verwijder de scrollbalk van de widget (het iframe) zelf */
 #cusdis_thread iframe {
     width: 100% !important;
+    height: 500px; /* Start-hoogte, wordt aangepast door het script */
     border: none !important;
-    overflow: hidden !important; /* De scrollbalk van het iframe zelf moet weg */
+    overflow: hidden !important; 
 }
