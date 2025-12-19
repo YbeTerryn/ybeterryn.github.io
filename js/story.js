@@ -57,17 +57,16 @@ window.addEventListener('load', () => {
                     setTimeout(activateLyket, 1000);
                 }
 
-              // --- CUSDIS INITIALISEREN ---
-const cusdisThread = document.getElementById("cusdis_thread");
-if (cusdisThread && window.CUSDIS) {
-    cusdisThread.setAttribute("data-page-id", story.id);
-    cusdisThread.setAttribute("data-page-title", story.title);
-    
-    // Voeg deze regels toe voor taal en thema:
-    cusdisThread.setAttribute("data-lang", "nl"); // Zet taal op Nederlands
-    cusdisThread.setAttribute("data-theme", "dark"); // Forceer donker thema
-    
-    window.CUSDIS.renderTo(cusdisThread);
+#cusdis_thread {
+    background-color: transparent !important; /* Neemt kleur van je site over */
+    color: #f5f5f5 !important;
+    min-height: 200px;
+    margin-top: 4rem;
+}
+
+/* Forceer de kleuren binnen de widget (indien mogelijk) */
+#cusdis_thread iframe {
+    color-scheme: dark; /* Vertelt de browser dat de inhoud donker is */
 }
             .catch(err => console.error("Fout bij het laden van het verhaal:", err));
     }
