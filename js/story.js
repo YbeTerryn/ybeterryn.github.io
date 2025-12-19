@@ -33,24 +33,24 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-                // --- LIKES INITIALISEREN ---
-                const container = document.getElementById("like-container");
-                if (container) {
-                    container.innerHTML = `<div 
-                        data-lyket-type="updown" 
-                        data-lyket-id="${story.id}" 
-                        data-lyket-namespace="verhalen"
-                        data-lyket-color-primary="#ffd166"
-                    ></div>`;
-                    
-                    const activateLyket = () => {
-                        if (window.lyket) {
-                            window.lyket.reinit();
-                        }
-                    };
-                    activateLyket();
-                    setTimeout(activateLyket, 1000);
-                }
+              const likeContainer = document.getElementById('like-container');
+if (likeContainer) {
+    // We maken de HTML voor de Lyket-knop aan
+    likeContainer.innerHTML = `
+        <div 
+          data-lyket-type="updown" 
+          data-lyket-id="${story.id}" 
+          data-lyket-namespace="schrijfsels"
+          style="display: flex; justify-content: center;"
+        ></div>
+    `;
+
+    // DIT IS DE CRUCIALE STAP:
+    // Omdat de pagina niet ververst, moeten we Lyket handmatig herstarten
+    if (window.lyket) {
+        window.lyket.reinit();
+    }
+}
 
                 // --- CUSDIS INITIALISEREN ---
                 const cusdisThread = document.getElementById("cusdis_thread");
