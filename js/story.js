@@ -10,23 +10,19 @@ window.addEventListener('load', () => {
     const story = allStories.find(s => s.id === storyId);
 
     if (story) {
-        // We halen het tekstbestand op
         fetch(story.text)
             .then(res => res.text())
             .then(htmlContent => {
                 const textContainer = document.getElementById("text-container");
                 const titleElement = document.getElementById("story-title");
 
-                // Titel aanpassen (voor bezoeker en Google)
                 if (titleElement) {
                     titleElement.innerText = story.title;
                     document.title = `${story.title} | Ybe Terryn - Offers voor Sesjat`;
                 }
 
-                // De tekst zelf plaatsen
                 if (textContainer) {
                     let formattedContent = htmlContent;
-                    // Als er geen HTML in de tekst staat, maken we er paragrafen van
                     if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
                         formattedContent = htmlContent
                             .split('\n')
@@ -52,26 +48,21 @@ window.addEventListener('load', () => {
                             window.lyket.reinit();
                         }
                     };
-
                     activateLyket();
                     setTimeout(activateLyket, 1000);
                 }
 
-// --- CUSDIS INITIALISEREN ---
-const cusdisThread = document.getElementById("cusdis_thread");
-if (cusdisThread && window.CUSDIS) {
-    // Verwijder oude inhoud om dubbele widgets te voorkomen
-    cusdisThread.innerHTML = ''; 
-
-    // Stel de eigenschappen in
-    cusdisThread.setAttribute("data-page-id", story.id);
-    cusdisThread.setAttribute("data-page-title", story.title);
-    cusdisThread.setAttribute("data-lang", "nl"); // Nederlands
-    cusdisThread.setAttribute("data-theme", "dark"); // Donker thema
-    
-    // Initialiseer de widget
-    window.CUSDIS.renderTo(cusdisThread);
-}
-    .catch(err => console.error("Fout bij het laden van het verhaal:", err));
+                // --- CUSDIS INITIALISEREN ---
+                const cusdisThread = document.getElementById("cusdis_thread");
+                if (cusdisThread && window.CUSDIS) {
+                    cusdisThread.innerHTML = ''; 
+                    cusdisThread.setAttribute("data-page-id", story.id);
+                    cusdisThread.setAttribute("data-page-title", story.title);
+                    cusdisThread.setAttribute("data-lang", "nl");
+                    cusdisThread.setAttribute("data-theme", "dark");
+                    window.CUSDIS.renderTo(cusdisThread);
+                }
+            }) // <--- Dit haakje ontbrak
+            .catch(err => console.error("Fout bij het laden van het verhaal:", err));
     }
 });
