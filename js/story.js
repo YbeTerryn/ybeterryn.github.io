@@ -60,8 +60,6 @@ likeContainer.innerHTML = `
         data-lang="nl">
     </span>
 `;
-    `;
-
     // We wachten heel even (100ms) tot de HTML echt 'geland' is
     setTimeout(() => {
         if (typeof LikeBtn !== 'undefined') {
