@@ -46,6 +46,13 @@
     fetch('nav.html').then(res => res.text()).then(data => {
         document.getElementById('main-nav').innerHTML = data;
     });
+
+    // Forceer de taalinstelling van Cusdis bij het laden
+    window.addEventListener('load', function() {
+        if (window.CUSDIS) {
+            window.CUSDIS.renderTo(document.getElementById('cusdis_thread'));
+        }
+    });
 </script>
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
