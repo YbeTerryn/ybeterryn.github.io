@@ -52,21 +52,21 @@
 <script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_f4710b1a96a37346a7b9faedf0c733"></script>
 
 <script>
-    // 1. Navigatie laden
+    // Navigatie en Cusdis instellingen
     fetch('nav.html').then(res => res.text()).then(data => {
         document.getElementById('main-nav').innerHTML = data;
     });
-
-    // 2. Forceer Nederlandse taal voor Cusdis
     window.cusdis_lang = 'nl';
 
-    // 3. Lyket Herstarten (voor de zekerheid als fallback)
-    setTimeout(() => {
-        if (window.lyket) {
-            window.lyket.reinit();
-            console.log("Lyket handmatig ververst");
-        }
-    }, 500);
+    // Lyket dwingen om te scannen nadat de pagina rustig is
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            if (window.lyket) {
+                window.lyket.reinit();
+                console.log("Lyket handmatig geactiveerd");
+            }
+        }, 1000); // We geven het even de tijd
+    });
 </script>
 
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
