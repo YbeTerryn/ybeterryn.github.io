@@ -22,7 +22,7 @@
         <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
             Laat weten wat je ervan vond!
         </p>
-        <div id="like-container"></div>
+        <div id="like-container" style="min-height: 80px; display: flex; justify-content: center; align-items: center;"></div>
     </div>
 
 <section class="reader-feedback" style="margin-bottom: 50px;">
@@ -50,27 +50,17 @@
 <script src="js/story.js"></script>
 
 <script>
-    // 1. Navigatie laden
-    fetch('nav.html').then(res => res.text()).then(data => {
-        document.getElementById('main-nav').innerHTML = data;
-    });
+    // Navigatie laden
+    fetch('nav.html')
+        .then(res => res.text())
+        .then(data => {
+            const nav = document.getElementById('main-nav');
+            if (nav) nav.innerHTML = data;
+        });
 
-    // 2. Cusdis instellingen
     window.cusdis_lang = 'nl';
 </script>
 
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-
-<script>
-  // 3. Cusdis hoogte automatisch aanpassen
-  window.addEventListener('message', (e) => {
-    if (e.data && e.data.type === 'cusdis:update-height') {
-      const iframe = document.querySelector('#cusdis_thread iframe');
-      if (iframe) {
-        iframe.style.height = e.data.data + 'px';
-      }
-    }
-  });
-</script>
 </body>
 </html>
