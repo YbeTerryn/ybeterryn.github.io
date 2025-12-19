@@ -231,6 +231,11 @@ nav a.donate {
   background: rgba(0, 0, 0, 0.15); /* Subtiele schaduw achter de tekstkolom */
   border-radius: 8px;
 }
+#text-container, #text-container p {
+    font-size: 1.2rem !important;
+    line-height: 1.85 !important;
+    font-family: Georgia, serif !important;
+}
 /* ===== 1. VARIABELEN & BASIS ===== */
 :root {
   --bg-color-1: #0b132b;
