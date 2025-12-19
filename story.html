@@ -28,7 +28,7 @@
 <section class="reader-feedback" style="margin-bottom: 50px;">
     <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
     <p style="color: #f5f5f5; font-size: 0.9rem; font-style: italic; margin-bottom: 20px; opacity: 0.8;">
-        Je kunt anoniem reageren. Vul simpelweg een naam in, een account is niet nodig. Panikeer niet als deze niet onmiddelijk verschijnt om een overspoeiling van bots tegen te gaan, worden reacties eerst computationeel approved. Dit kan even duren. 
+        Je kunt anoniem reageren. Vul simpelweg een naam in, een account is niet nodig. Reacties worden eerst goedgekeurd om bots tegen te gaan.
     </p>
 
     <div id="cusdis_thread" 
@@ -50,16 +50,19 @@
 <script src="js/story.js"></script>
 
 <script>
-    // Navigatie en Cusdis instellingen
+    // 1. Navigatie laden
     fetch('nav.html').then(res => res.text()).then(data => {
         document.getElementById('main-nav').innerHTML = data;
     });
+
+    // 2. Cusdis instellingen
     window.cusdis_lang = 'nl';
+</script>
 
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
 <script>
-  // Cusdis hoogte automatisch aanpassen
+  // 3. Cusdis hoogte automatisch aanpassen
   window.addEventListener('message', (e) => {
     if (e.data && e.data.type === 'cusdis:update-height') {
       const iframe = document.querySelector('#cusdis_thread iframe');
