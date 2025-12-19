@@ -16,13 +16,11 @@ window.addEventListener('load', () => {
                 const textContainer = document.getElementById("text-container");
                 const titleElement = document.getElementById("story-title");
 
-                // 1. Titel instellen
                 if (titleElement) {
                     titleElement.innerText = story.title;
                     document.title = `${story.title} | Pieter Paul Tybbe`;
                 }
 
-                // 2. Tekst plaatsen
                 if (textContainer) {
                     let formattedContent = htmlContent;
                     if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
@@ -35,22 +33,29 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-                // 3. Lyket Iframe (De Fix)
+                // LYKET IFRAME FIX
                 const likeContainer = document.getElementById('like-container');
                 if (likeContainer) {
-                    const lyketUrl = `https://lyket.dev/api/widget/updown?apiKey=pt_f4710b1a96a37346a7b9faedf0c733&id=${story.id}&namespace=schrijfsels&template=reddit`;
+                    // Nieuwe URL structuur voor Lyket Iframe
+                    const lyketUrl = `https://lyket.com/w/updown/schrijfsels/${story.id}?apiKey=pt_f4710b1a96a37346a7b9faedf0c733&template=reddit`;
                     
-                    likeContainer.innerHTML = `<iframe src="${lyketUrl}" style="width: 100%; height: 80px; border: none; overflow: hidden; display: block; margin: 0 auto; background: transparent;" scrolling="no" title="Lyket Widget"></iframe>`;
+                    likeContainer.innerHTML = `
+                        <iframe 
+                            src="${lyketUrl}" 
+                            style="width: 200px; height: 60px; border: none; overflow: hidden;"
+                            scrolling="no">
+                        </iframe>`;
                 }
 
-                // 4. Cusdis initialiseren
                 if (window.CUSDIS) {
                     const cusdisThread = document.getElementById("cusdis_thread");
-                    cusdisThread.setAttribute("data-page-id", story.id);
-                    cusdisThread.setAttribute("data-page-title", story.title);
-                    window.CUSDIS.renderTo(cusdisThread);
+                    if (cusdisThread) {
+                        cusdisThread.setAttribute("data-page-id", story.id);
+                        cusdisThread.setAttribute("data-page-title", story.title);
+                        window.CUSDIS.renderTo(cusdisThread);
+                    }
                 }
             })
-            .catch(err => console.error("Fout bij het laden:", err));
+            .catch(err => console.error("Fout bij laden:", err));
     }
 });
