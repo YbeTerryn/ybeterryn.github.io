@@ -35,24 +35,17 @@ window.addEventListener('load', () => {
 
 const likeContainer = document.getElementById('like-container');
 if (likeContainer) {
-    // We vullen de container met de benodigde data-attributen
+    // We maken een directe link naar de Lyket-server voor dit verhaal
+    // De 'updown' is voor de pijltjes, 'reddit' is de stijl
+    const lyketUrl = `https://lyket.dev/api/widget/updown/schrijfsels/${story.id}?apiKey=pt_f4710b1a96a37346a7b9faedf0c733&template=reddit`;
+    
     likeContainer.innerHTML = `
-        <div 
-          data-lyket-type="updown" 
-          data-lyket-id="${story.id}" 
-          data-lyket-namespace="schrijfsels"
-          data-lyket-template="reddit"
-          style="display: flex; justify-content: center;"
-        ></div>
+        <iframe 
+            src="${lyketUrl}" 
+            style="width: 100%; height: 80px; border: none; overflow: hidden; display: block; margin: 0 auto;"
+            scrolling="no"
+        ></iframe>
     `;
-
-    // Belangrijk: Geef Lyket de opdracht om de nieuwe div te transformeren naar pijltjes
-    setTimeout(() => {
-        if (window.lyket) {
-            window.lyket.reinit();
-            console.log("Lyket knop geactiveerd voor:", story.id);
-        }
-    }, 200); // Iets langere vertraging voor stabiliteit
 }
 
                 // --- CUSDIS INITIALISEREN ---
