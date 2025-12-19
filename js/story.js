@@ -16,11 +16,13 @@ window.addEventListener('load', () => {
                 const textContainer = document.getElementById("text-container");
                 const titleElement = document.getElementById("story-title");
 
+                // 1. Titel instellen
                 if (titleElement) {
                     titleElement.innerText = story.title;
                     document.title = `${story.title} | Pieter Paul Tybbe`;
                 }
 
+                // 2. Tekst formatteren
                 if (textContainer) {
                     let formattedContent = htmlContent;
                     if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
@@ -33,25 +35,20 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-                // --- LYKET RESET EN HERSTART ---
+                // 3. Virtueel Applaus (De betrouwbare vervanger voor Lyket)
                 const likeContainer = document.getElementById('like-container');
                 if (likeContainer) {
-                    // We zetten de pure HTML klaar
                     likeContainer.innerHTML = `
-                        <div 
-                          data-lyket-type="updown" 
-                          data-lyket-id="${story.id}" 
-                          data-lyket-namespace="schrijfsels"
-                          data-lyket-template="reddit"
-                        ></div>
+                        <div style="margin-top: 20px;">
+                            <a href="mailto:ybeterryn@gmail.com?subject=Applaus voor: ${story.title}" 
+                               style="text-decoration: none; font-size: 1.2rem; border: 1px solid #ffd166; padding: 12px 24px; border-radius: 5px; color: #ffd166; display: inline-block; font-variant: small-caps;">
+                               👏 Geef een virtueel applaus
+                            </a>
+                        </div>
                     `;
-
-                    // We forceren Lyket om de pagina opnieuw te scannen
-                    if (window.lyket) {
-                        window.lyket.reinit();
-                    }
                 }
 
+                // 4. Cusdis initialiseren (Nu als hoofd-interactie)
                 if (window.CUSDIS) {
                     const cusdisThread = document.getElementById("cusdis_thread");
                     if (cusdisThread) {
