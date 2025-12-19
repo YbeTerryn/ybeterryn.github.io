@@ -41,11 +41,13 @@ if (likeContainer) {
     likeContainer.style.margin = "40px 0";
 
     // Hier gebruiken we jouw unieke Site ID uit het screenshot
-    likeContainer.innerHTML = `
+likeContainer.innerHTML = `
         <span class="likebtn-wrapper" 
             data-theme="custom" 
             data-site_id="694569886fd08bbc6273e42b" 
             data-identifier="${story.id}" 
+            data-btn_size="48" 
+            data-f_size="20"
             data-icon_l="hrt6" 
             data-icon_l_c="#ffd166" 
             data-icon_l_c_v="#fbae05"
