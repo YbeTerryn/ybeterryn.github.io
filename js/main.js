@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
                     <h4>${latest.title}</h4>
                     <p>${latest.description || 'Ontdek het volgend verhaal.'}</p>
                     <a href="story.html?id=${latest.id}" class="read-more-btn">
-                        Lees→
+                        LEES
                     </a>
                 </div>
             `;
