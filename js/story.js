@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-              const likeContainer = document.getElementById('like-container');
+const likeContainer = document.getElementById('like-container');
 if (likeContainer) {
     // We maken de HTML voor de Lyket-knop aan
     likeContainer.innerHTML = `
@@ -41,15 +41,18 @@ if (likeContainer) {
           data-lyket-type="updown" 
           data-lyket-id="${story.id}" 
           data-lyket-namespace="schrijfsels"
+          data-lyket-template="reddit"
           style="display: flex; justify-content: center;"
         ></div>
     `;
 
-    // DIT IS DE CRUCIALE STAP:
-    // Omdat de pagina niet ververst, moeten we Lyket handmatig herstarten
-    if (window.lyket) {
-        window.lyket.reinit();
-    }
+    // We herstarten Lyket met een mini-vertraging voor de zekerheid
+    setTimeout(() => {
+        if (window.lyket) {
+            window.lyket.reinit();
+            console.log("Lyket knop geactiveerd voor:", story.id);
+        }
+    }, 100);
 }
 
                 // --- CUSDIS INITIALISEREN ---
