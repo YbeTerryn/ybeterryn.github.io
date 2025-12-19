@@ -63,6 +63,15 @@
 </script>
 
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-
+<script>
+  window.addEventListener('message', (e) => {
+    if (e.data && e.data.type === 'cusdis:update-height') {
+      const iframe = document.querySelector('#cusdis_thread iframe');
+      if (iframe) {
+        iframe.style.height = e.data.data + 'px';
+      }
+    }
+  });
+</script>
 </body>
 </html>
