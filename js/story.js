@@ -35,39 +35,38 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-       // 3. LikeBtn Integratie (Verbeterde versie)
 const likeContainer = document.getElementById('like-container');
 if (likeContainer) {
     likeContainer.style.textAlign = "center";
     likeContainer.style.margin = "40px 0";
 
- // 3. LikeBtn Integratie (Basisversie)
-const likeContainer = document.getElementById('like-container');
-if (likeContainer) {
-    likeContainer.style.textAlign = "center";
-    likeContainer.style.margin = "40px 0";
-
-    // Alleen de noodzakelijke data, de rest doen we in het dashboard
+    // Hier gebruiken we jouw unieke Site ID uit het screenshot
     likeContainer.innerHTML = `
         <span class="likebtn-wrapper" 
+            data-theme="custom" 
+            data-site_id="694569886fd08bbc6273e42b" 
             data-identifier="${story.id}" 
-            data-lang="nl"
-            data-theme="dark">
+            data-icon_l="hrt6" 
+            data-icon_l_c="#ffd166" 
+            data-icon_l_c_v="#fbae05"
+            data-label_c="#ffd166"
+            data-counter_l_c="#ffd166"
+            data-bg_c="transparent"
+            data-brdr_c="transparent"
+            data-show_like_label="false"
+            data-dislike_enabled="false"
+            data-popup_disabled="true"
+            data-lang="nl">
         </span>
     `;
 
-    if (typeof LikeBtn !== 'undefined') {
-        LikeBtn.init();
-    }
-}
-    // We wachten heel even (100ms) tot de HTML echt 'geland' is
+    // Activeer de knop na een korte vertraging
     setTimeout(() => {
         if (typeof LikeBtn !== 'undefined') {
             LikeBtn.init();
         }
-    }, 100);
+    }, 200);
 }
-
                 // 4. Cusdis initialiseren (Reacties)
                 if (window.CUSDIS) {
                     const cusdisThread = document.getElementById("cusdis_thread");
