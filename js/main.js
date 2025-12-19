@@ -1,54 +1,50 @@
 window.addEventListener('load', () => {
-    // 1. Alle bronnen veilig samenvoegen
-    // We voegen een 'type' toe zodat we later weten of het een review is of een verhaal
-    const alleItems = [
-        ...(typeof stories !== 'undefined' ? stories.map(s => ({...s, type: 'offer'})) : []),
-        ...(typeof archiveStories !== 'undefined' ? archiveStories.map(s => ({...s, type: 'archive'})) : []),
-        ...(typeof reviewStories !== 'undefined' ? reviewStories.map(r => ({...r, type: 'review'})) : [])
-    ];
-
-    if (alleItems.length > 0) {
-        // 2. Het ALLERLAATSTE item uit je stories.js is de highlight
-        const latest = alleItems[alleItems.length - 1];
-        
+    // 1. De Highlight: Altijd het laatste item uit 'stories'
+    if (typeof stories !== 'undefined' && stories.length > 0) {
+        const latestOffer = stories[stories.length - 1];
         const featuredContainer = document.getElementById('featured-container');
+        
         if (featuredContainer) {
-            // Bepaal de link: externe link voor reviews, interne link voor de rest
-            const link = latest.type === 'review' ? latest.link : `story.html?id=${latest.id}`;
-            const target = latest.type === 'review' ? 'target="_blank"' : '';
-
             featuredContainer.innerHTML = `
                 <div class="featured-card">
-                    <span class="new-label">${latest.type === 'review' ? 'NIEUWSTE REVIEW' : 'NIEUWSTE OFFER'}</span>
-                    <h4>${latest.title}</h4>
-                    <p>${latest.director || latest.description || 'Ontdek mijn nieuwste toevoeging.'}</p>
-                    <a href="${link}" ${target} class="read-more-btn">
-                        ${latest.type === 'review' ? 'BEKIJK OP ' + latest.platform.toUpperCase() : 'LEES VERHAAL'}
-                    </a>
+                    <span class="new-label">NIEUWSTE OFFER</span>
+                    <h4>${latestOffer.title}</h4>
+                    <p>${latestOffer.description || 'Ontdek het nieuwste offer voor Sesjat.'}</p>
+                    <a href="story.html?id=${latestOffer.id}" class="read-more-btn">LEES</a>
                 </div>
             `;
         }
+    }
 
-        // 3. De lijst met eerdere toevoegingen (de 10 items vòòr de highlight)
-        const updatesContainer = document.getElementById('updates-list-container');
-        if (updatesContainer) {
-            const overigeItems = [...alleItems].slice(0, -1).reverse(); 
+    // 2. De Lijst: Een mix van ALLES (behalve het highlight-verhaal)
+    const updatesContainer = document.getElementById('updates-list-container');
+    if (updatesContainer) {
+        // We voegen alles samen en markeren het type
+        const mixedItems = [
+            ...(typeof stories !== 'undefined' ? stories.slice(0, -1).map(s => ({...s, type: 'offer'})) : []),
+            ...(typeof archiveStories !== 'undefined' ? archiveStories.map(s => ({...s, type: 'archief'})) : []),
+            ...(typeof reviewStories !== 'undefined' ? reviewStories.map(r => ({...r, type: 'review'})) : [])
+        ];
+
+        // We draaien de lijst om (nieuwste toevoegingen eerst)
+        // Let op: 'reverse' werkt hier op de volgorde waarin ze in je script staan
+        const listToShow = mixedItems.reverse().slice(0, 10);
+
+        updatesContainer.innerHTML = listToShow.map(item => {
+            const isReview = item.type === 'review';
+            const link = isReview ? item.link : `story.html?id=${item.id}`;
+            const target = isReview ? 'target="_blank"' : '';
+            const icoon = isReview ? '★' : '•';
             
-            updatesContainer.innerHTML = overigeItems.slice(0, 10).map(item => {
-                const link = item.type === 'review' ? item.link : `story.html?id=${item.id}`;
-                const target = item.type === 'review' ? 'target="_blank"' : '';
-                const icoon = item.type === 'review' ? '★' : '•';
-                
-                return `
-                    <div class="update-item" style="margin-bottom: 10px;">
-                        <a href="${link}" ${target} style="text-decoration: none; color: inherit;">
-                            <span class="bullet" style="color: #ffd166; margin-right: 8px;">${icoon}</span> 
-                            ${item.title} 
-                            <small style="color: #666; margin-left: 5px;">(${item.type})</small>
-                        </a>
-                    </div>
-                `;
-            }).join('');
-        }
+            return `
+                <div class="update-item" style="margin-bottom: 12px;">
+                    <a href="${link}" ${target} style="text-decoration: none; color: inherit; display: block;">
+                        <span class="bullet" style="color: #ffd166; margin-right: 10px;">${icoon}</span>
+                        <span style="font-size: 1.05rem;">${item.title}</span>
+                        <span style="color: #666; font-size: 0.8rem; margin-left: 8px; text-transform: uppercase;">[${item.type}]</span>
+                    </a>
+                </div>
+            `;
+        }).join('');
     }
 });
