@@ -9,30 +9,32 @@ window.addEventListener('load', () => {
     
     const story = allStories.find(s => s.id === storyId);
 
-   // ... in het .then(htmlContent => { blok ...
+    if (story) {
+        // We halen het tekstbestand op
+        fetch(story.text)
+            .then(res => res.text())
+            .then(htmlContent => {
+                const textContainer = document.getElementById("text-container");
+                const titleElement = document.getElementById("story-title");
 
-const textContainer = document.getElementById("text-container");
-const titleElement = document.getElementById("story-title");
+                // Titel aanpassen (voor bezoeker en Google)
+                if (titleElement) {
+                    titleElement.innerText = story.title;
+                    document.title = `${story.title} | Ybe Terryn - Offers voor Sesjat`;
+                }
 
-if (titleElement) {
-    titleElement.innerText = story.title;
-    
-    // VOEG DEZE REGEL HIER TOE:
-    document.title = `${story.title} | Ybe Terryn - Offers voor Sesjat`;
-}
-
-if (textContainer) {
-    let formattedContent = htmlContent;
-    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-        formattedContent = htmlContent
-            .split('\n')
-            .filter(line => line.trim() !== '')
-            .map(line => `<p>${line}</p>`)
-            .join('');
-    }
-    textContainer.innerHTML = formattedContent;
-                    //textContainer.style.fontSize = "1.15rem"; 
-                    //textContainer.style.lineHeight = "1.7";
+                // De tekst zelf plaatsen
+                if (textContainer) {
+                    let formattedContent = htmlContent;
+                    // Als er geen HTML in de tekst staat, maken we er paragrafen van
+                    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+                        formattedContent = htmlContent
+                            .split('\n')
+                            .filter(line => line.trim() !== '')
+                            .map(line => `<p>${line}</p>`)
+                            .join('');
+                    }
+                    textContainer.innerHTML = formattedContent;
                 }
 
                 // --- LIKES INITIALISEREN ---
@@ -45,22 +47,17 @@ if (textContainer) {
                         data-lyket-color-primary="#ffd166"
                     ></div>`;
                     
-                    // Definieer de functie om de knop te activeren
                     const activateLyket = () => {
                         if (window.lyket) {
                             window.lyket.reinit();
-                            console.log("Lyket succesvol geïnitialiseerd voor: " + story.id);
                         }
                     };
 
-                    // Probeer het meteen...
                     activateLyket();
-
-                    // ...en probeer het nog een keer na 1 seconde voor trage verbindingen
                     setTimeout(activateLyket, 1000);
                 }
 
-                // Initialiseer Cusdis
+                // --- CUSDIS INITIALISEREN ---
                 const cusdisThread = document.getElementById("cusdis_thread");
                 if (cusdisThread && window.CUSDIS) {
                     cusdisThread.setAttribute("data-page-id", story.id);
