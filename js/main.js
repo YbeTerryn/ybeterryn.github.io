@@ -9,7 +9,7 @@ window.addEventListener('load', () => {
                 <div class="featured-card">
                     <span class="new-label">NIEUWSTE OFFER</span>
                     <h4>${latestOffer.title}</h4>
-                    <p>${latestOffer.description || 'Ontdek het nieuwste offer voor Sesjat.'}</p>
+                    <p>${latestOffer.description || 'Ontdek het nieuwste verhaal in de raamvertelling'}</p>
                     <a href="story.html?id=${latestOffer.id}" class="read-more-btn">LEES</a>
                 </div>
             `;
