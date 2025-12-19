@@ -444,3 +444,17 @@ nav a:hover { opacity: 0.8; }
         text-align: left;
     }
 }
+/* Zorg dat de container van de reacties meegroeit */
+#cusdis_thread {
+    width: 100%;
+    min-height: 200px;
+    display: block;
+    overflow: visible !important; /* Voorkom dat de container zaken afkapt */
+}
+
+/* Verwijder eventuele beperkingen op het iframe zelf */
+#cusdis_thread iframe {
+    width: 100% !important;
+    border: none !important;
+    overflow: hidden !important; /* De scrollbalk van het iframe zelf moet weg */
+}
