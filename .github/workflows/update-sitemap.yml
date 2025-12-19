@@ -1,0 +1,33 @@
+name: Update Sitemap
+
+on:
+  push:
+    paths:
+      - 'stories.js' # Het script start alleen als stories.js verandert
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Generate sitemap
+        run: |
+          echo "https://ybeterryn.be/index.html" > sitemap.txt
+          echo "https://ybeterryn.be/offers.html" >> sitemap.txt
+          echo "https://ybeterryn.be/bio.html" >> sitemap.txt
+          echo "https://ybeterryn.be/theater.html" >> sitemap.txt
+          echo "https://ybeterryn.be/archief.html" >> sitemap.txt
+          
+          # Haal alle id's uit stories.js en maak er links van
+          grep -oP 'id:\s*"\K[^"]+' stories.js | while read -r id ; do
+            echo "https://ybeterryn.be/reader.html?id=$id" >> sitemap.txt
+          done
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add sitemap.txt
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automated sitemap update" && git push)
