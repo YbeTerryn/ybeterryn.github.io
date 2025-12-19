@@ -35,7 +35,7 @@ window.addEventListener('load', () => {
 
 const likeContainer = document.getElementById('like-container');
 if (likeContainer) {
-    // We maken de HTML voor de Lyket-knop aan
+    // We vullen de container met de benodigde data-attributen
     likeContainer.innerHTML = `
         <div 
           data-lyket-type="updown" 
@@ -46,13 +46,13 @@ if (likeContainer) {
         ></div>
     `;
 
-    // We herstarten Lyket met een mini-vertraging voor de zekerheid
+    // Belangrijk: Geef Lyket de opdracht om de nieuwe div te transformeren naar pijltjes
     setTimeout(() => {
         if (window.lyket) {
             window.lyket.reinit();
             console.log("Lyket knop geactiveerd voor:", story.id);
         }
-    }, 100);
+    }, 200); // Iets langere vertraging voor stabiliteit
 }
 
                 // --- CUSDIS INITIALISEREN ---
