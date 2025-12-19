@@ -35,39 +35,38 @@ window.addEventListener('load', () => {
                     textContainer.innerHTML = formattedContent;
                 }
 
-                // 3. LikeBtn Integratie (De verfijnde gouden look)
-                const likeContainer = document.getElementById('like-container');
-                if (likeContainer) {
-                    // Centrering en witruimte instellen
-                    likeContainer.style.textAlign = "center";
-                    likeContainer.style.margin = "30px 0";
+       // 3. LikeBtn Integratie (Verbeterde versie)
+const likeContainer = document.getElementById('like-container');
+if (likeContainer) {
+    likeContainer.style.textAlign = "center";
+    likeContainer.style.margin = "40px 0";
 
-                    likeContainer.innerHTML = `
-                        <span class="likebtn-wrapper" 
-                            data-identifier="${story.id}" 
-                            data-theme="custom" 
-                            data-btn_size="32"
-                            data-f_size="16"
-                            data-icon_l="heart"
-                            data-icon_l_c="#ffd166" 
-                            data-icon_l_c_v="#ffd166"
-                            data-label_c="#ffd166"
-                            data-label_c_v="#ffd166"
-                            data-counter_l_c="#ffd166"
-                            data-bg_c="transparent"
-                            data-brdr_c="transparent"
-                            data-ef_voting="bounce"
-                            data-show_like_label="false"
-                            data-dislike_enabled="false"
-                            data-lang="nl">
-                        </span>
-                    `;
+    likeContainer.innerHTML = `
+        <span class="likebtn-wrapper" 
+            data-identifier="${story.id}" 
+            data-theme="dark" 
+            data-icon_l="heart"
+            data-icon_l_c="#ffd166" 
+            data-icon_l_c_v="#ffd166"
+            data-label_c="#ffd166"
+            data-counter_l_c="#ffd166"
+            data-bg_c="transparent"
+            data-brdr_c="transparent"
+            data-ef_voting="bounce"
+            data-show_like_label="false"
+            data-dislike_enabled="false"
+            data-popup_disabled="true"
+            data-lang="nl">
+        </span>
+    `;
 
-                    // Herinitialiseer de knop zodat hij verschijnt
-                    if (typeof LikeBtn !== 'undefined') {
-                        LikeBtn.init();
-                    }
-                }
+    // We wachten heel even (100ms) tot de HTML echt 'geland' is
+    setTimeout(() => {
+        if (typeof LikeBtn !== 'undefined') {
+            LikeBtn.init();
+        }
+    }, 100);
+}
 
                 // 4. Cusdis initialiseren (Reacties)
                 if (window.CUSDIS) {
