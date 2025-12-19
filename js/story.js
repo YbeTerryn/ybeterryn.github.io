@@ -57,14 +57,18 @@ window.addEventListener('load', () => {
                     setTimeout(activateLyket, 1000);
                 }
 
-                // --- CUSDIS INITIALISEREN ---
-                const cusdisThread = document.getElementById("cusdis_thread");
-                if (cusdisThread && window.CUSDIS) {
-                    cusdisThread.setAttribute("data-page-id", story.id);
-                    cusdisThread.setAttribute("data-page-title", story.title);
-                    window.CUSDIS.renderTo(cusdisThread);
-                }
-            })
+              // --- CUSDIS INITIALISEREN ---
+const cusdisThread = document.getElementById("cusdis_thread");
+if (cusdisThread && window.CUSDIS) {
+    cusdisThread.setAttribute("data-page-id", story.id);
+    cusdisThread.setAttribute("data-page-title", story.title);
+    
+    // Voeg deze regels toe voor taal en thema:
+    cusdisThread.setAttribute("data-lang", "nl"); // Zet taal op Nederlands
+    cusdisThread.setAttribute("data-theme", "dark"); // Forceer donker thema
+    
+    window.CUSDIS.renderTo(cusdisThread);
+}
             .catch(err => console.error("Fout bij het laden van het verhaal:", err));
     }
 });
