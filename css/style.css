@@ -11,6 +11,17 @@ a {
   color: #ffd166;
   text-decoration: none;
 }
+#cusdis_thread {
+    /* De achtergrondkleur van de widget */
+    --cusdis-bg-color: #0b132b; 
+    /* De tekstkleur */
+    --cusdis-text-color: #f5f5f5;
+    /* De kleur van de verzendknop en links (jouw goudkleur) */
+    --cusdis-primary-color: #ffd166;
+    margin-top: 50px;
+    padding: 20px;
+    border-top: 1px solid rgba(255, 209, 102, 0.2);
+}
 
 /* ===== NAVIGATIE ===== */
 header#main-header {
