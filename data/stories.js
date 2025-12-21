@@ -184,6 +184,14 @@ const reviewStories = [
     platform: "letterboxd"
   },
   {
+    title: "Nulpunt",
+    year: "2025",
+    director: "Day Lernout",
+    image: "Draft/nulpunt.jpg",
+    link: "https://app.thestorygraph.com/reviews/2f7806f3-312c-4e36-913c-a31d1da4ad4c",
+    platform: "storygraph"
+  },
+  {
     title: "Les Baronnes",
     year: "2025",
     director: "Nabil Ben Yadir",
