@@ -203,7 +203,7 @@ const reviewStories = [
     title: "Resurrection",
     year: "2025",
     director: "Bi Gan",
-    image: "Draft/resurrection.jpg",
+    image: "Draft/Resurrection.jpg",
     link: "https://letterboxd.com/pieterpaultybbe/film/resurrection-2025/",
     platform: "letterboxd"
   },
