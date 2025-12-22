@@ -141,6 +141,14 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-last-viking-2025/",
     platform: "letterboxd"
   },
+    {
+    title: "The Texas Chain Saw Massacre",
+    year: "1974",
+    director: "Tobe Hooper",
+    image: "Draft/texas.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-texas-chain-saw-massacre/",
+    platform: "letterboxd"
+  },
   {
    title: "Grand Hotel Europa",
     year: "2018",
