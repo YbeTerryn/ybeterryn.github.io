@@ -15,49 +15,56 @@ const archiveStories = [
     id: "archief-02",
     title: "De nacht is duisternis",
     image: "Draft/archief.jpg",
-    date: "2020",
+    date: "Proza",
     text: "texts/duisternis.html" 
   },
     {
     id: "archief-05",
     title: "Kanker",
     image: "Draft/archief.jpg",
-    date: "2021",
+    date: "Proza",
     text: "texts/Kanker.html" 
+  },
+     {
+    id: "archief-09",
+    title: "One Night Stand",
+    image: "Draft/archief.jpg",
+    date: "Proza",
+    text: "texts/onenightstand.html" 
   },
    {
     id: "archief-03",
     title: "Ik wil alles",
     image: "Draft/archief.jpg",
-    date: "2022",
+    date: "Poëzie",
     text: "texts/Ik_wil_alles.html" 
   },
      {
     id: "archief-07",
     title: "Over de verloren wijs van het lijdend onderwerp",
     image: "Draft/archief.jpg",
-    date: "2023",
+    date: "Proza",
     text: "texts/verloren_wijs.html" 
   },
      {
     id: "archief-06",
     title: "Muziek",
     image: "Draft/archief.jpg",
-    date: "2024",
+    date: "Poëzie",
     text: "texts/muziek.html" 
   },
    {
     id: "archief-08",
     title: "De Menselijke Geest Belichaamd",
     image: "Draft/archief.jpg",
-    date: "2024",
+    date: "Proza",
     text: "texts/menselijkegeest.html" 
   },
      {
     id: "archief-04",
     title: "Wintertijd",
     image: "Draft/archief.jpg",
-    date: "2023",
+    date: "Proza",
     text: "texts/wintertijd.html" 
   },
  
@@ -65,7 +72,7 @@ const archiveStories = [
     id: "archief-01",
     title: "Drie gebroken principes",
     image: "Draft/archief.jpg",
-    date: "2023",
+    date: "Proza",
     text: "texts/Drie-gebroken-principes.html" 
   }
 ];
