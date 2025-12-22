@@ -254,7 +254,7 @@ const reviewStories = [
   },
   {
     title: "Glass Onion",
-    year: "2002",
+    year: "2022",
     director: "Rian Johnson",
     image: "Draft/onion.jpg",
     link: "https://letterboxd.com/pieterpaultybbe/film/glass-onion/",
