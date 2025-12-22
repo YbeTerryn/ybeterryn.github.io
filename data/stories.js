@@ -32,6 +32,13 @@ const archiveStories = [
     date: "Proza",
     text: "texts/onenightstand.html" 
   },
+    {
+    id: "archief-11",
+    title: "Het Zijn",
+    image: "Draft/archief.jpg",
+    date: "Poëzie",
+    text: "texts/zijn.html" 
+  },
    {
     id: "archief-03",
     title: "Ik wil alles",
