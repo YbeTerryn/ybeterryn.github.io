@@ -39,6 +39,13 @@ const archiveStories = [
     date: "Poëzie",
     text: "texts/Ik_wil_alles.html" 
   },
+   {
+    id: "archief-10",
+    title: "Twee Zijden van een Bank",
+    image: "Draft/archief.jpg",
+    date: "Dialoog",
+    text: "texts/bank.html" 
+  },
      {
     id: "archief-07",
     title: "Over de verloren wijs van het lijdend onderwerp",
