@@ -238,4 +238,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/resurrection-2025/",
     platform: "letterboxd"
   },
+  {
+    title: "Glass Onion",
+    year: "2002",
+    director: "Rian Johnson",
+    image: "Draft/onion.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/glass-onion/",
+    platform: "letterboxd"
+  },
 ];
