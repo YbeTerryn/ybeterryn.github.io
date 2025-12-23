@@ -260,4 +260,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/glass-onion/",
     platform: "letterboxd"
   },
+    {
+    title: "The Holiday",
+    year: "2025",
+    director: "Nancy Meyers",
+    image: "Draft/holiday.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-holiday/",
+    platform: "letterboxd"
+  },
 ];
