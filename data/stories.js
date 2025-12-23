@@ -262,7 +262,7 @@ const reviewStories = [
   },
     {
     title: "The Holiday",
-    year: "2025",
+    year: "2006",
     director: "Nancy Meyers",
     image: "Draft/holiday.jpg",
     link: "https://letterboxd.com/pieterpaultybbe/film/the-holiday/",
