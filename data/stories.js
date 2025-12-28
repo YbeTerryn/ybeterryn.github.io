@@ -268,4 +268,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-holiday/",
     platform: "letterboxd"
   },
+    {
+    title: "Holy Motors",
+    year: "2012",
+    director: "Leos Carax",
+    image: "Draft/motors.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/holy-motors/",
+    platform: "letterboxd"
+  },
 ];
