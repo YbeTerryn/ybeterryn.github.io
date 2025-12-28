@@ -276,4 +276,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/holy-motors/",
     platform: "letterboxd"
   },
+      {
+    title: "L'Engloutie",
+    year: "2025",
+    director: "Louise Hémon",
+    image: "Draft/engloutie.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-girl-in-the-snow-2025/",
+    platform: "letterboxd"
+  },
 ];
