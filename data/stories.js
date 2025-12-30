@@ -284,4 +284,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-girl-in-the-snow-2025/",
     platform: "letterboxd"
   },
+        {
+    title: "Martyrs",
+    year: "2008",
+    director: "Pascal Laugier",
+    image: "Draft/martyrs.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/martyrs/",
+    platform: "letterboxd"
+  },
 ];
