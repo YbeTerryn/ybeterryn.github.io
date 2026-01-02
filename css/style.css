@@ -510,3 +510,26 @@ nav a:hover { opacity: 0.8; }
     color: #ffd166;
     margin-right: 10px;
 }
+.filter-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid #E9B824; /* Jouw goudcode */
+    color: #E9B824;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: #E9B824;
+    color: #0B132B; /* Jouw diepblauw */
+}
