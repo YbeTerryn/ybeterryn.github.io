@@ -47,34 +47,46 @@
 window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
+    const filterButtons = document.querySelectorAll('.filter-btn');
 
     let currentList = [];
     const pageTitle = document.title;
     
+    // 1. Verzamel de juiste data op basis van de pagina
     if (pageTitle.includes("Offers")) {
-        currentList = stories;
+        currentList = typeof stories !== 'undefined' ? stories : [];
     } else if (pageTitle.includes("Archief")) {
-        currentList = archiveStories;
+        currentList = typeof archiveStories !== 'undefined' ? archiveStories : [];
     } else if (pageTitle.includes("Reviews")) {
-        currentList = reviewStories;
+        // Zorg dat reviewStories gedefinieerd is in je data-bestanden
+        currentList = typeof reviewStories !== 'undefined' ? reviewStories : [];
     }
 
-    function render(filter = "") {
-        container.innerHTML = "";
-        const searchTerm = filter.toLowerCase();
+    // 2. Filterstatus bijhouden (standaard alles tonen)
+    let selectedPlatform = "all";
 
+    function render() {
+        if (!container) return;
+        container.innerHTML = "";
+        
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
+
+        // 3. Filteren op platform EN op zoekterm
         const filtered = currentList.filter(item => {
-            return item.title.toLowerCase().includes(searchTerm) || 
-                   (item.year && item.year.toString().includes(searchTerm)) ||
-                   (item.director && item.director.toLowerCase().includes(searchTerm)) ||
-                   (item.date && item.date.toLowerCase().includes(searchTerm));
+            const matchesSearch = item.title.toLowerCase().includes(searchTerm) || 
+                                 (item.year && item.year.toString().includes(searchTerm)) ||
+                                 (item.director && item.director.toLowerCase().includes(searchTerm));
+            
+            const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
+
+            return matchesSearch && matchesPlatform;
         });
 
+        // 4. De kaartjes tekenen (in omgekeerde volgorde voor nieuwste bovenaan)
         filtered.slice().reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
             
-            // --- NIEUW: LOGICA VOOR ICOONTJES ---
             let iconHtml = "";
             if (item.platform === "letterboxd") {
                 iconHtml = '<i class="fab fa-letterboxd"></i> ';
@@ -85,9 +97,6 @@ window.addEventListener('DOMContentLoaded', () => {
             const isExternal = !!item.link;
             const link = isExternal ? item.link : `story.html?id=${item.id}`;
             const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
-            const buttonClass = isExternal ? 'read-link letterboxd-link' : 'read-link';
-            
-            // Voeg iconHtml toe aan de knoptekst
             const buttonText = isExternal ? `${iconHtml}LEES` : 'LEES';
 
             card.innerHTML = `
@@ -97,7 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         <h2>${item.title}</h2>
                         <p class="meta">${item.year || item.date || ""}</p>
                         ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" ${target} class="${buttonClass}">${buttonText}</a>
+                        <a href="${link}" ${target} class="read-link">${buttonText}</a>
                     </div>
                 </div>
             `;
@@ -109,19 +118,24 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // 5. Event listeners voor de filterknoppen
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            selectedPlatform = e.target.getAttribute('data-filter');
+            render();
+        });
+    });
+
+    // 6. Event listener voor de zoekbalk
     if (searchInput) {
-        searchInput.addEventListener('input', (e) => render(e.target.value));
+        searchInput.addEventListener('input', render);
     }
 
+    // 7. Eerste keer laden
     render();
 });
-</script>
-
-<script>
-  fetch('nav.html').then(res => res.text()).then(data => {
-    document.getElementById('main-nav').innerHTML = data;
-  });
-</script>
 
 </body>
 </html>
