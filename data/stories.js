@@ -300,4 +300,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/f-for-fake/",
     platform: "letterboxd"
   },
+            {
+    title: "PlayTime",
+    year: "1967",
+    director: "Jacques Tati",
+    image: "Draft/playtime.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/playtime/",
+    platform: "letterboxd"
+  },
 ];
