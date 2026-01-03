@@ -308,4 +308,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/playtime/",
     platform: "letterboxd"
   },
+      {
+    title: "De Dag Van De Nachtschade",
+    year: "2000",
+    director: "Jean-Pierre van Rossem",
+    image: "Draft/nachtschade.jpg",
+    link: "https://app.thestorygraph.com/reviews/1c61fb08-b0cd-45e0-888f-13fe9dcb5f98",
+    platform: "storygraph"
+  },
 ];
