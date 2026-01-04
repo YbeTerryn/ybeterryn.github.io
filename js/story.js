@@ -1,57 +1,75 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const container = document.getElementById("archive-container") || 
-                      document.getElementById("reviews-container") || 
-                      document.getElementById("main-container");
+window.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById("main-container");
+    const searchInput = document.getElementById("searchInput");
+    const filterButtons = document.querySelectorAll('.filter-btn');
 
-    if (!container) {
-        console.error("Fout: Geen container gevonden om de kaarten in te plaatsen.");
-        return;
+    let currentList = [];
+    const pageTitle = document.title;
+    
+    // 1. Selecteer de JUISTE lijst op basis van de pagina waar je bent
+    if (pageTitle.includes("Offers")) {
+        currentList = typeof stories !== 'undefined' ? stories : [];
+    } else if (pageTitle.includes("Archief")) {
+        currentList = typeof archiveStories !== 'undefined' ? archiveStories : [];
+    } else if (pageTitle.includes("Reviews")) {
+        // Belangrijk: we kijken of reviewStories bestaat, anders vallen we terug op stories
+        currentList = typeof reviewStories !== 'undefined' ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
     }
 
-    // Verzamelen van alle data uit de verschillende lijsten
-    let allItems = [];
-    if (typeof stories !== 'undefined') allItems = [...allItems, ...stories];
-    if (typeof archiveStories !== 'undefined') allItems = [...allItems, ...archiveStories];
-    if (typeof reviewStories !== 'undefined') allItems = [...allItems, ...reviewStories];
+    let activePlatform = "all";
 
-    // Functie om de items te tonen (met filter optie)
-    function displayItems(filterValue = "all") {
-        container.innerHTML = ""; // Leeg de container
+    function render() {
+        if (!container) return;
+        container.innerHTML = "";
+        
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
 
-        const filteredItems = allItems.filter(item => {
-            if (filterValue === "all") return true;
-            return item.platform === filterValue;
+        // 2. Filter op platform EN zoekterm tegelijk
+        const filtered = currentList.filter(item => {
+            const title = item.title ? item.title.toLowerCase() : "";
+            const director = item.director ? item.director.toLowerCase() : "";
+            const year = item.year ? item.year.toString() : "";
+
+            const matchesSearch = title.includes(searchTerm) || 
+                                 director.includes(searchTerm) || 
+                                 year.includes(searchTerm);
+            
+            const matchesPlatform = (activePlatform === "all" || item.platform === activePlatform);
+
+            return matchesSearch && matchesPlatform;
         });
 
-        if (filteredItems.length === 0) {
-            container.innerHTML = "<p>Geen resultaten gevonden voor deze categorie.</p>";
+        // 3. Toon de resultaten (nieuwste bovenaan)
+        if (filtered.length === 0) {
+            container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
             return;
         }
 
-        filteredItems.forEach(story => {
+        [...filtered].reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
-
-            // Icoon bepalen op basis van platform
+            
             let iconHtml = "";
-            if (story.platform === "letterboxd") {
+            if (item.platform === "letterboxd") {
                 iconHtml = '<i class="fab fa-letterboxd"></i> ';
-            } else if (story.platform === "storygraph") {
+            } else if (item.platform === "storygraph") {
                 iconHtml = '<i class="fas fa-book-open"></i> ';
             }
-
-            const linkUrl = story.link || `story.html?id=${story.id}`;
-            const isExternal = story.link ? 'target="_blank"' : '';
+            
+            const isExternal = !!item.link;
+            const link = isExternal ? item.link : `story.html?id=${item.id}`;
+            const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+            // Gebruik LEES ↗ voor externe links, en gewoon LEES voor interne
+            const buttonText = isExternal ? `${iconHtml}LEES ↗` : 'LEES';
 
             card.innerHTML = `
                 <div class="card-content">
-                    <img src="${story.image}" alt="${story.title}" class="card-image">
+                    <img src="${item.image}" alt="${item.title}" class="card-image">
                     <div class="card-text">
-                        <h2>${story.title}</h2>
-                        <p class="meta">${story.year || ''} ${story.director ? '— ' + story.director : ''}</p>
-                        <a href="${linkUrl}" class="read-link" ${isExternal}>
-                            ${iconHtml}LEES ↗
-                        </a>
+                        <h2>${item.title}</h2>
+                        <p class="meta">${item.year || item.date || ""}</p>
+                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+                        <a href="${link}" ${target} class="read-link">${buttonText}</a>
                     </div>
                 </div>
             `;
@@ -59,20 +77,21 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Koppel de klik-event aan de knoppen
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => {
+    // 4. Koppel de filterknoppen
+    filterButtons.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Verwijder 'active' klasse van alle knoppen en voeg toe aan de geklikte
-            buttons.forEach(b => b.classList.remove('active'));
+            filterButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-
-            // Haal de filterwaarde op en voer de functie uit
-            const filter = this.getAttribute('data-filter');
-            displayItems(filter);
+            activePlatform = this.getAttribute('data-filter');
+            render();
         });
     });
 
-    // Toon alle items bij het laden van de pagina
-    displayItems();
+    // 5. Koppel de zoekbalk
+    if (searchInput) {
+        searchInput.addEventListener('input', render);
+    }
+
+    // Initieel uitvoeren
+    render();
 });
