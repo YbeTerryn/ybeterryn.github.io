@@ -5,6 +5,13 @@ const stories = [
     image: "Draft/Sesjat.jpg",
     date: "Prélude",
     text: "texts/prelude.html" // Dit klopt, want op GitHub is dit ook kleine letters
+  },
+    {
+    id: "Offer 01",
+    title: "Heden ben ik Monogaam",
+    image: "Draft/Sesjat.jpg",
+    date: "Offer 01",
+    text: "texts/hedenbenikmonogaam.html" // Dit klopt, want op GitHub is dit ook kleine letters
   }
 ];
 
