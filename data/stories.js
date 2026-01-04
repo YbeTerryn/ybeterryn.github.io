@@ -323,4 +323,12 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/1c61fb08-b0cd-45e0-888f-13fe9dcb5f98",
     platform: "storygraph"
   },
+                    {
+    title: "Carrie",
+    year: "1976",
+    director: "Brian De Palma",
+    image: "Draft/carrie.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/carrie-1976/",
+    platform: "letterboxd"
+  },
 ];
