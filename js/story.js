@@ -1,67 +1,99 @@
-document.addEventListener("DOMContentLoaded", function() {
+window.addEventListener('load', () => {
     const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+    const storyId = params.get("id");
 
-    if (!id) {
-        document.getElementById("text-container").innerHTML = "<p>Geen ID gevonden in de URL.</p>";
-        return;
-    }
-
-    // 1. Verzamel alle data die op dit moment in het geheugen zit
-    let allData = [];
+    // Zoek in ALLE drie de lijsten
+    const allStories = [
+        ...(typeof stories !== 'undefined' ? stories : []), 
+        ...(typeof archiveStories !== 'undefined' ? archiveStories : []),
+        ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
+    ];
     
-    if (typeof stories !== 'undefined') {
-        allData = allData.concat(stories);
-    }
-    if (typeof archiveStories !== 'undefined') {
-        allData = allData.concat(archiveStories);
-    }
-    if (typeof reviewStories !== 'undefined') {
-        allData = allData.concat(reviewStories);
-    }
+    const story = allStories.find(s => s.id === storyId);
 
-    // 2. Zoek het verhaal
-    const story = allData.find(s => s.id === id);
-
-    if (!story) {
-        // Als het niet gevonden wordt, toon dan wat we wél hebben voor debugging
-        console.log("Gezocht ID:", id);
-        console.log("Beschikbare data:", allData);
-        document.getElementById("text-container").innerHTML = `
-            <p>Schrijfsel niet gevonden.</p>
-            <p style="font-size: 0.8rem; color: gray;">Gezocht naar ID: ${id}</p>
-        `;
-        return;
-    }
-
-    // 3. Vul de pagina elementen
-    const titleEl = document.getElementById("story-title");
-    const imageEl = document.getElementById("story-image");
-    const textContainer = document.getElementById("text-container");
-
-    if (titleEl) titleEl.innerText = story.title;
-    if (imageEl) {
-        imageEl.src = story.image;
-        imageEl.alt = story.title;
-    }
-
-    // 4. Haal de tekst op
-    if (story.text) {
+    if (story) {
         fetch(story.text)
-            .then(response => {
-                if (!response.ok) throw new Error("Bestand kon niet worden opgehaald (404)");
-                return response.text();
+            .then(res => {
+                if (!res.ok) throw new Error("Bestand niet gevonden");
+                return res.text();
             })
-            .then(html => {
-                textContainer.innerHTML = html;
-                
-                // Optioneel: Cusdis herladen
+            .then(htmlContent => {
+                const textContainer = document.getElementById("text-container");
+                const titleElement = document.getElementById("story-title");
+                const imageElement = document.getElementById("story-image");
+
+                // 1. Titel en Afbeelding instellen
+                if (titleElement) {
+                    titleElement.innerText = story.title;
+                    document.title = `${story.title} | Pieter Paul Tybbe`;
+                }
+                if (imageElement && story.image) {
+                    imageElement.src = story.image;
+                    imageElement.alt = story.title;
+                }
+
+                // 2. Tekst formatteren (behandelt zowel kale tekst als HTML)
+                if (textContainer) {
+                    let formattedContent = htmlContent;
+                    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+                        formattedContent = htmlContent
+                            .split('\n')
+                            .filter(line => line.trim() !== '')
+                            .map(line => `<p>${line}</p>`)
+                            .join('');
+                    }
+                    textContainer.innerHTML = formattedContent;
+                }
+
+                // 3. Like-knop herstellen
+                const likeContainer = document.getElementById('like-container');
+                if (likeContainer) {
+                    likeContainer.style.textAlign = "center";
+                    likeContainer.style.margin = "40px 0";
+                    likeContainer.innerHTML = `
+                        <span class="likebtn-wrapper" 
+                            data-theme="custom" 
+                            data-site_id="694569886fd08bbc6273e42b" 
+                            data-identifier="${story.id}" 
+                            data-btn_size="56" 
+                            data-f_size="20"
+                            data-icon_l="hrt6" 
+                            data-icon_l_c="#ffd166" 
+                            data-icon_l_c_v="#fbae05"
+                            data-label_c="#ffd166"
+                            data-counter_l_c="#ffd166"
+                            data-bg_c="transparent"
+                            data-brdr_c="transparent"
+                            data-show_like_label="false"
+                            data-dislike_enabled="false"
+                            data-popup_disabled="true"
+                            data-lang="nl">
+                        </span>
+                    `;
+
+                    // Belangrijk: De LikeBtn widget herladen
+                    setTimeout(() => {
+                        if (typeof LikeBtn !== 'undefined') {
+                            LikeBtn.init();
+                        }
+                    }, 200);
+                }
+
+                // 4. Cusdis initialiseren (Reacties)
                 if (window.CUSDIS) {
-                    window.CUSDIS.renderTo(document.getElementById("cusdis_thread"));
+                    const cusdisThread = document.getElementById("cusdis_thread");
+                    if (cusdisThread) {
+                        cusdisThread.setAttribute("data-page-id", story.id);
+                        cusdisThread.setAttribute("data-page-title", story.title);
+                        window.CUSDIS.renderTo(cusdisThread);
+                    }
                 }
             })
-            .catch(error => {
-                textContainer.innerHTML = `<p>Fout bij laden: ${error.message}</p>`;
+            .catch(err => {
+                console.error("Fout bij laden:", err);
+                document.getElementById("text-container").innerHTML = "<p>Kon het verhaal niet laden.</p>";
             });
+    } else {
+        document.getElementById("text-container").innerHTML = "<p>Schrijfsel niet gevonden.</p>";
     }
 });
