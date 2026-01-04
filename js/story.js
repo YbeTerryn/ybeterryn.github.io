@@ -1,97 +1,67 @@
-window.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById("main-container");
-    const searchInput = document.getElementById("searchInput");
-    const filterButtons = document.querySelectorAll('.filter-btn');
+document.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
-    let currentList = [];
-    const pageTitle = document.title;
+    if (!id) {
+        document.getElementById("text-container").innerHTML = "<p>Geen ID gevonden in de URL.</p>";
+        return;
+    }
+
+    // 1. Verzamel alle data die op dit moment in het geheugen zit
+    let allData = [];
     
-    // 1. Selecteer de JUISTE lijst op basis van de pagina waar je bent
-    if (pageTitle.includes("Offers")) {
-        currentList = typeof stories !== 'undefined' ? stories : [];
-    } else if (pageTitle.includes("Archief")) {
-        currentList = typeof archiveStories !== 'undefined' ? archiveStories : [];
-    } else if (pageTitle.includes("Reviews")) {
-        // Belangrijk: we kijken of reviewStories bestaat, anders vallen we terug op stories
-        currentList = typeof reviewStories !== 'undefined' ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
+    if (typeof stories !== 'undefined') {
+        allData = allData.concat(stories);
+    }
+    if (typeof archiveStories !== 'undefined') {
+        allData = allData.concat(archiveStories);
+    }
+    if (typeof reviewStories !== 'undefined') {
+        allData = allData.concat(reviewStories);
     }
 
-    let activePlatform = "all";
+    // 2. Zoek het verhaal
+    const story = allData.find(s => s.id === id);
 
-    function render() {
-        if (!container) return;
-        container.innerHTML = "";
-        
-        const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
-
-        // 2. Filter op platform EN zoekterm tegelijk
-        const filtered = currentList.filter(item => {
-            const title = item.title ? item.title.toLowerCase() : "";
-            const director = item.director ? item.director.toLowerCase() : "";
-            const year = item.year ? item.year.toString() : "";
-
-            const matchesSearch = title.includes(searchTerm) || 
-                                 director.includes(searchTerm) || 
-                                 year.includes(searchTerm);
-            
-            const matchesPlatform = (activePlatform === "all" || item.platform === activePlatform);
-
-            return matchesSearch && matchesPlatform;
-        });
-
-        // 3. Toon de resultaten (nieuwste bovenaan)
-        if (filtered.length === 0) {
-            container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
-            return;
-        }
-
-        [...filtered].reverse().forEach(item => {
-            const card = document.createElement("article");
-            card.className = "card";
-            
-            let iconHtml = "";
-            if (item.platform === "letterboxd") {
-                iconHtml = '<i class="fab fa-letterboxd"></i> ';
-            } else if (item.platform === "storygraph") {
-                iconHtml = '<i class="fas fa-book-open"></i> ';
-            }
-            
-            const isExternal = !!item.link;
-            const link = isExternal ? item.link : `story.html?id=${item.id}`;
-            const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
-            // Gebruik LEES ↗ voor externe links, en gewoon LEES voor interne
-            const buttonText = isExternal ? `${iconHtml}LEES ↗` : 'LEES';
-
-            card.innerHTML = `
-                <div class="card-content">
-                    <img src="${item.image}" alt="${item.title}" class="card-image">
-                    <div class="card-text">
-                        <h2>${item.title}</h2>
-                        <p class="meta">${item.year || item.date || ""}</p>
-                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" ${target} class="read-link">${buttonText}</a>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
+    if (!story) {
+        // Als het niet gevonden wordt, toon dan wat we wél hebben voor debugging
+        console.log("Gezocht ID:", id);
+        console.log("Beschikbare data:", allData);
+        document.getElementById("text-container").innerHTML = `
+            <p>Schrijfsel niet gevonden.</p>
+            <p style="font-size: 0.8rem; color: gray;">Gezocht naar ID: ${id}</p>
+        `;
+        return;
     }
 
-    // 4. Koppel de filterknoppen
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            activePlatform = this.getAttribute('data-filter');
-            render();
-        });
-    });
+    // 3. Vul de pagina elementen
+    const titleEl = document.getElementById("story-title");
+    const imageEl = document.getElementById("story-image");
+    const textContainer = document.getElementById("text-container");
 
-    // 5. Koppel de zoekbalk
-    if (searchInput) {
-        searchInput.addEventListener('input', render);
+    if (titleEl) titleEl.innerText = story.title;
+    if (imageEl) {
+        imageEl.src = story.image;
+        imageEl.alt = story.title;
     }
 
-    // Initieel uitvoeren
-    render();
+    // 4. Haal de tekst op
+    if (story.text) {
+        fetch(story.text)
+            .then(response => {
+                if (!response.ok) throw new Error("Bestand kon niet worden opgehaald (404)");
+                return response.text();
+            })
+            .then(html => {
+                textContainer.innerHTML = html;
+                
+                // Optioneel: Cusdis herladen
+                if (window.CUSDIS) {
+                    window.CUSDIS.renderTo(document.getElementById("cusdis_thread"));
+                }
+            })
+            .catch(error => {
+                textContainer.innerHTML = `<p>Fout bij laden: ${error.message}</p>`;
+            });
+    }
 });
