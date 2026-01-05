@@ -331,4 +331,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/carrie-1976/",
     platform: "letterboxd"
   },
+                      {
+    title: "Total Recall",
+    year: "1990",
+    director: "Paul Verhoeven",
+    image: "Draft/totalrecall.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/total-recall/",
+    platform: "letterboxd"
+  },
 ];
