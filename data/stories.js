@@ -347,4 +347,12 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/1bbaa85f-4b00-43e6-9f9b-9c7a4757b264",
     platform: "storygraph"
   },
+                        {
+    title: "The Chronology of Water",
+    year: "2025",
+    director: "Kristen Stewart",
+    image: "Draft/chronology.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-chronology-of-water/",
+    platform: "letterboxd"
+  },
 ];
