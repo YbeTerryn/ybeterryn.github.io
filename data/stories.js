@@ -370,5 +370,13 @@ const reviewStories = [
     image: "Draft/inconnu.jpg",
     link: "https://letterboxd.com/pieterpaultybbe/film/code-unknown/",
     platform: "letterboxd"
+  },
+                              {
+    title: "Rio Bravo",
+    year: "1959",
+    director: "Howard Hawks",
+    image: "Draft/riobravo.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/rio-bravo/",
+    platform: "letterboxd"
   }
 ];
