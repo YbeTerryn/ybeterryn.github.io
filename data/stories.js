@@ -387,4 +387,12 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/bd1428e9-4244-4d29-969d-87cc66ef9f70",
     platform: "storygraph"
   },
+                                {
+    title: "The Terminator",
+    year: "1984",
+    director: "James Cameron",
+    image: "Draft/terminator.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-terminator/",
+    platform: "letterboxd"
+  },
 ];
