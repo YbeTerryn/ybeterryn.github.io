@@ -403,4 +403,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/terminator-2-judgment-day/",
     platform: "letterboxd"
   },
+                                    {
+    title: "Left-Handed Girl",
+    year: "2025",
+    director: "Shih-Ching Tsou",
+    image: "Draft/lefthandedgirl.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/left-handed-girl/",
+    platform: "letterboxd"
+  },
 ];
