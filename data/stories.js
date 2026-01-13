@@ -395,4 +395,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-terminator/",
     platform: "letterboxd"
   },
+                                  {
+    title: "Terminator 2: Judgment Day",
+    year: "1991",
+    director: "James Cameron",
+    image: "Draft/terminator2.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/terminator-2-judgment-day/",
+    platform: "letterboxd"
+  },
 ];
