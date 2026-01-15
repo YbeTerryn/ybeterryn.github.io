@@ -419,4 +419,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/sound-of-falling/",
     platform: "letterboxd"
   },
+            {
+    title: "Vertrouwelijke gesprekken",
+    year: "1996",
+    director: "Ingmar Bergman",
+    image: "Draft/vertrouwelijkegesprekken.jpg",
+    link: "https://app.thestorygraph.com/reviews/9611171a-5031-4b0a-91a2-d7873a692938",
+    platform: "storygraph"
+  },
 ];
