@@ -411,4 +411,12 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/left-handed-girl/",
     platform: "letterboxd"
   },
+                                      {
+    title: "In die Sonne Schauen",
+    year: "2025",
+    director: "Mascha Schilinski",
+    image: "Draft/sonneschauen.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/sound-of-falling/",
+    platform: "letterboxd"
+  },
 ];
