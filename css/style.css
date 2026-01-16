@@ -533,3 +533,40 @@ nav a:hover { opacity: 0.8; }
     background: #E9B824;
     color: #0B132B; /* Jouw diepblauw */
 }
+/* Styling voor de sterren-rating passend bij het thema */
+.rating {
+    color: #ebbb2d; /* Het goudgeel van je knoppen */
+    margin: 8px 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    letter-spacing: 1px; /* Past bij de klassieke stijl van je knoppen */
+}
+
+/* De gevulde sterren en halve sterren krijgen de goudgele kleur */
+.rating .fas.fa-star, 
+.rating .fas.fa-star-half-alt {
+    color: #ebbb2d;
+}
+
+/* De lege sterren kunnen iets subtieler, bijvoorbeeld met een lagere opacity */
+.rating .far.fa-star {
+    color: #ebbb2d;
+    opacity: 0.4;
+}
+
+/* Het getal naast de sterren */
+.rating-number {
+    font-size: 0.75rem;
+    color: #ebbb2d;
+    margin-left: 8px;
+    opacity: 0.8;
+    font-family: serif; /* Past bij het lettertype van je knoppen */
+    font-style: italic;
+}
+
+/* Ruimte boven de meta-data (jaar/regisseur) */
+.meta {
+    margin-top: 4px;
+}
