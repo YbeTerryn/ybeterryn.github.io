@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Reviews - Pieter Paul Tybbe</title> 
-    <link rel="stylesheet" href="css/style.css"> </head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
   
 <header id="main-header">
@@ -44,7 +45,6 @@ window.addEventListener('DOMContentLoaded', () => {
     let currentList = [];
     const pageTitle = document.title;
     
-    // 1. Data selectie uit stories.js
     if (typeof stories !== 'undefined') {
         currentList = stories; 
     }
@@ -57,24 +57,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let selectedPlatform = "all";
 
-    // Functie om sterren te berekenen op basis van een cijfer (bijv. 3.25 of 4.5)
+    // Functie voor sterren met strenge afronding (0.50 pas halve ster, 0.95 pas volle ster)
     function getStarsHtml(rating) {
         if (!rating) return "";
         let stars = '<div class="rating">';
         
         for (let i = 1; i <= 5; i++) {
-            // Logica voor 0.25 stappen
-            if (rating >= i - 0.1) {
-                // Volle ster
+            let diff = rating - (i - 1);
+
+            if (diff >= 0.95) { 
+                // Volle ster (bijv. 3.0, 4.0 of 3.95)
                 stars += '<i class="fas fa-star"></i>';
-            } else if (rating >= i - 0.35) {
-                // 0.75 wordt visueel een volle ster
-                stars += '<i class="fas fa-star"></i>';
-            } else if (rating >= i - 0.85) {
-                // 0.25 en 0.50 worden visueel een halve ster
+            } else if (diff >= 0.50) { 
+                // Halve ster pas vanaf 0.50 (dus 2.50 en 2.75 tonen een halve ster)
                 stars += '<i class="fas fa-star-half-alt"></i>';
             } else {
-                // Lager dan 0.25 wordt een lege ster
+                // 0.25 en lager blijft een lege ster
                 stars += '<i class="far fa-star"></i>';
             }
         }
@@ -99,7 +97,6 @@ window.addEventListener('DOMContentLoaded', () => {
             return matchesSearch && matchesPlatform;
         });
 
-        // Draai de lijst om (nieuwste eerst)
         [...filtered].reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
@@ -136,7 +133,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Filter event listeners
     filterButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             filterButtons.forEach(b => b.classList.remove('active'));
@@ -146,7 +142,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Search event listener
     if (searchInput) {
         searchInput.addEventListener('input', render);
     }
@@ -156,7 +151,6 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-  // Navigatie inladen
   fetch('nav.html').then(res => res.text()).then(data => {
     const nav = document.getElementById('main-nav');
     if(nav) nav.innerHTML = data;
