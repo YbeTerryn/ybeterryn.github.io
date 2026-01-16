@@ -550,10 +550,9 @@ nav a:hover { opacity: 0.8; }
     color: #ebbb2d;
 }
 
-/* De lege sterren kunnen iets subtieler, bijvoorbeeld met een lagere opacity */
 .rating .far.fa-star {
     color: #ebbb2d;
-    opacity: 0.4;
+    opacity: 0.25; /* Iets transparanter zodat de focus op de gevulde sterren ligt */
 }
 
 /* Het getal naast de sterren */
