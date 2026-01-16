@@ -427,4 +427,12 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/9611171a-5031-4b0a-91a2-d7873a692938",
     platform: "storygraph"
   },
+                                        {
+    title: "Blue Moon",
+    year: "2025",
+    director: "Richard Linklater",
+    image: "Draft/bluemoon.jpg",
+    link: "https://letterboxd.com/pieterpaultybbe/film/blue-moon-2025/",
+    platform: "letterboxd"
+  },
 ];
