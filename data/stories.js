@@ -476,4 +476,13 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/blue-moon-2025/",
     platform: "letterboxd"
   },
+   { 
+    title: "The Blair Witch Project",
+    year: "1999",
+    director: "Daniel Myrick, Eduardo Sánchez",
+    image: "Draft/blairwitchproject.jpg",
+    rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-blair-witch-project/",
+    platform: "letterboxd"
+  },
 ];
