@@ -485,4 +485,13 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-blair-witch-project/",
     platform: "letterboxd"
   },
+     { 
+    title: "Amadeus",
+    year: "1984",
+    director: "Miloš Forman",
+    image: "Draft/amadeus.jpg",
+    rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/amadeus/",
+    platform: "letterboxd"
+  },
 ];
