@@ -494,4 +494,13 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/amadeus/",
     platform: "letterboxd"
   },
+       { 
+    title: "Blade Runner",
+    year: "1982",
+    director: "Ridley Scott",
+    image: "Draft/bladerunner.jpg",
+    rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/blade-runner/",
+    platform: "letterboxd"
+  },
 ];
