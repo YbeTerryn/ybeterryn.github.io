@@ -503,4 +503,14 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/blade-runner/",
     platform: "letterboxd"
   },
+              {
+    title: "The Sublime Object of Ideology",
+    year: "1989",
+    director: "Slavoj Žižek",
+    image: "Draft/sublimeobject.jpg",
+    rating: 4.5,
+    link: "https://app.thestorygraph.com/reviews/1e81262e-ffc1-417d-a2ff-cd24002f9852",
+    platform: "storygraph"
+  },
+      
 ];
