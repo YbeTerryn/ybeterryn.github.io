@@ -521,5 +521,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/wake-up-dead-man/",
     platform: "letterboxd"
   },
+                  {
+    title: "Fuori",
+    year: "2025",
+    director: "Mario Martone",
+    image: "Draft/fuori.jpg",
+    rating: 3,
+    link: "https://letterboxd.com/pieterpaultybbe/film/fuori-2025/",
+    platform: "letterboxd"
+  },
+      
       
 ];
