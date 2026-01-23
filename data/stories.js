@@ -512,5 +512,14 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/1e81262e-ffc1-417d-a2ff-cd24002f9852",
     platform: "storygraph"
   },
+                {
+    title: "Wake Up Dead Man",
+    year: "2025",
+    director: "Rian Johnson",
+    image: "Draft/wakeupdeadman.jpg",
+    rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/wake-up-dead-man/",
+    platform: "letterboxd"
+  },
       
 ];
