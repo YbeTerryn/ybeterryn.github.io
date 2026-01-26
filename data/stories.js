@@ -548,6 +548,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/blade-runner-2049/",
     platform: "letterboxd"
   },
+                      {
+    title: "Hamnet",
+    year: "2025",
+    director: "Chloé Zhao",
+    image: "Draft/hamnet.jpg",
+    rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/hamnet/",
+    platform: "letterboxd"
+  },
       
       
 ];
