@@ -530,6 +530,24 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/fuori-2025/",
     platform: "letterboxd"
   },
+                    {
+    title: "Vie Privée",
+    year: "2025",
+    director: "Rebecca Zlotowski",
+    image: "Draft/vieprivée.jpg",
+    rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/a-private-life-2025/",
+    platform: "letterboxd"
+  },
+                    {
+    title: "Blade Runner 2049",
+    year: "2017",
+    director: "Denis Villeneuve",
+    image: "Draft/bladerunner2049.jpg",
+    rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/blade-runner-2049/",
+    platform: "letterboxd"
+  },
       
       
 ];
