@@ -7,17 +7,17 @@ const stories = [
     text: "texts/prelude.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
     {
-    id: "Offer 01",
+    id: "Offer 1",
     title: "Heden ben ik Monogaam",
     image: "Draft/Sesjat.jpg",
-    date: "Offer 01",
+    date: "Offer 1",
     text: "texts/hedenbenikmonogaam.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
     {
-    id: "Offer 02",
+    id: "Offer 2",
     title: "Veel te veel D.J.",
     image: "Draft/Sesjat.jpg",
-    date: "Offer 01",
+    date: "Offer 2",
     text: "texts/veelteveeldj.html" // Dit klopt, want op GitHub is dit ook kleine letters
   }
 ];
