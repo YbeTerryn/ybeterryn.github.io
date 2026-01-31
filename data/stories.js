@@ -557,6 +557,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/hamnet/",
     platform: "letterboxd"
   },
+                        {
+    title: "In bruges",
+    year: "2008",
+    director: "Martin McDonagh",
+    image: "Draft/inbruges.jpg",
+    rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/in-bruges/",
+    platform: "letterboxd"
+  },
       
       
 ];
