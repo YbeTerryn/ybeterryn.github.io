@@ -15,10 +15,22 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    async function initPage() {
+    // Hoofdfunctie
+    async function renderStory() {
         const params = new URLSearchParams(window.location.search);
         const storyId = params.get("id");
 
+        // 1. Zoek de HTML elementen
+        const textContainer = document.getElementById("text-container");
+        const titleElement = document.getElementById("story-title");
+
+        if (!textContainer || !titleElement) {
+            console.warn("Wachten op HTML elementen...");
+            setTimeout(renderStory, 100); // Probeer het over 100ms opnieuw
+            return;
+        }
+
+        // 2. Zoek de data
         const allStories = [
             ...(typeof stories !== 'undefined' ? stories : []), 
             ...(typeof archiveStories !== 'undefined' ? archiveStories : []),
@@ -26,34 +38,33 @@
         ];
         
         const story = allStories.find(s => s.id === storyId);
-        const textContainer = document.getElementById("text-container");
-        const titleElement = document.getElementById("story-title");
 
         if (!story) {
-            if (textContainer) textContainer.innerText = "Verhaal niet gevonden.";
+            textContainer.innerHTML = "<p>Verhaal niet gevonden.</p>";
             return;
         }
 
+        // 3. Laad de tekst
         try {
             const res = await fetch(story.text);
+            if (!res.ok) throw new Error("Bestand niet gevonden");
             const htmlContent = await res.text();
             
-            if (titleElement) titleElement.innerText = story.title;
+            titleElement.innerText = story.title;
             document.title = `${story.title} | Pieter Paul Tybbe`;
             
-            if (textContainer) {
-                let formattedContent = htmlContent;
-                if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-                    formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
-                }
-                textContainer.innerHTML = formattedContent;
+            let formattedContent = htmlContent;
+            if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+                formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
             }
+            textContainer.innerHTML = formattedContent;
 
-            // Hier roepen we de nieuwe gestylede likes aan
+            // 4. Start likes
             setupLikes(story.id);
 
         } catch (err) {
-            console.error("Fout:", err);
+            console.error("Fout bij laden:", err);
+            textContainer.innerHTML = "<p>Er ging iets mis bij het laden van de tekst.</p>";
         }
     }
 
@@ -63,10 +74,17 @@
 
         const docRef = doc(db, "likes", storyId);
         
-        // Styling toegepast op basis van jouw CSS-rating look
         likeContainer.innerHTML = `
-            <div class="firebase-like-section" style="text-align:center; margin: 40px 0; font-family: serif;">
+            <div style="text-align:center; margin: 40px 0; font-family: serif;">
                 <button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s;">
                     <i class="fa-solid fa-heart" style="color: #ebbb2d; font-size: 2rem;"></i>
                 </button>
-                <div id="like-count" style="color: #ebbb2d; font-size: 1rem; font-weight: bold; margin-top: 8px
+                <div id="like-count" style="color: #ebbb2d; font-size: 1rem; font-weight: bold; margin-top: 8px; letter-spacing: 1px;">0</div>
+            </div>
+        `;
+
+        const likeBtn = document.getElementById('like-button');
+        const countDisplay = document.getElementById('like-count');
+
+        try {
+            const snap = await getDoc(docRef);
