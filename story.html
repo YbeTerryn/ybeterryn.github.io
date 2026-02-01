@@ -1,68 +1,16 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-MJ1V2PREL6');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schrijfsel — Pieter Paul Tybbe</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-
-<header id="main-header">
-    <nav id="main-nav"></nav>
-</header>
-
-<main class="reader">
-    <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif; color: #ffd166;"></h1>
-    
-    <article id="text-container" class="literary-text">Verhaal wordt geladen...</article>
-
-    <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
-        <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
-            Laat weten wat je ervan vond!
-        </p>
-        <div id="like-container" style="min-height: 80px; display: flex; justify-content: center; align-items: center;"></div>
-    </div>
-
-    <section class="reader-feedback" style="margin-bottom: 50px;">
-        <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
-        <div id="cusdis_thread" 
-             data-host="https://cusdis.com" 
-             data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f" 
-             data-lang="nl"
-             data-theme="dark">
-        </div>
-    </section>
-
-    <div style="text-align: center; margin: 40px 0;">
-        <a href="index.html" style="color: #ffd166; text-decoration: none; font-variant: small-caps; border: 1px solid #ffd166; padding: 10px 20px;">
-            ← Terug naar alle verhalen
-        </a>
-    </div>
-</main>
-
-<script src="data/stories.js"></script>
-
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // --- FIREBASE CONFIG ---
+    // Jouw persoonlijke configuratie uit het screenshot:
     const firebaseConfig = {
-        apiKey: "JOUW_API_KEY",
-        authDomain: "jouw-project.firebaseapp.com",
-        projectId: "jouw-project",
-        storageBucket: "jouw-project.appspot.com",
-        messagingSenderId: "123456789",
-        appId: "1:123456789:web:abc123"
+        apiKey: "AIzaSyB_J1Up8Uof5CXvPT4SQ30er20hL2Qy6Cw",
+        authDomain: "sesjat-549da.firebaseapp.com",
+        projectId: "sesjat-549da",
+        storageBucket: "sesjat-549da.firebasestorage.app",
+        messagingSenderId: "845325090016",
+        appId: "1:845325090016:web:358412e188aad787fee485",
+        measurementId: "G-J8QZD6VXTX"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -86,16 +34,13 @@
         }
 
         try {
-            // 1. Haal de tekst op
             const res = await fetch(story.text);
             if (!res.ok) throw new Error("Tekstbestand niet gevonden");
             const htmlContent = await res.text();
             
-            // 2. Vul de titel en browser-tab titel in
             document.getElementById("story-title").innerText = story.title;
             document.title = `${story.title} | Pieter Paul Tybbe`;
             
-            // 3. Formatteer en toon de tekst
             const textContainer = document.getElementById("text-container");
             let formattedContent = htmlContent;
             if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
@@ -103,7 +48,6 @@
             }
             textContainer.innerHTML = formattedContent;
 
-            // 4. Start de likes
             setupLikes(story.id);
 
         } catch (err) {
@@ -145,7 +89,6 @@
 
     window.addEventListener('load', initPage);
 
-    // Navigatie inladen
     fetch('nav.html')
         .then(res => res.text())
         .then(data => {
@@ -153,7 +96,3 @@
             if (nav) nav.innerHTML = data;
         });
 </script>
-
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-</body>
-</html>
