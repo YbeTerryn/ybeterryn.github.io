@@ -582,6 +582,16 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/e55d8c8b-4797-4321-833c-5c141cb5a39c",
     platform: "storygraph"
   },
+        {
+    title: "Nuremberg",
+    year: "2025",
+    director: "James Vanderbilt",
+    image: "Draft/nuremberg.jpg",
+      rating: 3,
+    link: "https://letterboxd.com/pieterpaultybbe/film/nuremberg-2025/",
+    platform: "letterboxd"
+  },
+      
       
       
 ];
