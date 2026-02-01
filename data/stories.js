@@ -573,6 +573,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/in-bruges/",
     platform: "letterboxd"
   },
+      {
+    title: "Tirza",
+    year: "2006",
+    director: "Arnon Grunberg",
+    image: "Draft/tirza.jpg",
+      rating: 4,
+    link: "https://app.thestorygraph.com/reviews/e55d8c8b-4797-4321-833c-5c141cb5a39c",
+    platform: "storygraph"
+  },
       
       
 ];
