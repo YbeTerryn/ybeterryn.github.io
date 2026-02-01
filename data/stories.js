@@ -591,6 +591,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/nuremberg-2025/",
     platform: "letterboxd"
   },
+          {
+    title: "MY HEART IS GOING TO EXPLODE!",
+    year: "2023",
+    director: "Jung In-hyuk",
+    image: "Draft/myheartisgoingtoexplode.jpg",
+      rating: 2,
+    link: "https://letterboxd.com/pieterpaultybbe/film/my-heart-is-going-to-explode/",
+    platform: "letterboxd"
+  },
       
       
       
