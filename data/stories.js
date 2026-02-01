@@ -605,7 +605,7 @@ const reviewStories = [
     year: "2025",
     director: "Annapurna Sriram",
     image: "Draft/fucktoys.jpg",
-      rating: 2,5,
+      rating: 2.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/fucktoys/",
     platform: "letterboxd"
   },     
