@@ -608,8 +608,5 @@ const reviewStories = [
       rating: 2,5,
     link: "https://letterboxd.com/pieterpaultybbe/film/fucktoys/",
     platform: "letterboxd"
-  },
-      
-      
-      
+  },     
 ];
