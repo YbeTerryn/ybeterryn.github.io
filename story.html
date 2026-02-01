@@ -1,33 +1,3 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schrijfsel — Pieter Paul Tybbe</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-
-<header id="main-header">
-    <nav id="main-nav"></nav>
-</header>
-
-<main class="reader">
-    <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif; color: #ffd166;"></h1>
-    
-    <article id="text-container" class="literary-text">Laden...</article>
-
-    <div id="like-container"></div>
-
-    <div style="text-align: center; margin: 40px 0;">
-        <a href="index.html" style="color: #ffd166; text-decoration: none; border: 1px solid #ffd166; padding: 10px 20px;">
-            ← Terug naar alle verhalen
-        </a>
-    </div>
-</main>
-
-<script src="data/stories.js"></script>
-
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -68,7 +38,6 @@
             const res = await fetch(story.text);
             const htmlContent = await res.text();
             
-            // Veilig invullen: check of het element bestaat
             if (titleElement) titleElement.innerText = story.title;
             document.title = `${story.title} | Pieter Paul Tybbe`;
             
@@ -80,11 +49,11 @@
                 textContainer.innerHTML = formattedContent;
             }
 
+            // Hier roepen we de nieuwe gestylede likes aan
             setupLikes(story.id);
 
         } catch (err) {
             console.error("Fout:", err);
-            if (textContainer) textContainer.innerText = "Fout bij het laden van de tekst.";
         }
     }
 
@@ -93,36 +62,11 @@
         if (!likeContainer) return;
 
         const docRef = doc(db, "likes", storyId);
+        
+        // Styling toegepast op basis van jouw CSS-rating look
         likeContainer.innerHTML = `
-            <div style="text-align:center; margin: 40px 0;">
-                <button id="like-button" style="background:none; border:none; cursor:pointer; font-size: 50px;">❤️</button>
-                <div id="like-count" style="color: #ffd166; font-size: 22px; font-weight: bold;">0</div>
-            </div>
-        `;
-
-        const likeBtn = document.getElementById('like-button');
-        const countDisplay = document.getElementById('like-count');
-
-        const snap = await getDoc(docRef);
-        if (snap.exists()) {
-            countDisplay.innerText = snap.data().count;
-        } else {
-            await setDoc(docRef, { count: 0 });
-        }
-
-        likeBtn.onclick = async () => {
-            await updateDoc(docRef, { count: increment(1) });
-            const newSnap = await getDoc(docRef);
-            countDisplay.innerText = newSnap.data().count;
-        };
-    }
-
-    // Gebruik DOMContentLoaded voor extra veiligheid
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPage);
-    } else {
-        initPage();
-    }
-</script>
-</body>
-</html>
+            <div class="firebase-like-section" style="text-align:center; margin: 40px 0; font-family: serif;">
+                <button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s;">
+                    <i class="fa-solid fa-heart" style="color: #ebbb2d; font-size: 2rem;"></i>
+                </button>
+                <div id="like-count" style="color: #ebbb2d; font-size: 1rem; font-weight: bold; margin-top: 8px
