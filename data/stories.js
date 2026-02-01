@@ -600,6 +600,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/my-heart-is-going-to-explode/",
     platform: "letterboxd"
   },
+          {
+    title: "Fucktoys",
+    year: "2025",
+    director: "Annapurna Sriram",
+    image: "Draft/fucktoys.jpg",
+      rating: 2,5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/fucktoys/",
+    platform: "letterboxd"
+  },
       
       
       
