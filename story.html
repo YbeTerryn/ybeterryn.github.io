@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-MJ1V2PREL6');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MJ1V2PREL6');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schrijfsel — Pieter Paul Tybbe</title>
@@ -25,7 +23,11 @@
 <main class="reader">
     <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif; color: #ffd166;"></h1>
     
-    <article id="text-container" class="literary-text"></article>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img id="story-image" style="max-width: 100%; height: auto; border-radius: 8px;" src="" alt="">
+    </div>
+
+    <article id="text-container" class="literary-text">Verhaal wordt geladen...</article>
 
     <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
         <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
@@ -34,19 +36,18 @@
         <div id="like-container" style="min-height: 80px; display: flex; justify-content: center; align-items: center;"></div>
     </div>
 
-<section class="reader-feedback" style="margin-bottom: 50px;">
-    <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
-    <p style="color: #f5f5f5; font-size: 0.9rem; font-style: italic; margin-bottom: 20px; opacity: 0.8;">
-        Je kunt anoniem reageren. Vul simpelweg een naam in, een account is niet nodig. Reacties worden eerst computationeel goedgekeurd om bots tegen te gaan.
-    </p>
-
-    <div id="cusdis_thread" 
-         data-host="https://cusdis.com" 
-         data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f" 
-         data-lang="nl"
-         data-theme="dark">
-    </div>
-</section>
+    <section class="reader-feedback" style="margin-bottom: 50px;">
+        <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
+        <p style="color: #f5f5f5; font-size: 0.9rem; font-style: italic; margin-bottom: 20px; opacity: 0.8;">
+            Je kunt anoniem reageren. Vul simpelweg een naam in, een account is niet nodig.
+        </p>
+        <div id="cusdis_thread" 
+             data-host="https://cusdis.com" 
+             data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f" 
+             data-lang="nl"
+             data-theme="dark">
+        </div>
+    </section>
 
     <div style="text-align: center; margin: 40px 0;">
         <a href="index.html" style="color: #ffd166; text-decoration: none; font-variant: small-caps; border: 1px solid #ffd166; padding: 10px 20px;">
@@ -56,9 +57,110 @@
 </main>
 
 <script src="data/stories.js"></script>
-<script src="js/story.js"></script>
 
-<script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // --- VERVANG DIT DOOR JOUW ECHTE CONFIG ---
+    const firebaseConfig = {
+        apiKey: "JOUW_API_KEY",
+        authDomain: "jouw-project.firebaseapp.com",
+        projectId: "jouw-project",
+        storageBucket: "jouw-project.appspot.com",
+        messagingSenderId: "123456789",
+        appId: "1:123456789:web:abc123"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function initPage() {
+        const params = new URLSearchParams(window.location.search);
+        const storyId = params.get("id");
+
+        // Alle verhalen verzamelen uit de ingeladen stories.js
+        const allStories = [
+            ...(typeof stories !== 'undefined' ? stories : []), 
+            ...(typeof archiveStories !== 'undefined' ? archiveStories : []),
+            ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
+        ];
+        
+        const story = allStories.find(s => s.id === storyId);
+
+        if (!story) {
+            document.getElementById("text-container").innerText = "Verhaal niet gevonden.";
+            return;
+        }
+
+        // 1. Tekst laden
+        try {
+            const res = await fetch(story.text);
+            if (!res.ok) throw new Error("Bestand niet gevonden");
+            const htmlContent = await res.text();
+            
+            const textContainer = document.getElementById("text-container");
+            const titleElement = document.getElementById("story-title");
+            const imageElement = document.getElementById("story-image");
+
+            if (titleElement) titleElement.innerText = story.title;
+            document.title = `${story.title} | Pieter Paul Tybbe`;
+            
+            if (imageElement && story.image) {
+                imageElement.src = story.image;
+            }
+
+            // Formatteren
+            let formattedContent = htmlContent;
+            if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+                formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+            }
+            textContainer.innerHTML = formattedContent;
+
+            // 2. Likes opzetten
+            setupLikes(story.id);
+
+        } catch (err) {
+            console.error(err);
+            document.getElementById("text-container").innerText = "Fout bij het laden van de tekst.";
+        }
+    }
+
+    async function setupLikes(storyId) {
+        const likeContainer = document.getElementById('like-container');
+        const docRef = doc(db, "likes", storyId);
+
+        likeContainer.innerHTML = `
+            <div id="firebase-like-section">
+                <button id="like-button" style="background:none; border:none; cursor:pointer; font-size: 50px; padding:0;">❤️</button>
+                <div id="like-count" style="color: #ffd166; font-size: 22px; font-weight: bold;">...</div>
+            </div>
+        `;
+
+        const likeBtn = document.getElementById('like-button');
+        const countDisplay = document.getElementById('like-count');
+
+        // Haal data op
+        const snap = await getDoc(docRef);
+        if (snap.exists()) {
+            countDisplay.innerText = snap.data().count;
+        } else {
+            countDisplay.innerText = "0";
+            await setDoc(docRef, { count: 0 });
+        }
+
+        // Klik actie
+        likeBtn.onclick = async () => {
+            likeBtn.style.transform = "scale(1.2)";
+            setTimeout(() => likeBtn.style.transform = "scale(1)", 200);
+            await updateDoc(docRef, { count: increment(1) });
+            const newSnap = await getDoc(docRef);
+            countDisplay.innerText = newSnap.data().count;
+        };
+    }
+
+    window.addEventListener('load', initPage);
+
     // Navigatie laden
     fetch('nav.html')
         .then(res => res.text())
@@ -66,10 +168,8 @@
             const nav = document.getElementById('main-nav');
             if (nav) nav.innerHTML = data;
         });
-
-    window.cusdis_lang = 'nl';
 </script>
 
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a,m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script></body>
+</body>
 </html>
