@@ -1,8 +1,37 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schrijfsel — Pieter Paul Tybbe</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header id="main-header">
+    <nav id="main-nav"></nav>
+</header>
+
+<main class="reader">
+    <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif; color: #ffd166;"></h1>
+    
+    <article id="text-container" class="literary-text">Laden...</article>
+
+    <div id="like-container"></div>
+
+    <div style="text-align: center; margin: 40px 0;">
+        <a href="index.html" style="color: #ffd166; text-decoration: none; border: 1px solid #ffd166; padding: 10px 20px;">
+            ← Terug naar alle verhalen
+        </a>
+    </div>
+</main>
+
+<script src="data/stories.js"></script>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // Jouw persoonlijke configuratie uit het screenshot:
     const firebaseConfig = {
         apiKey: "AIzaSyB_J1Up8Uof5CXvPT4SQ30er20hL2Qy6Cw",
         authDomain: "sesjat-549da.firebaseapp.com",
@@ -27,43 +56,47 @@
         ];
         
         const story = allStories.find(s => s.id === storyId);
+        const textContainer = document.getElementById("text-container");
+        const titleElement = document.getElementById("story-title");
 
         if (!story) {
-            document.getElementById("text-container").innerText = "Verhaal niet gevonden.";
+            if (textContainer) textContainer.innerText = "Verhaal niet gevonden.";
             return;
         }
 
         try {
             const res = await fetch(story.text);
-            if (!res.ok) throw new Error("Tekstbestand niet gevonden");
             const htmlContent = await res.text();
             
-            document.getElementById("story-title").innerText = story.title;
+            // Veilig invullen: check of het element bestaat
+            if (titleElement) titleElement.innerText = story.title;
             document.title = `${story.title} | Pieter Paul Tybbe`;
             
-            const textContainer = document.getElementById("text-container");
-            let formattedContent = htmlContent;
-            if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-                formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+            if (textContainer) {
+                let formattedContent = htmlContent;
+                if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+                    formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+                }
+                textContainer.innerHTML = formattedContent;
             }
-            textContainer.innerHTML = formattedContent;
 
             setupLikes(story.id);
 
         } catch (err) {
-            console.error(err);
-            document.getElementById("text-container").innerText = "Fout bij het laden van de tekst.";
+            console.error("Fout:", err);
+            if (textContainer) textContainer.innerText = "Fout bij het laden van de tekst.";
         }
     }
 
     async function setupLikes(storyId) {
         const likeContainer = document.getElementById('like-container');
-        const docRef = doc(db, "likes", storyId);
+        if (!likeContainer) return;
 
+        const docRef = doc(db, "likes", storyId);
         likeContainer.innerHTML = `
-            <div id="firebase-like-section">
-                <button id="like-button" style="background:none; border:none; cursor:pointer; font-size: 50px; padding:0;">❤️</button>
-                <div id="like-count" style="color: #ffd166; font-size: 22px; font-weight: bold;">...</div>
+            <div style="text-align:center; margin: 40px 0;">
+                <button id="like-button" style="background:none; border:none; cursor:pointer; font-size: 50px;">❤️</button>
+                <div id="like-count" style="color: #ffd166; font-size: 22px; font-weight: bold;">0</div>
             </div>
         `;
 
@@ -74,25 +107,22 @@
         if (snap.exists()) {
             countDisplay.innerText = snap.data().count;
         } else {
-            countDisplay.innerText = "0";
             await setDoc(docRef, { count: 0 });
         }
 
         likeBtn.onclick = async () => {
-            likeBtn.style.transform = "scale(1.2)";
-            setTimeout(() => likeBtn.style.transform = "scale(1)", 200);
             await updateDoc(docRef, { count: increment(1) });
             const newSnap = await getDoc(docRef);
             countDisplay.innerText = newSnap.data().count;
         };
     }
 
-    window.addEventListener('load', initPage);
-
-    fetch('nav.html')
-        .then(res => res.text())
-        .then(data => {
-            const nav = document.getElementById('main-nav');
-            if (nav) nav.innerHTML = data;
-        });
+    // Gebruik DOMContentLoaded voor extra veiligheid
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+        initPage();
+    }
 </script>
+</body>
+</html>
