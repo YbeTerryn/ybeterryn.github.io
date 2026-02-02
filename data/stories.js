@@ -610,8 +610,8 @@ const reviewStories = [
     platform: "letterboxd"
   },  
             {
-    title: "Test",
-    year: "2023",
+    title: "La Grazia",
+    year: "2025",
     director: "Paolo Sorrentino",
     image: "Draft/lagrazia.jpg",
       rating: 4,
