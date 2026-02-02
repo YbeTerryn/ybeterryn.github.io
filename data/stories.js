@@ -608,5 +608,14 @@ const reviewStories = [
       rating: 2.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/fucktoys/",
     platform: "letterboxd"
-  },     
+  },  
+            {
+    title: "La Grazia",
+    year: "2025",
+    director: "Paolo Sorrentino",
+    image: "Draft/lagrazia.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/la-grazia/",
+    platform: "letterboxd"
+  },    
 ];
