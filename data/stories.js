@@ -618,4 +618,13 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/la-grazia/",
     platform: "letterboxd"
   },    
+              {
+    title: "The Wizard of the Kremlin",
+    year: "2025",
+    director: "Olivier Assayas",
+    image: "Draft/wizardofthekremlin.jpg",
+      rating: 2,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-wizard-of-the-kremlin/",
+    platform: "letterboxd"
+  },   
 ];
