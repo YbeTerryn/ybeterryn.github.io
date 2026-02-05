@@ -636,4 +636,13 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/airplane/",
     platform: "letterboxd"
   },
+      {
+    title: "Reus",
+    year: "2006",
+    director: "Annelies Verbeke",
+    image: "Draft/reus.jpg",
+      rating: 3.5,
+    link: "https://app.thestorygraph.com/reviews/408f0786-57b4-4748-b6ee-f202470dd2b3",
+    platform: "storygraph"
+  },
 ];
