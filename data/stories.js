@@ -626,5 +626,14 @@ const reviewStories = [
       rating: 2,
     link: "https://letterboxd.com/pieterpaultybbe/film/the-wizard-of-the-kremlin/",
     platform: "letterboxd"
-  },   
+  }, 
+                {
+    title: "Airplane!",
+    year: "1980",
+    director: "Jerry Zucker, David Zucker, Jim Abrahams",
+    image: "Draft/airplane.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/airplane/",
+    platform: "letterboxd"
+  },
 ];
