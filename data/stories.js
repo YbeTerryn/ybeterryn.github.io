@@ -645,4 +645,13 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/408f0786-57b4-4748-b6ee-f202470dd2b3",
     platform: "storygraph"
   },
+                 {
+    title: "Dune: Part Two",
+    year: "2024",
+    director: "Denis Villeneuve",
+    image: "Draft/duneparttwo.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/dune-part-two/",
+    platform: "letterboxd"
+  },
 ];
