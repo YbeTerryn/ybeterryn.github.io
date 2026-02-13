@@ -683,3 +683,32 @@ nav a:hover { opacity: 0.8; }
   margin-right: 10px;
   font-size: 1.1rem;
 }
+/* De container die afbeelding en tekst naast elkaar zet */
+.card-content {
+  display: flex;         /* Zet items naast elkaar */
+  flex-direction: row;   /* Bevestig de horizontale richting */
+  align-items: center;   /* Centreert de tekst verticaal t.o.v. de foto */
+  gap: 20px;             /* Ruimte tussen de foto en de tekst */
+  padding: 15px;
+}
+
+/* Zorg dat de afbeelding niet vervormt en een vaste breedte heeft */
+.card-image {
+  width: 150px;          /* Pas dit aan naar wens */
+  height: auto;          /* Behoudt de proporties */
+  flex-shrink: 0;        /* Voorkomt dat de foto wordt platgedrukt */
+  border-radius: 4px;
+}
+
+/* De tekstcontainer pakt de rest van de ruimte */
+.card-text {
+  flex: 1;
+}
+
+/* Mobiele weergave: onder elkaar als het scherm te smal wordt */
+@media (max-width: 600px) {
+  .card-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
