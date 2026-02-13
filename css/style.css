@@ -608,3 +608,45 @@ nav a:hover { opacity: 0.8; }
   object-fit: contain;   /* Zorgt dat de hele afbeelding zichtbaar blijft */
   border-radius: 8px 8px 0 0; /* Optioneel: alleen de bovenhoeken afgerond */
 }
+/* Maakt van de kaart een flexbox container */
+.flex-card {
+  display: flex;
+  flex-direction: row; /* Zet items naast elkaar */
+  align-items: center; /* Centreert ze verticaal */
+  gap: 20px;           /* Ruimte tussen foto en tekst */
+  padding: 20px;
+}
+
+/* De afbeelding aan de zijkant */
+.card-img-side {
+  width: 150px;        /* Pas dit aan naar de gewenste breedte van je poster */
+  height: auto;        /* Houdt de verhouding (proportie) intact */
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+/* De container voor de tekst */
+.card-content {
+  flex: 1;             /* Zorgt dat de tekst de rest van de ruimte vult */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Styling voor de 'Première' tekst zoals in je voorbeeld */
+.premiere-text {
+  font-style: italic;
+  opacity: 0.8;
+  margin: 10px 0;
+}
+
+/* Responsive: op mobiel weer onder elkaar zetten */
+@media (max-width: 600px) {
+  .flex-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .card-img-side {
+    width: 60%; /* Iets groter op mobiel */
+  }
+}
