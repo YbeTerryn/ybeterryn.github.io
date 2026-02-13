@@ -602,8 +602,9 @@ nav a:hover { opacity: 0.8; }
   font-weight: bold;
 }
 .card-img {
-  width: 100%;          /* Zorgt dat de foto de volle breedte van de kaart pakt */
-  height: auto;         /* Behoudt de verhoudingen */
-  border-radius: 8px;   /* Geeft zachte hoekjes die passen bij een 'card' */
-  margin-bottom: 15px;  /* Ruimte tussen de foto en de titel */
+  width: 100%;           /* Gebruik de volledige breedte van de kaart */
+  height: auto;          /* Dwingt de hoogte om de verhouding te volgen */
+  display: block;        /* Verwijdert witruimte onder de afbeelding */
+  object-fit: contain;   /* Zorgt dat de hele afbeelding zichtbaar blijft */
+  border-radius: 8px 8px 0 0; /* Optioneel: alleen de bovenhoeken afgerond */
 }
