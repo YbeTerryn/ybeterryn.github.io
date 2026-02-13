@@ -650,3 +650,36 @@ nav a:hover { opacity: 0.8; }
     width: 60%; /* Iets groter op mobiel */
   }
 }
+/* De Ticket Knop */
+.cta-button {
+  display: inline-flex;      /* Zorgt dat tekst en icoon mooi uitlijnen */
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #ffd166; /* De warme gele kleur van je tekst */
+  color: #0d1321;            /* Donkerblauwe tekst (matcht je achtergrond) */
+  text-decoration: none;
+  font-weight: 700;          /* Lekker dikgedrukt */
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid #ffd166;
+  width: fit-content;        /* Knop wordt niet breder dan nodig */
+  margin-top: 15px;
+}
+
+/* Hover effect: de knop wordt 'ghost' stijl */
+.cta-button:hover {
+  background-color: transparent;
+  color: #ffd166;
+  transform: scale(1.02);    /* Maakt de knop subtiel groter */
+  box-shadow: 0 0 15px rgba(255, 209, 102, 0.4);
+}
+
+/* Het icoontje (het ticket) een beetje ruimte geven */
+.cta-button i {
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
