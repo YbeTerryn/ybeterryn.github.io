@@ -569,3 +569,35 @@ nav a:hover { opacity: 0.8; }
 .meta {
     margin-top: 4px;
 }
+/* Styling voor de highlight kaart */
+.card.highlight {
+  border: 2px solid #ffd166; /* Dezelfde kleur als je titels */
+  background-color: rgba(255, 209, 102, 0.05);
+}
+
+/* De ticket knop */
+.cta-button, .btn-primary {
+  display: inline-block;
+  background-color: #ffd166;
+  color: #1a1a1a;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 15px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.cta-button:hover {
+  background-color: #ffc107;
+  transform: scale(1.05);
+}
+
+.tag {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  background: #ffd166;
+  color: #000;
+  padding: 2px 8px;
+  font-weight: bold;
+}
