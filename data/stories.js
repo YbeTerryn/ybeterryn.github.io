@@ -682,6 +682,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/marty-supreme/",
     platform: "letterboxd"
   },
+                       {
+    title: "The Mastermind",
+    year: "2025",
+    director: "Kelly Reichardt",
+    image: "Draft/themastermind.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-mastermind-2025/",
+    platform: "letterboxd"
+  },  
                      {
     title: "Outsider. Freud",
     year: "2024",
