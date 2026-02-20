@@ -654,15 +654,7 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/dune-part-two/",
     platform: "letterboxd"
   },
-                   {
-    title: "No Other Choice",
-    year: "2025",
-    director: "Park Chan-wook",
-    image: "Draft/nootherchoice.jpg",
-      rating: 4,
-    link: "https://letterboxd.com/pieterpaultybbe/film/no-other-choice-2025/",
-    platform: "letterboxd"
-  },
+
                      {
     title: "No Other Choice",
     year: "2025",
