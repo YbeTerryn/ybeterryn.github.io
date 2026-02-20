@@ -654,4 +654,49 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/dune-part-two/",
     platform: "letterboxd"
   },
+                   {
+    title: "No Other Choice",
+    year: "2025",
+    director: "Park Chan-wook",
+    image: "Draft/nootherchoice.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/no-other-choice-2025/",
+    platform: "letterboxd"
+  },
+                     {
+    title: "No Other Choice",
+    year: "2025",
+    director: "Park Chan-wook",
+    image: "Draft/nootherchoice.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/no-other-choice-2025/",
+    platform: "letterboxd"
+  },
+                     {
+    title: "Twin Peaks: Fire Walk with Me",
+    year: "1992",
+    director: "David Lynch",
+    image: "Draft/twinpeaksfirewalkwithme.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/film/twin-peaks-fire-walk-with-me/",
+    platform: "letterboxd"
+  },
+                     {
+    title: "Marty Supreme",
+    year: "2025",
+    director: "Josh Safdie",
+    image: "Draft/martysupreme.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/marty-supreme/",
+    platform: "letterboxd"
+  },
+                     {
+    title: "Outsider. Freud",
+    year: "2024",
+    director: "Yair Qedar",
+    image: "Draft/outsiderfreud.jpg",
+      rating: 2.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/outsider-freud/",
+    platform: "letterboxd"
+  },  
 ];
