@@ -610,7 +610,7 @@ const reviewStories = [
     platform: "letterboxd"
   },  
          { title: "Pluribus",
-    year: "1990",
+    year: "2025",
     Creator: "Vince Gilligan",
     image: "Draft/tpluribus.jpg",
       rating: 4.5,
