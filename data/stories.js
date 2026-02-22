@@ -612,7 +612,7 @@ const reviewStories = [
          { title: "Pluribus",
     year: "2025",
     Creator: "Vince Gilligan",
-    image: "Draft/tpluribus.jpg",
+    image: "Draft/pluribus.jpg",
       rating: 4.5,
     link: "https://www.serializd.com/review/56798189",
     platform: "serializd"
