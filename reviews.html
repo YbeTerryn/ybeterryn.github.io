@@ -23,6 +23,7 @@
     <button class="filter-btn active" data-filter="all">ALLES</button>
     <button class="filter-btn" data-filter="storygraph">BOEKEN</button>
     <button class="filter-btn" data-filter="letterboxd">FILMS</button>
+    <button class="filter-btn" data-filter="serializd">SERIES</button>
 </div>
 
 <div class="filter-section">
@@ -57,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let selectedPlatform = "all";
 
-    // Functie voor sterren met strenge afronding (0.50 pas halve ster, 0.95 pas volle ster)
+    // Functie voor sterren met strenge afronding
     function getStarsHtml(rating) {
         if (!rating) return "";
         let stars = '<div class="rating">';
@@ -66,13 +67,10 @@ window.addEventListener('DOMContentLoaded', () => {
             let diff = rating - (i - 1);
 
             if (diff >= 0.95) { 
-                // Volle ster (bijv. 3.0, 4.0 of 3.95)
                 stars += '<i class="fas fa-star"></i>';
             } else if (diff >= 0.50) { 
-                // Halve ster pas vanaf 0.50 (dus 2.50 en 2.75 tonen een halve ster)
                 stars += '<i class="fas fa-star-half-alt"></i>';
             } else {
-                // 0.25 en lager blijft een lege ster
                 stars += '<i class="far fa-star"></i>';
             }
         }
@@ -101,11 +99,14 @@ window.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement("article");
             card.className = "card";
             
+            // Iconen logica inclusief Serializd
             let iconHtml = "";
             if (item.platform === "letterboxd") {
                 iconHtml = '<i class="fab fa-letterboxd"></i> ';
             } else if (item.platform === "storygraph") {
                 iconHtml = '<i class="fas fa-book-open"></i> ';
+            } else if (item.platform === "serializd") {
+                iconHtml = '<i class="fas fa-tv"></i> ';
             }
             
             const isExternal = !!item.link;
