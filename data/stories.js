@@ -609,6 +609,14 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/fucktoys/",
     platform: "letterboxd"
   },  
+         { title: "Pluribus",
+    year: "1990",
+    Creator: "Vince Gilligan",
+    image: "Draft/tpluribus.jpg",
+      rating: 4.5,
+    link: "https://www.serializd.com/review/56798189",
+    platform: "serializd"
+  },
             {
     title: "La Grazia",
     year: "2025",
@@ -654,6 +662,14 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/dune-part-two/",
     platform: "letterboxd"
   },
+       { title: "Twin Peaks (Season 1)",
+    year: "1990",
+    Creator: "David Lynch, Mark Frost",
+    image: "Draft/twinpeakss1.jpg",
+      rating: 4,
+    link: "https://www.serializd.com/review/56872296",
+    platform: "serializd"
+  },
 
                      {
     title: "No Other Choice",
@@ -663,6 +679,14 @@ const reviewStories = [
       rating: 4,
     link: "https://letterboxd.com/pieterpaultybbe/film/no-other-choice-2025/",
     platform: "letterboxd"
+  },
+     { title: "Twin Peaks (Season 2)",
+    year: "1990",
+    Creator: "David Lynch, Mark Frost",
+    image: "Draft/twinpeakss2.jpg",
+      rating: 3.5,
+    link: "https://www.serializd.com/review/56873865",
+    platform: "serializd"
   },
                      {
     title: "Twin Peaks: Fire Walk with Me",
