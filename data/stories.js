@@ -609,7 +609,7 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/fucktoys/",
     platform: "letterboxd"
   },  
-         { title: "Pluribus",
+         { title: "Pluribus (seizoen 1)",
     year: "2025",
     Creator: "Vince Gilligan",
     image: "Draft/pluribus.jpg",
@@ -662,7 +662,7 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/dune-part-two/",
     platform: "letterboxd"
   },
-       { title: "Twin Peaks (Season 1)",
+       { title: "Twin Peaks (Seizoen 1)",
     year: "1990",
     Creator: "David Lynch, Mark Frost",
     image: "Draft/twinpeakss1.jpg",
@@ -680,7 +680,7 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/no-other-choice-2025/",
     platform: "letterboxd"
   },
-     { title: "Twin Peaks (Season 2)",
+     { title: "Twin Peaks (Seizoen 2)",
     year: "1990",
     Creator: "David Lynch, Mark Frost",
     image: "Draft/twinpeakss2.jpg",
@@ -733,7 +733,7 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/blue-velvet/",
     platform: "letterboxd"
   }, 
-          { title: "Euphoria (Season 1)",
+          { title: "Euphoria (Seizoen 1)",
     year: "2019",
     Creator: "Sam Levinson",
     image: "Draft/euphorias1.jpg",
