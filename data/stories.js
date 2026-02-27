@@ -724,4 +724,38 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/outsider-freud/",
     platform: "letterboxd"
   },  
+                     {
+    title: "Blue velvet",
+    year: "1986",
+    director: "David Lynch",
+    image: "Draft/bluevelvet.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/blue-velvet/",
+    platform: "letterboxd"
+  }, 
+          { title: "Euphoria (Season 1)",
+    year: "2019",
+    Creator: "Sam Levinson",
+    image: "Draft/euphorias1.jpg",
+      rating: 3,
+    link: "https://www.serializd.com/review/57328945",
+    platform: "serializd"
+  },
+            { title: "Twin Peaks: The Return",
+    year: "2017",
+    Creator: "David Lynch, Mark Frost",
+    image: "Draft/twinpeaksthereturn.jpg",
+      rating: 5,
+    link: "https://www.serializd.com/review/57328945",
+    platform: "serializd"
+  },
+                          {
+    title: "Zondag de Negenste",
+    year: "2025",
+    director: "Kat Steppe",
+    image: "Draft/zondagdenegenste.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/sunday-ninth/",
+    platform: "letterboxd"
+  },  
 ];
