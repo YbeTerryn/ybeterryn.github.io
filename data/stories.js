@@ -741,6 +741,14 @@ const reviewStories = [
     link: "https://www.serializd.com/review/57328945",
     platform: "serializd"
   },
+        {
+    title: "De Toverberg",
+    year: "1924",
+    director: "Thomas Mann",
+    image: "Draft/detoverberg.jpg",
+    link: "https://app.thestorygraph.com/reviews/fbd469bf-a346-4fbc-a555-100e59340fda",
+    platform: "storygraph"
+  },
             { title: "Twin Peaks: The Return",
     year: "2017",
     Creator: "David Lynch, Mark Frost",
