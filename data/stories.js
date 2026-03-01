@@ -24,7 +24,7 @@ const stories = [
     id: "Offer 3",
     title: "Sophie met PH",
     image: "Draft/Sesjat.jpg",
-    date: "Offer 2",
+    date: "Offer 3",
     text: "texts/sophiemetph.html" // Dit klopt, want op GitHub is dit ook kleine letters
   }
 ];
