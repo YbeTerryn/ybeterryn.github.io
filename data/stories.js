@@ -761,7 +761,7 @@ const reviewStories = [
     Creator: "David Lynch, Mark Frost",
     image: "Draft/twinpeaksthereturn.jpg",
       rating: 5,
-    link: "https://www.serializd.com/review/57328945",
+    link: "https://www.serializd.com/review/57385787",
     platform: "serializd"
   },
                           {
