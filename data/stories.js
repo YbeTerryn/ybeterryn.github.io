@@ -772,5 +772,31 @@ const reviewStories = [
       rating: 4.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/sunday-ninth/",
     platform: "letterboxd"
-  },  
-];
+  }, 
+                         {
+    title: "Dust",
+    year: "2026",
+    director: "Anke Blondé",
+    image: "Draft/dust.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/dust-2026/",
+    platform: "letterboxd"
+  }, 
+                       {
+    title: "Wild at Heart",
+    year: "1990",
+    director: "David Lynch",
+    image: "Draft/wildatheart.jpg",
+      rating: 3,
+        link: "https://letterboxd.com/pieterpaultybbe/film/wild-at-heart/",
+    platform: "letterboxd"
+  },
+                       {
+    title: "The Darjeeling Limited",
+    year: "2007",
+    director: "Wes Anderson",
+    image: "Draft/thedarjeelinglimited.jpg",
+      rating: 3,
+        link: "https://letterboxd.com/pieterpaultybbe/film/the-darjeeling-limited/",
+    platform: "letterboxd"
+  }];
