@@ -774,7 +774,7 @@ const reviewStories = [
     platform: "letterboxd"
   }, 
   { title: "Nonkels (seizoen 1)",
-    year: "2017",
+    year: "2022",
     Creator: "Jelle De Beule, Rik Verheye, Koen De Poorter",
     image: "Draft/nonkelss1.jpg",
       rating: 4,
@@ -792,7 +792,7 @@ const reviewStories = [
     platform: "letterboxd"
   },            
   { title: "Nonkels (seizoen 2)",
-    year: "2017",
+    year: "2024",
     Creator: "Jelle De Beule, Rik Verheye, Koen De Poorter",
     image: "Draft/nonkelss2.jpg",
       rating: 3,
