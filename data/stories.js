@@ -773,6 +773,15 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/sunday-ninth/",
     platform: "letterboxd"
   }, 
+  { title: "Nonkels (seizoen 1)",
+    year: "2017",
+    Creator: "Jelle De Beule, Rik Verheye, Koen De Poorter",
+    image: "Draft/nonkelss1.jpg",
+      rating: 4,
+    link: "https://www.serializd.com/review/58202727",
+    platform: "serializd"
+  },
+
                          {
     title: "Dust",
     year: "2026",
@@ -781,7 +790,15 @@ const reviewStories = [
       rating: 4,
     link: "https://letterboxd.com/pieterpaultybbe/film/dust-2026/",
     platform: "letterboxd"
-  }, 
+  },            
+  { title: "Nonkels (seizoen 2)",
+    year: "2017",
+    Creator: "Jelle De Beule, Rik Verheye, Koen De Poorter",
+    image: "Draft/nonkelss2.jpg",
+      rating: 3,
+    link: "https://www.serializd.com/review/58204340",
+    platform: "serializd"
+  },
                        {
     title: "Wild at Heart",
     year: "1990",
@@ -791,6 +808,7 @@ const reviewStories = [
         link: "https://letterboxd.com/pieterpaultybbe/film/wild-at-heart/",
     platform: "letterboxd"
   },
+ 
                        {
     title: "The Darjeeling Limited",
     year: "2007",
