@@ -817,4 +817,16 @@ const reviewStories = [
       rating: 3,
         link: "https://letterboxd.com/pieterpaultybbe/film/the-darjeeling-limited/",
     platform: "letterboxd"
-  }];
+  },
+                         {
+    title: "A Touch of Sin",
+    year: "2013",
+    director: "Jia Zhangke",
+    image: "Draft/atouchofsin.jpg",
+      rating: 4,
+        link: "https://letterboxd.com/pieterpaultybbe/film/a-touch-of-sin/",
+    platform: "letterboxd"
+  }
+
+
+];
