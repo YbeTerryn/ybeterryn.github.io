@@ -826,7 +826,16 @@ const reviewStories = [
       rating: 4,
         link: "https://letterboxd.com/pieterpaultybbe/film/a-touch-of-sin/",
     platform: "letterboxd"
-  }
+  },
+        {
+    title: "Oorlog en Terpentijn",
+    year: "2013",
+    director: "Stefan Hertmans",
+    image: "Draft/oorlogenterpentijn.jpg",
+      rating: 3.5,
+    link: "https://app.thestorygraph.com/reviews/fc631b01-4b75-4792-9a7e-7c545f71bbc5",
+    platform: "storygraph"
+  },
 
 
 ];
