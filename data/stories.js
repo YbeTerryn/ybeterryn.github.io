@@ -836,6 +836,24 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/fc631b01-4b75-4792-9a7e-7c545f71bbc5",
     platform: "storygraph"
   },
+                           {
+    title: "The Testament of Ann Lee",
+    year: "2025",
+    director: "Mona Fastvold",
+    image: "Draft/thetestamentofannlee.jpg",
+      rating: 4,
+        link: "https://letterboxd.com/pieterpaultybbe/film/the-testament-of-ann-lee/",
+    platform: "letterboxd"
+  },
+          {
+    title: "De Vreemdeling",
+    year: "1942",
+    director: "Albert Camus",
+    image: "Draft/devreemdeling.jpg",
+      rating: 4.5,
+    link: "https://app.thestorygraph.com/reviews/6c1f885b-22ef-4f1f-9dea-a51270e470e6",
+    platform: "storygraph"
+  },
 
 
 ];
