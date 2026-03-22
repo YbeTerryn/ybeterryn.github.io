@@ -854,6 +854,23 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/6c1f885b-22ef-4f1f-9dea-a51270e470e6",
     platform: "storygraph"
   },
-
+     {  title: "La Femme Publique",
+    year: "1984",
+    director: "Andrzej Żuławski",
+    image: "Draft/lafemmepublique.jpg",
+      rating: 3.5,
+        link: "https://letterboxd.com/pieterpaultybbe/film/the-public-woman/",
+    platform: "letterboxd"
+  },
+                           {
+    title: "Louis Theroux: Inside the Manosphere",
+    year: "2026",
+    director: "Adrian Choa",
+    image: "Draft/louistherouxinsidethemanosphere.jpg",
+      rating: 3,
+        link: "https://letterboxd.com/pieterpaultybbe/film/louis-theroux-inside-the-manosphere/",
+    platform: "letterboxd"
+  },
+         
 
 ];
