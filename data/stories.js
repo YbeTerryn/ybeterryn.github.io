@@ -874,7 +874,7 @@ const reviewStories = [
  {
     title: "Crazy Love",
     year: "1987",
-    director: "ADominique Deruddere",
+    director: "Dominique Deruddere",
     image: "Draft/crazylove.jpg",
       rating: 4,
         link: "https://letterboxd.com/pieterpaultybbe/film/crazy-love/",
