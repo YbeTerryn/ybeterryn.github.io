@@ -871,6 +871,14 @@ const reviewStories = [
         link: "https://letterboxd.com/pieterpaultybbe/film/louis-theroux-inside-the-manosphere/",
     platform: "letterboxd"
   },
-         
+ {
+    title: "Crazy Love",
+    year: "1987",
+    director: "ADominique Deruddere",
+    image: "Draft/crazylove.jpg",
+      rating: 4,
+        link: "https://letterboxd.com/pieterpaultybbe/film/crazy-love/",
+    platform: "letterboxd"
+  },        
 
 ];
