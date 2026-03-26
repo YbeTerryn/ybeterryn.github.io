@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-MJ1V2PREL6');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MJ1V2PREL6');
+    </script>
+    
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-site-verification" content="CeFJvAVE69jkmV4iDO_jcdfBUEF3-kL2HdKz2kFyNtQ" />
-  <meta charset="UTF-8">
-  <title>Ybe Terryn | Literair Werk & Offers voor Sesjat</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="/css/style.css">
+    <meta name="google-site-verification" content="CeFJvAVE69jkmV4iDO_jcdfBUEF3-kL2HdKz2kFyNtQ" />
+    <title>Ybe Terryn | Literair Werk & Offers voor Sesjat</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  
-<header id="main-header">
-  <nav id="main-nav">
-    </nav>
-</header>
+
 <header class="sesjat-header">
-  <img src="Draft/Profiel.jpg" alt="Logo Ybe Terryn" class="logo-img">
-  <h1>Ybe Terryn</h1>
-  <p class="subtitle">
-    Schrijver en theatermaker
-  </p>
+    <img src="Draft/Profiel.jpg" alt="Logo Ybe Terryn" class="logo-img">
+    <h1>Ybe Terryn</h1>
+    <p class="subtitle">Schrijver en theatermaker</p>
+</header>
+
+<header id="main-header">
+    <nav id="main-nav">
+        </nav>
 </header>
 
 <main class="grid">
-  <article class="card">
-    <h2>Welkom</h2>
-    <p>
-     Verdwaal in de werken van Ybe Terryn. Geniet maandelijks van een literair offer 
-      voor Sesjat in een hedendaagse raamvertelling. Snuister door oude, tussen het werk vergane schrijfsels. 
-      Blijf op de hoogte van opkomende theatervoorstellingen. Of laat recent recensent Piet Paul Tybbe je cultuurkeuzes met 
-      puntige reviews beïnvloeden.   
-    </p>
-  <div id="featured-container"></div>
-<article class="card">
-<hr style="border: 0.5px solid #333; margin: 40px 0;">
-    <main class="grid">
+    <article class="card">
+        <h2>Welkom</h2>
+        <p>
+            Verdwaal in de werken van Ybe Terryn. Geniet maandelijks van een literair offer 
+            voor Sesjat in een hedendaagse raamvertelling. Snuister door oude, tussen het werk vergane schrijfsels. 
+            Blijf op de hoogte van opkomende theatervoorstellingen. Of laat recent recensent Piet Paul Tybbe je cultuurkeuzes met 
+            puntige reviews beïnvloeden.   
+        </p>
+        <div id="featured-container"></div>
+    </article>
 
-<section id="recent-updates">
-    <h3 style="color: #ffd166; margin-bottom: 20px;">Recent toegevoegd</h3>
-    <div id="updates-list-container"></div>
-</section>
+    <article class="card">
+        <section id="recent-updates">
+            <h3 style="color: #ffd166; margin-bottom: 20px;">Recent toegevoegd</h3>
+            <div id="updates-list-container"></div>
+        </section>
+    </article>
+</main>
 
-  <script>
-  // Dit script haalt het menu op uit nav.html
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('main-nav').innerHTML = data;
-    })
-    .catch(error => console.error('Fout bij laden menu:', error));
+<script>
+    // Haalt het menu op uit nav.html
+    fetch('nav.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('main-nav').innerHTML = data;
+        })
+        .catch(error => console.error('Fout bij laden menu:', error));
 </script>
+
 <script src="data/stories.js"></script>
 <script src="js/main.js"></script>
+
 </body>
 </html>
