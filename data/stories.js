@@ -879,6 +879,32 @@ const reviewStories = [
       rating: 4,
         link: "https://letterboxd.com/pieterpaultybbe/film/crazy-love/",
     platform: "letterboxd"
-  },        
-
+  },       
+                       {
+    title: "Final Destination 2",
+    year: "2003",
+    director: "David R. Ellis",
+    image: "Draft/finaldestination2.jpg",
+      rating: 3,
+    link: "https://letterboxd.com/pieterpaultybbe/film/final-destination-2/",
+    platform: "letterboxd"
+  }, 
+                     {
+    title: "Mulholland Drive",
+    year: "2001",
+    director: "David Lynch",
+    image: "Draft/mulhollanddrive.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/mulholland-drive/",
+    platform: "letterboxd"
+  }, 
+                         {
+    title: "Final Destination 3",
+    year: "2006",
+    director: "James Wong",
+    image: "Draft/finaldestination3.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/final-destination-3/",
+    platform: "letterboxd"
+  }, 
 ];
