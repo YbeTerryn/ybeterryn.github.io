@@ -906,5 +906,14 @@ const reviewStories = [
       rating: 3.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/final-destination-3/",
     platform: "letterboxd"
-  }, 
+  },
+                         {
+    title: "The Final Destination",
+    year: "2009",
+    director: "David R. Ellis",
+    image: "Draft/thefinaldestination.jpg",
+      rating: 2,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-final-destination/",
+    platform: "letterboxd"
+  }
 ];
