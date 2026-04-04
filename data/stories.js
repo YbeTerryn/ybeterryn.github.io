@@ -922,5 +922,14 @@ const reviewStories = [
       rating: 2,
     link: "https://letterboxd.com/pieterpaultybbe/film/the-final-destination/",
     platform: "letterboxd"
+  },
+                        {
+    title: "She's Gotta Have It",
+    year: "1986",
+    director: "Spike Lee",
+    image: "Draft/she'sgottahaveit.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/shes-gotta-have-it/",
+    platform: "letterboxd"
   }
 ];
