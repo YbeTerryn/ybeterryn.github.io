@@ -931,5 +931,14 @@ const reviewStories = [
       rating: 4.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/shes-gotta-have-it/",
     platform: "letterboxd"
+  },
+                          {
+    title: "Les Enfants du Paradis",
+    year: "1945",
+    director: "Marcel Carné",
+    image: "Draft/lesenfantsduparadis.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/children-of-paradise/",
+    platform: "letterboxd"
   }
 ];
