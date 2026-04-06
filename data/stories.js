@@ -940,5 +940,32 @@ const reviewStories = [
       rating: 4.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/children-of-paradise/",
     platform: "letterboxd"
-  }
+  },
+                            {
+    title: "Kids",
+    year: "1995",
+    director: "Larry Clark",
+    image: "Draft/kids.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/kids/",
+    platform: "letterboxd"
+  }, 
+            {
+    title: "Het Geuzenboek",
+    year: "1979",
+    director: "Louis Paul Boon",
+    image: "Draft/hetgeuzenboek.jpg",
+      rating: 3,
+    link: "https://app.thestorygraph.com/reviews/dea6b93a-604e-47e6-90e3-97426d2f842a",
+    platform: "storygraph"
+  },
+                            {
+    title: "I Swear",
+    year: "2025",
+    director: "Kirk Jones",
+    image: "Draft/iswear.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/i-swear/",
+    platform: "letterboxd"
+  }, 
 ];
