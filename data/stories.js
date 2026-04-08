@@ -992,7 +992,16 @@ const reviewStories = [
     director: "Kirby Dick",
     image: "Draft/thisfilmisnotyetrated.jpg",
       rating: 4,
-    link: "https://letterboxd.com/pieterpaultybbe/film/this-film-is-not-yet-rated/ ",
+    link: "https://letterboxd.com/pieterpaultybbe/film/this-film-is-not-yet-rated/",
+    platform: "letterboxd"
+  }, 
+                                {
+    title: "The Drama",
+    year: "2026",
+    director: "Kirby Dick",
+    image: "Draft/thedrama.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-drama/",
     platform: "letterboxd"
   }, 
 ];
