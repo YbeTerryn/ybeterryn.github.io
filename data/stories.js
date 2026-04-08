@@ -968,4 +968,31 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/i-swear/",
     platform: "letterboxd"
   }, 
+                             {
+    title: "The Singers",
+    year: "2025",
+    director: "Sam A. Davis",
+    image: "Draft/thesingers.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-singers-2025/",
+    platform: "letterboxd"
+  }, 
+                               {
+    title: "If Anything Happens I Love You",
+    year: "2020",
+    director: "Will McCormack, Michael Govier",
+    image: "Draft/ifanythinghappensiloveyou.jpg",
+      rating: 2.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/if-anything-happens-i-love-you/",
+    platform: "letterboxd"
+  }, 
+                               {
+    title: "This Film is not yet Rated",
+    year: "2006",
+    director: "Kirby Dick",
+    image: "Draft/thisfilmisnotyetrated.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/this-film-is-not-yet-rated/ ",
+    platform: "letterboxd"
+  }, 
 ];
