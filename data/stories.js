@@ -998,7 +998,7 @@ const reviewStories = [
                                 {
     title: "The Drama",
     year: "2026",
-    director: "Kirby Dick",
+    director: "Kristoffer Borgli",
     image: "Draft/thedrama.jpg",
       rating: 3.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/the-drama/",
