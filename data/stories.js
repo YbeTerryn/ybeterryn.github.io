@@ -1004,4 +1004,22 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-drama/",
     platform: "letterboxd"
   }, 
+                                  {
+    title: "The Conjuring",
+    year: "2013",
+    director: "James Wan",
+    image: "Draft/theconjuring.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-conjuring/",
+    platform: "letterboxd"
+  }, 
+                                    {
+    title: "Zoolander",
+    year: "2001",
+    director: "Ben Stiller",
+    image: "Draft/zoolander.jpg",
+      rating: 3,
+    link: "https://letterboxd.com/pieterpaultybbe/film/zoolander/",
+    platform: "letterboxd"
+  },
 ];
