@@ -1022,4 +1022,13 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/zoolander/",
     platform: "letterboxd"
   },
+                                     {
+    title: "Pillion",
+    year: "2025",
+    director: "Harry Lighton",
+    image: "Draft/pillion.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/pillion-2025/",
+    platform: "letterboxd"
+  },
 ];
