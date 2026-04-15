@@ -1031,4 +1031,22 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/pillion-2025/",
     platform: "letterboxd"
   },
+                                       {
+    title: "David Lynch: The Art Life",
+    year: "2016",
+    director: "Jon Nguyen, Rick Barnes, Olivia Neergaard-Holm",
+    image: "Draft/davidlynchtheartlife.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/david-lynch-the-art-life/",
+    platform: "letterboxd"
+  },
+                                         {
+    title: "Eyes Wide Shut",
+    year: "1999",
+    director: "Stanley Kubrick",
+    image: "Draft/eyeswudeshut.jpg",
+      rating: 5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/eyes-wide-shut/",
+    platform: "letterboxd"
+  },
 ];
