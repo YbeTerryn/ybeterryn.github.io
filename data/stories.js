@@ -1044,7 +1044,7 @@ const reviewStories = [
     title: "Eyes Wide Shut",
     year: "1999",
     director: "Stanley Kubrick",
-    image: "Draft/eyeswudeshut.jpg",
+    image: "Draft/eyeswideshut.jpg",
       rating: 5,
     link: "https://letterboxd.com/pieterpaultybbe/film/eyes-wide-shut/",
     platform: "letterboxd"
