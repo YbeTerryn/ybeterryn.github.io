@@ -1049,4 +1049,30 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/eyes-wide-shut/",
     platform: "letterboxd"
   },
+                                           {
+    title: "Crouching Tiger, Hidden Dragon",
+    year: "2000",
+    director: "Ang Lee",
+    image: "Draft/crouchingtigerhiddendragon.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/crouching-tiger-hidden-dragon/",
+    platform: "letterboxd"
+     },                                                                                   {
+    title: "Dead Man's Wire",
+    year: "2025",
+    director: "Gus Van Sant",
+    image: "Draft/deadmanswire.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/dead-mans-wire/",
+    platform: "letterboxd"
+  },
+              {
+    title: "Al Het Blauw van de Hemel",
+    year: "2019",
+    director: "Mélissa Da Costa",
+    image: "Draft/alhetblauwvandehemel.jpg",
+      rating: 3.75,
+    link: "https://app.thestorygraph.com/reviews/abfcc2d9-ebd1-421c-8495-f830eebe09c9",
+    platform: "storygraph"
+  },
 ];
