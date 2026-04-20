@@ -1075,4 +1075,22 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/abfcc2d9-ebd1-421c-8495-f830eebe09c9",
     platform: "storygraph"
   },
+                       {
+    title: "The Straight Story",
+    year: "1999",
+    director: "David Lynch",
+    image: "Draft/thestraightstory.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-straight-story/",
+    platform: "letterboxd"
+  }, 
+                         {
+    title: "The French Dispatch of the Liberty, Kansas Evening Sun",
+    year: "2021",
+    director: "Wes Anderson",
+    image: "Draft/thefrenchdispatch.jpg",
+      rating: 3,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-french-dispatch-of-the-liberty-kansas/",
+    platform: "letterboxd"
+  }, 
 ];
