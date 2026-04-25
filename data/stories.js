@@ -1093,4 +1093,31 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-french-dispatch-of-the-liberty-kansas/",
     platform: "letterboxd"
   }, 
+                  {
+    title: "ReinAard",
+    year: "2025",
+    director: "Tom Lanoye",
+    image: "Draft/reinaard.jpg",
+      rating: 4.75,
+    link: "https://app.thestorygraph.com/reviews/44ced77a-db02-4eeb-b6b1-5ca464b8518a",
+    platform: "storygraph"
+  },
+                {
+    title: "Slaap!",
+    year: "2003",
+    director: "Annelies Verbeke",
+    image: "Draft/slaap.jpg",
+      rating: 3.75,
+    link: "https://app.thestorygraph.com/reviews/cef09a9a-2e52-4f2e-abed-0844c01923fb",
+    platform: "storygraph"
+  },
+                          {
+    title: "La Residencia",
+    year: "1969",
+    director: "Chicho Ibáñez Serrador",
+    image: "Draft/laresidencia.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-house-that-screamed/1/",
+    platform: "letterboxd"
+  }, 
 ];
