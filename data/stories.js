@@ -33,7 +33,7 @@ const stories = [
     image: "Draft/Sesjat.jpg",
     date: "Offer 4",
     text: "texts/bewijsstuk.html" // Dit klopt, want op GitHub is dit ook kleine letters
-  }?
+  },
         {
     id: "Offer 5",
     title: "Over Boeren en Bezit",
