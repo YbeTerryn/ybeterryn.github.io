@@ -1127,4 +1127,75 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-house-that-screamed/1/",
     platform: "letterboxd"
   }, 
+                            {
+    title: "Brussels by Night",
+    year: "1983",
+    director: "Marc Didden",
+    image: "Draft/brusselsbynight.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/brussels-by-night/",
+    platform: "letterboxd"
+  }, 
+    { title: "Agatha Christie's Seven Dials",
+    year: "2026",
+    Creator: "Chris Chibnall",
+    image: "Draft/agathachristie'ssevendials.jpg",
+      rating: 2,
+    link: "https://www.serializd.com/review/64722106",
+    platform: "serializd"
+  },
+      {
+    title: "Cannibal Holocaust",
+    year: "1980",
+    director: "Ruggero Deodato",
+    image: "Draft/cannibalholocaust.jpg",
+      rating: 2.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/cannibal-holocaust/",
+    platform: "letterboxd"
+  }, 
+        {
+    title: "Orpheé",
+    year: "1950",
+    director: "Jean Cocteau",
+    image: "Draft/orpheé.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/orpheus/",
+    platform: "letterboxd"
+  },
+        {
+    title: "Funeral Parade of Roses",
+    year: "1969",
+    director: "Toshio Matsumoto",
+    image: "Draft/funeralparadeofroses.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/funeral-parade-of-roses/",
+    platform: "letterboxd"
+  },
+          {
+    title: "La Double Vie de Véronique",
+    year: "1991",
+    director: "Krzysztof Kieślowski",
+    image: "Draft/ladoubleviedevéronique.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-double-life-of-veronique/",
+    platform: "letterboxd"
+  },
+                  {
+    title: "Joe Speedboot",
+    year: "2005",
+    director: "Tommy Wieringa",
+    image: "Draft/joespeedboot.jpg",
+      rating: 3.5,
+    link: "https://app.thestorygraph.com/reviews/8d661b34-089a-408f-a137-247bc9cbb941",
+    platform: "storygraph"
+  },
+            {
+    title: "How To Steal a Million",
+    year: "1966",
+    director: "William Wyler",
+    image: "Draft/ladoubleviedevéronique.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/how-to-steal-a-million/",
+    platform: "letterboxd"
+  },
 ];
