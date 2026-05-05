@@ -1193,7 +1193,7 @@ const reviewStories = [
     title: "How To Steal a Million",
     year: "1966",
     director: "William Wyler",
-    image: "Draft/ladoubleviedevéronique.jpg",
+    image: "Draft/howtostealamillion.jpg",
       rating: 4.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/how-to-steal-a-million/",
     platform: "letterboxd"
