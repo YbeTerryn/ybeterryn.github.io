@@ -1198,4 +1198,30 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/how-to-steal-a-million/",
     platform: "letterboxd"
   },
+     { title: "The Office",
+    year: "2001",
+    Creator: "Ricky Gervais, Stephen Merchant",
+    image: "Draft/theoffices1.jpg",
+      rating: 4,
+    link: "https://www.serializd.com/review/65063832",
+    platform: "serializd"
+  },
+                    {
+    title: "Niet gaat ten onder",
+    year: "1956",
+    director: "Louis Paul Boon",
+    image: "Draft/nietsgaattenonder.jpg",
+      rating: 3.5,
+    link: "https://app.thestorygraph.com/reviews/ad8e065b-d7ce-4006-b010-113028e4a356",
+    platform: "storygraph"
+  },
+              {
+    title: "Die My Love",
+    year: "2025",
+    director: "Lynne Ramsay",
+    image: "Draft/diemylove.jpg",
+      rating: 3,
+    link: "https://letterboxd.com/pieterpaultybbe/film/die-my-love/",
+    platform: "letterboxd"
+  },
 ];
