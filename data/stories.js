@@ -1198,7 +1198,7 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/how-to-steal-a-million/",
     platform: "letterboxd"
   },
-     { title: "The Office",
+     { title: "The Office (seizoen 1)",
     year: "2001",
     Creator: "Ricky Gervais, Stephen Merchant",
     image: "Draft/theoffices1.jpg",
@@ -1222,6 +1222,15 @@ const reviewStories = [
     image: "Draft/diemylove.jpg",
       rating: 3,
     link: "https://letterboxd.com/pieterpaultybbe/film/die-my-love/",
+    platform: "letterboxd"
+  },
+                {
+    title: "Dirty Work",
+    year: "1998",
+    director: "Bob Saget",
+    image: "Draft/dirtywork.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/dirty-work-1998/",
     platform: "letterboxd"
   },
 ];
