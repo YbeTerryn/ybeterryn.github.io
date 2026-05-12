@@ -1233,4 +1233,22 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/dirty-work-1998/",
     platform: "letterboxd"
   },
+                  {
+    title: "Napoleon Dynamite",
+    year: "2004",
+    director: "Jared Hess",
+    image: "Draft/napoleondynamite.jpg",
+      rating: 2,
+    link: "https://letterboxd.com/pieterpaultybbe/film/napoleon-dynamite/",
+    platform: "letterboxd"
+  },
+                  {
+    title: "Nosferatu",
+    year: "2024",
+    director: "Robert Eggers",
+    image: "Draft/nosferatu.jpg",
+      rating: 3,
+    link: "https://letterboxd.com/pieterpaultybbe/film/nosferatu-2024/",
+    platform: "letterboxd"
+  },
 ];
