@@ -1251,4 +1251,13 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/nosferatu-2024/",
     platform: "letterboxd"
   },
+                    {
+    title: "Everything Everywhere All at Once",
+    year: "2022",
+    director: "Daniel Scheinert, Daniel Kwan",
+    image: "Draft/verythingeverywherallatonce.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/everything-everywhere-all-at-once/",
+    platform: "letterboxd"
+  },
 ];
