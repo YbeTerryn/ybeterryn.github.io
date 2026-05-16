@@ -1255,7 +1255,7 @@ const reviewStories = [
     title: "Everything Everywhere All at Once",
     year: "2022",
     director: "Daniel Scheinert, Daniel Kwan",
-    image: "Draft/everythingeverywherallatonce.jpg",
+    image: "Draft/everythingeverywhereallatonce.jpg",
       rating: 4,
     link: "https://letterboxd.com/pieterpaultybbe/film/everything-everywhere-all-at-once/",
     platform: "letterboxd"
