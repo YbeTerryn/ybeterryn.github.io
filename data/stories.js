@@ -1200,7 +1200,7 @@ const reviewStories = [
   },
      { title: "The Office (seizoen 1)",
     year: "2001",
-    Creator: "Ricky Gervais, Stephen Merchant",
+    director: "Ricky Gervais, Stephen Merchant",
     image: "Draft/theoffices1.jpg",
       rating: 4,
     link: "https://www.serializd.com/review/65063832",
