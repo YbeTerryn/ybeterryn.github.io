@@ -1318,7 +1318,7 @@ const reviewStories = [
     title: "Mijn Vader en Andere Bedriegers",
     year: "1996",
     director: "Milena Moser",
-    image: "Draft/mijnvaderenanderebedriegers.jpg",
+    image: "Draft/mijnvaderenanderebedriegers.webp",
       rating: 3.25,
     link: "https://app.thestorygraph.com/books/ad439411-e214-4079-8553-16181b3d7b85",
     platform: "storygraph"
