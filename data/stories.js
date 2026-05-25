@@ -1278,4 +1278,67 @@ const reviewStories = [
     link: "https://app.thestorygraph.com/reviews/22213f77-8d97-424c-880d-bb4c39580c65",
     platform: "storygraph"
   },
+                       {
+    title: "The Zone Of Interest",
+    year: "2023",
+    director: "Jonathan Glazer",
+    image: "Draft/thezoneofinterest.jpg",
+      rating: 4,5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-zone-of-interest/",
+    platform: "letterboxd"
+  },
+                         {
+    title: "Incendies",
+    year: "2010",
+    director: "Denis Villeneuve",
+    image: "Draft/incendies.jpg",
+      rating: 3,5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/incendies/",
+    platform: "letterboxd"
+  },
+  
+     { title: "The Office (seizoen 2)",
+    year: "2002",
+    director: "Ricky Gervais, Stephen Merchant",
+    image: "Draft/theoffices2.jpg",
+      rating: 4,5,
+    link: "https://www.serializd.com/review/66447970",
+    platform: "serializd"
+  },
+                           {
+    title: "The Player",
+    year: "1992",
+    director: "Robert Altman",
+    image: "Draft/theplayer.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-player/",
+    platform: "letterboxd"
+  },
+                            {
+    title: "A Girl Walks Home Alone at Night",
+    year: "2014",
+    director: "Ana Lily Amirpour",
+    image: "Draft/agirlwalkshomealoneatnight.jpg",
+      rating: 5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/a-girl-walks-home-alone-at-night/",
+    platform: "letterboxd"
+  },
+                             {
+    title: "Nirvanna the Band the Show the Movie",
+    year: "2025",
+    director: "Matt Johnson",
+    image: "Draft/nirvannathebandtheshowthemovie.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/film/nirvanna-the-band-the-show-the-movie/",
+    platform: "letterboxd"
+  },
+                               {
+    title: "Iron Maiden: Burning Ambition",
+    year: "2026",
+    director: "Malcolm Venville",
+    image: "Draft/ironmaidenburningambition.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/iron-maiden-burning-ambition/",
+    platform: "letterboxd"
+  },
 ];
