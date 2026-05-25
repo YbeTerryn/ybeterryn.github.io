@@ -1283,7 +1283,7 @@ const reviewStories = [
     year: "2023",
     director: "Jonathan Glazer",
     image: "Draft/thezoneofinterest.jpg",
-      rating: 4,5,
+      rating: 4.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/the-zone-of-interest/",
     platform: "letterboxd"
   },
@@ -1292,7 +1292,7 @@ const reviewStories = [
     year: "2010",
     director: "Denis Villeneuve",
     image: "Draft/incendies.jpg",
-      rating: 3,5,
+      rating: 3.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/incendies/",
     platform: "letterboxd"
   },
@@ -1301,7 +1301,7 @@ const reviewStories = [
     year: "2002",
     director: "Ricky Gervais, Stephen Merchant",
     image: "Draft/theoffices2.jpg",
-      rating: 4,5,
+      rating: 4.5,
     link: "https://www.serializd.com/review/66447970",
     platform: "serializd"
   },
