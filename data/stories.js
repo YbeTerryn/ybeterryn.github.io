@@ -1354,7 +1354,7 @@ const reviewStories = [
     title: "C'est arrivé près de chez vous",
     year: "1992",
     director: " Rémy Belvaux, André Bonzel, Benoît Poelvoorde",
-    image: "Draft/cestarrivepresdechesvous.jpg",
+    image: "Draft/cestarrivepresdechezvous.jpg",
       rating: 4.5,
     link: "https://letterboxd.com/pieterpaultybbe/film/iron-maiden-burning-ambition/",
     platform: "letterboxd"
