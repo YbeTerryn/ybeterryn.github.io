@@ -1359,4 +1359,13 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/iron-maiden-burning-ambition/",
     platform: "letterboxd"
   },
+                                   {
+    title: "La Chimera",
+    year: "2023",
+    director: "Alice Rohrwacher",
+    image: "Draft/lachimera.jpg",
+      rating: 3.5,
+    link: "https://letterboxd.com/pieterpaultybbe/film/la-chimera/",
+    platform: "letterboxd"
+  },
 ];
