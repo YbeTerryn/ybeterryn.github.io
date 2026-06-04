@@ -1368,4 +1368,22 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/la-chimera/",
     platform: "letterboxd"
   },
+                                     {
+    title: "Kill Bill: The Whole Bloody affair",
+    year: "2004",
+    director: "Quentin Tarantino",
+    image: "Draft/killbillthewholebloodyaffair.jpg",
+      rating: 4.5,
+    link: "https://letterboxd.com/film/kill-bill-the-whole-bloody-affair/",
+    platform: "letterboxd"
+  },
+                                    {
+    title: "The Lost Chapter: Yuki’s Revenge",
+    year: "2025",
+    director: "Quentin Tarantino",
+    image: "Draft/thelostchapteryukisrevenge.jpg",
+      rating: 1,
+    link: "https://letterboxd.com/pieterpaultybbe/film/the-lost-chapter-yukis-revenge/1/",
+    platform: "letterboxd"
+  },
 ];
