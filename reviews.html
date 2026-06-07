@@ -46,16 +46,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.filter-btn');
 
     let currentList = [];
-    const pageTitle = document.title;
     
-    if (typeof stories !== 'undefined') {
+    // OPLOSSING: We dwingen het script om direct jouw reviewStories te laden
+    if (typeof reviewStories !== 'undefined') {
+        currentList = reviewStories; 
+    } else if (typeof stories !== 'undefined') {
         currentList = stories; 
-    }
-    
-    if (pageTitle.includes("Archief") && typeof archiveStories !== 'undefined') {
-        currentList = archiveStories;
-    } else if (pageTitle.includes("Reviews") && typeof reviewStories !== 'undefined') {
-        currentList = reviewStories;
     }
 
     let selectedPlatform = "all";
@@ -118,8 +114,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     .replace(/^-|-$/g, '');
 
             const storySlug = item.id || slugify(item.title);
-
-            // GEFIKST: Linkt nu correct naar story.html in plaats van verhaal.html
             const link = `story.html?id=${storySlug}`;
             const buttonText = "📖 LEES REVIEW";
     
