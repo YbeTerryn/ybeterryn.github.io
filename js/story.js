@@ -24,8 +24,15 @@
         #story-title {
             font-size: 36px;
             color: #ffd166;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             text-align: center;
+        }
+        #story-meta {
+            text-align: center;
+            color: #aaa;
+            font-size: 16px;
+            margin-bottom: 25px;
+            font-style: italic;
         }
         #story-image {
             width: 100%;
@@ -45,6 +52,19 @@
         }
         
         /* Styling voor de interactieve suggestie-kaarten */
+        .suggestion-card {
+            text-decoration: none; 
+            color: inherit; 
+            width: 280px; 
+            background: #1a1a1a; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #ffd166; 
+            transition: transform 0.2s, background 0.2s, border-color 0.2s; 
+            text-align: left; 
+            display: block; 
+            box-sizing: border-box;
+        }
         .suggestion-card:hover {
             transform: translateY(-5px);
             border-color: #fff !important;
@@ -57,6 +77,8 @@
     <div class="container">
         <h1 id="story-title">Verhaal laden...</h1>
         
+        <div id="story-meta"></div>
+        
         <img id="story-image" src="" alt="" style="display: none;">
         
         <div id="text-container"></div>
@@ -66,7 +88,7 @@
         <div id="suggestions-container"></div>
     </div>
 
-    <script src="stories.js"></script>
+    <script src="data/stories.js"></script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -86,7 +108,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Helper functie om slugs te genereren (voor reviews en ID matching)
+        // Helper functie om titels om te zetten naar veilige URL-slugs (voor reviews)
         const slugify = (text) =>
             text
                 ?.toLowerCase()
@@ -98,54 +120,72 @@
             const params = new URLSearchParams(window.location.search);
             const storyId = params.get("id");
 
-            console.log("Gezocht storyId uit URL =", storyId);
+            console.log("URL parameter 'id' ontvangen:", storyId);
 
-            // Verzamel alle verhalen uit stories.js
+            // Combineer alle arrays uit data/stories.js veilig
             const allStories = [
                 ...(typeof stories !== 'undefined' ? stories : []), 
                 ...(typeof archiveStories !== 'undefined' ? archiveStories : []),
                 ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
             ];
 
-            console.log("Totaal aantal ingeladen verhalen =", allStories.length);
+            console.log("Totaal aantal verhalen/reviews ingeladen uit data/stories.js:", allStories.length);
             
-            // STAP 2: SLUGIFY MATCHING TOEGEVOEGD
-            // Zoekt op s.id óf maakt een slug van s.title om te vergelijken met de URL
+            if (allStories.length === 0) {
+                console.error("CRITISCH: Geen data gevonden! Staat 'stories.js' wel in de 'data' map?");
+                document.getElementById("story-title").innerText = "Data kon niet worden geladen";
+                return;
+            }
+
+            // Zoek de match: vergelijk met ID óf vergelijk met de geslugificeerde titel
             const story = allStories.find(s => 
-                s.id === storyId || 
-                slugify(s.title) === storyId
+                (s.id && s.id === storyId) || 
+                (s.title && slugify(s.title) === storyId)
             );
 
-            console.log("Gevonden match =", story);
+            console.log("Gevonden match in database:", story);
 
             if (story) {
-                // Genereer een uniek ID voor Firebase (zodat reviews zonder s.id ook likes kunnen krijgen)
+                // Maak een unieke identifier voor Firebase (id of slug van titel)
                 const firebaseDocId = story.id || slugify(story.title);
 
+                // Bepaal het bestandspad naar de tekst. Als het een review is zonder s.text, bouw het pad dan zelf op.
                 const textPath = story.text || `reviews/${slugify(story.title)}.html`;
+                console.log("Proberen tekst op te halen via pad:", textPath);
 
                 fetch(textPath)
                     .then(res => {
-                        if (!res.ok) throw new Error("Bestand niet gevonden: " + textPath);
+                        if (!res.ok) throw new Error("Bestand niet gevonden op pad: " + textPath);
                         return res.text();
                     })
                     .then(htmlContent => {
                         const textContainer = document.getElementById("text-container");
                         const titleElement = document.getElementById("story-title");
+                        const metaElement = document.getElementById("story-meta");
                         const imageElement = document.getElementById("story-image");
 
-                        // 1. Titel en Afbeelding instellen
+                        // 1. Titel, Metadata en Afbeelding invullen
                         if (titleElement) {
                             titleElement.innerText = story.title;
-                            document.title = `${story.title} | Pieter Paul Tybbe`;
+                            document.title = `${story.title} | ybeterryn.be`;
                         }
+
+                        if (metaElement) {
+                            if (story.director && story.year) {
+                                // Toon regisseur en jaar als het een film review is
+                                metaElement.innerText = `Geregisseerd door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5`;
+                            } else if (story.date) {
+                                metaElement.innerText = story.date;
+                            }
+                        }
+
                         if (imageElement && story.image) {
                             imageElement.src = story.image;
                             imageElement.alt = story.title;
                             imageElement.style.display = "block";
                         }
 
-                        // 2. Tekst formatteren
+                        // 2. Tekst formatteren (alinea's maken van platte tekst)
                         if (textContainer) {
                             let formattedContent = htmlContent;
                             if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
@@ -158,7 +198,7 @@
                             textContainer.innerHTML = formattedContent;
                         }
 
-                        // 3. Firebase Like-knop initialiseren
+                        // 3. Firebase Like-knop opbouwen
                         const likeContainer = document.getElementById('like-container');
                         if (likeContainer) {
                             likeContainer.style.textAlign = "center";
@@ -177,7 +217,7 @@
                             const likeCountElem = document.getElementById('like-count');
                             const docRef = doc(db, "likes", firebaseDocId);
 
-                            // Haal huidige stand op uit Firestore
+                            // Haal likes op uit Firestore
                             getDoc(docRef).then((docSnap) => {
                                 if (docSnap.exists()) {
                                     likeCountElem.innerText = docSnap.data().count;
@@ -186,7 +226,7 @@
                                     setDoc(docRef, { count: 0 });
                                 }
                             }).catch(err => {
-                                console.error("Firebase data kon niet worden opgehaald. Controleer je config en Firestore regels.", err);
+                                console.warn("Firebase laad-fout (mogelijk onjuiste config of Firestore regels):", err);
                                 likeCountElem.innerText = "0";
                             });
 
@@ -206,7 +246,7 @@
                             });
                         }
 
-                        // 4. Suggesties voor andere verhalen genereren
+                        // 4. Twee willekeurige suggesties genereren
                         const suggestionsContainer = document.getElementById('suggestions-container');
                         if (suggestionsContainer) {
                             const otherStories = allStories.filter(s => s.title !== story.title);
@@ -217,7 +257,7 @@
 
                                 let suggestionsHTML = `
                                     <div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333;">
-                                        <h3 style="font-size: 24px; margin-bottom: 25px; color: #fff;">Zin in nog een verhaal?</h3>
+                                        <h3 style="font-size: 24px; margin-bottom: 25px; color: #fff;">Zin in nog een verhaal of review?</h3>
                                         <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
                                 `;
 
@@ -226,7 +266,7 @@
                                     const storyUrl = `${window.location.pathname}?id=${targetId}`;
                                     
                                     suggestionsHTML += `
-                                        <a href="${storyUrl}" class="suggestion-card" style="text-decoration: none; color: inherit; width: 280px; background: #1a1a1a; padding: 15px; border-radius: 8px; border: 1px solid #ffd166; transition: transform 0.2s, background 0.2s, border-color 0.2s; text-align: left; display: block; box-sizing: border-box;">
+                                        <a href="${storyUrl}" class="suggestion-card">
                                             ${suggestion.image ? `<img src="${suggestion.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; display:block;">` : ''}
                                             <h4 style="margin: 0 0 8px 0; font-size: 18px; color: #ffd166; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${suggestion.title}</h4>
                                             <p style="margin: 0; font-size: 14px; color: #ccc;">Klik hier om te lezen &rarr;</p>
@@ -246,11 +286,12 @@
                     .catch(err => {
                         console.error(err);
                         const textContainer = document.getElementById("text-container");
-                        if (textContainer) textContainer.innerHTML = `<p style='text-align:center; color: #ff6b6b;'>Er ging iets mis bij het laden van het verhaal.<br><small>${err.message}</small></p>`;
+                        if (textContainer) textContainer.innerHTML = `<p style='text-align:center; color: #ff6b6b;'>Er ging iets mis bij het laden van de tekst.<br><small>${err.message}</small></p>`;
                     });
             } else {
-                document.getElementById("story-title").innerText = "Verhaal niet gevonden";
-                document.getElementById("text-container").innerHTML = "<p style='text-align:center;'>Het gezochte verhaal kon helaas niet worden gevonden in ons archief.</p>";
+                console.warn("Geen match gevonden voor ID:", storyId);
+                document.getElementById("story-title").innerText = "Verhaal of review niet gevonden";
+                document.getElementById("text-container").innerHTML = "<p style='text-align:center;'>Het gezochte item kon helaas niet worden gevonden in het archief.</p>";
             }
         });
     </script>
