@@ -35,8 +35,10 @@
 
 <main class="grid" id="main-container"></main>
 
+<!-- LAAD DE DATA IN -->
 <script src="data/stories.js"></script>
 
+<!-- LOGICA VOOR HET FILTEREN EN RENDEREN VAN DE REVIEWS -->
 <script>
 window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
@@ -50,7 +52,6 @@ window.addEventListener('DOMContentLoaded', () => {
         currentList = stories; 
     }
     
-    // Controleer op basis van de paginatitel welke lijst ingeladen moet worden
     if (pageTitle.includes("Archief") && typeof archiveStories !== 'undefined') {
         currentList = archiveStories;
     } else if (pageTitle.includes("Reviews") && typeof reviewStories !== 'undefined') {
@@ -96,12 +97,10 @@ window.addEventListener('DOMContentLoaded', () => {
             return matchesSearch && matchesPlatform;
         });
 
-        // Toon de nieuwste reviews bovenaan
         [...filtered].reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
             
-            // Iconen logica inclusief Serializd
             let iconHtml = "";
             if (item.platform === "letterboxd") {
                 iconHtml = '<i class="fab fa-letterboxd"></i> ';
@@ -120,8 +119,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const storySlug = item.id || slugify(item.title);
 
-            // GEWIJZIGD: Veranderd van story.html naar verhaal.html
-            const link = `verhaal.html?id=${storySlug}`;
+            // GEFIKST: Linkt nu correct naar story.html in plaats van verhaal.html
+            const link = `story.html?id=${storySlug}`;
             const buttonText = "📖 LEES REVIEW";
     
             card.innerHTML = `
