@@ -101,21 +101,29 @@
                 ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
             ];
             
-const story = allStories.find(s =>
-    s.id === storyId ||
-    s.title
+const slugify = (text) =>
+    text
         ?.toLowerCase()
         .replace(/[’']/g, '')
         .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '') === storyId
-);
-          if (story) {
+        .replace(/^-|-$/g, '');
 
-    const textPath = story.text || `reviews/${story.title
-        .toLowerCase()
-        .replace(/[’']/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '')}.html`;
+const story = allStories.find(s =>
+    s.id === storyId ||
+    slugify(s.title) === storyId
+);
+if (story) {
+
+    const slug = slugify(story.title);
+
+    const textPath =
+        story.text ||
+        `reviews/${slug}.html`;
+
+    const imagePath =
+        story.image ||
+        `Draft/${slug}.jpg`;
+
 
     fetch(textPath)
         .then(res => {
@@ -132,10 +140,11 @@ const story = allStories.find(s =>
                             titleElement.innerText = story.title;
                             document.title = `${story.title} | Pieter Paul Tybbe`;
                         }
-                        if (imageElement && story.image) {
-                            imageElement.src = story.image;
-                            imageElement.alt = story.title;
-                            imageElement.style.display = "block"; // Maak zichtbaar als er een afbeelding is
+                        if (imageElement) {
+    imageElement.src = imagePath;
+    imageElement.alt = story.title;
+    imageElement.style.display = "block";
+} // Maak zichtbaar als er een afbeelding is
                         }
 
                         // 2. Tekst formatteren
