@@ -116,6 +116,7 @@
             const db = getFirestore(app);
             console.log("Firebase succesvol geïnitialiseerd.");
 
+            // Universele slugify functie
             const slugify = (text) =>
                 text
                     ?.toLowerCase()
@@ -143,6 +144,7 @@
                     return;
                 }
 
+                // GEFIKST: We vergelijken nu de slug van de URL met de slug van de titel, zodat hoofdletters en spaties geen rol meer spelen!
                 const story = allStories.find(s => 
                     (s.id && s.id === storyId) || 
                     (s.title && slugify(s.title) === storyId)
@@ -279,13 +281,11 @@
                         });
                 } else {
                     console.warn("Geen match gevonden voor:", storyId);
-                    document.getElementById("story-title").innerText = "Niet gevonden";
-                    document.getElementById("text-container").innerHTML = "<p style='text-align:center;'>Niet gevonden in het archief.</p>";
+                    document.getElementById("story-title").innerText = "Verhaal niet gevonden.";
+                    document.getElementById("text-container").innerHTML = "<p style='text-align:center;'>Dit item kon niet worden gevonden in de database.</p>";
                 }
             });
         } catch (e) {
             console.error("Fout binnen module:", e);
         }
     </script>
-</body>
-</html>
