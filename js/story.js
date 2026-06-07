@@ -216,7 +216,12 @@ if (story) {
                         const suggestionsContainer = document.getElementById('suggestions-container');
                         if (suggestionsContainer) {
                             // Filter het huidige actieve verhaal eruit zodat deze niet getipt wordt
-                            const otherStories = allStories.filter(s => s.id !== story.id);
+                           const currentSlug = story.id || slugify(story.title);
+
+const otherStories = allStories.filter(s => {
+    const slug = s.id || slugify(s.title);
+    return slug !== currentSlug;
+});
 
                             if (otherStories.length > 0) {
                                 // Schud de overige verhalen willekeurig door elkaar
