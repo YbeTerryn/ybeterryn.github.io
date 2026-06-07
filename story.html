@@ -10,213 +10,310 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schrijfsel — Pieter Paul Tybbe</title>
+    <title>ybeterryn.be | Verhaal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #f2f2f2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #story-title {
+            font-size: 36px;
+            color: #ffd166;
+            margin-bottom: 5px;
+            text-align: center;
+            font-family: serif;
+        }
+        #story-meta {
+            text-align: center;
+            color: #aaa;
+            font-size: 16px;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        #story-image {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: none; /* Wordt dynamic getoond als er een plaatje is */
+        }
+        #text-container {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+        #text-container p {
+            margin-bottom: 20px;
+        }
+        .suggestion-card {
+            text-decoration: none; 
+            color: inherit; 
+            width: 280px; 
+            background: #1a1a1a; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #ffd166; 
+            transition: transform 0.2s, background 0.2s, border-color 0.2s; 
+            text-align: left; 
+            display: block; 
+            box-sizing: border-box;
+        }
+        .suggestion-card:hover {
+            transform: translateY(-5px);
+            border-color: #fff !important;
+            background: #252525 !important;
+        }
+    </style>
 </head>
 <body>
 
-<header id="main-header">
-    <nav id="main-nav"></nav>
-</header>
+    <div class="container">
+        <header id="main-header">
+            <nav id="main-nav"></nav>
+        </header>
 
-<main class="reader">
-    <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif; color: #ffd166;"></h1>
-    
-    <!-- Extra elementen voor de review-meta-data (regisseur, jaar, poster) indien aanwezig -->
-    <div id="story-meta" style="text-align: center; color: #ccc; font-style: italic; margin-bottom: 1rem; font-size: 0.9rem;"></div>
-    <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
-        <img id="story-image" src="" alt="" style="max-width: 250px; border-radius: 8px; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-    </div>
-    
-    <article id="text-container" class="literary-text">Verhaal wordt geladen...</article>
-
-    <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
-        <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
-            Laat weten wat je ervan vond!
-        </p>
-        <div id="like-container" style="min-height: 80px; display: flex; justify-content: center; align-items: center;"></div>
-    </div>
-
-    <section class="reader-feedback" style="margin-bottom: 50px;">
-        <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
-        <div id="cusdis_thread" 
-             data-host="https://cusdis.com" 
-             data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f" 
-             data-lang="nl"
-             data-theme="dark">
-        </div>
-    </section>
-
-    <div style="text-align: center; margin: 40px 0;">
-        <a href="index.html" style="color: #ffd166; text-decoration: none; font-variant: small-caps; border: 1px solid #ffd166; padding: 10px 20px;">
-            ← Terug naar alle verhalen
-        </a>
-    </div>
-</main>
-
-<script src="data/stories.js"></script>
-
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyB_J1Up8Uof5CXvPT4SQ30er20hL2Qy6Cw",
-        authDomain: "sesjat-549da.firebaseapp.com",
-        projectId: "sesjat-549da",
-        storageBucket: "sesjat-549da.firebasestorage.app",
-        messagingSenderId: "845325090016",
-        appId: "1:845325090016:web:358412e188aad787fee485",
-        measurementId: "G-J8QZD6VXTX"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Slimme omzetter voor titels naar URL-vriendelijke links
-    const slugify = (text) =>
-        text
-            ?.toLowerCase()
-            .replace(/[’']/g, '')
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-|-$/g, '');
-
-    async function initPage() {
-        const params = new URLSearchParams(window.location.search);
-        const storyId = params.get("id");
-
-        const textContainer = document.getElementById("text-container");
-        const titleElement = document.getElementById("story-title");
-        const metaElement = document.getElementById("story-meta");
-        const imageElement = document.getElementById("story-image");
-
-        if (!textContainer || !titleElement) {
-            setTimeout(initPage, 50);
-            return;
-        }
-
-        const allStories = [
-            ...(typeof stories !== 'undefined' ? stories : []), 
-            ...(typeof archiveStories !== 'undefined' ? archiveStories : []),
-            ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
-        ];
+        <h1 id="story-title">Verhaal laden...</h1>
+        <div id="story-meta"></div>
         
-        // GEFIKST: Zoekt op ID óf matcht op de omgezette titel (slug)
-        const story = allStories.find(s => 
-            (s.id && s.id === storyId) || 
-            (s.title && slugify(s.title) === storyId)
-        );
+        <div style="display: flex; justify-content: center;">
+            <img id="story-image" src="" alt="">
+        </div>
 
-        if (!story) {
-            textContainer.innerText = "Verhaal of review niet gevonden.";
-            return;
-        }
+        <article id="text-container" class="literary-text"></article>
+        
+        <!-- Like sectie in jouw gouden stijl -->
+        <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
+            <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
+                Laat weten wat je ervan vond!
+            </p>
+            <div id="like-container" style="min-height: 80px; display: flex; justify-content: center; align-items: center;"></div>
+        </div>
 
-        // Bepaal de unieke ID voor Firebase (gebruik id, of anders de titel-slug)
-        const firebaseDocId = story.id || slugify(story.title);
+        <!-- Reactiesysteem -->
+        <section class="reader-feedback" style="margin-bottom: 50px;">
+            <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
+            <div id="cusdis_thread" 
+                 data-host="https://cusdis.com" 
+                 data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f" 
+                 data-lang="nl"
+                 data-theme="dark">
+            </div>
+        </section>
 
-        try {
-            // GEFIKST: Bepaal het juiste bestandspad (story.text of automatisch reviews/slug.html)
+        <div id="suggestions-container"></div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="index.html" style="color: #ffd166; text-decoration: none; font-variant: small-caps; border: 1px solid #ffd166; padding: 10px 20px;">
+                ← Terug naar alle verhalen
+            </a>
+        </div>
+    </div>
+
+    <!-- DATA INLADEN -->
+    <script src="data/stories.js"></script>
+
+    <!-- CRASH LOGGER -->
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("GLOBALE FOUT DETECTIE:", message, "in", source, "op regel:", lineno);
+            alert("Er ging iets mis in het script: \n" + message); 
+            return false;
+        };
+    </script>
+
+    <!-- FIREBASE EN INLAADLOGICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // GEFIKST: Jouw echte Firebase credentials staan er nu in!
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_J1Up8Uof5CXvPT4SQ30er20hL2Qy6Cw",
+            authDomain: "sesjat-549da.firebaseapp.com",
+            projectId: "sesjat-549da",
+            storageBucket: "sesjat-549da.firebasestorage.app",
+            messagingSenderId: "845325090016",
+            appId: "1:845325090016:web:358412e188aad787fee485",
+            measurementId: "G-J8QZD6VXTX"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const slugify = (text) =>
+            text
+                ?.toLowerCase()
+                .replace(/[’']/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+
+        window.addEventListener('load', () => {
+            const params = new URLSearchParams(window.location.search);
+            const storyId = params.get("id");
+
+            const textContainer = document.getElementById("text-container");
+            const titleElement = document.getElementById("story-title");
+            const metaElement = document.getElementById("story-meta");
+            const imageElement = document.getElementById("story-image");
+
+            const allStories = [
+                ...(typeof stories !== 'undefined' ? stories : []), 
+                ...(typeof archiveStories !== 'undefined' ? archiveStories : []),
+                ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
+            ];
+            
+            // Vind het verhaal op basis van ID of Titel-slug
+            const story = allStories.find(s => 
+                (s.id && s.id === storyId) || 
+                (s.title && slugify(s.title) === storyId)
+            );
+
+            if (!story) {
+                titleElement.innerText = "Niet gevonden";
+                textContainer.innerText = "Verhaal of review niet gevonden.";
+                return;
+            }
+
+            const firebaseDocId = story.id || slugify(story.title);
             const textPath = story.text || `reviews/${slugify(story.title)}.html`;
 
-            // 1. Tekst ophalen
-            const res = await fetch(textPath);
-            if (!res.ok) throw new Error("Tekstbestand niet gevonden op: " + textPath);
-            const htmlContent = await res.text();
-            
-            // 2. Titel invullen
-            titleElement.innerText = story.title;
-            document.title = `${story.title} | Pieter Paul Tybbe`;
-            
-            // Extra: Metadata invullen voor films/boeken (indien aanwezig)
-            if (metaElement) {
-                if (story.director && story.year) {
-                    metaElement.innerText = `Geregisseerd door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5`;
-                } else if (story.date) {
-                    metaElement.innerText = story.date;
-                }
-            }
+            fetch(textPath)
+                .then(res => {
+                    if (!res.ok) throw new Error("Tekstbestand niet gevonden op: " + textPath);
+                    return res.text();
+                })
+                .then(htmlContent => {
+                    titleElement.innerText = story.title;
+                    document.title = `${story.title} | Pieter Paul Tybbe`;
+                    
+                    if (metaElement) {
+                        if (story.director && story.year) {
+                            metaElement.innerText = `Geregisseerd door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5`;
+                        } else if (story.date) {
+                            metaElement.innerText = story.date;
+                        }
+                    }
 
-            // Extra: Poster/Cover tonen (indien aanwezig)
-            if (imageElement && story.image) {
-                imageElement.src = story.image;
-                imageElement.alt = story.title;
-                imageElement.style.display = "block";
-            }
+                    if (imageElement && story.image) {
+                        imageElement.src = story.image;
+                        imageElement.alt = story.title;
+                        imageElement.style.display = "block";
+                    }
 
-            // 3. Formatteren van paragrafen
-            let formattedContent = htmlContent;
-            if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-                formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
-            }
-            textContainer.innerHTML = formattedContent;
+                    let formattedContent = htmlContent;
+                    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+                        formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+                    }
+                    textContainer.innerHTML = formattedContent;
 
-            // 4. Likes initialiseren met de firebaseDocId
-            setupLikes(firebaseDocId);
+                    // Start de likes
+                    setupLikes(firebaseDocId);
 
-        } catch (err) {
-            console.error(err);
-            textContainer.innerText = "Fout bij het laden van de review-tekst.";
-        }
-    }
+                    // Suggesties genereren
+                    const suggestionsContainer = document.getElementById('suggestions-container');
+                    if (suggestionsContainer) {
+                        const otherStories = allStories.filter(s => s.title !== story.title);
+                        if (otherStories.length > 0) {
+                            const shuffled = otherStories.sort(() => 0.5 - Math.random());
+                            const selectedStories = shuffled.slice(0, 2);
 
-    async function setupLikes(storyId) {
-        const likeContainer = document.getElementById('like-container');
-        if (!likeContainer) return;
+                            let suggestionsHTML = `
+                                <div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333;">
+                                    <h3 style="font-size: 24px; margin-bottom: 25px; color: #fff; font-family: serif;">Zin in nog een verhaal of review?</h3>
+                                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                            `;
 
-        const docRef = doc(db, "likes", storyId);
-        
-        likeContainer.innerHTML = `
-            <div style="text-align:center; font-family: serif;">
-                <button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s;">
-                    <i class="fa-solid fa-heart" style="color: #ebbb2d; font-size: 2.5rem;"></i>
-                </button>
-                <div id="like-count" style="color: #ebbb2d; font-size: 1.1rem; font-weight: bold; margin-top: 8px; letter-spacing: 1px;">...</div>
-            </div>
-        `;
+                            selectedStories.forEach(suggestion => {
+                                const targetId = suggestion.id || slugify(suggestion.title);
+                                const storyUrl = `${window.location.pathname}?id=${targetId}`;
+                                
+                                suggestionsHTML += `
+                                    <a href="${storyUrl}" class="suggestion-card">
+                                        ${suggestion.image ? `<img src="${suggestion.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; display:block;">` : ''}
+                                        <h4 style="margin: 0 0 8px 0; font-size: 18px; color: #ffd166; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: serif;">${suggestion.title}</h4>
+                                        <p style="margin: 0; font-size: 14px; color: #ccc;">Klik hier om te lezen &rarr;</p>
+                                    </a>
+                                `;
+                            });
 
-        const likeBtn = document.getElementById('like-button');
-        const countDisplay = document.getElementById('like-count');
-
-        try {
-            const snap = await getDoc(docRef);
-            if (snap.exists()) {
-                countDisplay.innerText = snap.data().count;
-            } else {
-                countDisplay.innerText = "0";
-                await setDoc(docRef, { count: 0 });
-            }
-        } catch (e) {
-            console.error("Firestore error:", e);
-            countDisplay.innerText = "0";
-        }
-
-        likeBtn.onclick = async () => {
-            likeBtn.style.transform = "scale(1.2)";
-            setTimeout(() => likeBtn.style.transform = "scale(1)", 200);
-            try {
-                await updateDoc(docRef, { count: increment(1) });
-                const newSnap = await getDoc(docRef);
-                countDisplay.innerText = newSnap.data().count;
-            } catch (e) {
-                console.error("Update failed:", e);
-            }
-        };
-    }
-
-    // Start het script
-    initPage();
-
-    // Navigatie laden
-    fetch('nav.html')
-        .then(res => res.text())
-        .then(data => {
-            const nav = document.getElementById('main-nav');
-            if (nav) nav.innerHTML = data;
+                            suggestionsHTML += `</div></div>`;
+                            suggestionsContainer.innerHTML = suggestionsHTML;
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    textContainer.innerHTML = `<p style='text-align:center; color: #ff6b6b;'>Tekst kon niet worden geladen.<br><small>${err.message}</small></p>`;
+                });
         });
-</script>
 
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+        async function setupLikes(storyId) {
+            const likeContainer = document.getElementById('like-container');
+            if (!likeContainer) return;
+
+            const docRef = doc(db, "likes", storyId);
+            
+            likeContainer.innerHTML = `
+                <div style="text-align:center; font-family: serif;">
+                    <button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s; outline: none;">
+                        <i class="fa-solid fa-heart" style="color: #ebbb2d; font-size: 2.5rem;"></i>
+                    </button>
+                    <div id="like-count" style="color: #ebbb2d; font-size: 1.1rem; font-weight: bold; margin-top: 8px; letter-spacing: 1px;">...</div>
+                </div>
+            `;
+
+            const likeBtn = document.getElementById('like-button');
+            const countDisplay = document.getElementById('like-count');
+
+            try {
+                const snap = await getDoc(docRef);
+                if (snap.exists()) {
+                    countDisplay.innerText = snap.data().count;
+                } else {
+                    countDisplay.innerText = "0";
+                    await setDoc(docRef, { count: 0 });
+                }
+            } catch (e) {
+                console.error(e);
+                countDisplay.innerText = "0";
+            }
+
+            likeBtn.onclick = async () => {
+                likeBtn.style.transform = "scale(1.2)";
+                setTimeout(() => likeBtn.style.transform = "scale(1)", 200);
+                try {
+                    await updateDoc(docRef, { count: increment(1) });
+                    const newSnap = await getDoc(docRef);
+                    countDisplay.innerText = newSnap.data().count;
+                } catch (e) {
+                    console.error(e);
+                }
+            };
+        }
+
+        // Navigatie laden
+        fetch('nav.html')
+            .then(res => res.text())
+            .then(data => {
+                const nav = document.getElementById('main-nav');
+                if (nav) nav.innerHTML = data;
+            });
+    </script>
+
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
 </html>
