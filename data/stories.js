@@ -1393,4 +1393,22 @@ const reviewStories = [
     link: "https://letterboxd.com/pieterpaultybbe/film/the-lost-chapter-yukis-revenge/1/",
     platform: "letterboxd"
   },
+                                      {
+    title: "Vixen!",
+    year: "1968",
+    director: "Russ Meyer",
+    image: "Draft/vixen.jpg",
+      rating: 2,
+    link: "https://letterboxd.com/pieterpaultybbe/film/vixen/",
+    platform: "letterboxd"
+  },
+                                       {
+    title: "Exotica",
+    year: "1994",
+    director: "Atom Egoyan",
+    image: "Draft/exotica.jpg",
+      rating: 4,
+    link: "https://letterboxd.com/pieterpaultybbe/film/exotica/",
+    platform: "letterboxd"
+  },
 ];
