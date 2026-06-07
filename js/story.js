@@ -103,12 +103,19 @@
             
             const story = allStories.find(s => s.id === storyId);
 
-            if (story) {
-                fetch(story.text)
-                    .then(res => {
-                        if (!res.ok) throw new Error("Bestand niet gevonden");
-                        return res.text();
-                    })
+          if (story) {
+
+    const textPath = story.text || `reviews/${story.title
+        .toLowerCase()
+        .replace(/[’']/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '')}.html`;
+
+    fetch(textPath)
+        .then(res => {
+            if (!res.ok) throw new Error("Bestand niet gevonden");
+            return res.text();
+        })
                     .then(htmlContent => {
                         const textContainer = document.getElementById("text-container");
                         const titleElement = document.getElementById("story-title");
