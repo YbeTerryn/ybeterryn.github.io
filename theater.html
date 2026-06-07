@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag()){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-MJ1V2PREL6');
@@ -34,34 +33,50 @@
 <main class="grid">
   <article class="card">
     <div class="card-content">
-      <img src="Draft/deliefdeenhaaronmogelijkeregie.png" alt="De Totentrekkers" class="card-image">
+      <img src="Draft/deliefdeenhaaronmogelijkeregie.png" alt="De Liefde en haar onmogelijke regie" class="card-image">
       
       <div class="card-text">
         <h2>De Liefde en haar onmogelijke regie</h2>
         <p> De repities van een veelvragende regisseur clashen met de dromen van de hoofdrol</p>
         <p class="meta-info"><em>Première: maart 2026</em></p>
-        <a href="https://bib.opendoek.be/cgi-bin/koha/opac-detail.pl?biblionumber=67133" 
-           target="_blank" 
-           class="read-link">Lees</a>
+        
+        <div class="card-buttons">
+          <a href="https://bib.opendoek.be/cgi-bin/koha/opac-detail.pl?biblionumber=67133" 
+             target="_blank" 
+             class="read-link">Lees op Opendoek</a>
+          
+          <a href="/pdf/de_liefde_en_haar_onmogelijke_regie.pdf" 
+             target="_blank" 
+             class="pdf-link"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
+        </div>
       </div>
     </div>
   </article>
+
   <article class="card">
     <div class="card-content">
       <img src="Draft/totetrekkers.jpg" alt="De Totentrekkers" class="card-image">
       
       <div class="card-text">
-        <h2>De Totetrekkers</h2>
+        <h2>De Totentrekkers</h2>
         <p>Op een reünie worden vrienden geconfronteerd met oude en nieuwe geheiemen</p>
         <p class="meta-info"><em>Première: maart 2025</em></p>
-        <a href="https://bib.opendoek.be/cgi-bin/koha/opac-detail.pl?biblionumber=53423" 
-           target="_blank" 
-           class="read-link">Lees</a>
+        
+        <div class="card-buttons">
+          <a href="https://bib.opendoek.be/cgi-bin/koha/opac-detail.pl?biblionumber=53423" 
+             target="_blank" 
+             class="read-link">Lees op Opendoek</a>
+          
+          <a href="/pdf/de_totentrekkers.pdf" 
+             target="_blank" 
+             class="pdf-link"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
+        </div>
       </div>
     </div>
   </article>
+</main>
 
-  <script>
+<script>
   // Dit script haalt het menu op uit nav.html
   fetch('nav.html')
     .then(response => response.text())
