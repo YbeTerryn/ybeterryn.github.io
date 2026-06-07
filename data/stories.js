@@ -1410,5 +1410,5 @@ const reviewStories = [
       rating: 4,
     link: "https://letterboxd.com/pieterpaultybbe/film/exotica/",
     platform: "letterboxd"
-  },
+  }
 ];
