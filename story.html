@@ -23,6 +23,12 @@
 <main class="reader">
     <h1 id="story-title" style="text-align: center; margin-top: 2rem; font-family: serif; color: #ffd166;"></h1>
     
+    <!-- Extra elementen voor de review-meta-data (regisseur, jaar, poster) indien aanwezig -->
+    <div id="story-meta" style="text-align: center; color: #ccc; font-style: italic; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+    <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+        <img id="story-image" src="" alt="" style="max-width: 250px; border-radius: 8px; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+    </div>
+    
     <article id="text-container" class="literary-text">Verhaal wordt geladen...</article>
 
     <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
@@ -55,7 +61,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // Configuratie op basis van jouw screenshots
     const firebaseConfig = {
         apiKey: "AIzaSyB_J1Up8Uof5CXvPT4SQ30er20hL2Qy6Cw",
         authDomain: "sesjat-549da.firebaseapp.com",
@@ -69,14 +74,23 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // Slimme omzetter voor titels naar URL-vriendelijke links
+    const slugify = (text) =>
+        text
+            ?.toLowerCase()
+            .replace(/[’']/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+
     async function initPage() {
         const params = new URLSearchParams(window.location.search);
         const storyId = params.get("id");
 
         const textContainer = document.getElementById("text-container");
         const titleElement = document.getElementById("story-title");
+        const metaElement = document.getElementById("story-meta");
+        const imageElement = document.getElementById("story-image");
 
-        // Wacht tot de HTML elementen er zijn
         if (!textContainer || !titleElement) {
             setTimeout(initPage, 50);
             return;
@@ -88,36 +102,62 @@
             ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
         ];
         
-        const story = allStories.find(s => s.id === storyId);
+        // GEFIKST: Zoekt op ID óf matcht op de omgezette titel (slug)
+        const story = allStories.find(s => 
+            (s.id && s.id === storyId) || 
+            (s.title && slugify(s.title) === storyId)
+        );
 
         if (!story) {
-            textContainer.innerText = "Verhaal niet gevonden.";
+            textContainer.innerText = "Verhaal of review niet gevonden.";
             return;
         }
 
+        // Bepaal de unieke ID voor Firebase (gebruik id, of anders de titel-slug)
+        const firebaseDocId = story.id || slugify(story.title);
+
         try {
+            // GEFIKST: Bepaal het juiste bestandspad (story.text of automatisch reviews/slug.html)
+            const textPath = story.text || `reviews/${slugify(story.title)}.html`;
+
             // 1. Tekst ophalen
-            const res = await fetch(story.text);
-            if (!res.ok) throw new Error("Tekstbestand niet gevonden");
+            const res = await fetch(textPath);
+            if (!res.ok) throw new Error("Tekstbestand niet gevonden op: " + textPath);
             const htmlContent = await res.text();
             
             // 2. Titel invullen
             titleElement.innerText = story.title;
             document.title = `${story.title} | Pieter Paul Tybbe`;
             
-            // 3. Formatteren
+            // Extra: Metadata invullen voor films/boeken (indien aanwezig)
+            if (metaElement) {
+                if (story.director && story.year) {
+                    metaElement.innerText = `Geregisseerd door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5`;
+                } else if (story.date) {
+                    metaElement.innerText = story.date;
+                }
+            }
+
+            // Extra: Poster/Cover tonen (indien aanwezig)
+            if (imageElement && story.image) {
+                imageElement.src = story.image;
+                imageElement.alt = story.title;
+                imageElement.style.display = "block";
+            }
+
+            // 3. Formatteren van paragrafen
             let formattedContent = htmlContent;
             if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
                 formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
             }
             textContainer.innerHTML = formattedContent;
 
-            // 4. Likes initialiseren
-            setupLikes(story.id);
+            // 4. Likes initialiseren met de firebaseDocId
+            setupLikes(firebaseDocId);
 
         } catch (err) {
             console.error(err);
-            textContainer.innerText = "Fout bij het laden van de tekst.";
+            textContainer.innerText = "Fout bij het laden van de review-tekst.";
         }
     }
 
@@ -127,7 +167,6 @@
 
         const docRef = doc(db, "likes", storyId);
         
-        // De gouden rating-stijl die je vroeg
         likeContainer.innerHTML = `
             <div style="text-align:center; font-family: serif;">
                 <button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s;">
@@ -140,7 +179,6 @@
         const likeBtn = document.getElementById('like-button');
         const countDisplay = document.getElementById('like-count');
 
-        // Haal data op
         try {
             const snap = await getDoc(docRef);
             if (snap.exists()) {
@@ -154,7 +192,6 @@
             countDisplay.innerText = "0";
         }
 
-        // Like actie
         likeBtn.onclick = async () => {
             likeBtn.style.transform = "scale(1.2)";
             setTimeout(() => likeBtn.style.transform = "scale(1)", 200);
