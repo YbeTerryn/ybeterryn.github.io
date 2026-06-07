@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ybeterryn.be | Verhaal</title>
     <style>
-        /* Basis styling voor de pagina - pas dit gerust aan jouw eigen design aan */
+        /* Basis styling voor de pagina */
         body {
             background-color: #0d0d0d;
             color: #f2f2f2;
@@ -55,23 +55,19 @@
 <body>
 
     <div class="container">
-        <!-- Hier wordt de titel ingeladen -->
         <h1 id="story-title">Verhaal laden...</h1>
         
-        <!-- Hier wordt de hoofdafbeelding ingeladen -->
         <img id="story-image" src="" alt="" style="display: none;">
         
-        <!-- Hier komt de tekst van het kortverhaal of de review -->
         <div id="text-container"></div>
         
-        <!-- De interactieve Firebase Like-knop -->
         <div id="like-container"></div>
         
-        <!-- NIEUW: De suggestie-knoppen naar andere verhalen -->
         <div id="suggestions-container"></div>
     </div>
 
-    <!-- FIREBASE SCRIPT EN LOGICA -->
+    <script src="stories.js"></script>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -90,32 +86,49 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Helper functie om slugs te genereren (voor reviews en ID matching)
+        const slugify = (text) =>
+            text
+                ?.toLowerCase()
+                .replace(/[’']/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+
         window.addEventListener('load', () => {
             const params = new URLSearchParams(window.location.search);
             const storyId = params.get("id");
 
-            // Verzamel alle verhalen uit je arrays
+            console.log("Gezocht storyId uit URL =", storyId);
+
+            // Verzamel alle verhalen uit stories.js
             const allStories = [
                 ...(typeof stories !== 'undefined' ? stories : []), 
                 ...(typeof archiveStories !== 'undefined' ? archiveStories : []),
                 ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
             ];
+
+            console.log("Totaal aantal ingeladen verhalen =", allStories.length);
             
-            const story = allStories.find(s => s.id === storyId);
+            // STAP 2: SLUGIFY MATCHING TOEGEVOEGD
+            // Zoekt op s.id óf maakt een slug van s.title om te vergelijken met de URL
+            const story = allStories.find(s => 
+                s.id === storyId || 
+                slugify(s.title) === storyId
+            );
 
-          if (story) {
+            console.log("Gevonden match =", story);
 
-    const textPath = story.text || `reviews/${story.title
-        .toLowerCase()
-        .replace(/[’']/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '')}.html`;
+            if (story) {
+                // Genereer een uniek ID voor Firebase (zodat reviews zonder s.id ook likes kunnen krijgen)
+                const firebaseDocId = story.id || slugify(story.title);
 
-    fetch(textPath)
-        .then(res => {
-            if (!res.ok) throw new Error("Bestand niet gevonden");
-            return res.text();
-        })
+                const textPath = story.text || `reviews/${slugify(story.title)}.html`;
+
+                fetch(textPath)
+                    .then(res => {
+                        if (!res.ok) throw new Error("Bestand niet gevonden: " + textPath);
+                        return res.text();
+                    })
                     .then(htmlContent => {
                         const textContainer = document.getElementById("text-container");
                         const titleElement = document.getElementById("story-title");
@@ -129,7 +142,7 @@
                         if (imageElement && story.image) {
                             imageElement.src = story.image;
                             imageElement.alt = story.title;
-                            imageElement.style.display = "block"; // Maak zichtbaar als er een afbeelding is
+                            imageElement.style.display = "block";
                         }
 
                         // 2. Tekst formatteren
@@ -145,7 +158,7 @@
                             textContainer.innerHTML = formattedContent;
                         }
 
-                        // 3. Firebase Like-knop initialiseren en opbouwen
+                        // 3. Firebase Like-knop initialiseren
                         const likeContainer = document.getElementById('like-container');
                         if (likeContainer) {
                             likeContainer.style.textAlign = "center";
@@ -162,9 +175,9 @@
 
                             const likeButton = document.getElementById('like-button');
                             const likeCountElem = document.getElementById('like-count');
-                            const docRef = doc(db, "likes", story.id);
+                            const docRef = doc(db, "likes", firebaseDocId);
 
-                            // Haal huidige stand van de likes op uit Firestore
+                            // Haal huidige stand op uit Firestore
                             getDoc(docRef).then((docSnap) => {
                                 if (docSnap.exists()) {
                                     likeCountElem.innerText = docSnap.data().count;
@@ -172,19 +185,19 @@
                                     likeCountElem.innerText = "0";
                                     setDoc(docRef, { count: 0 });
                                 }
+                            }).catch(err => {
+                                console.error("Firebase data kon niet worden opgehaald. Controleer je config en Firestore regels.", err);
+                                likeCountElem.innerText = "0";
                             });
 
-                            // Like-klik actie: Verhoog de teller in de database bij een klik
+                            // Like-klik actie
                             likeButton.addEventListener('click', () => {
-                                // Subtiele animatie bij het klikken
                                 likeButton.style.transform = "scale(1.3)";
                                 setTimeout(() => { likeButton.style.transform = "scale(1)"; }, 200);
 
-                                // Update Firestore en verhoog met 1
                                 updateDoc(docRef, {
                                     count: increment(1)
                                 }).then(() => {
-                                    // Update de teller direct visueel op het scherm
                                     const currentLikes = parseInt(likeCountElem.innerText) || 0;
                                     likeCountElem.innerText = currentLikes + 1;
                                 }).catch((error) => {
@@ -196,13 +209,10 @@
                         // 4. Suggesties voor andere verhalen genereren
                         const suggestionsContainer = document.getElementById('suggestions-container');
                         if (suggestionsContainer) {
-                            // Filter het huidige actieve verhaal eruit zodat deze niet getipt wordt
-                            const otherStories = allStories.filter(s => s.id !== story.id);
+                            const otherStories = allStories.filter(s => s.title !== story.title);
 
                             if (otherStories.length > 0) {
-                                // Schud de overige verhalen willekeurig door elkaar
                                 const shuffled = otherStories.sort(() => 0.5 - Math.random());
-                                // Pak de eerste 2 verhalen uit de geschudde lijst
                                 const selectedStories = shuffled.slice(0, 2);
 
                                 let suggestionsHTML = `
@@ -212,8 +222,8 @@
                                 `;
 
                                 selectedStories.forEach(suggestion => {
-                                    // Blijf op dezelfde pagina/bestandsnaam, maar verander het id in de URL
-                                    const storyUrl = `${window.location.pathname}?id=${suggestion.id}`;
+                                    const targetId = suggestion.id || slugify(suggestion.title);
+                                    const storyUrl = `${window.location.pathname}?id=${targetId}`;
                                     
                                     suggestionsHTML += `
                                         <a href="${storyUrl}" class="suggestion-card" style="text-decoration: none; color: inherit; width: 280px; background: #1a1a1a; padding: 15px; border-radius: 8px; border: 1px solid #ffd166; transition: transform 0.2s, background 0.2s, border-color 0.2s; text-align: left; display: block; box-sizing: border-box;">
@@ -236,10 +246,9 @@
                     .catch(err => {
                         console.error(err);
                         const textContainer = document.getElementById("text-container");
-                        if (textContainer) textContainer.innerHTML = "<p style='text-align:center; color: #ff6b6b;'>Er ging iets mis bij het laden van het verhaal.</p>";
+                        if (textContainer) textContainer.innerHTML = `<p style='text-align:center; color: #ff6b6b;'>Er ging iets mis bij het laden van het verhaal.<br><small>${err.message}</small></p>`;
                     });
             } else {
-                // Als het ID niet bestaat in allStories
                 document.getElementById("story-title").innerText = "Verhaal niet gevonden";
                 document.getElementById("text-container").innerHTML = "<p style='text-align:center;'>Het gezochte verhaal kon helaas niet worden gevonden in ons archief.</p>";
             }
