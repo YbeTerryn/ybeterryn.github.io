@@ -107,7 +107,15 @@ const slugify = (text) =>
         .replace(/[’']/g, '')
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '');
+console.log("storyId =", storyId);
 
+console.log(
+    "gevonden =",
+    allStories.find(s =>
+        s.id === storyId ||
+        slugify(s.title) === storyId
+    )
+);
 const story = allStories.find(s =>
     s.id === storyId ||
     slugify(s.title) === storyId
