@@ -50,6 +50,7 @@ window.addEventListener('DOMContentLoaded', () => {
         currentList = stories; 
     }
     
+    // Controleer op basis van de paginatitel welke lijst ingeladen moet worden
     if (pageTitle.includes("Archief") && typeof archiveStories !== 'undefined') {
         currentList = archiveStories;
     } else if (pageTitle.includes("Reviews") && typeof reviewStories !== 'undefined') {
@@ -95,6 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
             return matchesSearch && matchesPlatform;
         });
 
+        // Toon de nieuwste reviews bovenaan
         [...filtered].reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
@@ -109,30 +111,28 @@ window.addEventListener('DOMContentLoaded', () => {
                 iconHtml = '<i class="fas fa-tv"></i> ';
             }
             
-          const slugify = (text) =>
-    text
-        ?.toLowerCase()
-        .replace(/[’']/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '');
+            const slugify = (text) =>
+                text
+                    ?.toLowerCase()
+                    .replace(/[’']/g, '')
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-|-$/g, '');
 
-const storySlug = item.id || slugify(item.title);
+            const storySlug = item.id || slugify(item.title);
 
-const link = `story.html?id=${storySlug}`;
-
-const target = '';
-
-const buttonText = "📖 LEES REVIEW";
+            // GEWIJZIGD: Veranderd van story.html naar verhaal.html
+            const link = `verhaal.html?id=${storySlug}`;
+            const buttonText = "📖 LEES REVIEW";
     
             card.innerHTML = `
                 <div class="card-content">
                     <img src="${item.image}" alt="${item.title}" class="card-image">
                     <div class="card-text">
-                        <h2>${item.title}</h2>
+                        <h2>${iconHtml}${item.title}</h2>
                         ${getStarsHtml(item.rating)}
                         <p class="meta">${item.year || item.date || ""}</p>
                         ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" ${target} class="read-link">${buttonText}</a>
+                        <a href="${link}" class="read-link">${buttonText}</a>
                     </div>
                 </div>
             `;
