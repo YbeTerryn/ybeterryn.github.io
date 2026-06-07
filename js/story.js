@@ -177,7 +177,11 @@ if (story) {
 
                             const likeButton = document.getElementById('like-button');
                             const likeCountElem = document.getElementById('like-count');
-                            const docRef = doc(db, "likes", story.id);
+                            const docRef = doc(
+    db,
+    "likes",
+    story.id || slugify(story.title)
+);
 
                             // Haal huidige stand van de likes op uit Firestore
                             getDoc(docRef).then((docSnap) => {
