@@ -145,7 +145,7 @@ if (story) {
     imageElement.alt = story.title;
     imageElement.style.display = "block";
 } // Maak zichtbaar als er een afbeelding is
-                        }
+                        
 
                         // 2. Tekst formatteren
                         if (textContainer) {
@@ -226,9 +226,14 @@ if (story) {
                                         <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
                                 `;
 
-                                selectedStories.forEach(suggestion => {
-                                    // Blijf op dezelfde pagina/bestandsnaam, maar verander het id in de URL
-                                    const storyUrl = `${window.location.pathname}?id=${suggestion.id}`;
+                              selectedStories.forEach(suggestion => {
+
+    const suggestionSlug =
+        suggestion.id ||
+        slugify(suggestion.title);
+
+    const storyUrl =
+        `${window.location.pathname}?id=${suggestionSlug}`;
                                     
                                     suggestionsHTML += `
                                         <a href="${storyUrl}" class="suggestion-card" style="text-decoration: none; color: inherit; width: 280px; background: #1a1a1a; padding: 15px; border-radius: 8px; border: 1px solid #ffd166; transition: transform 0.2s, background 0.2s, border-color 0.2s; text-align: left; display: block; box-sizing: border-box;">
