@@ -101,8 +101,14 @@
                 ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
             ];
             
-            const story = allStories.find(s => s.id === storyId);
-
+const story = allStories.find(s =>
+    s.id === storyId ||
+    s.title
+        ?.toLowerCase()
+        .replace(/[’']/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '') === storyId
+);
           if (story) {
 
     const textPath = story.text || `reviews/${story.title
