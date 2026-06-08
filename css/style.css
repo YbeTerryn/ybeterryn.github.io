@@ -208,3 +208,70 @@ a { color: var(--accent); text-decoration: none; transition: 0.3s; }
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: 10;
 }
+/* Zorg voor een nette grid-indeling */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    padding: 2rem 1rem;
+}
+
+/* De kaart zelf */
+.card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+/* De overlay die de hele kaart klikbaar maakt */
+.card-link-overlay {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* De inhoud van de kaart (afbeelding + tekst naast elkaar) */
+.card-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* De afbeelding strak instellen */
+.card-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+/* De tekst netjes uitlijnen */
+.card-text {
+    flex-grow: 1;
+}
+
+.card-text h2 {
+    font-size: 1.1rem;
+    margin: 0;
+    color: var(--accent);
+}
+
+.meta {
+    font-size: 0.8rem;
+    margin: 2px 0;
+    color: var(--text-muted);
+}
+
+.read-text {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.8;
+}
