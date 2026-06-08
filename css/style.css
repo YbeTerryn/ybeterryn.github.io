@@ -361,3 +361,14 @@ nav a.donate{
     font-size: 1.1rem;
     line-height: 1.8;
 }
+#updates-list-container{
+    max-width:900px;
+    margin:0 auto 5rem;
+}
+
+.updates-card{
+    background:rgba(255,255,255,.04);
+    border-left:4px solid #ffd166;
+    border-radius:12px;
+    padding:2rem;
+}
