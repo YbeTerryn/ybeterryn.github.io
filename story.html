@@ -224,37 +224,30 @@
                     // Meta gegevens
                     let metaText = (story.director && story.year) ? `${story.platform === 'serializd' ? 'Gemaakt' : 'Geregisseerd'} door ${story.director} (${story.year}) — Rating: ${story.rating}/5` : '';
                     metaElement.innerHTML = story.link ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #d4af37; font-size: 0.8rem; text-decoration: underline;">→ Bekijk online</a>` : metaText;
-
-                    // Ingesloten afbeelding logica
-                 // --- DIT MOET JE HIERVOOR IN DE PLAATS ZETTEN ---
-
-// 1. Zorg voor paragrafen
+// Ingesloten afbeelding logica
 let content = htmlContent;
+
+// 1. Zorg voor paragrafen als die er niet zijn
 if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
     content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
 }
 
-// 2. Splits de eerste letter af voor de drop-cap
-const firstChar = content.trim().charAt(0);
-const remainingText = content.trim().slice(1);
-const formattedContent = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
-
-// 3. Toon de content (met of zonder afbeelding)
-const displayImage = story.image || `Draft/${slugify(story.title)}.png`;
-
-if (story.image || true) { // '|| true' zorgt dat hij altijd de Draft/ afbeelding probeert te laden
-    textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + formattedContent;
-} else {
-    textContainer.innerHTML = formattedContent;
+// 2. Splits de eerste letter af voor de drop-cap (alleen als er tekst is)
+let formattedContent = content;
+if (content.trim().length > 0) {
+    const firstChar = content.trim().charAt(0);
+    const remainingText = content.trim().slice(1);
+    formattedContent = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
 }
-                    
-// NIEUWE CODE
+
+// 3. Bepaal de afbeelding (fallback naar Draft/slug.png)
 const slug = slugify(story.title);
-// Hij probeert eerst de gedefinieerde afbeelding, anders de afbeelding in Draft/ met de slugnaam
 const displayImage = story.image || `Draft/${slug}.png`;
 
-// De img-tag krijgt een onerror, zodat het beeld onzichtbaar wordt als het bestand niet bestaat
-textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + content;
+// 4. Toon de content (met afbeelding en de drop-cap)
+textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + formattedContent;
+
+setupLikes(firebaseDocId);
 
                     setupLikes(firebaseDocId);
                     
