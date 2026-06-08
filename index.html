@@ -6,7 +6,47 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Lora&display=swap" rel="stylesheet">
+<style>
+    /* De donkerblauwe achtergrondkleur uit je afbeelding */
+    body {
+        font-family: 'Lora', serif;
+        background-color: #0d1624; 
+        color: #ffffff; /* Witte tekst voor leesbaarheid */
+        margin: 0;
+        padding: 0;
+    }
 
+    /* Zorg dat titels en links de juiste kleur krijgen */
+    h1, h2, .hero-title { color: #ffffff; }
+    .hero-subtitle { color: #d4af37; letter-spacing: 2px; } /* De goud/oker kleur */
+    a { color: #d4af37; text-decoration: none; }
+
+    .content-wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    /* De Grid-indeling voor naast elkaar */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 40px;
+    }
+
+    /* De vakjes in een subtiele donkere tint */
+    .dashboard-item {
+        background: #152238; /* Iets lichtere tint blauw dan de achtergrond */
+        padding: 30px;
+        border: 1px solid #253755;
+        border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-grid { grid-template-columns: 1fr; }
+    }
+</style>
     <style>
         /* --- CSS DIRECT IN HET BESTAND --- */
         body {
