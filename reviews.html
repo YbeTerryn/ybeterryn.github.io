@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reviews - Pieter Paul Tybbe</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         .filter-section { text-align: center; margin-bottom: 20px; }
         .toggle-btn { background: #d4af37; color: #353028; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; }
@@ -24,7 +24,10 @@
         
         .rating { color: #d4af37; font-size: 0.9em; margin-bottom: 5px; }
         .meta { color: #6d6455; font-style: italic; font-size: 0.9rem; margin-top: 2px; }
+
         .card { position: relative; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .card-link-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
         .card-type-icon { position: absolute; top: 1rem; right: 1rem; font-size: 1.2rem; color: #d4af37; opacity: 0.6; z-index: 5; }
     </style>
 </head>
@@ -76,7 +79,10 @@
 <script src="data/stories.js"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-    fetch('nav.html').then(r => r.text()).then(d => { document.getElementById('main-nav').innerHTML = d; });
+    fetch('nav.html').then(r => r.text()).then(d => { 
+        const nav = document.getElementById('main-nav');
+        if(nav) nav.innerHTML = d; 
+    });
 
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
