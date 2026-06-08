@@ -231,11 +231,13 @@
                         content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
                     }
                     
-                    if (story.image) {
-                        textContainer.innerHTML = `<img src="${story.image}" alt="${story.title}" class="story-image-float">` + content;
-                    } else {
-                        textContainer.innerHTML = content;
-                    }
+// NIEUWE CODE
+const slug = slugify(story.title);
+// Hij probeert eerst de gedefinieerde afbeelding, anders de afbeelding in Draft/ met de slugnaam
+const displayImage = story.image || `Draft/${slug}.png`;
+
+// De img-tag krijgt een onerror, zodat het beeld onzichtbaar wordt als het bestand niet bestaat
+textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + content;
 
                     setupLikes(firebaseDocId);
                     
