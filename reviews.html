@@ -7,10 +7,11 @@
     <title>Reviews - Pieter Paul Tybbe</title> 
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .filter-wrapper { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0; padding: 0 10px; }
+        .filter-wrapper { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0; padding: 0 10px; }
         .filter-btn { padding: 8px 16px; border: 1px solid #ffd166; background: transparent; color: #ffd166; cursor: pointer; border-radius: 4px; font-size: 14px; }
         .filter-btn.active { background: #ffd166; color: #0d0d0d; }
-        #yearFilter, #ratingFilter { padding: 8px 12px; background: #1a1a1a; color: #ffd166; border: 1px solid #ffd166; border-radius: 4px; cursor: pointer; }
+        .slider-group { display: flex; flex-direction: column; align-items: center; color: #ffd166; font-size: 12px; }
+        input[type=range] { cursor: pointer; width: 120px; accent-color: #ffd166; }
         .search-section { display: flex; justify-content: center; margin-bottom: 20px; }
     </style>
 </head>
@@ -29,23 +30,21 @@
     <button class="filter-btn" data-filter="letterboxd">FILMS</button>
     <button class="filter-btn" data-filter="serializd">SERIES</button>
     
-    <select id="yearFilter">
-        <option value="all">Alle jaren</option>
-    </select>
+    <div class="slider-group">
+        <span>Jaar: <span id="yearVal">alles</span></span>
+        <input type="range" id="yearSlider" min="2020" max="2026" value="0">
+    </div>
 
-    <select id="ratingFilter">
-        <option value="0-5">Alle ratings</option>
-        <option value="4-5">4 tot 5 sterren</option>
-        <option value="3-4">3 tot 4 sterren</option>
-        <option value="2-3">2 tot 3 sterren</option>
-        <option value="1-2">1 tot 2 sterren</option>
-    </select>
+    <div class="slider-group">
+        <span>Min. Rating: <span id="rateVal">0</span></span>
+        <input type="range" id="ratingSlider" min="0" max="5" step="0.5" value="0">
+    </div>
 </div>
 
 <div class="search-section">
   <div class="search-wrapper">
     <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" class="search-bar" placeholder="reviews filteren...">
+    <input type="text" id="searchInput" class="search-bar" placeholder="zoeken op titel/regisseur...">
   </div>
 </div>
 
@@ -58,19 +57,21 @@ window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const yearFilter = document.getElementById("yearFilter");
-    const ratingFilter = document.getElementById("ratingFilter");
+    const yearSlider = document.getElementById("yearSlider");
+    const ratingSlider = document.getElementById("ratingSlider");
+    const yearVal = document.getElementById("yearVal");
+    const rateVal = document.getElementById("rateVal");
 
     let currentList = (typeof reviewStories !== 'undefined') ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
     let selectedPlatform = "all";
 
-    const years = [...new Set(currentList.map(item => item.year).filter(y => y))].sort((a, b) => b - a);
-    years.forEach(year => {
-        const option = document.createElement("option");
-        option.value = year;
-        option.text = year;
-        yearFilter.appendChild(option);
-    });
+    // Zet slider bereik op basis van data
+    const years = currentList.map(item => item.year).filter(y => y);
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
+    yearSlider.min = minYear;
+    yearSlider.max = maxYear;
+    yearSlider.value = minYear;
 
     function getStarsHtml(rating) {
         if (!rating) return "";
@@ -89,14 +90,17 @@ window.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = "";
         
         const searchTerm = searchInput.value.toLowerCase();
-        const selectedYear = yearFilter.value;
-        const [minR, maxR] = ratingFilter.value.split('-').map(Number);
+        const minYearVal = parseInt(yearSlider.value);
+        const minRateVal = parseFloat(ratingSlider.value);
+        
+        yearVal.innerText = minYearVal;
+        rateVal.innerText = minRateVal;
 
         const filtered = currentList.filter(item => {
-            const matchesSearch = item.title.toLowerCase().includes(searchTerm) || (item.year && item.year.toString().includes(searchTerm)) || (item.director && item.director.toLowerCase().includes(searchTerm));
+            const matchesSearch = item.title.toLowerCase().includes(searchTerm) || (item.director && item.director.toLowerCase().includes(searchTerm));
             const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
-            const matchesYear = (selectedYear === "all" || item.year == selectedYear);
-            const matchesRating = (item.rating >= minR && item.rating <= maxR);
+            const matchesYear = (item.year >= minYearVal);
+            const matchesRating = (item.rating >= minRateVal);
             return matchesSearch && matchesPlatform && matchesYear && matchesRating;
         });
 
@@ -104,23 +108,9 @@ window.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement("article");
             card.className = "card";
             const slugify = (t) => t?.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            const link = `story.html?id=${item.id || slugify(item.title)}`;
-            
-            card.innerHTML = `
-                <div class="card-content">
-                    <img src="${item.image}" alt="${item.title}" class="card-image">
-                    <div class="card-text">
-                        <h2>${item.title}</h2>
-                        ${getStarsHtml(item.rating)}
-                        <p class="meta">${item.year || item.date || ""}</p>
-                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" class="read-link">📖 LEES REVIEW</a>
-                    </div>
-                </div>
-            `;
+            card.innerHTML = `<div class="card-content"><img src="${item.image}" alt="${item.title}" class="card-image"><div class="card-text"><h2>${item.title}</h2>${getStarsHtml(item.rating)}<p class="meta">${item.year || item.date || ""}</p>${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}<a href="story.html?id=${item.id || slugify(item.title)}" class="read-link">📖 LEES REVIEW</a></div></div>`;
             container.appendChild(card);
         });
-
         if (filtered.length === 0) container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
     }
 
@@ -134,15 +124,12 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     searchInput.addEventListener('input', render);
-    yearFilter.addEventListener('change', render);
-    ratingFilter.addEventListener('change', render);
+    yearSlider.addEventListener('input', render);
+    ratingSlider.addEventListener('input', render);
     render();
 });
 
-fetch('nav.html').then(res => res.text()).then(data => {
-    const nav = document.getElementById('main-nav');
-    if(nav) nav.innerHTML = data;
-});
+fetch('nav.html').then(res => res.text()).then(data => { const nav = document.getElementById('main-nav'); if(nav) nav.innerHTML = data; });
 </script>
 </body>
 </html>
