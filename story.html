@@ -286,38 +286,7 @@ if (allReviews.length > 0) {
 }
     }
 
-   // 1. Zorg voor paragrafen
-let content = htmlContent;
-if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-    content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
-}
-
-// 2. NIEUWE LOGICA: Zoek de eerste letter in de eerste <p> tag
-const tempDiv = document.createElement('div');
-tempDiv.innerHTML = content;
-const firstPara = tempDiv.querySelector('p');
-
-if (firstPara) {
-    // Haal de tekst op zonder HTML tags
-    const text = firstPara.innerText.trim();
-    if (text.length > 0) {
-        const firstChar = text.charAt(0);
-        const remainingText = text.slice(1);
-        // Vervang de inhoud van de eerste paragraaf
-        firstPara.innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
-    }
-    content = tempDiv.innerHTML;
-}
-
-// 3. Toon de content
-const displayImage = story.image || `Draft/${slugify(story.title)}.png`;
-textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + content;
-
-    // HTML opbouw
-    let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border-color);">
-                  <h3 style="color: var(--text-color); font-family: 'Cinzel', serif; text-transform: uppercase;">Meer leesvoer</h3>
-                  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">`;
-
+  
     selected.forEach(s => {
         // Bepaal de link op basis van type
         const url = s.isReview ? s.link : `${window.location.pathname}?id=${slugify(s.title)}`;
