@@ -1383,7 +1383,7 @@ const reviewStories = [
     platform: "letterboxd"
   },
                                     {
-    title: "The Lost Chapter: Yuki’s Revenge",
+    title: "The Lost Chapter: Yuki's Revenge",
     year: "2025",
     director: "Quentin Tarantino",
     image: "Draft/thelostchapteryukisrevenge.jpg",
