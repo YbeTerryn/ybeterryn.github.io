@@ -297,3 +297,67 @@ nav a.donate{
     text-transform: uppercase;
     margin-bottom: 2rem;
 }
+.intro-enhanced {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 2rem;
+}
+
+.intro-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.featured-card {
+    display: block;
+    max-width: 900px;
+    margin: 3rem auto;
+
+    padding: 3rem;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,209,102,.08),
+            rgba(255,255,255,.03)
+        );
+
+    border-left: 6px solid #ffd166;
+
+    border-radius: 12px;
+}
+
+.featured-card h4 {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+#updates-list-container {
+    max-width: 900px;
+    margin: 3rem auto;
+}
+
+.updates-title {
+    font-family: "Cinzel", serif;
+    font-size: 2rem;
+    color: #ffd166;
+}
+.intro-content {
+    flex: 1;
+}
+
+.intro-lead {
+    font-size: 1.5rem;
+    color: #ffd166;
+    margin-bottom: 1rem;
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
