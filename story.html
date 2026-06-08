@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <style>
         body {
-            background-color: #0d0d0d;
-            color: #f2f2f2;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdfcf9;
+            color: #333333;
+            font-family: Georgia, serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -31,14 +31,16 @@
         }
         #story-title {
             font-size: 36px;
-            color: #ffd166;
+            color: #d4af37;
             margin-bottom: 5px;
             text-align: center;
-            font-family: serif;
+            font-family: "Cinzel", serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         #story-meta {
             text-align: center;
-            color: #aaa;
+            color: #777777;
             font-size: 16px;
             margin-bottom: 25px;
             font-style: italic;
@@ -52,12 +54,12 @@
             margin-bottom: 15px;
             object-fit: cover;
             border-radius: 8px;
-            border: 1px solid #333;
+            border: 2px solid #d4af37;
         }
         #text-container {
             font-size: 18px;
             line-height: 1.8;
-            color: #e0e0e0;
+            color: #333333;
         }
         /* Zorgt dat de tekst netjes om de afbeelding heen vloeit */
         #text-container::after {
@@ -72,19 +74,55 @@
             text-decoration: none; 
             color: inherit; 
             width: 280px; 
-            background: #1a1a1a; 
+            background: #ffffff; 
             padding: 15px; 
             border-radius: 8px; 
-            border: 1px solid #ffd166; 
+            border: 1px solid #e8e6e1; 
+            border-left: 4px solid #d4af37;
             transition: transform 0.2s, background 0.2s, border-color 0.2s; 
             text-align: left; 
             display: block; 
             box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .suggestion-card:hover {
             transform: translateY(-5px);
-            border-color: #fff !important;
-            background: #252525 !important;
+            border-color: #333333;
+            background: #f5f3f0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        .like-section {
+            text-align: center; 
+            padding: 40px 0; 
+            border-top: 1px solid rgba(212, 175, 55, 0.2); 
+            margin-top: 40px;
+        }
+        .like-section p {
+            font-style: italic; 
+            font-size: 1rem; 
+            margin-bottom: 15px; 
+            font-family: "Cinzel", serif; 
+            color: #333333;
+        }
+        .reader-feedback h2 {
+            color: #d4af37; 
+            font-family: "Cinzel", serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .back-link {
+            color: #d4af37; 
+            text-decoration: none; 
+            font-variant: small-caps;
+            border: 1px solid #d4af37; 
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .back-link:hover {
+            background: #d4af37;
+            color: #333333;
         }
         /* Mobiele optimalisatie */
         @media (max-width: 600px) {
@@ -108,27 +146,25 @@
         
         <article id="text-container" class="literary-text"></article>
         
-        <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
-            <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
-                Laat weten wat je ervan vond!
-            </p>
+        <div class="like-section">
+            <p>Laat weten wat je ervan vond!</p>
             <div id="like-container" style="min-height: 80px; display: flex; justify-content: center; align-items: center;"></div>
         </div>
 
         <section class="reader-feedback" style="margin-bottom: 50px;">
-            <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
+            <h2>Reacties</h2>
             <div id="cusdis_thread" 
                  data-host="https://cusdis.com" 
                  data-app-id="e2ce094f-0f93-4f5c-8ea9-f364505c967f" 
                  data-lang="nl"
-                 data-theme="dark">
+                 data-theme="light">
             </div>
         </section>
 
         <div id="suggestions-container"></div>
 
         <div style="text-align: center; margin: 40px 0;">
-            <a href="index.html" style="color: #ffd166; text-decoration: none; font-variant: small-caps; border: 1px solid #ffd166; padding: 10px 20px;">
+            <a href="index.html" class="back-link">
                 ← Terug naar alle verhalen
             </a>
         </div>
@@ -153,7 +189,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const slugify = (text) => text?.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const slugify = (text) => text?.toLowerCase().replace(/['']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
         window.addEventListener('load', () => {
             const params = new URLSearchParams(window.location.search);
@@ -186,8 +222,8 @@
                     document.title = `${story.title} | Pieter Paul Tybbe`;
                     
                     // Meta gegevens
-                    let metaText = (story.director && story.year) ? `${story.platform === 'serializd' ? 'Gemaakt' : 'Geregisseerd'} door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5` : (story.date || "");
-                    metaElement.innerHTML = story.link ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #ffd166; font-size: 0.8rem; text-decoration: none; font-variant: small-caps; display: inline-block; margin-top: 8px;"><i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 4px;"></i> Bekijk op ${story.platform || 'Platform'}</a>` : metaText;
+                    let metaText = (story.director && story.year) ? `${story.platform === 'serializd' ? 'Gemaakt' : 'Geregisseerd'} door ${story.director} (${story.year}) — Rating: ${story.rating}/10` : '';
+                    metaElement.innerHTML = story.link ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #d4af37; font-size: 0.8rem; text-decoration: underline;">→ Bekijk online</a>` : metaText;
 
                     // Ingesloten afbeelding logica
                     let content = htmlContent;
@@ -208,9 +244,9 @@
                     const otherStories = allStories.filter(s => s.title !== story.title);
                     if (otherStories.length > 0 && suggestionsContainer) {
                         const selected = otherStories.sort(() => 0.5 - Math.random()).slice(0, 2);
-                        let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333;"><h3 style="color: #fff; font-family: serif;">Zin in nog een verhaal?</h3><div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">`;
+                        let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #e8e6e1;"><h3 style="color: #333333; font-family: 'Cinzel', serif; text-transform: uppercase;">Zin in nog een verhaal?</h3><div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">`;
                         selected.forEach(s => {
-                            html += `<a href="${window.location.pathname}?id=${s.id || slugify(s.title)}" class="suggestion-card">${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; display:block;">` : ''}<h4 style="margin: 0 0 8px 0; color: #ffd166; font-family: serif;">${s.title}</h4><p style="margin: 0; font-size: 14px;">Klik hier &rarr;</p></a>`;
+                            html += `<a href="${window.location.pathname}?id=${s.id || slugify(s.title)}" class="suggestion-card">${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">` : ''}<strong>${s.title}</strong></a>`;
                         });
                         suggestionsContainer.innerHTML = html + `</div></div>`;
                     }
@@ -220,7 +256,7 @@
         async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
             const docRef = doc(db, "likes", storyId);
-            likeContainer.innerHTML = `<div style="text-align:center; font-family: serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s;"><i class="fa-solid fa-heart" style="color: #ebbb2d; font-size: 2.5rem;"></i></button><div id="like-count" style="color: #ebbb2d; font-size: 1.1rem; font-weight: bold; margin-top: 8px;">...</div></div>`;
+            likeContainer.innerHTML = `<div style="text-align:center; font-family: 'Cinzel', serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s; font-size: 2rem;">💛</button> <span id="like-count">0</span> likes</div>`;
             const countDisplay = document.getElementById('like-count');
             try {
                 const snap = await getDoc(docRef);
