@@ -42,6 +42,7 @@
             font-size: 16px;
             margin-bottom: 25px;
             font-style: italic;
+            line-height: 1.6;
         }
         #story-image {
             width: 100%;
@@ -49,7 +50,7 @@
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 30px;
-            display: none; /* Wordt dynamic getoond als er een plaatje is */
+            display: none;
         }
         #text-container {
             font-size: 18px;
@@ -95,7 +96,7 @@
 
         <article id="text-container" class="literary-text"></article>
         
-        <!-- Like sectie in jouw gouden stijl -->
+        <!-- Like sectie -->
         <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
             <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
                 Laat weten wat je ervan vond!
@@ -140,7 +141,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // GEFIKST: Jouw echte Firebase credentials staan er nu in!
         const firebaseConfig = {
             apiKey: "AIzaSyB_J1Up8Uof5CXvPT4SQ30er20hL2Qy6Cw",
             authDomain: "sesjat-549da.firebaseapp.com",
@@ -176,7 +176,6 @@
                 ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
             ];
             
-            // Vind het verhaal op basis van ID of Titel-slug
             const story = allStories.find(s => 
                 (s.id && s.id === storyId) || 
                 (s.title && slugify(s.title) === storyId)
@@ -200,11 +199,41 @@
                     titleElement.innerText = story.title;
                     document.title = `${story.title} | Pieter Paul Tybbe`;
                     
+                    // SLIMME ZINNEN & LINKS GENERATOR
                     if (metaElement) {
+                        let platformName = "Platform";
+                        let verb = "Geregisseerd"; // Standaard voor films
+
+                        if (story.platform === "letterboxd") {
+                            platformName = "Letterboxd";
+                        }
+                        if (story.platform === "serializd") {
+                            platformName = "Serializd";
+                            verb = "Gemaakt"; // Voor series (bijv. Gemaakt door Vince Gilligan)
+                        }
+                        if (story.platform === "storygraph") {
+                            platformName = "StoryGraph";
+                            verb = "Geschreven"; // Voor boeken (bijv. Geschreven door Ilja Leonard Pfeijffer)
+                        }
+
+                        // Bouw de meta-tekst op
+                        let metaText = "";
                         if (story.director && story.year) {
-                            metaElement.innerText = `Geregisseerd door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5`;
+                            metaText = `${verb} door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5`;
                         } else if (story.date) {
-                            metaElement.innerText = story.date;
+                            metaText = story.date;
+                        }
+
+                        // Als er een link is, maken we hem hier mooi aanklikbaar onder de meta-tekst
+                        if (story.link) {
+                            metaElement.innerHTML = `
+                                ${metaText}<br>
+                                <a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #ffd166; font-size: 0.8rem; text-decoration: none; font-variant: small-caps; letter-spacing: 0.5px; display: inline-block; margin-top: 8px; border-bottom: 1px dashed rgba(255, 209, 102, 0.4); transition: color 0.2s;">
+                                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.7rem; margin-right: 4px;"></i> Bekijk op ${platformName}
+                                </a>
+                            `;
+                        } else {
+                            metaElement.innerText = metaText;
                         }
                     }
 
