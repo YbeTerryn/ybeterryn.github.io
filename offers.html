@@ -75,8 +75,14 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
         filtered.slice().reverse().forEach(item => {
-            const card = document.createElement("article");
-            card.className = "card";
+           const card = document.createElement("a");
+card.className = "card";
+card.href = link;
+
+if (isExternal) {
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+}
             
             // Logica: gebruik slug voor interne verhalen, link voor reviews
             const isExternal = item.link ? true : false;
@@ -90,7 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const displayImage = item.image || `images/${slug}.jpg`;
 
            card.innerHTML = `
-    <a href="${link}" ${target} class="card-link-overlay"></a>
+ 
 
     <div class="card-content">
         <img src="${displayImage}" alt="${item.title}" class="card-image">
