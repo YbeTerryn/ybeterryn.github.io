@@ -7,48 +7,16 @@
     <title>Reviews - Pieter Paul Tybbe</title> 
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .filter-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px 0;
-            padding: 0 10px;
-        }
-        .filter-btn {
-            padding: 8px 16px;
-            border: 1px solid #ffd166;
-            background: transparent;
-            color: #ffd166;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .filter-btn.active {
-            background: #ffd166;
-            color: #0d0d0d;
-        }
-        #yearFilter {
-            padding: 8px 12px;
-            background: #1a1a1a;
-            color: #ffd166;
-            border: 1px solid #ffd166;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .search-section {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+        .filter-wrapper { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0; padding: 0 10px; }
+        .filter-btn { padding: 8px 16px; border: 1px solid #ffd166; background: transparent; color: #ffd166; cursor: pointer; border-radius: 4px; font-size: 14px; }
+        .filter-btn.active { background: #ffd166; color: #0d0d0d; }
+        #yearFilter, #ratingFilter { padding: 8px 12px; background: #1a1a1a; color: #ffd166; border: 1px solid #ffd166; border-radius: 4px; cursor: pointer; }
+        .search-section { display: flex; justify-content: center; margin-bottom: 20px; }
     </style>
 </head>
 <body>
   
-<header id="main-header">
-  <nav id="main-nav"></nav>
-</header>
-
+<header id="main-header"><nav id="main-nav"></nav></header>
 <header class="sesjat-header">
   <p class="glyph">𓂀</p>
   <h1>Pieter Paul Tybbe</h1>
@@ -60,8 +28,17 @@
     <button class="filter-btn" data-filter="storygraph">BOEKEN</button>
     <button class="filter-btn" data-filter="letterboxd">FILMS</button>
     <button class="filter-btn" data-filter="serializd">SERIES</button>
+    
     <select id="yearFilter">
         <option value="all">Alle jaren</option>
+    </select>
+
+    <select id="ratingFilter">
+        <option value="0-5">Alle ratings</option>
+        <option value="4-5">4 tot 5 sterren</option>
+        <option value="3-4">3 tot 4 sterren</option>
+        <option value="2-3">2 tot 3 sterren</option>
+        <option value="1-2">1 tot 2 sterren</option>
     </select>
 </div>
 
@@ -82,11 +59,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById("searchInput");
     const filterButtons = document.querySelectorAll('.filter-btn');
     const yearFilter = document.getElementById("yearFilter");
+    const ratingFilter = document.getElementById("ratingFilter");
 
     let currentList = (typeof reviewStories !== 'undefined') ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
     let selectedPlatform = "all";
 
-    // Vul jaartallen in
     const years = [...new Set(currentList.map(item => item.year).filter(y => y))].sort((a, b) => b - a);
     years.forEach(year => {
         const option = document.createElement("option");
@@ -113,18 +90,19 @@ window.addEventListener('DOMContentLoaded', () => {
         
         const searchTerm = searchInput.value.toLowerCase();
         const selectedYear = yearFilter.value;
+        const [minR, maxR] = ratingFilter.value.split('-').map(Number);
 
         const filtered = currentList.filter(item => {
             const matchesSearch = item.title.toLowerCase().includes(searchTerm) || (item.year && item.year.toString().includes(searchTerm)) || (item.director && item.director.toLowerCase().includes(searchTerm));
             const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
             const matchesYear = (selectedYear === "all" || item.year == selectedYear);
-            return matchesSearch && matchesPlatform && matchesYear;
+            const matchesRating = (item.rating >= minR && item.rating <= maxR);
+            return matchesSearch && matchesPlatform && matchesYear && matchesRating;
         });
 
         [...filtered].reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
-            
             const slugify = (t) => t?.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
             const link = `story.html?id=${item.id || slugify(item.title)}`;
             
@@ -157,6 +135,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     searchInput.addEventListener('input', render);
     yearFilter.addEventListener('change', render);
+    ratingFilter.addEventListener('change', render);
     render();
 });
 
