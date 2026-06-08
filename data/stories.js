@@ -37,14 +37,12 @@ const stories = [
         {
     id: "Offer 5",
     title: "Over Boeren en Bezit",
-    image: "Draft/Sesjat.jpg",
     date: "Offer 5",
     text: "texts/overboerenenbezit.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
           {
     id: "Offer 6",
     title: "Kroniek van een Fabriek",
-    image: "Draft/Sesjat.jpg",
     date: "Offer 6",
     text: "texts/kroniekvaneenfabriek.html" // Dit klopt, want op GitHub is dit ook kleine letters
   }
