@@ -30,7 +30,7 @@ window.addEventListener('load', () => {
 
         // We plaatsen de HTML in het container-element
         updatesContainer.innerHTML = `
-            <h3 style="color: #ffd166; margin-bottom: 20px;">Recent toegevoegd</h3>
+            <h3 style="color: #ffd166; margin-bottom: 20px;">Reviews</h3>
             ${listToShow.map(item => {
                 const isReview = item.type === 'review';
                 const link = isReview ? item.link : `story.html?id=${item.id}`;
