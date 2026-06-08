@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-MJ1V2PREL6');
-</script>
+    gtag('config', 'G-MJ1V2PREL6');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <title>Literair Archief | Andere werken en poëzie</title> <link rel="stylesheet" href="css/style.css">
+  <title>Literair Archief | Andere werken en poëzie</title> 
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   
 <header id="main-header">
-  <nav id="main-nav">
-    </nav>
+  <nav id="main-nav"></nav>
 </header>
 
 <header class="sesjat-header">
@@ -36,7 +35,7 @@
 </div>
 
 <main class="grid" id="main-container">
-  </main>
+</main>
 
 <script src="data/stories.js"></script>
 
@@ -75,23 +74,23 @@ window.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement("article");
             card.className = "card";
             
-            // Logica voor knoppen en links
             const isExternal = item.link ? true : false;
             const link = isExternal ? item.link : `story.html?id=${item.id}`;
             const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
-            const buttonClass = isExternal ? 'read-link letterboxd-link' : 'read-link';
-            const buttonText = isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES';
 
+            // De hele kaart is nu een klikbare link
             card.innerHTML = `
-                <div class="card-content">
-                    <img src="${item.image}" alt="${item.title}" class="card-image">
-                    <div class="card-text">
-                        <h2>${item.title}</h2>
-                        <p class="meta">${item.year || item.date || ""}</p>
-                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" ${target} class="death-link ${buttonClass}">${buttonText}</a>
+                <a href="${link}" ${target} class="card-link-overlay">
+                    <div class="card-content">
+                        <img src="${item.image}" alt="${item.title}" class="card-image">
+                        <div class="card-text">
+                            <h2>${item.title}</h2>
+                            <p class="meta">${item.year || item.date || ""}</p>
+                            ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+                            <span class="read-text">${isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES'}</span>
+                        </div>
                     </div>
-                </div>
+                </a>
             `;
             container.appendChild(card);
         });
