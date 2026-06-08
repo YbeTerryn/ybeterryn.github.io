@@ -134,3 +134,27 @@ nav a:hover { opacity: 0.8; }
 
 /* Zorg dat de tekst IN de kaart niet 'onder' de link-laag verdwijnt */
 .content-inner { position: relative; z-index: 1; pointer-events: none; }
+/* Dashboard Grid Layout */
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: 2fr 1fr; /* Featured neemt 2/3 ruimte, Updates 1/3 */
+    gap: 2rem; 
+    margin-top: 2rem;
+}
+
+/* Zorg dat de items de volledige kolom vullen */
+.dashboard-item { 
+    position: relative; 
+    background: rgba(255, 255, 255, 0.03); 
+    padding: 2rem; 
+    border-radius: 8px; 
+    border-left: 3px solid #ffd166; /* Consistent met je andere kaarten */
+    transition: transform 0.2s;
+}
+
+/* Mobiele optimalisatie */
+@media (max-width: 768px) {
+    .dashboard-grid { 
+        grid-template-columns: 1fr; /* Alles onder elkaar op mobiel */
+    }
+}
