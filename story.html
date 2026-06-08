@@ -253,21 +253,49 @@ setupLikes(firebaseDocId);
                     
                     // Suggesties
    // Suggesties
+// Zoek sectie in je script, vervang vanaf "const suggestionsContainer = ..." tot het einde van de fetch():
+
 const suggestionsContainer = document.getElementById('suggestions-container');
 
 if (suggestionsContainer) {
-    const allWrittenContent = [...stories, ...archiveStories];
-    const otherStories = allWrittenContent.filter(s => s.title !== story.title);
-    const allReviews = [...reviewStories];
+    // Verzamel alle content
+    const allStories = [...(typeof stories !== 'undefined' ? stories : []), ...(typeof archiveStories !== 'undefined' ? archiveStories : [])];
+    const allReviews = (typeof reviewStories !== 'undefined' ? reviewStories : []);
+    
+    // Filter huidige eruit
+    const otherStories = allStories.filter(s => s.title !== story.title);
+    const otherReviews = allReviews.filter(s => s.title !== story.title);
 
     let selected = [];
 
-    // 1. Kies één willekeurig verhaal
+    // 1. Kies willekeurig verhaal
     if (otherStories.length > 0) {
-        const randomStory = otherStories[Math.floor(Math.random() * otherStories.length)];
-        selected.push({ ...randomStory, isReview: false });
+        selected.push({ ...otherStories[Math.floor(Math.random() * otherStories.length)], isReview: false });
+    }
+    
+    // 2. Kies willekeurige review (Nu expliciet uit reviewStories)
+    if (otherReviews.length > 0) {
+        selected.push({ ...otherReviews[Math.floor(Math.random() * otherReviews.length)], isReview: true });
     }
 
+    // HTML opbouw
+    let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #c4bcae;">
+                  <h3 style="color: #353028; font-family: 'Cinzel', serif; text-transform: uppercase;">Meer leesvoer</h3>
+                  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">`;
+
+    selected.forEach(s => {
+        // Zorg dat de link klopt voor reviews (s.link) vs verhalen (index.html?id=...)
+        const url = s.isReview ? s.link : `story.html?id=${slugify(s.title)}`;
+        
+        html += `<a href="${url}" class="suggestion-card" style="width: 200px; display: block;">
+                    ${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">` : ''}
+                    <strong style="display: block;">${s.title}</strong>
+                    <small style="font-size: 0.8em; text-transform: uppercase; color: #6d6455;">${s.isReview ? 'Review' : 'Verhaal'}</small>
+                 </a>`;
+    });
+
+    suggestionsContainer.innerHTML = html + `</div></div>`;
+}
    // 1. Zorg voor paragrafen
 let content = htmlContent;
 if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
