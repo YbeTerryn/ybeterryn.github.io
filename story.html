@@ -13,124 +13,124 @@
     <title>ybeterryn.be | Verhaal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <style>
-        body {
-            background-color: #fdfcf9;
-            color: #333333;
-            font-family: Georgia, serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        #story-title {
-            font-size: 36px;
-            color: #d4af37;
-            margin-bottom: 5px;
-            text-align: center;
-            font-family: "Cinzel", serif;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        #story-meta {
-            text-align: center;
-            color: #777777;
-            font-size: 16px;
-            margin-bottom: 25px;
-            font-style: italic;
-            line-height: 1.6;
-        }
-        /* Nieuwe stijl voor de ingesloten afbeelding */
+<style>
+    body {
+        background-color: #dcd6c9; /* Rijke, diepere beige basis */
+        color: #353028;           /* Warm koffiebruin voor tekst */
+        font-family: Georgia, serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .container {
+        max-width: 800px;
+        width: 100%;
+        padding: 40px 20px; /* Iets meer ademruimte */
+        box-sizing: border-box;
+    }
+    #story-title {
+        font-size: 36px;
+        color: #d4af37;
+        margin-bottom: 5px;
+        text-align: center;
+        font-family: "Cinzel", serif;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    #story-meta {
+        text-align: center;
+        color: #70685e; /* Warmere taupe */
+        font-size: 16px;
+        margin-bottom: 25px;
+        font-style: italic;
+        line-height: 1.6;
+    }
+    .story-image-float {
+        width: 250px;
+        float: left;
+        margin-right: 25px;
+        margin-bottom: 15px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid #d4af37;
+    }
+    #text-container {
+        font-size: 18px;
+        line-height: 1.8;
+        color: #353028;
+    }
+    #text-container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    #text-container p {
+        margin-bottom: 20px;
+    }
+    .suggestion-card {
+        text-decoration: none; 
+        color: inherit; 
+        width: 280px; 
+        background: #f2ede4; /* Warme beige-wit kaartkleur */
+        padding: 15px; 
+        border-radius: 8px; 
+        border: 1px solid #c4bcae; /* Warme rand */
+        border-left: 4px solid #d4af37;
+        transition: transform 0.2s, background 0.2s, border-color 0.2s; 
+        text-align: left; 
+        display: block; 
+        box-sizing: border-box;
+        box-shadow: 0 4px 12px rgba(53, 48, 40, 0.1);
+    }
+    .suggestion-card:hover {
+        transform: translateY(-5px);
+        border-color: #353028;
+        background: #e6e0d5; /* Iets donkerder bij hover */
+        box-shadow: 0 8px 20px rgba(53, 48, 40, 0.15);
+    }
+    .like-section {
+        text-align: center; 
+        padding: 40px 0; 
+        border-top: 1px solid rgba(212, 175, 55, 0.3); 
+        margin-top: 40px;
+    }
+    .like-section p {
+        font-style: italic; 
+        font-size: 1rem; 
+        margin-bottom: 15px; 
+        font-family: "Cinzel", serif; 
+        color: #353028;
+    }
+    .reader-feedback h2 {
+        color: #d4af37; 
+        font-family: "Cinzel", serif;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .back-link {
+        color: #d4af37; 
+        text-decoration: none; 
+        font-variant: small-caps;
+        border: 1px solid #d4af37; 
+        padding: 10px 20px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    .back-link:hover {
+        background: #d4af37;
+        color: #353028;
+    }
+    /* Mobiele optimalisatie */
+    @media (max-width: 600px) {
         .story-image-float {
-            width: 250px;
-            float: left;
-            margin-right: 25px;
-            margin-bottom: 15px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid #d4af37;
+            float: none;
+            width: 100%;
+            margin-right: 0;
         }
-        #text-container {
-            font-size: 18px;
-            line-height: 1.8;
-            color: #333333;
-        }
-        /* Zorgt dat de tekst netjes om de afbeelding heen vloeit */
-        #text-container::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-        #text-container p {
-            margin-bottom: 20px;
-        }
-        .suggestion-card {
-            text-decoration: none; 
-            color: inherit; 
-            width: 280px; 
-            background: #ffffff; 
-            padding: 15px; 
-            border-radius: 8px; 
-            border: 1px solid #e8e6e1; 
-            border-left: 4px solid #d4af37;
-            transition: transform 0.2s, background 0.2s, border-color 0.2s; 
-            text-align: left; 
-            display: block; 
-            box-sizing: border-box;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        .suggestion-card:hover {
-            transform: translateY(-5px);
-            border-color: #333333;
-            background: #f5f3f0;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-        .like-section {
-            text-align: center; 
-            padding: 40px 0; 
-            border-top: 1px solid rgba(212, 175, 55, 0.2); 
-            margin-top: 40px;
-        }
-        .like-section p {
-            font-style: italic; 
-            font-size: 1rem; 
-            margin-bottom: 15px; 
-            font-family: "Cinzel", serif; 
-            color: #333333;
-        }
-        .reader-feedback h2 {
-            color: #d4af37; 
-            font-family: "Cinzel", serif;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .back-link {
-            color: #d4af37; 
-            text-decoration: none; 
-            font-variant: small-caps;
-            border: 1px solid #d4af37; 
-            padding: 10px 20px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        .back-link:hover {
-            background: #d4af37;
-            color: #333333;
-        }
-        /* Mobiele optimalisatie */
-        @media (max-width: 600px) {
-            .story-image-float {
-                float: none;
-                width: 100%;
-                margin-right: 0;
-            }
+    }
+</style>
         }
     </style>
 </head>
