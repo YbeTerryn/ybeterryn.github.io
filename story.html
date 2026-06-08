@@ -267,6 +267,9 @@ if (suggestionsContainer) {
         const randomStory = otherStories[Math.floor(Math.random() * otherStories.length)];
         selected.push({ ...randomStory, isReview: false });
     }
+    if (otherReviews.length > 0) {
+        selected.push({ ...otherReviews[Math.floor(Math.random() * otherReviews.length)], isReview: true });
+    }
 
    // 1. Zorg voor paragrafen
 let content = htmlContent;
