@@ -252,57 +252,57 @@ setupLikes(firebaseDocId);
                     setupLikes(firebaseDocId);
                     
                     // Suggesties
-   // Suggesties
 const suggestionsContainer = document.getElementById('suggestions-container');
 
 if (suggestionsContainer) {
-const allWrittenContent = [...stories, ...archiveStories];
-const otherStories = allWrittenContent.filter(s => s.title !== story.title);
 
-const allReviews = [...reviewStories];
+    const allWrittenContent = [...stories, ...archiveStories];
+    const otherStories = allWrittenContent.filter(s => s.title !== story.title);
 
-let selected = [];
+    const allReviews = [...reviewStories];
 
-// Willekeurig verhaal
-if (otherStories.length > 0) {
-    const randomStory =
-        otherStories[Math.floor(Math.random() * otherStories.length)];
+    let selected = [];
 
-    selected.push({
-        ...randomStory,
-        isReview: false
-    });
-}
+    if (otherStories.length > 0) {
+        const randomStory =
+            otherStories[Math.floor(Math.random() * otherStories.length)];
 
-// Willekeurige review
-if (allReviews.length > 0) {
-    const randomReview =
-        allReviews[Math.floor(Math.random() * allReviews.length)];
-
-    selected.push({
-        ...randomReview,
-        isReview: true
-    });
-}
+        selected.push({
+            ...randomStory,
+            isReview: false
+        });
     }
 
-  
-    selected.forEach(s => {
-        // Bepaal de link op basis van type
-        const url = s.isReview ? s.link : `${window.location.pathname}?id=${slugify(s.title)}`;
-        const target = s.isReview ? 'target="_blank"' : '';
+    if (allReviews.length > 0) {
+        const randomReview =
+            allReviews[Math.floor(Math.random() * allReviews.length)];
 
-        html += `<a href="${url}" ${target} class="suggestion-card" style="text-decoration: none; color: inherit; width: 200px; display: block; transition: opacity 0.2s;">
-                    ${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">` : ''}
-                    <strong style="color: var(--text-color); display: block;">${s.title}</strong>
-                    <small style="color: var(--text-muted); font-size: 0.8em; text-transform: uppercase;">${s.isReview ? 'Review' : 'Verhaal'}</small>
-                 </a>`;
+        selected.push({
+            ...randomReview,
+            isReview: true
+        });
+    }
+
+    let html = `
+    <div style="text-align:center; margin-top:50px; padding-top:30px;">
+        <h3 style="font-family:'Cinzel',serif;">Meer leesvoer</h3>
+        <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+    `;
+
+    selected.forEach(s => {
+
+        const url = `${window.location.pathname}?id=${slugify(s.title)}`;
+
+        html += `
+        <a href="${url}" class="suggestion-card">
+            ${s.image ? `<img src="${s.image}" style="width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:10px;">` : ''}
+            <strong>${s.title}</strong>
+            <small>${s.isReview ? 'Review' : 'Verhaal'}</small>
+        </a>`;
     });
 
     suggestionsContainer.innerHTML = html + `</div></div>`;
 }
-                });
-        });
 
         async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
