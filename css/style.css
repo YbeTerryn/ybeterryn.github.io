@@ -1,7 +1,7 @@
 /*
-LIGHT & WARM THEME
-Gold accents (#ffd166) on warm, papery backgrounds.
-Clean, airy aesthetic inspired by literary elegance.
+LIGHT & WARM THEME - PROFESSIONAL HOMEPAGE
+Gold accents (#d4af37) on warm, papery backgrounds.
+Featured story as the centerpiece with extended preview.
 */
 
 /* ===== VARIABLES ===== */
@@ -65,12 +65,19 @@ nav a,
 #main-nav a {
   color: var(--accent-color) !important;
   font-variant: small-caps;
+  font-weight: 500;
 }
 
 nav a.donate {
   border: 1px solid var(--accent-color);
   padding: 0.3rem 0.7rem;
   border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+nav a.donate:hover {
+  background: var(--accent-color);
+  color: var(--bg-color) !important;
 }
 
 /* ===== HEADER ===== */
@@ -286,44 +293,128 @@ nav a.donate {
   color: var(--text-color);
 }
 
-/* ===== DASHBOARD ===== */
+/* ===== DASHBOARD (HOMEPAGE LAYOUT) ===== */
+.content-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.intro-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.intro-text {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 2.2fr 0.8fr;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 3rem auto;
-  align-items: start;
-  padding: 0 1rem;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+}
+
+/* FEATURED STORY - THE CENTERPIECE */
+#featured-container {
+  grid-column: 1;
+  order: -1;
+}
+
+#featured-container .featured-card {
+  display: block !important;
 }
 
 .featured-card {
   display: block;
-  background: var(--card-bg);
-  border-left: 6px solid var(--accent-color);
-  border-radius: 8px;
-  padding: 2.5rem;
-  transition: 0.25s ease;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px var(--shadow);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(255, 255, 255, 0.5) 100%);
+  border: 2px solid var(--accent-color);
+  border-left: 8px solid var(--accent-color);
+  border-radius: 12px;
+  padding: 4rem 3rem;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.15);
+  position: relative;
+  overflow: hidden;
+  color: inherit;
+}
+
+.featured-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), transparent);
 }
 
 .featured-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px var(--shadow);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(212, 175, 55, 0.25);
+  border-color: var(--text-color);
+}
+
+.new-label {
+  display: inline-block;
+  color: var(--accent-color);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 4px;
 }
 
 .featured-card h4 {
-  font-size: 2.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  font-size: 2.8rem;
+  margin: 1.5rem 0;
   color: var(--text-color);
   font-family: "Cinzel", Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
 }
 
-.featured-card h2 {
+.featured-desc {
+  font-size: 1.1rem;
+  line-height: 1.9;
   color: var(--text-color);
-  font-family: "Cinzel", Georgia, serif;
+  margin-bottom: 2rem;
+  min-height: 120px;
+  text-align: justify;
+}
+
+.read-more-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--accent-color);
+  color: var(--text-color);
+  font-weight: bold;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.featured-card:hover .read-more-btn {
+  background: var(--text-color);
+  color: var(--accent-color);
+}
+
+/* UPDATES/REVIEWS - SECONDARY */
+#updates-list-container {
+  grid-column: 1;
+  order: 1;
 }
 
 .updates-list {
@@ -331,10 +422,13 @@ nav a.donate {
   padding: 0;
 }
 
-#updates-list-container {
-  max-width: 900px;
-  margin: 0 auto 5rem;
-  padding: 0 1rem;
+.updates-card {
+  background: var(--card-bg);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 8px;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow);
 }
 
 .updates-title {
@@ -342,23 +436,15 @@ nav a.donate {
   color: var(--text-color);
   margin-top: 0;
   margin-bottom: 1.5rem;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.updates-card {
-  background: var(--card-bg);
-  border-left: 4px solid var(--accent-color);
-  border-radius: 8px;
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px var(--shadow);
-}
-
 .update-item {
-  padding: 0.8rem 0;
+  padding: 1rem 0;
   border-bottom: 1px solid var(--border-color);
+  transition: all 0.2s ease;
 }
 
 .update-item:last-child {
@@ -369,24 +455,23 @@ nav a.donate {
   color: var(--text-color);
   transition: 0.2s;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .update-item a:hover {
   color: var(--accent-color);
+  transform: translateX(4px);
 }
 
 .update-item .bullet {
   color: var(--accent-color);
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
-.new-label {
-  color: var(--accent-color);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-/* ===== INTRO SECTION ===== */
+/* ===== INTRO ENHANCED ===== */
 .intro-enhanced {
   max-width: 900px;
   margin: auto;
@@ -414,31 +499,6 @@ nav a.donate {
   color: var(--accent-color);
   margin-bottom: 1rem;
   font-weight: bold;
-}
-
-.intro-text {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--text-color);
-}
-
-.content-wrapper {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-.intro-section {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.intro-text {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: var(--text-muted);
-  max-width: 800px;
-  margin: 0 auto;
 }
 
 .dashboard-item {
@@ -483,10 +543,39 @@ nav a.donate {
 @media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .featured-card {
+    padding: 2.5rem 2rem;
+  }
+
+  .featured-card h4 {
+    font-size: 1.8rem;
+  }
+
+  .featured-desc {
+    font-size: 1rem;
+    min-height: auto;
   }
 }
 
 @media (max-width: 600px) {
+  .featured-card {
+    padding: 2rem 1.5rem;
+    border-left: 6px solid var(--accent-color);
+  }
+
+  .featured-card h4 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .read-more-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+  }
+
   .card-content {
     flex-direction: column;
     text-align: center;
@@ -510,13 +599,5 @@ nav a.donate {
 
   .intro-enhanced {
     flex-direction: column;
-  }
-
-  .featured-card {
-    padding: 1.5rem;
-  }
-
-  .featured-card h4 {
-    font-size: 1.8rem;
   }
 }
