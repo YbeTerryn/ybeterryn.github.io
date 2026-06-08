@@ -179,3 +179,15 @@ nav a:hover { opacity: 0.8; }
     border-bottom: 1px solid rgba(255,255,255,0.05);
     padding-bottom: 1rem;
 }
+.featured-desc {
+    color: var(--text-main); /* Iets lichter voor betere leesbaarheid */
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-family: Georgia, serif; /* Zelfde font als de rest van je site */
+}
+
+/* Zorg dat de kaart meegroeit met de langere tekst */
+.dashboard-item.featured {
+    padding-bottom: 3rem;
+}
