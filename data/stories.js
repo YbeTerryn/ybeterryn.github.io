@@ -1214,7 +1214,7 @@ const reviewStories = [
     platform: "serializd"
   },
                     {
-    title: "Niet gaat ten onder",
+    title: "Niets gaat ten onder",
     year: "1956",
     director: "Louis Paul Boon",
     image: "Draft/nietsgaattenonder.jpg",
