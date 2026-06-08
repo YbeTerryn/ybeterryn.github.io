@@ -745,3 +745,94 @@ body::before {
   pointer-events: none;
   z-index: 9999;
 }
+/* ===== INDEXPAGINA / DASHBOARD STIJLEN ===== */
+
+/* Het grid voor het hoofdartikel en de updateslijst */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* De container voor het nieuwste offer */
+.featured-card {
+    display: block;
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+}
+
+.featured-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.new-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.featured-card h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    color: #fff;
+}
+
+.featured-desc {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-family: Georgia, serif;
+}
+
+/* De lijst met updates aan de rechterkant */
+.updates-list {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+
+.updates-title {
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.5rem;
+    font-family: 'Cinzel', serif;
+}
+
+.update-item {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 1rem;
+}
+
+.update-item a {
+    display: block;
+    padding: 12px 0;
+    color: inherit;
+    font-size: 0.95rem;
+}
+
+.update-item a:hover {
+    color: var(--accent);
+}
+
+/* Responsieve weergave: zet onder elkaar op mobiel */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
