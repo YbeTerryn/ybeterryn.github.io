@@ -89,16 +89,19 @@ window.addEventListener('DOMContentLoaded', () => {
             // Fallback voor afbeeldingen (kijkt in JSON, anders in /images folder)
             const displayImage = item.image || `images/${slug}.jpg`;
 
-            card.innerHTML = `
-                <div class="card-content">
-                    <img src="${displayImage}" alt="${item.title}" class="card-image">
-                    <div class="card-text">
-                        <h2>${item.title}</h2>
-                        <p class="meta">${item.year || item.date || ""}</p>
-                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" ${target} class="death-link ${buttonClass}">${buttonText}</a>
-                    </div>
-                </div>
+           card.innerHTML = `
+    <a href="${link}" ${target} class="card-link-overlay"></a>
+
+    <div class="card-content">
+        <img src="${displayImage}" alt="${item.title}" class="card-image">
+        <div class="card-text">
+            <h2>${item.title}</h2>
+            <p class="meta">${item.year || item.date || ""}</p>
+            ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+            <a href="${link}" ${target} class="death-link ${buttonClass}">${buttonText}</a>
+        </div>
+    </div>
+`;
             `;
             container.appendChild(card);
         });
