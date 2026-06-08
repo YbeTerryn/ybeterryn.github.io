@@ -279,3 +279,21 @@ nav a.donate{
 
   .bio-text{text-align:left;}
 }
+.hero-section {
+    text-align: center;
+    padding: 4rem 1rem 2rem;
+}
+
+.hero-title {
+    font-family: "Cinzel", serif;
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.hero-subtitle {
+    color: #ffd166;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
