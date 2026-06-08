@@ -1,5 +1,4 @@
 window.addEventListener('load', () => {
-    // Helper functie voor de link
     const getLink = (item) => {
         const slug = item.id || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         return `story.html?id=${slug}`;
@@ -22,22 +21,31 @@ window.addEventListener('load', () => {
         }
     }
 
-    // 2. De Lijst (Alleen Reviews, zonder tags, met tekst)
+    // 2. De Lijst: Alle items met een excerpt
     const updatesContainer = document.getElementById('updates-list-container');
     if (updatesContainer) {
-        // Filter alleen op reviews, pak de laatste 6 en draai ze om
-        const listToShow = (typeof reviewStories !== 'undefined' ? reviewStories : []).slice(-6).reverse();
+        // Verzamel alle verhalen
+        const mixedItems = [
+            ...(typeof stories !== 'undefined' ? stories.slice(0, -1).map(s => ({...s, type: 'offer'})) : []),
+            ...(typeof archiveStories !== 'undefined' ? archiveStories.map(s => ({...s, type: 'archief'})) : []),
+            ...(typeof reviewStories !== 'undefined' ? reviewStories.map(r => ({...r, type: 'review'})) : [])
+        ];
+
+        // Pak de laatste 6
+        const listToShow = mixedItems.reverse().slice(0, 6);
 
         updatesContainer.innerHTML = `
-            <h3 class="updates-title">Reviews</h3>
+            <h3 class="updates-title">Recent</h3>
             ${listToShow.map(item => `
                 <div class="update-item">
                     <a href="${getLink(item)}">
                         <div class="review-header">
-                            <span class="bullet">★</span>
+                            <span class="bullet">${item.type === 'review' ? '★' : '•'}</span>
                             <span class="item-title">${item.title}</span>
                         </div>
-                        ${item.description ? `<p class="item-excerpt">${item.description.substring(0, 80)}...</p>` : ''}
+                        <p class="item-excerpt">
+                            ${item.description ? item.description.substring(0, 100) + '...' : 'Klik om verder te lezen...'}
+                        </p>
                     </a>
                 </div>
             `).join('')}
