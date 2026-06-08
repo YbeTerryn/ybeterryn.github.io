@@ -256,53 +256,53 @@ const suggestionsContainer = document.getElementById('suggestions-container');
 
 if (suggestionsContainer) {
 
-    const allWrittenContent = [...stories, ...archiveStories];
-    const otherStories = allWrittenContent.filter(s => s.title !== story.title);
+    const otherStories =
+        [...stories, ...archiveStories]
+        .filter(s => s.title !== story.title);
 
     const allReviews = [...reviewStories];
 
     let selected = [];
 
     if (otherStories.length > 0) {
-        const randomStory =
-            otherStories[Math.floor(Math.random() * otherStories.length)];
-
         selected.push({
-            ...randomStory,
+            ...otherStories[Math.floor(Math.random() * otherStories.length)],
             isReview: false
         });
     }
 
     if (allReviews.length > 0) {
-        const randomReview =
-            allReviews[Math.floor(Math.random() * allReviews.length)];
-
         selected.push({
-            ...randomReview,
+            ...allReviews[Math.floor(Math.random() * allReviews.length)],
             isReview: true
         });
     }
 
     let html = `
-    <div style="text-align:center; margin-top:50px; padding-top:30px;">
-        <h3 style="font-family:'Cinzel',serif;">Meer leesvoer</h3>
-        <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+        <div style="text-align:center; margin-top:50px;">
+            <h3>Meer leesvoer</h3>
+            <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
     `;
 
     selected.forEach(s => {
 
-        const url = `${window.location.pathname}?id=${slugify(s.title)}`;
+        const url =
+            `${window.location.pathname}?id=${slugify(s.title)}`;
 
         html += `
-        <a href="${url}" class="suggestion-card">
-            ${s.image ? `<img src="${s.image}" style="width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:10px;">` : ''}
-            <strong>${s.title}</strong>
-            <small>${s.isReview ? 'Review' : 'Verhaal'}</small>
-        </a>`;
+            <a href="${url}" class="suggestion-card">
+                ${s.image ? `<img src="${s.image}" style="width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:10px;">` : ''}
+                <strong>${s.title}</strong>
+                <small>${s.isReview ? 'Review' : 'Verhaal'}</small>
+            </a>
+        `;
     });
 
-    suggestionsContainer.innerHTML = html + `</div></div>`;
+    html += `</div></div>`;
+
+    suggestionsContainer.innerHTML = html;
 }
+    });
 
         async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
