@@ -252,40 +252,73 @@ setupLikes(firebaseDocId);
                     setupLikes(firebaseDocId);
                     
                     // Suggesties
-// Suggesties & Weergave
-                const suggestionsContainer = document.getElementById('suggestions-container');
-                if (suggestionsContainer) {
-                    // Veilige manier om arrays samen te voegen
-                    const allStories = [...(typeof stories !== 'undefined' ? stories : []), ...(typeof archiveStories !== 'undefined' ? archiveStories : [])];
-                    const allReviews = (typeof reviewStories !== 'undefined' ? reviewStories : []);
-                    
-                    const otherStories = allStories.filter(s => s.title !== story.title);
-                    const otherReviews = allReviews.filter(s => s.title !== story.title);
+   // Suggesties
+const suggestionsContainer = document.getElementById('suggestions-container');
 
-                    let selected = [];
-                    if (otherStories.length > 0) {
-                        selected.push({ ...otherStories[Math.floor(Math.random() * otherStories.length)], isReview: false });
-                    }
-                    if (otherReviews.length > 0) {
-                        selected.push({ ...otherReviews[Math.floor(Math.random() * otherReviews.length)], isReview: true });
-                    }
+if (suggestionsContainer) {
+    const allWrittenContent = [...stories, ...archiveStories];
+    const otherStories = allWrittenContent.filter(s => s.title !== story.title);
+    const allReviews = [...reviewStories];
 
-                    // HTML opbouw
-                    let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #c4bcae;">
-                                  <h3 style="color: #353028; font-family: 'Cinzel', serif; text-transform: uppercase;">Meer leesvoer</h3>
-                                  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">`;
+    let selected = [];
 
-                    selected.forEach(s => {
-                        const url = s.isReview ? s.link : `story.html?id=${slugify(s.title)}`;
-                        const target = s.isReview ? 'target="_blank"' : '';
-                        html += `<a href="${url}" ${target} class="suggestion-card" style="width: 200px; display: block;">
-                                    ${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">` : ''}
-                                    <strong style="display: block;">${s.title}</strong>
-                                    <small style="font-size: 0.8em; text-transform: uppercase; color: #6d6455;">${s.isReview ? 'Review' : 'Verhaal'}</small>
-                                 </a>`;
-                    });
-                    suggestionsContainer.innerHTML = html + `</div></div>`;
-                }
+    // 1. Kies één willekeurig verhaal
+    if (otherStories.length > 0) {
+        const randomStory = otherStories[Math.floor(Math.random() * otherStories.length)];
+        selected.push({ ...randomStory, isReview: false });
+    }
+    if (otherReviews.length > 0) {
+        selected.push({ ...otherReviews[Math.floor(Math.random() * otherReviews.length)], isReview: true });
+    }
+
+   // 1. Zorg voor paragrafen
+let content = htmlContent;
+if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+    content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+}
+
+// 2. NIEUWE LOGICA: Zoek de eerste letter in de eerste <p> tag
+const tempDiv = document.createElement('div');
+tempDiv.innerHTML = content;
+const firstPara = tempDiv.querySelector('p');
+
+if (firstPara) {
+    // Haal de tekst op zonder HTML tags
+    const text = firstPara.innerText.trim();
+    if (text.length > 0) {
+        const firstChar = text.charAt(0);
+        const remainingText = text.slice(1);
+        // Vervang de inhoud van de eerste paragraaf
+        firstPara.innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
+    }
+    content = tempDiv.innerHTML;
+}
+
+// 3. Toon de content
+const displayImage = story.image || `Draft/${slugify(story.title)}.png`;
+textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + content;
+
+    // HTML opbouw
+    let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border-color);">
+                  <h3 style="color: var(--text-color); font-family: 'Cinzel', serif; text-transform: uppercase;">Meer leesvoer</h3>
+                  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">`;
+
+    selected.forEach(s => {
+        // Bepaal de link op basis van type
+        const url = s.isReview ? s.link : `${window.location.pathname}?id=${slugify(s.title)}`;
+        const target = s.isReview ? 'target="_blank"' : '';
+
+        html += `<a href="${url}" ${target} class="suggestion-card" style="text-decoration: none; color: inherit; width: 200px; display: block; transition: opacity 0.2s;">
+                    ${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">` : ''}
+                    <strong style="color: var(--text-color); display: block;">${s.title}</strong>
+                    <small style="color: var(--text-muted); font-size: 0.8em; text-transform: uppercase;">${s.isReview ? 'Review' : 'Verhaal'}</small>
+                 </a>`;
+    });
+
+    suggestionsContainer.innerHTML = html + `</div></div>`;
+}
+                });
+        });
 
         async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
