@@ -226,10 +226,27 @@
                     metaElement.innerHTML = story.link ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #d4af37; font-size: 0.8rem; text-decoration: underline;">→ Bekijk online</a>` : metaText;
 
                     // Ingesloten afbeelding logica
-                    let content = htmlContent;
-                    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-                        content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
-                    }
+                 // --- DIT MOET JE HIERVOOR IN DE PLAATS ZETTEN ---
+
+// 1. Zorg voor paragrafen
+let content = htmlContent;
+if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+    content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+}
+
+// 2. Splits de eerste letter af voor de drop-cap
+const firstChar = content.trim().charAt(0);
+const remainingText = content.trim().slice(1);
+const formattedContent = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
+
+// 3. Toon de content (met of zonder afbeelding)
+const displayImage = story.image || `Draft/${slugify(story.title)}.png`;
+
+if (story.image || true) { // '|| true' zorgt dat hij altijd de Draft/ afbeelding probeert te laden
+    textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + formattedContent;
+} else {
+    textContainer.innerHTML = formattedContent;
+}
                     
 // NIEUWE CODE
 const slug = slugify(story.title);
