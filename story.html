@@ -249,7 +249,6 @@ textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class
 
 setupLikes(firebaseDocId);
 
-                    setupLikes(firebaseDocId);
                     
                     // Suggesties
 const suggestionsContainer = document.getElementById('suggestions-container');
@@ -300,11 +299,13 @@ if (suggestionsContainer) {
 
     html += `</div></div>`;
 
-    suggestionsContainer.innerHTML = html;
+ suggestionsContainer.innerHTML = html;
 }
-    });
 
-        async function setupLikes(storyId) {
+                }); // einde fetch
+        });         // einde window.load
+
+async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
             const docRef = doc(db, "likes", storyId);
             likeContainer.innerHTML = `<div style="text-align:center; font-family: 'Cinzel', serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s; font-size: 2rem;">💛</button> <span id="like-count">0</span> likes</div>`;
