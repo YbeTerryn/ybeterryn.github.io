@@ -256,16 +256,34 @@ setupLikes(firebaseDocId);
 const suggestionsContainer = document.getElementById('suggestions-container');
 
 if (suggestionsContainer) {
-    const allWrittenContent = [...stories, ...archiveStories];
-    const otherStories = allWrittenContent.filter(s => s.title !== story.title);
-    const allReviews = [...reviewStories];
+const allWrittenContent = [...stories, ...archiveStories];
+const otherStories = allWrittenContent.filter(s => s.title !== story.title);
 
-    let selected = [];
+const allReviews = [...reviewStories];
 
-    // 1. Kies één willekeurig verhaal
-    if (otherStories.length > 0) {
-        const randomStory = otherStories[Math.floor(Math.random() * otherStories.length)];
-        selected.push({ ...randomStory, isReview: false });
+let selected = [];
+
+// Willekeurig verhaal
+if (otherStories.length > 0) {
+    const randomStory =
+        otherStories[Math.floor(Math.random() * otherStories.length)];
+
+    selected.push({
+        ...randomStory,
+        isReview: false
+    });
+}
+
+// Willekeurige review
+if (allReviews.length > 0) {
+    const randomReview =
+        allReviews[Math.floor(Math.random() * allReviews.length)];
+
+    selected.push({
+        ...randomReview,
+        isReview: true
+    });
+}
     }
 
    // 1. Zorg voor paragrafen
