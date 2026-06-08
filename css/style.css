@@ -2,6 +2,7 @@
 LIGHT & WARM THEME - PROFESSIONAL HOMEPAGE
 Gold accents (#d4af37) on warm, papery backgrounds.
 Featured story as the centerpiece with extended preview.
+CLICKABLE CARDS - Entire block is interactive
 */
 
 /* ===== VARIABLES ===== */
@@ -190,6 +191,7 @@ nav a.donate:hover {
   box-shadow: 0 4px 12px var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid var(--border-color);
+  cursor: pointer;
 }
 
 .card:hover {
@@ -343,6 +345,7 @@ nav a.donate:hover {
   position: relative;
   overflow: hidden;
   color: inherit;
+  cursor: pointer;
 }
 
 .featured-card::before {
@@ -353,6 +356,7 @@ nav a.donate:hover {
   right: 0;
   height: 4px;
   background: linear-gradient(90deg, var(--accent-color), transparent);
+  z-index: 1;
 }
 
 .featured-card:hover {
@@ -372,6 +376,7 @@ nav a.donate:hover {
   padding: 0.5rem 1rem;
   background: rgba(212, 175, 55, 0.1);
   border-radius: 4px;
+  pointer-events: none;
 }
 
 .featured-card h4 {
@@ -382,6 +387,7 @@ nav a.donate:hover {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1.2;
+  pointer-events: none;
 }
 
 .featured-desc {
@@ -391,6 +397,7 @@ nav a.donate:hover {
   margin-bottom: 2rem;
   min-height: 120px;
   text-align: justify;
+  pointer-events: none;
 }
 
 .read-more-btn {
@@ -404,6 +411,7 @@ nav a.donate:hover {
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  pointer-events: none;
 }
 
 .featured-card:hover .read-more-btn {
@@ -458,6 +466,7 @@ nav a.donate:hover {
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  cursor: pointer;
 }
 
 .update-item a:hover {
