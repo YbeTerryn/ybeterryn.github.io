@@ -42,79 +42,28 @@ nav { display: flex; justify-content: center; gap: 1.5rem; padding: 1rem; flex-w
 nav a { color: var(--accent) !important; font-variant: small-caps; padding: 0.5rem; transition: 0.2s; }
 nav a:hover { opacity: 0.8; }
 
-/* ===== 4. SESJAT HEADER ===== */
-.sesjat-header { text-align: center; padding: 4rem 1rem 3rem; background: radial-gradient(circle at top, rgba(255,209,102,0.15), transparent 60%); }
-.sesjat-header h1 { font-family: "Cinzel", Georgia, serif; font-size: 2.5rem; color: var(--accent); letter-spacing: 0.15em; margin: 0.5rem 0; }
-
-/* ===== 5. BIO & TEKST PAGINA'S ===== */
-.bio-card { background: var(--card-bg); border-left: 3px solid var(--accent); padding: 2rem; border-radius: 8px; }
-.bio-image-wrap { float: left; width: 280px; margin: 0 2rem 1rem 0; border-radius: 8px; border: 1px solid rgba(255, 209, 102, 0.3); }
-.literary-text { max-width: 42rem; margin: 4rem auto; padding: 0 1.5rem; line-height: 1.85; }
-.literary-text p:first-of-type::first-letter { float: left; font-size: 3.5rem; color: var(--accent); padding-right: 0.5rem; font-family: "Cinzel", serif; }
-
-/* ===== 6. REVIEWS GRID & KAARTEN ===== */
-.grid { max-width: 900px; margin: auto; display: grid; gap: 1.5rem; padding: 2rem 1rem; }
-
-.card {
-    position: relative;
-    background: var(--card-bg);
-    border-left: 3px solid var(--accent);
-    padding: 1.5rem;
-    border-radius: 6px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.4); border-left-color: #fff; }
-.card-link-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-.card-type-icon { position: absolute; top: 1rem; right: 1rem; font-size: 1.2rem; color: var(--accent); opacity: 0.4; }
-.card-content { display: flex; align-items: flex-start; gap: 20px; }
-.card-image { width: 120px; height: 160px; object-fit: cover; border-radius: 4px; }
-.card-text h2 { font-family: "Cinzel", Georgia, serif; font-weight: normal; margin: 0 0 8px 0; }
-
-.rating { color: var(--accent); font-size: 0.9rem; margin-bottom: 5px; }
-.meta { color: var(--text-muted); font-style: italic; font-size: 0.9rem; }
-
-/* ===== 7. ZOEKBALK & FILTERS ===== */
-.search-bar { width: 100%; padding: 15px; background: #080e1e; border: 1px solid rgba(255, 209, 102, 0.2); border-radius: 8px; color: #fff; box-sizing: border-box; }
-.filter-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 8px 20px; cursor: pointer; text-transform: uppercase; }
-.filter-btn.active { background: var(--accent); color: var(--bg-dark); }
-
-/* ===== 8. RESPONSIVE ===== */
-@media (max-width: 600px) {
-    .card-content { flex-direction: column; align-items: center; text-align: center; }
-    .card-image { width: 100%; height: auto; }
-    .bio-image-wrap { float: none; display: block; margin: 0 auto 1.5rem; width: 100%; }
-}
-/* Hero Sectie */
+/* ===== 4. HERO & DASHBOARD LAYOUT ===== */
 .hero-section { text-align: center; padding: 4rem 1rem; }
-.profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd166; margin-bottom: 1rem; }
+.profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 1rem; }
 .hero-title { font-family: 'Cinzel', serif; font-size: 3rem; margin: 0; color: #fff; }
-.hero-subtitle { color: #ffd166; letter-spacing: 0.2rem; text-transform: uppercase; margin-bottom: 2rem; }
+.hero-subtitle { color: var(--accent); letter-spacing: 0.2rem; text-transform: uppercase; margin-bottom: 2rem; }
 
-/* Dashboard Lay-out */
 .content-wrapper { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
-.intro-section { text-align: center; font-size: 1.2rem; font-style: italic; margin-bottom: 4rem; color: #a0a0a0; }
+.intro-section { text-align: center; font-size: 1.2rem; font-style: italic; margin-bottom: 4rem; color: var(--text-muted); }
 
 .dashboard-grid { 
     display: grid; 
     grid-template-columns: 2fr 1fr; 
-    gap: 3rem; 
+    gap: 2rem; 
+    margin-top: 2rem;
 }
 
-/* Items in het dashboard */
-.dashboard-item { background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 8px; border-top: 1px solid #ffd166; }
-
-@media (max-width: 768px) {
-    .dashboard-grid { grid-template-columns: 1fr; }
-}
-/* De basis container */
 .dashboard-item { 
     position: relative; 
-    background: rgba(255,255,255,0.03); 
+    background: var(--card-bg); 
     padding: 2rem; 
     border-radius: 8px; 
-    border-top: 1px solid #ffd166;
+    border-left: 3px solid var(--accent);
     transition: transform 0.2s, background 0.2s;
     cursor: pointer;
 }
@@ -124,37 +73,18 @@ nav a:hover { opacity: 0.8; }
     background: rgba(255,255,255,0.06);
 }
 
-/* De onzichtbare link-laag */
-.card-link-overlay { 
-    position: absolute; 
-    top: 0; left: 0; 
-    width: 100%; height: 100%; 
-    z-index: 10; 
-}
-
-/* Zorg dat de tekst IN de kaart niet 'onder' de link-laag verdwijnt */
+.card-link-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
 .content-inner { position: relative; z-index: 1; pointer-events: none; }
-/* Dashboard Grid Layout */
-.dashboard-grid { 
-    display: grid; 
-    grid-template-columns: 2fr 1fr; /* Featured neemt 2/3 ruimte, Updates 1/3 */
-    gap: 2rem; 
-    margin-top: 2rem;
-}
 
-/* Zorg dat de items de volledige kolom vullen */
-.dashboard-item { 
-    position: relative; 
-    background: rgba(255, 255, 255, 0.03); 
-    padding: 2rem; 
-    border-radius: 8px; 
-    border-left: 3px solid #ffd166; /* Consistent met je andere kaarten */
-    transition: transform 0.2s;
-}
+/* ===== 5. BIO & TEKST PAGINA'S ===== */
+.bio-image-wrap { float: left; width: 280px; margin: 0 2rem 1rem 0; border-radius: 8px; border: 1px solid rgba(255, 209, 102, 0.3); }
 
-/* Mobiele optimalisatie */
+/* ===== 6. REVIEWS GRID & KAARTEN ===== */
+.grid { max-width: 900px; margin: auto; display: grid; gap: 1.5rem; padding: 2rem 1rem; }
+.card { position: relative; background: var(--card-bg); border-left: 3px solid var(--accent); padding: 1.5rem; border-radius: 6px; }
+
+/* ===== 7. RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .dashboard-grid { 
-        grid-template-columns: 1fr; /* Alles onder elkaar op mobiel */
-    }
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .bio-image-wrap { float: none; display: block; margin: 0 auto 1.5rem; width: 100%; }
 }
