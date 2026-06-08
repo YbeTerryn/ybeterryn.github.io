@@ -9,16 +9,20 @@
     <style>
         .filter-section { text-align: center; margin-bottom: 20px; }
         .toggle-btn { background: #ffd166; color: #0d0d0d; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        
         #filter-panel { display: none; margin: 20px auto; padding: 20px; background: #1a1a1a; border-radius: 8px; max-width: 400px; color: #fff; border: 1px solid #333; }
         #filter-panel.show { display: block; }
+        
         .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 15px; }
         .filter-row select { background: #000; color: #ffd166; border: 1px solid #ffd166; padding: 8px; border-radius: 4px; flex: 1; }
+        
         .icon-btn { background: #000; color: #ffd166; border: 1px solid #ffd166; padding: 10px; border-radius: 4px; flex: 1; cursor: pointer; font-size: 1.1rem; }
         .icon-btn.active { background: #ffd166; color: #0d0d0d; }
+        
         .search-wrapper { max-width: 400px; margin: 0 auto 20px auto; padding: 0 15px; }
         .search-bar { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ffd166; background: #000; color: #fff; box-sizing: border-box; }
+        
         .rating { color: #ffd166; font-size: 0.9em; margin-bottom: 5px; }
-        .meta { margin-top: 4px; color: #aaa; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -44,16 +48,12 @@
     <div class="filter-row">
         <span>Sterren:</span>
         <select id="minRate">
-            <option value="0">0 ★</option><option value="0.5">0.5 ★</option><option value="1">1 ★</option>
-            <option value="1.5">1.5 ★</option><option value="2">2 ★</option><option value="2.5">2.5 ★</option>
-            <option value="3">3 ★</option><option value="3.5">3.5 ★</option><option value="4">4 ★</option>
-            <option value="4.5">4.5 ★</option><option value="5">5 ★</option>
+            <option value="0">0 ★</option><option value="1">1 ★</option><option value="2">2 ★</option>
+            <option value="3">3 ★</option><option value="4">4 ★</option><option value="5">5 ★</option>
         </select>
         <select id="maxRate">
-            <option value="5" selected>5 ★</option><option value="4.5">4.5 ★</option><option value="4">4 ★</option>
-            <option value="3.5">3.5 ★</option><option value="3">3 ★</option><option value="2.5">2.5 ★</option>
-            <option value="2">2 ★</option><option value="1.5">1.5 ★</option><option value="1">1 ★</option>
-            <option value="0.5">0.5 ★</option><option value="0">0 ★</option>
+            <option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option>
+            <option value="2">2 ★</option><option value="1">1 ★</option>
         </select>
     </div>
 </div>
@@ -67,8 +67,6 @@
 <script src="data/stories.js"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-    fetch('nav.html').then(r => r.text()).then(d => document.getElementById('main-nav').innerHTML = d);
-
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
     const toggleFilter = document.getElementById("toggle-filter");
@@ -86,4 +84,61 @@ window.addEventListener('DOMContentLoaded', () => {
 
     toggleFilter.addEventListener('click', () => filterPanel.classList.toggle('show'));
 
-    platformBtns.forEach(btn => btn.addEventListener('click
+    platformBtns.forEach(btn => btn.addEventListener('click', () => {
+        platformBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedPlatform = btn.getAttribute('data-filter');
+        render();
+    }));
+
+    function getStarsHtml(rating) {
+        if (!rating) return "";
+        let stars = '<div class="rating">';
+        for (let i = 1; i <= 5; i++) {
+            if (rating >= i) stars += '<i class="fas fa-star"></i>';
+            else if (rating >= i - 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+            else stars += '<i class="far fa-star"></i>';
+        }
+        return stars + `</div>`;
+    }
+
+    function render() {
+        container.innerHTML = "";
+        const term = searchInput.value.toLowerCase();
+        const minY = parseInt(document.getElementById('minYear').value);
+        const maxY = parseInt(document.getElementById('maxYear').value);
+        const minR = parseFloat(document.getElementById('minRate').value);
+        const maxR = parseFloat(document.getElementById('maxRate').value);
+        
+        const filtered = currentList.filter(item => {
+            const matchesSearch = item.title.toLowerCase().includes(term);
+            const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
+            const matchesYear = (item.year >= minY && item.year <= maxY);
+            const matchesRating = (item.rating >= minR && item.rating <= maxR);
+            return matchesSearch && matchesPlatform && matchesYear && matchesRating;
+        });
+
+        [...filtered].reverse().forEach(item => {
+            const card = document.createElement("article");
+            card.className = "card";
+            card.innerHTML = `
+                <div class="card-content">
+                    <img src="${item.image}" alt="${item.title}" class="card-image">
+                    <div class="card-text">
+                        <h2>${item.title}</h2>
+                        ${getStarsHtml(item.rating)}
+                        <p class="meta">${item.year}</p>
+                        <a href="story.html?id=${item.id || ''}" class="read-link">📖 LEES REVIEW</a>
+                    </div>
+                </div>`;
+            container.appendChild(card);
+        });
+    }
+
+    [searchInput, document.getElementById('minYear'), document.getElementById('maxYear'), document.getElementById('minRate'), document.getElementById('maxRate')].forEach(el => el.addEventListener('change', render));
+    searchInput.addEventListener('input', render);
+    render();
+});
+</script>
+</body>
+</html>
