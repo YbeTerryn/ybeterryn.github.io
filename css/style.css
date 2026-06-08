@@ -281,12 +281,15 @@ nav a.donate:hover {
   color: var(--text-color);
 }
 
-.literary-text p:first-of-type::first-letter {
-  float: left;
-  font-size: 3.5rem;
-  color: var(--accent-color);
-  padding-right: 0.5rem;
-  font-weight: bold;
+/* VERVANG DIT BLOK: */
+.drop-cap {
+    float: left;
+    font-size: 3.5rem;
+    line-height: 0.8; 
+    padding-right: 0.5rem;
+    color: var(--accent-color);
+    font-family: "Cinzel", serif;
+    margin-top: 5px;
 }
 
 #text-container,
