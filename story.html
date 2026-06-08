@@ -44,18 +44,26 @@
             font-style: italic;
             line-height: 1.6;
         }
-        #story-image {
-            width: 100%;
-            max-height: 450px;
+        /* Nieuwe stijl voor de ingesloten afbeelding */
+        .story-image-float {
+            width: 250px;
+            float: left;
+            margin-right: 25px;
+            margin-bottom: 15px;
             object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 30px;
-            display: none;
+            border: 1px solid #333;
         }
         #text-container {
             font-size: 18px;
             line-height: 1.8;
             color: #e0e0e0;
+        }
+        /* Zorgt dat de tekst netjes om de afbeelding heen vloeit */
+        #text-container::after {
+            content: "";
+            clear: both;
+            display: table;
         }
         #text-container p {
             margin-bottom: 20px;
@@ -78,6 +86,14 @@
             border-color: #fff !important;
             background: #252525 !important;
         }
+        /* Mobiele optimalisatie */
+        @media (max-width: 600px) {
+            .story-image-float {
+                float: none;
+                width: 100%;
+                margin-right: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -90,13 +106,8 @@
         <h1 id="story-title">Verhaal laden...</h1>
         <div id="story-meta"></div>
         
-        <div style="display: flex; justify-content: center;">
-            <img id="story-image" src="" alt="">
-        </div>
-
         <article id="text-container" class="literary-text"></article>
         
-        <!-- Like sectie -->
         <div class="like-section" style="text-align: center; padding: 40px 0; border-top: 1px solid rgba(255, 209, 102, 0.1); margin-top: 40px;">
             <p style="font-style: italic; font-size: 1rem; margin-bottom: 15px; font-family: serif; color: white;">
                 Laat weten wat je ervan vond!
@@ -104,7 +115,6 @@
             <div id="like-container" style="min-height: 80px; display: flex; justify-content: center; align-items: center;"></div>
         </div>
 
-        <!-- Reactiesysteem -->
         <section class="reader-feedback" style="margin-bottom: 50px;">
             <h2 style="color: #ffd166; font-family: serif;">Reacties</h2>
             <div id="cusdis_thread" 
@@ -124,19 +134,8 @@
         </div>
     </div>
 
-    <!-- DATA INLADEN -->
     <script src="data/stories.js"></script>
 
-    <!-- CRASH LOGGER -->
-    <script>
-        window.onerror = function(message, source, lineno, colno, error) {
-            console.error("GLOBALE FOUT DETECTIE:", message, "in", source, "op regel:", lineno);
-            alert("Er ging iets mis in het script: \n" + message); 
-            return false;
-        };
-    </script>
-
-    <!-- FIREBASE EN INLAADLOGICA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -154,21 +153,14 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const slugify = (text) =>
-            text
-                ?.toLowerCase()
-                .replace(/[’']/g, '')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-|-$/g, '');
+        const slugify = (text) => text?.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
         window.addEventListener('load', () => {
             const params = new URLSearchParams(window.location.search);
             const storyId = params.get("id");
-
             const textContainer = document.getElementById("text-container");
             const titleElement = document.getElementById("story-title");
             const metaElement = document.getElementById("story-meta");
-            const imageElement = document.getElementById("story-image");
 
             const allStories = [
                 ...(typeof stories !== 'undefined' ? stories : []), 
@@ -176,10 +168,7 @@
                 ...(typeof reviewStories !== 'undefined' ? reviewStories : [])
             ];
             
-            const story = allStories.find(s => 
-                (s.id && s.id === storyId) || 
-                (s.title && slugify(s.title) === storyId)
-            );
+            const story = allStories.find(s => (s.id && s.id === storyId) || (s.title && slugify(s.title) === storyId));
 
             if (!story) {
                 titleElement.innerText = "Niet gevonden";
@@ -191,158 +180,58 @@
             const textPath = story.text || `reviews/${slugify(story.title)}.html`;
 
             fetch(textPath)
-                .then(res => {
-                    if (!res.ok) throw new Error("Tekstbestand niet gevonden op: " + textPath);
-                    return res.text();
-                })
+                .then(res => res.text())
                 .then(htmlContent => {
                     titleElement.innerText = story.title;
                     document.title = `${story.title} | Pieter Paul Tybbe`;
                     
-                    // SLIMME ZINNEN & LINKS GENERATOR
-                    if (metaElement) {
-                        let platformName = "Platform";
-                        let verb = "Geregisseerd"; // Standaard voor films
+                    // Meta gegevens
+                    let metaText = (story.director && story.year) ? `${story.platform === 'serializd' ? 'Gemaakt' : 'Geregisseerd'} door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5` : (story.date || "");
+                    metaElement.innerHTML = story.link ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #ffd166; font-size: 0.8rem; text-decoration: none; font-variant: small-caps; display: inline-block; margin-top: 8px;"><i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 4px;"></i> Bekijk op ${story.platform || 'Platform'}</a>` : metaText;
 
-                        if (story.platform === "letterboxd") {
-                            platformName = "Letterboxd";
-                        }
-                        if (story.platform === "serializd") {
-                            platformName = "Serializd";
-                            verb = "Gemaakt"; // Voor series (bijv. Gemaakt door Vince Gilligan)
-                        }
-                        if (story.platform === "storygraph") {
-                            platformName = "StoryGraph";
-                            verb = "Geschreven"; // Voor boeken (bijv. Geschreven door Ilja Leonard Pfeijffer)
-                        }
-
-                        // Bouw de meta-tekst op
-                        let metaText = "";
-                        if (story.director && story.year) {
-                            metaText = `${verb} door ${story.director} (${story.year}) — Rating: ${story.rating || 'N/A'}/5`;
-                        } else if (story.date) {
-                            metaText = story.date;
-                        }
-
-                        // Als er een link is, maken we hem hier mooi aanklikbaar onder de meta-tekst
-                        if (story.link) {
-                            metaElement.innerHTML = `
-                                ${metaText}<br>
-                                <a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #ffd166; font-size: 0.8rem; text-decoration: none; font-variant: small-caps; letter-spacing: 0.5px; display: inline-block; margin-top: 8px; border-bottom: 1px dashed rgba(255, 209, 102, 0.4); transition: color 0.2s;">
-                                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.7rem; margin-right: 4px;"></i> Bekijk op ${platformName}
-                                </a>
-                            `;
-                        } else {
-                            metaElement.innerText = metaText;
-                        }
-                    }
-
-                    if (imageElement && story.image) {
-                        imageElement.src = story.image;
-                        imageElement.alt = story.title;
-                        imageElement.style.display = "block";
-                    }
-
-                    let formattedContent = htmlContent;
+                    // Ingesloten afbeelding logica
+                    let content = htmlContent;
                     if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-                        formattedContent = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+                        content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
                     }
-                    textContainer.innerHTML = formattedContent;
+                    
+                    if (story.image) {
+                        textContainer.innerHTML = `<img src="${story.image}" alt="${story.title}" class="story-image-float">` + content;
+                    } else {
+                        textContainer.innerHTML = content;
+                    }
 
-                    // Start de likes
                     setupLikes(firebaseDocId);
-
-                    // Suggesties genereren
+                    
+                    // Suggesties
                     const suggestionsContainer = document.getElementById('suggestions-container');
-                    if (suggestionsContainer) {
-                        const otherStories = allStories.filter(s => s.title !== story.title);
-                        if (otherStories.length > 0) {
-                            const shuffled = otherStories.sort(() => 0.5 - Math.random());
-                            const selectedStories = shuffled.slice(0, 2);
-
-                            let suggestionsHTML = `
-                                <div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333;">
-                                    <h3 style="font-size: 24px; margin-bottom: 25px; color: #fff; font-family: serif;">Zin in nog een verhaal of review?</h3>
-                                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                            `;
-
-                            selectedStories.forEach(suggestion => {
-                                const targetId = suggestion.id || slugify(suggestion.title);
-                                const storyUrl = `${window.location.pathname}?id=${targetId}`;
-                                
-                                suggestionsHTML += `
-                                    <a href="${storyUrl}" class="suggestion-card">
-                                        ${suggestion.image ? `<img src="${suggestion.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; display:block;">` : ''}
-                                        <h4 style="margin: 0 0 8px 0; font-size: 18px; color: #ffd166; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: serif;">${suggestion.title}</h4>
-                                        <p style="margin: 0; font-size: 14px; color: #ccc;">Klik hier om te lezen &rarr;</p>
-                                    </a>
-                                `;
-                            });
-
-                            suggestionsHTML += `</div></div>`;
-                            suggestionsContainer.innerHTML = suggestionsHTML;
-                        }
+                    const otherStories = allStories.filter(s => s.title !== story.title);
+                    if (otherStories.length > 0 && suggestionsContainer) {
+                        const selected = otherStories.sort(() => 0.5 - Math.random()).slice(0, 2);
+                        let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #333;"><h3 style="color: #fff; font-family: serif;">Zin in nog een verhaal?</h3><div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">`;
+                        selected.forEach(s => {
+                            html += `<a href="${window.location.pathname}?id=${s.id || slugify(s.title)}" class="suggestion-card">${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; display:block;">` : ''}<h4 style="margin: 0 0 8px 0; color: #ffd166; font-family: serif;">${s.title}</h4><p style="margin: 0; font-size: 14px;">Klik hier &rarr;</p></a>`;
+                        });
+                        suggestionsContainer.innerHTML = html + `</div></div>`;
                     }
-                })
-                .catch(err => {
-                    console.error(err);
-                    textContainer.innerHTML = `<p style='text-align:center; color: #ff6b6b;'>Tekst kon niet worden geladen.<br><small>${err.message}</small></p>`;
                 });
         });
 
         async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
-            if (!likeContainer) return;
-
             const docRef = doc(db, "likes", storyId);
-            
-            likeContainer.innerHTML = `
-                <div style="text-align:center; font-family: serif;">
-                    <button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s; outline: none;">
-                        <i class="fa-solid fa-heart" style="color: #ebbb2d; font-size: 2.5rem;"></i>
-                    </button>
-                    <div id="like-count" style="color: #ebbb2d; font-size: 1.1rem; font-weight: bold; margin-top: 8px; letter-spacing: 1px;">...</div>
-                </div>
-            `;
-
-            const likeBtn = document.getElementById('like-button');
+            likeContainer.innerHTML = `<div style="text-align:center; font-family: serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s;"><i class="fa-solid fa-heart" style="color: #ebbb2d; font-size: 2.5rem;"></i></button><div id="like-count" style="color: #ebbb2d; font-size: 1.1rem; font-weight: bold; margin-top: 8px;">...</div></div>`;
             const countDisplay = document.getElementById('like-count');
-
             try {
                 const snap = await getDoc(docRef);
-                if (snap.exists()) {
-                    countDisplay.innerText = snap.data().count;
-                } else {
-                    countDisplay.innerText = "0";
-                    await setDoc(docRef, { count: 0 });
-                }
-            } catch (e) {
-                console.error(e);
-                countDisplay.innerText = "0";
-            }
-
-            likeBtn.onclick = async () => {
-                likeBtn.style.transform = "scale(1.2)";
-                setTimeout(() => likeBtn.style.transform = "scale(1)", 200);
-                try {
-                    await updateDoc(docRef, { count: increment(1) });
-                    const newSnap = await getDoc(docRef);
-                    countDisplay.innerText = newSnap.data().count;
-                } catch (e) {
-                    console.error(e);
-                }
+                countDisplay.innerText = snap.exists() ? snap.data().count : "0";
+            } catch(e) { countDisplay.innerText = "0"; }
+            document.getElementById('like-button').onclick = async () => {
+                await updateDoc(docRef, { count: increment(1) });
+                countDisplay.innerText = (await getDoc(docRef)).data().count;
             };
         }
-
-        // Navigatie laden
-        fetch('nav.html')
-            .then(res => res.text())
-            .then(data => {
-                const nav = document.getElementById('main-nav');
-                if (nav) nav.innerHTML = data;
-            });
     </script>
-
     <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
 </html>
