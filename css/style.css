@@ -6,15 +6,19 @@ CLICKABLE CARDS - Entire block is interactive
 */
 
 /* ===== VARIABLES ===== */
-:root --bg-color: #e8e3d9;       /* Diep, warm beige (de basis) */
+
+/* ===== VARIABLES ===== */
+:root {
+  --bg-color: #e8e3d9;       /* Diep, warm beige (de basis) */
   --bg-secondary: #e0dace;   /* Iets donkerder beige voor nuance */
   --nav-bg: #f2ede4;        /* Lichter, bijna zandkleurig */
   --card-bg: #f8f5ef;       /* Zeer zacht, bijna wit-beige (voor kaarten) */
-  --text-color: #3d3831;     /* Donker, warm koffiebruin (zeer leesbaar) */
+  --text-color: #3d3831;     /* Donker, warm koffiebruin */
   --text-muted: #827a6f;     /* Zachte taupe-tint voor bij-informatie */
   --accent-color: #d4af37;   /* Je gouden accent */
   --border-color: #d1c8b8;   /* Warme beige-grijze lijn */
   --shadow: rgba(61, 56, 49, 0.12); /* Warme, zachte schaduw */
+}
 /* ===== BASE ===== */
 body {
   margin: 0;
