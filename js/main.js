@@ -1,7 +1,7 @@
 window.addEventListener('load', () => {
     const getLink = (item) => `story.html?id=${item.id || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
-    // 1. Highlight (Nieuwste offer)
+    // 1. Highlight (Nieuwste offer) - CENTERPIECE
     if (typeof stories !== 'undefined' && stories.length > 0) {
         const latestOffer = stories[stories.length - 1];
         const container = document.getElementById('featured-container');
@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
                 .then(html => {
                     const p = new DOMParser().parseFromString(html, 'text/html').querySelector('p');
                     const el = document.getElementById('featured-preview');
-                    if (el) el.innerText = p ? p.innerText.substring(0, 150) + '...' : 'Geen preview.';
+                    if (el) el.innerText = p ? p.innerText.substring(0, 450) + '...' : 'Geen preview.';
                 });
         }
     }
