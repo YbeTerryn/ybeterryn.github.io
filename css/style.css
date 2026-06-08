@@ -139,3 +139,26 @@ nav a:hover { opacity: 0.8; }
 .bullet { color: var(--accent); }
 .item-title { flex-grow: 1; }
 .item-meta { color: #555; font-size: 0.75rem; text-transform: uppercase; font-family: sans-serif; }
+/* De lijst-items strakker maken */
+.updates-title { color: var(--accent); margin-bottom: 1.5rem; }
+
+.update-item { 
+    margin-bottom: 1.5rem; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    padding-bottom: 1rem;
+}
+
+.review-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 5px; }
+
+.item-excerpt { 
+    color: var(--text-muted); 
+    font-size: 0.85rem; 
+    line-height: 1.4; 
+    margin: 5px 0 0 25px; /* Inspringing voor tekst onder de titel */
+    font-style: italic;
+}
+
+/* De leegte wegwerken: zorg dat het dashboard grid minder gap heeft */
+.dashboard-grid { 
+    gap: 1.5rem; 
+}
