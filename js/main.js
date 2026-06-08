@@ -24,7 +24,7 @@ window.addEventListener('load', () => {
         }
     }
 
-    // 2. Recent lijst (Beperkt tot 5 items voor betere balans)
+    // 2. Recent lijst (Met sterretjes hersteld)
     const updatesContainer = document.getElementById('updates-list-container');
     if (updatesContainer) {
         const items = [
@@ -36,7 +36,10 @@ window.addEventListener('load', () => {
             <h3 class="updates-title">Recent</h3>
             ${items.map(item => `
                 <div class="update-item">
-                    <a href="${getLink(item)}">${item.title}</a>
+                    <a href="${getLink(item)}">
+                        <span class="bullet">${item.type === 'review' ? '★' : '•'}</span>
+                        ${item.title}
+                    </a>
                 </div>
             `).join('')}
         `;
