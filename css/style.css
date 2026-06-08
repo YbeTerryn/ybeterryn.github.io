@@ -6,17 +6,15 @@ CLICKABLE CARDS - Entire block is interactive
 */
 
 /* ===== VARIABLES ===== */
-:root {
-  --bg-color: #fdfcf9;
-  --bg-secondary: #f5f3f0;
-  --nav-bg: #ffffff;
-  --card-bg: #ffffff;
-  --text-color: #333333;
-  --text-muted: #777777;
+:root --bg-color: #f7f3ed;       /* Warm, aged-paper tone */
+  --bg-secondary: #eee9e0;   /* Slightly deeper warm neutral */
+  --nav-bg: #fdfaf6;        /* Lighter, crisp contrast */
+  --card-bg: #ffffff;        /* Maintains clean space for book covers */
+  --text-color: #2b2824;     /* Near-black, easier on the eyes */
+  --text-muted: #736d65;
   --accent-color: #d4af37;
-  --border-color: #e8e6e1;
-  --shadow: rgba(0, 0, 0, 0.08);
-}
+  --border-color: #e3dec9;
+  --shadow: rgba(0, 0, 0, 0.05);
 
 /* ===== BASE ===== */
 body {
