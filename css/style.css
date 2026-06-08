@@ -44,8 +44,12 @@ nav a:hover { opacity: 0.8; }
 
 /* ===== 4. HERO & HOME PAGE ===== */
 .hero-section { text-align: center; padding: 4rem 1rem; }
+.profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 1rem; }
 .hero-title { font-family: 'Cinzel', serif; font-size: 3rem; margin: 0; color: #fff; }
 .hero-subtitle { color: var(--accent); letter-spacing: 0.2rem; text-transform: uppercase; margin-bottom: 2rem; }
+
+.content-wrapper { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+.intro-section { text-align: center; font-size: 1.2rem; font-style: italic; margin-bottom: 4rem; color: var(--text-muted); }
 
 /* ===== 5. BIO, LITERARY & REVIEWS ===== */
 .sesjat-header { text-align: center; padding: 4rem 1rem 3rem; background: radial-gradient(circle at top, rgba(255,209,102,0.15), transparent 60%); }
@@ -71,7 +75,7 @@ nav a:hover { opacity: 0.8; }
 .update-item a { display: block; padding: 12px 0; color: inherit; }
 .item-excerpt { color: var(--text-muted); font-size: 0.85rem; font-style: italic; margin: 5px 0 0 25px; line-height: 1.5; }
 
-/* ===== 7. ARCHIEF KAARTEN (GECORRIGEERD) ===== */
+/* ===== 7. ARCHIEF KAARTEN ===== */
 .grid { max-width: 900px; margin: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; padding: 2rem 1rem; }
 .card { position: relative; background: var(--card-bg); border-left: 3px solid var(--accent); border-radius: 4px; overflow: hidden; transition: transform 0.2s; }
 .card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.06); }
