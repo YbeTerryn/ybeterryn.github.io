@@ -1,43 +1,17 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ybe Terryn | Schrijver & Theatermaker</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/css2?family=Cinzel&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <style>
-        /* CSS voor de grid-indeling */
-        .reviews-grid {
-            display: grid;
-            /* Zorgt voor kolommen van minimaal 300px breed */
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px; 
-            margin-top: 40px;
-            width: 100%;
-        }
-
-        .review-card {
-            padding: 20px;
-            border: 1px solid #eee;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        /* Basis styling voor de pagina */
-        body { font-family: sans-serif; line-height: 1.6; margin: 0; }
-        .hero-section { text-align: center; padding: 50px 20px; }
-        .content-wrapper { max-width: 1100px; margin: 0 auto; padding: 20px; }
-        .intro-section { margin-bottom: 40px; }
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <header class="hero-section">
+    <img src="Draft/Profiel.jpg" alt="Ybe Terryn" class="profile-img">
     <h1 class="hero-title">Ybe Terryn</h1>
-    <p class="hero-subtitle">Schrijver · Theatermaker · Dramaturg</p>
+    <p class="hero-subtitle">Schrijver & Theatermaker</p>
     <nav id="main-nav" class="hero-nav"></nav>
 </header>
 
@@ -49,23 +23,20 @@
         </p>
     </section>
 
-    <section class="homepage-main">
-        <div id="featured-container">
-            </div>
-
-        <div id="updates-list-container" class="reviews-grid">
+    <div class="dashboard-grid">
+        <div id="featured-container" class="dashboard-item featured">
+            <p>Laden...</p>
+        </div>
+        <div id="updates-list-container" class="dashboard-item updates">
             <p>Updates ophalen...</p>
         </div>
-    </section>
+    </div>
 </main>
 
 <script>
-    // Navigatie inladen
     fetch('nav.html').then(r => r.text()).then(d => document.getElementById('main-nav').innerHTML = d);
 </script>
-
 <script src="data/stories.js"></script>
 <script src="js/main.js"></script>
-
 </body>
 </html>
