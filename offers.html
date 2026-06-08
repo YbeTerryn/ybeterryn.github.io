@@ -13,12 +13,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Offers voor Sesjat</title> 
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .card { position: relative; cursor: pointer; }
+        .card-link-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+        .card-content { position: relative; z-index: 5; pointer-events: none; }
+        .death-link { pointer-events: auto; color: #d4af37; font-weight: bold; display: inline-block; }
+    </style>
 </head>
 <body>
   
-<header id="main-header">
-    <nav id="main-nav"></nav>
-</header>
+<header id="main-header"><nav id="main-nav"></nav></header>
 
 <header class="sesjat-header">
     <p class="glyph">𓇇</p>
@@ -36,9 +40,7 @@
 <main class="grid" id="main-container"></main>
 
 <script src="data/stories.js"></script>
-
 <script>
-// Slugify functie voor consistente URL's en paden
 function slugify(text) {
     return text.toString().toLowerCase()
         .replace(/\s+/g, '-')
@@ -49,77 +51,40 @@ function slugify(text) {
 window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
+    let currentList = (document.title.includes("Offers")) ? stories : [];
 
-    // Bepaal de lijst op basis van de paginatitel
-    let currentList = [];
-    const pageTitle = document.title;
-    
-    if (pageTitle.includes("Offers")) {
-        currentList = stories;
-    } else if (pageTitle.includes("Archief")) {
-        currentList = archiveStories;
-    } else if (pageTitle.includes("Reviews")) {
-        currentList = reviewStories;
-    }
-
-    // Render functie
     function render(filter = "") {
         container.innerHTML = "";
         const searchTerm = filter.toLowerCase();
-
-        const filtered = currentList.filter(item => {
-            return item.title.toLowerCase().includes(searchTerm) || 
-                   (item.year && item.year.includes(searchTerm)) ||
-                   (item.director && item.director.toLowerCase().includes(searchTerm)) ||
-                   (item.date && item.date.toLowerCase().includes(searchTerm));
-        });
+        const filtered = currentList.filter(item => item.title.toLowerCase().includes(searchTerm));
 
         filtered.slice().reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
-            
-            // Logica: gebruik slug voor interne verhalen, link voor reviews
-            const isExternal = item.link ? true : false;
             const slug = slugify(item.title);
-            const link = isExternal ? item.link : `story.html?id=${slug}`;
-            const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
-            const buttonClass = isExternal ? 'read-link letterboxd-link' : 'read-link';
-            const buttonText = isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES';
-            
-            // Fallback voor afbeeldingen (kijkt in JSON, anders in /images folder)
-            const displayImage = item.image || `images/${slug}.jpg`;
+            const link = item.link ? item.link : `story.html?id=${slug}`;
+            const target = item.link ? 'target="_blank"' : '';
 
             card.innerHTML = `
+                <a href="${link}" ${target} class="card-link-overlay"></a>
                 <div class="card-content">
-                    <img src="${displayImage}" alt="${item.title}" class="card-image">
+                    <img src="${item.image || `images/${slug}.jpg`}" alt="${item.title}" class="card-image">
                     <div class="card-text">
                         <h2>${item.title}</h2>
                         <p class="meta">${item.year || item.date || ""}</p>
-                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" ${target} class="death-link ${buttonClass}">${buttonText}</a>
+                        <span class="death-link">LEES</span>
                     </div>
                 </div>
             `;
             container.appendChild(card);
         });
-
-        if (filtered.length === 0) {
-            container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
-        }
     }
 
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => render(e.target.value));
-    }
-
+    searchInput.addEventListener('input', (e) => render(e.target.value));
     render();
 });
 
-// Menu inladen
-fetch('nav.html').then(res => res.text()).then(data => {
-    document.getElementById('main-nav').innerHTML = data;
-});
+fetch('nav.html').then(res => res.text()).then(data => document.getElementById('main-nav').innerHTML = data);
 </script>
-
 </body>
 </html>
