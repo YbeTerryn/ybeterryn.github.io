@@ -33,7 +33,8 @@ window.addEventListener('load', () => {
         ].reverse().slice(0, 5);
 
         updatesContainer.innerHTML = `
-            <h3 class="updates-title">Reviews</h3>
+<div class="updates-card">
+    <h3 class="updates-title">Recente reviews</h3>
             ${items.map(item => `
                 <div class="update-item">
                     <a href="${getLink(item)}">
