@@ -649,3 +649,9 @@ nav a.donate:hover {
     position: relative;
     z-index: 3;
 }
+  .card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+}
