@@ -27,7 +27,9 @@
 </head>
 <body>
 
-<header id="main-header"><nav id="main-nav"></nav></header>
+<header id="main-header">
+    <nav id="main-nav"></nav>
+</header>
 
 <div class="filter-section">
     <button id="toggle-filter" class="toggle-btn"><i class="fas fa-filter"></i> FILTER</button>
@@ -67,6 +69,12 @@
 <script src="data/stories.js"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
+    // Navigatie inladen
+    fetch('nav.html')
+        .then(response => response.text())
+        .then(data => { document.getElementById('main-nav').innerHTML = data; })
+        .catch(err => console.error("Navigatie kon niet geladen worden:", err));
+
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
     const toggleFilter = document.getElementById("toggle-filter");
