@@ -125,16 +125,46 @@ window.addEventListener('DOMContentLoaded', () => {
             const matchesYear = (item.year >= minY && item.year <= maxY);
             const matchesRating = (item.rating >= minR && item.rating <= maxR);
             return matchesSearch && matchesPlatform && matchesYear && matchesRating;
-        });
+   [...filtered].reverse().forEach(item => {
+    const card = document.createElement("article");
+    card.className = "card";
 
-        [...filtered].reverse().forEach(item => {
-            const card = document.createElement("article");
-            card.className = "card";
-            
-            let icon = '<i class="fas fa-scroll"></i>';
-            if (item.platform === 'storygraph') icon = '<i class="fas fa-book"></i>';
-            if (item.platform === 'letterboxd') icon = '<i class="fas fa-film"></i>';
-            if (item.platform === 'serializd') icon = '<i class="fas fa-tv"></i>';
+    const slugify = (text) =>
+        text
+            ?.toLowerCase()
+            .replace(/[’']/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+
+    const storySlug = item.id || slugify(item.title);
+
+    let icon = '<i class="fas fa-scroll"></i>';
+    if (item.platform === 'storygraph') icon = '<i class="fas fa-book"></i>';
+    if (item.platform === 'letterboxd') icon = '<i class="fas fa-film"></i>';
+    if (item.platform === 'serializd') icon = '<i class="fas fa-tv"></i>';
+
+    const directorInfo = item.director
+        ? `<div class="meta">Regie: ${item.director}</div>`
+        : "";
+
+    card.innerHTML = `
+        <a href="story.html?id=${storySlug}" class="card-link-overlay"></a>
+        <div class="card-type-icon">${icon}</div>
+        <div class="card-content">
+            <img src="${item.image || `Draft/${storySlug}.jpg`}"
+                 alt="${item.title}"
+                 class="card-image">
+            <div class="card-text">
+                <h2>${item.title}</h2>
+                ${getStarsHtml(item.rating)}
+                ${directorInfo}
+                <p class="meta">${item.year}</p>
+            </div>
+        </div>
+    `;
+
+    container.appendChild(card);
+});
 
             const directorInfo = item.director ? `<div class="meta">Regie: ${item.director}</div>` : "";
             
