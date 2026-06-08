@@ -6,6 +6,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Reviews - Pieter Paul Tybbe</title> 
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .filter-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #ffd166;
+            background: transparent;
+            color: #ffd166;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .filter-btn.active {
+            background: #ffd166;
+            color: #0d0d0d;
+        }
+        #yearFilter {
+            padding: 8px 12px;
+            background: #1a1a1a;
+            color: #ffd166;
+            border: 1px solid #ffd166;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
   
@@ -19,14 +55,17 @@
   <p class="subtitle">Reviews: Scherp, aandachtig en slechts licht bevooroordeeld</p>
 </header>
 
-<div class="filter-buttons">
+<div class="filter-wrapper">
     <button class="filter-btn active" data-filter="all">ALLES</button>
     <button class="filter-btn" data-filter="storygraph">BOEKEN</button>
     <button class="filter-btn" data-filter="letterboxd">FILMS</button>
     <button class="filter-btn" data-filter="serializd">SERIES</button>
+    <select id="yearFilter">
+        <option value="all">Alle jaren</option>
+    </select>
 </div>
 
-<div class="filter-section">
+<div class="search-section">
   <div class="search-wrapper">
     <span class="search-icon">🔍</span>
     <input type="text" id="searchInput" class="search-bar" placeholder="reviews filteren...">
@@ -35,110 +74,80 @@
 
 <main class="grid" id="main-container"></main>
 
-<!-- LAAD DE DATA IN -->
 <script src="data/stories.js"></script>
 
-<!-- LOGICA VOOR HET FILTEREN EN RENDEREN VAN DE REVIEWS -->
 <script>
 window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
     const filterButtons = document.querySelectorAll('.filter-btn');
+    const yearFilter = document.getElementById("yearFilter");
 
-    let currentList = [];
-    
-    // OPLOSSING: We dwingen het script om direct jouw reviewStories te laden
-    if (typeof reviewStories !== 'undefined') {
-        currentList = reviewStories; 
-    } else if (typeof stories !== 'undefined') {
-        currentList = stories; 
-    }
-
+    let currentList = (typeof reviewStories !== 'undefined') ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
     let selectedPlatform = "all";
 
-    // Functie voor sterren met strenge afronding
+    // Vul jaartallen in
+    const years = [...new Set(currentList.map(item => item.year).filter(y => y))].sort((a, b) => b - a);
+    years.forEach(year => {
+        const option = document.createElement("option");
+        option.value = year;
+        option.text = year;
+        yearFilter.appendChild(option);
+    });
+
     function getStarsHtml(rating) {
         if (!rating) return "";
         let stars = '<div class="rating">';
-        
         for (let i = 1; i <= 5; i++) {
             let diff = rating - (i - 1);
-
-            if (diff >= 0.95) { 
-                stars += '<i class="fas fa-star"></i>';
-            } else if (diff >= 0.50) { 
-                stars += '<i class="fas fa-star-half-alt"></i>';
-            } else {
-                stars += '<i class="far fa-star"></i>';
-            }
+            if (diff >= 0.95) stars += '<i class="fas fa-star"></i>';
+            else if (diff >= 0.50) stars += '<i class="fas fa-star-half-alt"></i>';
+            else stars += '<i class="far fa-star"></i>';
         }
-        
-        stars += `<span class="rating-number">${rating}</span></div>`;
-        return stars;
+        return stars + `<span class="rating-number">${rating}</span></div>`;
     }
 
     function render() {
         if (!container) return;
         container.innerHTML = "";
         
-        const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedYear = yearFilter.value;
 
         const filtered = currentList.filter(item => {
-            const matchesSearch = item.title.toLowerCase().includes(searchTerm) || 
-                                 (item.year && item.year.toString().includes(searchTerm)) ||
-                                 (item.director && item.director.toLowerCase().includes(searchTerm));
-            
+            const matchesSearch = item.title.toLowerCase().includes(searchTerm) || (item.year && item.year.toString().includes(searchTerm)) || (item.director && item.director.toLowerCase().includes(searchTerm));
             const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
-
-            return matchesSearch && matchesPlatform;
+            const matchesYear = (selectedYear === "all" || item.year == selectedYear);
+            return matchesSearch && matchesPlatform && matchesYear;
         });
 
         [...filtered].reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
             
-            let iconHtml = "";
-            if (item.platform === "letterboxd") {
-                iconHtml = '<i class="fab fa-letterboxd"></i> ';
-            } else if (item.platform === "storygraph") {
-                iconHtml = '<i class="fas fa-book-open"></i> ';
-            } else if (item.platform === "serializd") {
-                iconHtml = '<i class="fas fa-tv"></i> ';
-            }
+            const slugify = (t) => t?.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            const link = `story.html?id=${item.id || slugify(item.title)}`;
             
-            const slugify = (text) =>
-                text
-                    ?.toLowerCase()
-                    .replace(/[’']/g, '')
-                    .replace(/[^a-z0-9]+/g, '-')
-                    .replace(/^-|-$/g, '');
-
-            const storySlug = item.id || slugify(item.title);
-            const link = `story.html?id=${storySlug}`;
-            const buttonText = "📖 LEES REVIEW";
-    
             card.innerHTML = `
                 <div class="card-content">
                     <img src="${item.image}" alt="${item.title}" class="card-image">
                     <div class="card-text">
-                        <h2>${iconHtml}${item.title}</h2>
+                        <h2>${item.title}</h2>
                         ${getStarsHtml(item.rating)}
                         <p class="meta">${item.year || item.date || ""}</p>
                         ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                        <a href="${link}" class="read-link">${buttonText}</a>
+                        <a href="${link}" class="read-link">📖 LEES REVIEW</a>
                     </div>
                 </div>
             `;
             container.appendChild(card);
         });
 
-        if (filtered.length === 0) {
-            container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
-        }
+        if (filtered.length === 0) container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
     }
 
     filterButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', () => {
             filterButtons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             selectedPlatform = btn.getAttribute('data-filter');
@@ -146,20 +155,15 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (searchInput) {
-        searchInput.addEventListener('input', render);
-    }
-
+    searchInput.addEventListener('input', render);
+    yearFilter.addEventListener('change', render);
     render();
 });
-</script>
 
-<script>
-  fetch('nav.html').then(res => res.text()).then(data => {
+fetch('nav.html').then(res => res.text()).then(data => {
     const nav = document.getElementById('main-nav');
     if(nav) nav.innerHTML = data;
-  });
+});
 </script>
-
 </body>
 </html>
