@@ -25,7 +25,6 @@
         .rating { color: #ffd166; font-size: 0.9em; margin-bottom: 5px; }
         .meta { color: #a0a0a0; font-style: italic; font-size: 0.9rem; margin-top: 2px; }
 
-        /* Klikbare kaart stijlen */
         .card { position: relative; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
         .card-link-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
@@ -125,54 +124,32 @@ window.addEventListener('DOMContentLoaded', () => {
             const matchesYear = (item.year >= minY && item.year <= maxY);
             const matchesRating = (item.rating >= minR && item.rating <= maxR);
             return matchesSearch && matchesPlatform && matchesYear && matchesRating;
-   [...filtered].reverse().forEach(item => {
-    const card = document.createElement("article");
-    card.className = "card";
+        });
 
-    const slugify = (text) =>
-        text
-            ?.toLowerCase()
-            .replace(/[’']/g, '')
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-|-$/g, '');
+        const slugify = (text) =>
+            text?.toLowerCase()
+                .replace(/[’']/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
 
-    const storySlug = item.id || slugify(item.title);
+        [...filtered].reverse().forEach(item => {
+            const card = document.createElement("article");
+            card.className = "card";
+            
+            const storySlug = item.id || slugify(item.title);
 
-    let icon = '<i class="fas fa-scroll"></i>';
-    if (item.platform === 'storygraph') icon = '<i class="fas fa-book"></i>';
-    if (item.platform === 'letterboxd') icon = '<i class="fas fa-film"></i>';
-    if (item.platform === 'serializd') icon = '<i class="fas fa-tv"></i>';
-
-    const directorInfo = item.director
-        ? `<div class="meta">Regie: ${item.director}</div>`
-        : "";
-
-    card.innerHTML = `
-        <a href="story.html?id=${storySlug}" class="card-link-overlay"></a>
-        <div class="card-type-icon">${icon}</div>
-        <div class="card-content">
-            <img src="${item.image || `Draft/${storySlug}.jpg`}"
-                 alt="${item.title}"
-                 class="card-image">
-            <div class="card-text">
-                <h2>${item.title}</h2>
-                ${getStarsHtml(item.rating)}
-                ${directorInfo}
-                <p class="meta">${item.year}</p>
-            </div>
-        </div>
-    `;
-
-    container.appendChild(card);
-});
+            let icon = '<i class="fas fa-scroll"></i>';
+            if (item.platform === 'storygraph') icon = '<i class="fas fa-book"></i>';
+            if (item.platform === 'letterboxd') icon = '<i class="fas fa-film"></i>';
+            if (item.platform === 'serializd') icon = '<i class="fas fa-tv"></i>';
 
             const directorInfo = item.director ? `<div class="meta">Regie: ${item.director}</div>` : "";
             
             card.innerHTML = `
-                <a href="story.html?id=${item.id || ''}" class="card-link-overlay"></a>
+                <a href="story.html?id=${storySlug}" class="card-link-overlay"></a>
                 <div class="card-type-icon">${icon}</div>
                 <div class="card-content">
-                    <img src="${item.image}" alt="${item.title}" class="card-image">
+                    <img src="${item.image || `Draft/${storySlug}.jpg`}" alt="${item.title}" class="card-image">
                     <div class="card-text">
                         <h2>${item.title}</h2>
                         ${getStarsHtml(item.rating)}
