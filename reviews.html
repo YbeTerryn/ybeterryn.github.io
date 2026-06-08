@@ -14,14 +14,15 @@
         #filter-panel.show { display: block; }
         
         .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 15px; }
-        .filter-row select, .filter-row button { background: #000; color: #ffd166; border: 1px solid #ffd166; padding: 5px; border-radius: 4px; flex: 1; }
-        .filter-row button.active { background: #ffd166; color: #0d0d0d; }
+        .filter-row select { background: #000; color: #ffd166; border: 1px solid #ffd166; padding: 8px; border-radius: 4px; flex: 1; }
+        
+        .icon-btn { background: #000; color: #ffd166; border: 1px solid #ffd166; padding: 10px; border-radius: 4px; flex: 1; cursor: pointer; font-size: 1.1rem; }
+        .icon-btn.active { background: #ffd166; color: #0d0d0d; }
         
         .search-wrapper { max-width: 400px; margin: 0 auto 20px auto; padding: 0 15px; }
         .search-bar { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ffd166; background: #000; color: #fff; box-sizing: border-box; }
-
+        
         .rating { color: #ffd166; font-size: 0.9em; margin-bottom: 5px; }
-        .rating-number { margin-left: 5px; font-size: 0.8em; }
     </style>
 </head>
 <body>
@@ -29,15 +30,15 @@
 <header id="main-header"><nav id="main-nav"></nav></header>
 
 <div class="filter-section">
-    <button id="toggle-filter" class="toggle-btn"><i class="fas fa-filter"></i> FILTER OPTIES</button>
+    <button id="toggle-filter" class="toggle-btn"><i class="fas fa-filter"></i> FILTER</button>
 </div>
 
 <div id="filter-panel">
     <div class="filter-row" id="platform-filters">
-        <button class="active" data-filter="all">ALLES</button>
-        <button data-filter="storygraph">BOEKEN</button>
-        <button data-filter="letterboxd">FILMS</button>
-        <button data-filter="serializd">SERIES</button>
+        <button class="icon-btn active" data-filter="all">ALL</button>
+        <button class="icon-btn" data-filter="storygraph" title="Boeken"><i class="fas fa-book"></i></button>
+        <button class="icon-btn" data-filter="letterboxd" title="Films"><i class="fas fa-film"></i></button>
+        <button class="icon-btn" data-filter="serializd" title="Series"><i class="fas fa-tv"></i></button>
     </div>
     <div class="filter-row">
         <span>Jaar:</span>
@@ -70,12 +71,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById("searchInput");
     const toggleFilter = document.getElementById("toggle-filter");
     const filterPanel = document.getElementById("filter-panel");
-    const platformBtns = document.querySelectorAll('#platform-filters button');
+    const platformBtns = document.querySelectorAll('.icon-btn');
     
     let currentList = (typeof reviewStories !== 'undefined') ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
     let selectedPlatform = "all";
 
-    // Jaren vullen
     const years = [...new Set(currentList.map(item => item.year).filter(y => y))].sort((a, b) => b - a);
     years.forEach(y => {
         document.getElementById('minYear').innerHTML += `<option value="${y}">${y}</option>`;
@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
             else if (rating >= i - 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
             else stars += '<i class="far fa-star"></i>';
         }
-        return stars + `<span class="rating-number">${rating}</span></div>`;
+        return stars + `</div>`;
     }
 
     function render() {
