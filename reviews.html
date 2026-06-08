@@ -7,29 +7,16 @@
     <title>Reviews - Pieter Paul Tybbe</title> 
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Filter verborgen door standaard */
-        #filter-panel { display: none; margin: 20px auto; padding: 20px; background: #1a1a1a; border-radius: 8px; max-width: 500px; }
+        #filter-panel { display: none; margin: 20px auto; padding: 20px; background: #1a1a1a; border-radius: 8px; max-width: 500px; color: #fff; }
         #filter-panel.show { display: block; }
-        
         .filter-controls { display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        .filter-wrapper { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        
         .toggle-btn { background: #ffd166; color: #0d0d0d; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; margin-bottom: 20px; }
-        .filter-btn { padding: 8px 16px; border: 1px solid #ffd166; background: transparent; color: #ffd166; cursor: pointer; border-radius: 4px; }
-        .filter-btn.active { background: #ffd166; color: #0d0d0d; }
-        
-        .slider-group { display: flex; flex-direction: column; align-items: center; color: #fff; }
-        input[type=range] { accent-color: #ffd166; width: 100%; max-width: 200px; }
+        select { padding: 8px; background: #333; color: #fff; border: 1px solid #ffd166; border-radius: 4px; width: 100%; max-width: 250px; }
     </style>
 </head>
 <body>
-  
+
 <header id="main-header"><nav id="main-nav"></nav></header>
-<header class="sesjat-header">
-  <p class="glyph">𓂀</p>
-  <h1>Pieter Paul Tybbe</h1>
-  <p class="subtitle">Reviews: Scherp, aandachtig en slechts licht bevooroordeeld</p>
-</header>
 
 <div style="text-align: center;">
     <button id="toggle-filter" class="toggle-btn"><i class="fas fa-filter"></i> FILTERS</button>
@@ -37,27 +24,25 @@
 
 <div id="filter-panel">
     <div class="filter-controls">
-        <div class="filter-wrapper">
-            <button class="filter-btn active" data-filter="all">ALLES</button>
-            <button class="filter-btn" data-filter="storygraph">BOEKEN</button>
-            <button class="filter-btn" data-filter="letterboxd">FILMS</button>
-            <button class="filter-btn" data-filter="serializd">SERIES</button>
-        </div>
-        <div class="slider-group">
-            <span>Min. Jaar: <span id="yearVal">alles</span></span>
-            <input type="range" id="yearSlider" min="2000" max="2026" value="2000">
-        </div>
-        <div class="slider-group">
-            <span>Min. Rating: <span id="rateVal">0</span></span>
-            <input type="range" id="ratingSlider" min="0" max="5" step="0.5" value="0">
-        </div>
+        <label>Jaar vanaf:</label>
+        <select id="yearFilter">
+            <option value="0">Alle jaren</option>
+            <!-- Wordt via JS gevuld -->
+        </select>
+        
+        <label>Rating:</label>
+        <select id="ratingFilter">
+            <option value="0-5">Alles</option>
+            <option value="4-5">4 tot 5 sterren</option>
+            <option value="3-4">3 tot 4 sterren</option>
+            <option value="2-3">2 tot 3 sterren</option>
+            <option value="0-3">Minder dan 3 sterren</option>
+        </select>
     </div>
 </div>
 
-<div class="search-section" style="display: flex; justify-content: center; margin-bottom: 20px;">
-  <div class="search-wrapper">
-    <input type="text" id="searchInput" class="search-bar" placeholder="zoeken op titel/regisseur...">
-  </div>
+<div class="search-section" style="text-align: center; margin-bottom: 20px;">
+    <input type="text" id="searchInput" class="search-bar" placeholder="zoeken op titel...">
 </div>
 
 <main class="grid" id="main-container"></main>
@@ -68,69 +53,55 @@
 window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
-    const filterButtons = document.querySelectorAll('.filter-btn');
     const toggleFilter = document.getElementById("toggle-filter");
     const filterPanel = document.getElementById("filter-panel");
-    const yearSlider = document.getElementById("yearSlider");
-    const ratingSlider = document.getElementById("ratingSlider");
-    const yearVal = document.getElementById("yearVal");
-    const rateVal = document.getElementById("rateVal");
+    const yearFilter = document.getElementById("yearFilter");
+    const ratingFilter = document.getElementById("ratingFilter");
 
     let currentList = (typeof reviewStories !== 'undefined') ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
-    let selectedPlatform = "all";
 
-    // Toggle filter paneel
+    // Vul jaar filter
+    const years = [...new Set(currentList.map(item => item.year).filter(y => y))].sort((a, b) => b - a);
+    years.forEach(year => {
+        const option = document.createElement("option");
+        option.value = year;
+        option.text = year;
+        yearFilter.appendChild(option);
+    });
+
     toggleFilter.addEventListener('click', () => filterPanel.classList.toggle('show'));
 
-    // Init sliders
-    const years = currentList.map(item => item.year).filter(y => y);
-    if(years.length > 0) {
-        yearSlider.min = Math.min(...years);
-        yearSlider.max = Math.max(...years);
-        yearSlider.value = yearSlider.min;
-    }
-
     function render() {
-        if (!container) return;
         container.innerHTML = "";
-        
         const searchTerm = searchInput.value.toLowerCase();
-        const minYearVal = parseInt(yearSlider.value);
-        const minRateVal = parseFloat(ratingSlider.value);
-        
-        yearVal.innerText = minYearVal;
-        rateVal.innerText = minRateVal;
+        const minYear = parseInt(yearFilter.value);
+        const [minRate, maxRate] = ratingFilter.value.split('-').map(Number);
 
         const filtered = currentList.filter(item => {
-            const matchesSearch = item.title.toLowerCase().includes(searchTerm) || (item.director && item.director.toLowerCase().includes(searchTerm));
-            const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
-            const matchesYear = (item.year >= minYearVal);
-            const matchesRating = (item.rating >= minRateVal);
-            return matchesSearch && matchesPlatform && matchesYear && matchesRating;
+            const matchesSearch = item.title.toLowerCase().includes(searchTerm);
+            const matchesYear = (minYear === 0 || item.year >= minYear);
+            const matchesRating = (item.rating >= minRate && item.rating <= maxRate);
+            return matchesSearch && matchesYear && matchesRating;
         });
 
         [...filtered].reverse().forEach(item => {
             const card = document.createElement("article");
             card.className = "card";
-            const slugify = (t) => t?.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            card.innerHTML = `<div class="card-content"><img src="${item.image}" alt="${item.title}" class="card-image"><div class="card-text"><h2>${item.title}</h2><p class="meta">${item.year || item.date || ""}</p><a href="story.html?id=${item.id || slugify(item.title)}" class="read-link">📖 LEES REVIEW</a></div></div>`;
+            card.innerHTML = `<div class="card-content">
+                <img src="${item.image}" alt="${item.title}" class="card-image">
+                <div class="card-text">
+                    <h2>${item.title}</h2>
+                    <p>${item.year || ""} - ${item.rating} sterren</p>
+                    <a href="story.html?id=${item.id || ''}" class="read-link">LEES REVIEW</a>
+                </div>
+            </div>`;
             container.appendChild(card);
         });
-        if (filtered.length === 0) container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
     }
 
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            selectedPlatform = btn.getAttribute('data-filter');
-            render();
-        });
-    });
-
     searchInput.addEventListener('input', render);
-    yearSlider.addEventListener('input', render);
-    ratingSlider.addEventListener('input', render);
+    yearFilter.addEventListener('change', render);
+    ratingFilter.addEventListener('change', render);
     render();
 });
 </script>
