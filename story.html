@@ -215,7 +215,7 @@
             const textPath = story.text || `reviews/${slugify(story.title)}.html`;
             const imagePath = story.image || `Draft/${slugify(story.title)}.jpg`;
 
-            fetch(textPath)
+           fetch(textPath)
                 .then(res => res.text())
                 .then(htmlContent => {
                     titleElement.innerText = story.title;
@@ -224,31 +224,62 @@
                     // Meta gegevens
                     let metaText = (story.director && story.year) ? `${story.platform === 'serializd' ? 'Gemaakt' : 'Geregisseerd'} door ${story.director} (${story.year}) — Rating: ${story.rating}/5` : '';
                     metaElement.innerHTML = story.link ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #d4af37; font-size: 0.8rem; text-decoration: underline;">→ Bekijk online</a>` : metaText;
-// Ingesloten afbeelding logica
-let content = htmlContent;
 
-// 1. Zorg voor paragrafen als die er niet zijn
-if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-    content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
-}
+                    // 1. Zorg voor paragrafen
+                    let content = htmlContent;
+                    if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
+                        content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+                    }
 
-// 2. Splits de eerste letter af voor de drop-cap (alleen als er tekst is)
-let formattedContent = content;
-if (content.trim().length > 0) {
-    const firstChar = content.trim().charAt(0);
-    const remainingText = content.trim().slice(1);
-    formattedContent = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
-}
+                    // 2. Drop-cap logica
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = content;
+                    const firstPara = tempDiv.querySelector('p');
+                    if (firstPara) {
+                        const text = firstPara.innerText.trim();
+                        if (text.length > 0) {
+                            const firstChar = text.charAt(0);
+                            const remainingText = text.slice(1);
+                            firstPara.innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
+                        }
+                        content = tempDiv.innerHTML;
+                    }
 
-// 3. Bepaal de afbeelding (fallback naar Draft/slug.png)
-const slug = slugify(story.title);
-const displayImage = story.image || `Draft/${slug}.png`;
+                    // 3. Toon de content
+                    const displayImage = story.image || `Draft/${slugify(story.title)}.png`;
+                    textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + content;
 
-// 4. Toon de content (met afbeelding en de drop-cap)
-textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + formattedContent;
+                    setupLikes(firebaseDocId);
 
-setupLikes(firebaseDocId);
+                    // 4. Suggesties
+                    const suggestionsContainer = document.getElementById('suggestions-container');
+                    if (suggestionsContainer) {
+                        const allStories = [...(typeof stories !== 'undefined' ? stories : []), ...(typeof archiveStories !== 'undefined' ? archiveStories : [])];
+                        const allReviews = (typeof reviewStories !== 'undefined' ? reviewStories : []);
+                        
+                        const otherStories = allStories.filter(s => s.title !== story.title);
+                        const otherReviews = allReviews.filter(s => s.title !== story.title);
 
+                        let selected = [];
+                        if (otherStories.length > 0) selected.push({ ...otherStories[Math.floor(Math.random() * otherStories.length)], isReview: false });
+                        if (otherReviews.length > 0) selected.push({ ...otherReviews[Math.floor(Math.random() * otherReviews.length)], isReview: true });
+
+                        let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #d4af37;">
+                                      <h3 style="color: #d4af37; font-family: 'Cinzel', serif; text-transform: uppercase;">Meer leesvoer</h3>
+                                      <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">`;
+
+                        selected.forEach(s => {
+                            const url = s.isReview ? s.link : `story.html?id=${slugify(s.title)}`;
+                            const target = s.isReview ? 'target="_blank"' : '';
+                            html += `<a href="${url}" ${target} class="suggestion-card">
+                                        ${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">` : ''}
+                                        <strong style="display: block; color: #353028;">${s.title}</strong>
+                                        <small style="color: #70685e; font-size: 0.8em; text-transform: uppercase;">${s.isReview ? 'Review' : 'Verhaal'}</small>
+                                     </a>`;
+                        });
+                        suggestionsContainer.innerHTML = html + `</div></div>`;
+                    }
+                });
                     setupLikes(firebaseDocId);
                     
                     // Suggesties
