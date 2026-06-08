@@ -6,15 +6,15 @@ CLICKABLE CARDS - Entire block is interactive
 */
 
 /* ===== VARIABLES ===== */
-:root --bg-color: #edeae5;       /* Een diepere, warme 'stone' tint */
-  --bg-secondary: #e3e0db;   /* Iets donkerder, geeft contrast bij secties */
-  --nav-bg: #f5f3f0;        /* Iets lichter, voor een fris accent in de navigatie */
-  --card-bg: #fcfbf9;       /* Bijna wit, maar net niet - perfect voor leeskaarten */
-  --text-color: #2a2825;     /* Een zeer donkerbruin-grijs (zachter dan puur zwart) */
-  --text-muted: #7a756f;     /* Warme grijstint voor subtiele tekst */
-  --accent-color: #d4af37;   /* Je vertrouwde goud */
-  --border-color: #d6d2cc;   /* Past bij de achtergrond, geeft subtiele structuur */
-  --shadow: rgba(42, 40, 37, 0.1); /* Een warmere schaduw */
+:root --bg-color: #e8e3d9;       /* Diep, warm beige (de basis) */
+  --bg-secondary: #e0dace;   /* Iets donkerder beige voor nuance */
+  --nav-bg: #f2ede4;        /* Lichter, bijna zandkleurig */
+  --card-bg: #f8f5ef;       /* Zeer zacht, bijna wit-beige (voor kaarten) */
+  --text-color: #3d3831;     /* Donker, warm koffiebruin (zeer leesbaar) */
+  --text-muted: #827a6f;     /* Zachte taupe-tint voor bij-informatie */
+  --accent-color: #d4af37;   /* Je gouden accent */
+  --border-color: #d1c8b8;   /* Warme beige-grijze lijn */
+  --shadow: rgba(61, 56, 49, 0.12); /* Warme, zachte schaduw */
 /* ===== BASE ===== */
 body {
   margin: 0;
