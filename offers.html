@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Offers voor Sesjat</title> 
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Zorgt dat de kaart als link gedraagt en geen blauwe tekst/onderstreping heeft */
+        .card { display: block; text-decoration: none; color: inherit; }
+    </style>
 </head>
 <body>
   
@@ -38,7 +42,6 @@
 <script src="data/stories.js"></script>
 
 <script>
-// Slugify functie voor consistente URL's en paden
 function slugify(text) {
     return text.toString().toLowerCase()
         .replace(/\s+/g, '-')
@@ -50,64 +53,47 @@ window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
 
-    // Bepaal de lijst op basis van de paginatitel
     let currentList = [];
     const pageTitle = document.title;
     
-    if (pageTitle.includes("Offers")) {
-        currentList = stories;
-    } else if (pageTitle.includes("Archief")) {
-        currentList = archiveStories;
-    } else if (pageTitle.includes("Reviews")) {
-        currentList = reviewStories;
-    }
+    if (pageTitle.includes("Offers")) currentList = typeof stories !== 'undefined' ? stories : [];
+    else if (pageTitle.includes("Archief")) currentList = typeof archiveStories !== 'undefined' ? archiveStories : [];
+    else if (pageTitle.includes("Reviews")) currentList = typeof reviewStories !== 'undefined' ? reviewStories : [];
 
-    // Render functie
     function render(filter = "") {
         container.innerHTML = "";
         const searchTerm = filter.toLowerCase();
 
         const filtered = currentList.filter(item => {
             return item.title.toLowerCase().includes(searchTerm) || 
-                   (item.year && item.year.includes(searchTerm)) ||
+                   (item.year && item.year.toString().includes(searchTerm)) ||
                    (item.director && item.director.toLowerCase().includes(searchTerm)) ||
                    (item.date && item.date.toLowerCase().includes(searchTerm));
         });
 
         filtered.slice().reverse().forEach(item => {
-           const card = document.createElement("a");
-card.className = "card";
-card.href = link;
-
-if (isExternal) {
-    card.target = "_blank";
-    card.rel = "noopener noreferrer";
-}
-            
-            // Logica: gebruik slug voor interne verhalen, link voor reviews
-            const isExternal = item.link ? true : false;
+            const isExternal = !!item.link;
             const slug = slugify(item.title);
             const link = isExternal ? item.link : `story.html?id=${slug}`;
-            const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
-            const buttonClass = isExternal ? 'read-link letterboxd-link' : 'read-link';
-            const buttonText = isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES';
-            
-            // Fallback voor afbeeldingen (kijkt in JSON, anders in /images folder)
             const displayImage = item.image || `images/${slug}.jpg`;
-
-           card.innerHTML = `
- 
-
-    <div class="card-content">
-        <img src="${displayImage}" alt="${item.title}" class="card-image">
-        <div class="card-text">
-            <h2>${item.title}</h2>
-            <p class="meta">${item.year || item.date || ""}</p>
-            ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-            <a href="${link}" ${target} class="death-link ${buttonClass}">${buttonText}</a>
-        </div>
-    </div>
-
+            
+            const card = document.createElement("a");
+            card.className = "card";
+            card.href = link;
+            if (isExternal) {
+                card.target = "_blank";
+                card.rel = "noopener noreferrer";
+            }
+            
+            card.innerHTML = `
+                <div class="card-content">
+                    <img src="${displayImage}" alt="${item.title}" class="card-image">
+                    <div class="card-text">
+                        <h2>${item.title}</h2>
+                        <p class="meta">${item.year || item.date || ""}</p>
+                        ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+                    </div>
+                </div>
             `;
             container.appendChild(card);
         });
@@ -124,9 +110,9 @@ if (isExternal) {
     render();
 });
 
-// Menu inladen
 fetch('nav.html').then(res => res.text()).then(data => {
-    document.getElementById('main-nav').innerHTML = data;
+    const nav = document.getElementById('main-nav');
+    if(nav) nav.innerHTML = data;
 });
 </script>
 
