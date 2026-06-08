@@ -162,3 +162,20 @@ nav a:hover { opacity: 0.8; }
 .dashboard-grid { 
     gap: 1.5rem; 
 }
+.item-excerpt {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin: 5px 0 0 25px; /* Lijn uit met de titel */
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Maximaal 2 regels tekst */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.update-item {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 1rem;
+}
