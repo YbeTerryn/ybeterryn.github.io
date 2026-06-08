@@ -5,30 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reviews - Pieter Paul Tybbe</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <style>
         .filter-section { text-align: center; margin-bottom: 20px; }
-        .toggle-btn { background: #ffd166; color: #0d0d0d; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        .toggle-btn { background: #d4af37; color: #353028; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; }
         
-        #filter-panel { display: none; margin: 20px auto; padding: 20px; background: #1a1a1a; border-radius: 8px; max-width: 400px; color: #fff; border: 1px solid #333; }
+        #filter-panel { display: none; margin: 20px auto; padding: 25px; background: #dcd6c9; border: 1px solid #c4bcae; border-radius: 12px; max-width: 400px; color: #353028; box-shadow: 0 4px 15px rgba(53, 48, 40, 0.1); }
         #filter-panel.show { display: block; }
         
         .filter-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 15px; }
-        .filter-row select { background: #000; color: #ffd166; border: 1px solid #ffd166; padding: 8px; border-radius: 4px; flex: 1; }
+        .filter-row select { background: #f2ede4; color: #353028; border: 1px solid #c4bcae; padding: 8px; border-radius: 4px; flex: 1; }
         
-        .icon-btn { background: #000; color: #ffd166; border: 1px solid #ffd166; padding: 10px; border-radius: 4px; flex: 1; cursor: pointer; font-size: 1.1rem; }
-        .icon-btn.active { background: #ffd166; color: #0d0d0d; }
+        .icon-btn { background: #f2ede4; color: #353028; border: 1px solid #c4bcae; padding: 10px; border-radius: 4px; flex: 1; cursor: pointer; font-size: 1.1rem; }
+        .icon-btn.active { background: #d4af37; color: #353028; border-color: #d4af37; }
         
         .search-wrapper { max-width: 400px; margin: 0 auto 20px auto; padding: 0 15px; }
-        .search-bar { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ffd166; background: #000; color: #fff; box-sizing: border-box; }
+        .search-bar { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #c4bcae; background: #f2ede4; color: #353028; box-sizing: border-box; }
         
-        .rating { color: #ffd166; font-size: 0.9em; margin-bottom: 5px; }
-        .meta { color: #a0a0a0; font-style: italic; font-size: 0.9rem; margin-top: 2px; }
-
+        .rating { color: #d4af37; font-size: 0.9em; margin-bottom: 5px; }
+        .meta { color: #6d6455; font-style: italic; font-size: 0.9rem; margin-top: 2px; }
         .card { position: relative; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-        .card-link-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .card-type-icon { position: absolute; top: 1rem; right: 1rem; font-size: 1.2rem; color: #ffd166; opacity: 0.4; z-index: 5; }
+        .card-type-icon { position: absolute; top: 1rem; right: 1rem; font-size: 1.2rem; color: #d4af37; opacity: 0.6; z-index: 5; }
     </style>
 </head>
 <body>
@@ -78,32 +75,90 @@
 
 <script src="data/stories.js"></script>
 <script>
-    // Alles in één DOMContentLoaded zorgt ervoor dat de code pas draait als alles geladen is
-    window.addEventListener('DOMContentLoaded', () => {
-        // Navigatie laden
-        fetch('nav.html').then(r => r.text()).then(d => { 
-            const nav = document.getElementById('main-nav');
-            if(nav) nav.innerHTML = d; 
-        });
+window.addEventListener('DOMContentLoaded', () => {
+    fetch('nav.html').then(r => r.text()).then(d => { document.getElementById('main-nav').innerHTML = d; });
 
-        // Elementen selecteren
-        const container = document.getElementById("main-container");
-        const searchInput = document.getElementById("searchInput");
-        const toggleFilter = document.getElementById("toggle-filter");
-        const filterPanel = document.getElementById("filter-panel");
-        const platformBtns = document.querySelectorAll('.icon-btn');
-        
-        let currentList = (typeof reviewStories !== 'undefined') ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
-        let selectedPlatform = "all";
+    const container = document.getElementById("main-container");
+    const searchInput = document.getElementById("searchInput");
+    const toggleFilter = document.getElementById("toggle-filter");
+    const filterPanel = document.getElementById("filter-panel");
+    const platformBtns = document.querySelectorAll('.icon-btn');
+    
+    let currentList = (typeof reviewStories !== 'undefined') ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
+    let selectedPlatform = "all";
 
-        // Filter logica
-        toggleFilter.addEventListener('click', () => {
-            filterPanel.classList.toggle('show');
-        });
-
-        // ... (rest van je bestaande JavaScript functies voor render, etc.)
-        // Zorg dat je render() functie hieronder blijft staan
+    const years = [...new Set(currentList.map(item => item.year).filter(y => y))].sort((a, b) => b - a);
+    years.forEach(y => {
+        document.getElementById('minYear').innerHTML += `<option value="${y}">${y}</option>`;
+        document.getElementById('maxYear').innerHTML += `<option value="${y}">${y}</option>`;
     });
+
+    toggleFilter.addEventListener('click', () => filterPanel.classList.toggle('show'));
+
+    platformBtns.forEach(btn => btn.addEventListener('click', () => {
+        platformBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedPlatform = btn.getAttribute('data-filter');
+        render();
+    }));
+
+    function getStarsHtml(rating) {
+        if (!rating) return "";
+        let stars = '<div class="rating">';
+        for (let i = 1; i <= 5; i++) {
+            if (rating >= i) stars += '<i class="fas fa-star"></i>';
+            else if (rating >= i - 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+            else stars += '<i class="far fa-star"></i>';
+        }
+        return stars + `</div>`;
+    }
+
+    function render() {
+        container.innerHTML = "";
+        const term = searchInput.value.toLowerCase();
+        const minY = parseInt(document.getElementById('minYear').value);
+        const maxY = parseInt(document.getElementById('maxYear').value);
+        const minR = parseFloat(document.getElementById('minRate').value);
+        const maxR = parseFloat(document.getElementById('maxRate').value);
+        
+        const filtered = currentList.filter(item => {
+            const matchesSearch = item.title.toLowerCase().includes(term);
+            const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
+            const matchesYear = (item.year >= minY && item.year <= maxY);
+            const matchesRating = (item.rating >= minR && item.rating <= maxR);
+            return matchesSearch && matchesPlatform && matchesYear && matchesRating;
+        });
+
+        const slugify = (text) => text?.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+        [...filtered].reverse().forEach(item => {
+            const card = document.createElement("article");
+            card.className = "card";
+            const storySlug = item.id || slugify(item.title);
+            let icon = '<i class="fas fa-scroll"></i>';
+            if (item.platform === 'storygraph') icon = '<i class="fas fa-book"></i>';
+            if (item.platform === 'letterboxd') icon = '<i class="fas fa-film"></i>';
+            if (item.platform === 'serializd') icon = '<i class="fas fa-tv"></i>';
+            
+            card.innerHTML = `
+                <a href="story.html?id=${storySlug}" class="card-link-overlay"></a>
+                <div class="card-type-icon">${icon}</div>
+                <div class="card-content">
+                    <img src="${item.image || `Draft/${storySlug}.jpg`}" alt="${item.title}" class="card-image">
+                    <div class="card-text">
+                        <h2>${item.title}</h2>
+                        ${getStarsHtml(item.rating)}
+                        <div class="meta">${item.year}</div>
+                    </div>
+                </div>`;
+            container.appendChild(card);
+        });
+    }
+
+    [searchInput, document.getElementById('minYear'), document.getElementById('maxYear'), document.getElementById('minRate'), document.getElementById('maxRate')].forEach(el => el.addEventListener('change', render));
+    searchInput.addEventListener('input', render);
+    render();
+});
 </script>
 </body>
 </html>
