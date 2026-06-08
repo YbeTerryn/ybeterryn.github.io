@@ -1,13 +1,19 @@
 window.addEventListener('load', () => {
+    // Helper functie: Alles gaat nu naar story.html
+    const getLink = (item) => {
+        // Gebruik de ID als die bestaat, anders maak een slug van de titel
+        const slug = item.id || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        return `story.html?id=${slug}`;
+    };
+
     // 1. De Highlight (Nieuwste offer)
     if (typeof stories !== 'undefined' && stories.length > 0) {
         const latestOffer = stories[stories.length - 1];
         const featuredContainer = document.getElementById('featured-container');
         
         if (featuredContainer) {
-            // We maken de hele div klikbaar door de link om de inhoud te wikkelen
             featuredContainer.innerHTML = `
-                <a href="story.html?id=${latestOffer.id}" class="featured-card" style="display: block; text-decoration: none; color: inherit;">
+                <a href="${getLink(latestOffer)}" class="featured-card" style="display: block; text-decoration: none; color: inherit;">
                     <span class="new-label">NIEUWSTE OFFER</span>
                     <h4>${latestOffer.title}</h4>
                     <p>${latestOffer.description || 'Ontdek het nieuwste verhaal in de raamvertelling'}</p>
@@ -28,19 +34,14 @@ window.addEventListener('load', () => {
 
         const listToShow = mixedItems.reverse().slice(0, 10);
 
-        // We plaatsen de HTML in het container-element
         updatesContainer.innerHTML = `
-            <h3 style="color: #ffd166; margin-bottom: 20px;">Reviews</h3>
+            <h3 style="color: #ffd166; margin-bottom: 20px;">Recent</h3>
             ${listToShow.map(item => {
-                const isReview = item.type === 'review';
-                const link = isReview ? item.link : `story.html?id=${item.id}`;
-                const target = isReview ? 'target="_blank"' : '';
-                const icoon = isReview ? '★' : '•';
-                
+                // We hoeven hier geen onderscheid meer te maken voor de link of target
                 return `
                     <div class="update-item" style="position: relative; margin-bottom: 12px; padding: 10px; border-radius: 4px; transition: 0.2s;">
-                        <a href="${link}" ${target} style="text-decoration: none; color: inherit; display: block;">
-                            <span class="bullet" style="color: #ffd166; margin-right: 10px;">${icoon}</span>
+                        <a href="${getLink(item)}" style="text-decoration: none; color: inherit; display: block;">
+                            <span class="bullet" style="color: #ffd166; margin-right: 10px;">•</span>
                             <span style="font-size: 1.05rem;">${item.title}</span>
                             <span style="color: #666; font-size: 0.8rem; margin-left: 8px; text-transform: uppercase;">[${item.type}]</span>
                         </a>
