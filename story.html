@@ -240,16 +240,47 @@
                     setupLikes(firebaseDocId);
                     
                     // Suggesties
-                    const suggestionsContainer = document.getElementById('suggestions-container');
-                    const otherStories = allStories.filter(s => s.title !== story.title);
-                    if (otherStories.length > 0 && suggestionsContainer) {
-                        const selected = otherStories.sort(() => 0.5 - Math.random()).slice(0, 2);
-                        let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #e8e6e1;"><h3 style="color: #333333; font-family: 'Cinzel', serif; text-transform: uppercase;">Zin in nog een verhaal?</h3><div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">`;
-                        selected.forEach(s => {
-                            html += `<a href="${window.location.pathname}?id=${s.id || slugify(s.title)}" class="suggestion-card">${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">` : ''}<strong>${s.title}</strong></a>`;
-                        });
-                        suggestionsContainer.innerHTML = html + `</div></div>`;
-                    }
+   // Suggesties
+const suggestionsContainer = document.getElementById('suggestions-container');
+
+if (suggestionsContainer) {
+    const allWrittenContent = [...stories, ...archiveStories];
+    const otherStories = allWrittenContent.filter(s => s.title !== story.title);
+    const allReviews = [...reviewStories];
+
+    let selected = [];
+
+    // 1. Kies één willekeurig verhaal
+    if (otherStories.length > 0) {
+        const randomStory = otherStories[Math.floor(Math.random() * otherStories.length)];
+        selected.push({ ...randomStory, isReview: false });
+    }
+
+    // 2. Kies één willekeurige review
+    if (allReviews.length > 0) {
+        const randomReview = allReviews[Math.floor(Math.random() * allReviews.length)];
+        selected.push({ ...randomReview, isReview: true });
+    }
+
+    // HTML opbouw
+    let html = `<div style="text-align:center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border-color);">
+                  <h3 style="color: var(--text-color); font-family: 'Cinzel', serif; text-transform: uppercase;">Meer leesvoer</h3>
+                  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">`;
+
+    selected.forEach(s => {
+        // Bepaal de link op basis van type
+        const url = s.isReview ? s.link : `${window.location.pathname}?id=${slugify(s.title)}`;
+        const target = s.isReview ? 'target="_blank"' : '';
+
+        html += `<a href="${url}" ${target} class="suggestion-card" style="text-decoration: none; color: inherit; width: 200px; display: block; transition: opacity 0.2s;">
+                    ${s.image ? `<img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">` : ''}
+                    <strong style="color: var(--text-color); display: block;">${s.title}</strong>
+                    <small style="color: var(--text-muted); font-size: 0.8em; text-transform: uppercase;">${s.isReview ? 'Review' : 'Verhaal'}</small>
+                 </a>`;
+    });
+
+    suggestionsContainer.innerHTML = html + `</div></div>`;
+}
                 });
         });
 
