@@ -1,10 +1,70 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+    <meta charset="UTF-8">
     <title>Ybe Terryn | Schrijver & Theatermaker</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/css2?family=Cinzel&display=swap">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Lora&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS DIRECT IN HET BESTAND --- */
+        body {
+            font-family: 'Lora', serif; /* Rustig leeslettertype voor tekst */
+            background-color: #fdfcf9; /* Warme, papieren achtergrond */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, .hero-title {
+            font-family: 'Cinzel', serif; /* Klassieke uitstraling voor titels */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .content-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #d4cbb8;
+            margin-bottom: 15px;
+        }
+
+        /* De Grid-indeling */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Twee kolommen */
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .dashboard-item {
+            background: #ffffff;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Responsive design: op mobiel onder elkaar */
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        .intro-text { font-size: 1.2rem; text-align: center; color: #555; }
+    </style>
 </head>
 <body>
 
@@ -24,19 +84,23 @@
     </section>
 
     <div class="dashboard-grid">
-        <div id="featured-container" class="dashboard-item featured">
+        <div id="featured-container" class="dashboard-item">
+            <h2>Uitgelicht</h2>
             <p>Laden...</p>
         </div>
-        <div id="updates-list-container" class="dashboard-item updates">
+        <div id="updates-list-container" class="dashboard-item">
+            <h2>Updates</h2>
             <p>Updates ophalen...</p>
         </div>
     </div>
 </main>
 
 <script>
+    // Navigatie inladen
     fetch('nav.html').then(r => r.text()).then(d => document.getElementById('main-nav').innerHTML = d);
 </script>
 <script src="data/stories.js"></script>
 <script src="js/main.js"></script>
+
 </body>
 </html>
