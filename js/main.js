@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
         return `story.html?id=${slug}`;
     };
 
-    // 1. De Highlight
+    // 1. De Highlight (Nieuwste offer)
     if (typeof stories !== 'undefined' && stories.length > 0) {
         const latestOffer = stories[stories.length - 1];
         const featuredContainer = document.getElementById('featured-container');
@@ -22,25 +22,22 @@ window.addEventListener('load', () => {
         }
     }
 
-    // 2. De Lijst
+    // 2. De Lijst (Alleen Reviews, zonder tags, met tekst)
     const updatesContainer = document.getElementById('updates-list-container');
     if (updatesContainer) {
-        const mixedItems = [
-            ...(typeof stories !== 'undefined' ? stories.slice(0, -1).map(s => ({...s, type: 'offer'})) : []),
-            ...(typeof archiveStories !== 'undefined' ? archiveStories.map(s => ({...s, type: 'archief'})) : []),
-            ...(typeof reviewStories !== 'undefined' ? reviewStories.map(r => ({...r, type: 'review'})) : [])
-        ];
-
-        const listToShow = mixedItems.reverse().slice(0, 10);
+        // Filter alleen op reviews, pak de laatste 6 en draai ze om
+        const listToShow = (typeof reviewStories !== 'undefined' ? reviewStories : []).slice(-6).reverse();
 
         updatesContainer.innerHTML = `
-            <h3 class="updates-title">Recent</h3>
+            <h3 class="updates-title">Reviews</h3>
             ${listToShow.map(item => `
                 <div class="update-item">
                     <a href="${getLink(item)}">
-                        <span class="bullet">${item.type === 'review' ? '★' : '•'}</span>
-                        <span class="item-title">${item.title}</span>
-                        <span class="item-meta">[${item.type}]</span>
+                        <div class="review-header">
+                            <span class="bullet">★</span>
+                            <span class="item-title">${item.title}</span>
+                        </div>
+                        ${item.description ? `<p class="item-excerpt">${item.description.substring(0, 80)}...</p>` : ''}
                     </a>
                 </div>
             `).join('')}
