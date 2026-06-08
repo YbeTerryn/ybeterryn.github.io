@@ -110,21 +110,38 @@ window.addEventListener('DOMContentLoaded', () => {
         return stars + `</div>`;
     }
 
-    function render() {
-        container.innerHTML = "";
-        const term = searchInput.value.toLowerCase();
-        const minY = parseInt(document.getElementById('minYear').value);
-        const maxY = parseInt(document.getElementById('maxYear').value);
-        const minR = parseFloat(document.getElementById('minRate').value);
-        const maxR = parseFloat(document.getElementById('maxRate').value);
+  function render() {
+    container.innerHTML = "";
+    
+    // ... (jouw filter logica blijft hier staan) ...
+
+    [...filtered].reverse().forEach(item => {
+        const card = document.createElement("article");
+        card.className = "card";
         
-        const filtered = currentList.filter(item => {
-            const matchesSearch = item.title.toLowerCase().includes(term);
-            const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
-            const matchesYear = (item.year >= minY && item.year <= maxY);
-            const matchesRating = (item.rating >= minR && item.rating <= maxR);
-            return matchesSearch && matchesPlatform && matchesYear && matchesRating;
-        });
+        // Bepaal het icoontje
+        let icon = '<i class="fas fa-scroll"></i>'; // Default
+        if (item.platform === 'storygraph') icon = '<i class="fas fa-book"></i>';
+        if (item.platform === 'letterboxd') icon = '<i class="fas fa-film"></i>';
+        if (item.platform === 'serializd') icon = '<i class="fas fa-tv"></i>';
+
+        const directorInfo = item.director ? `<div class="meta">Regie: ${item.director}</div>` : "";
+        
+        card.innerHTML = `
+            <a href="story.html?id=${item.id || ''}" class="card-link-overlay"></a>
+            <div class="card-type-icon">${icon}</div>
+            <div class="card-content">
+                <img src="${item.image}" alt="${item.title}" class="card-image">
+                <div class="card-text">
+                    <h2>${item.title}</h2>
+                    ${getStarsHtml(item.rating)}
+                    ${directorInfo}
+                    <p class="meta">${item.year}</p>
+                </div>
+            </div>`;
+        container.appendChild(card);
+    });
+}
 
         [...filtered].reverse().forEach(item => {
             const card = document.createElement("article");
