@@ -9,9 +9,10 @@
     <style>
         #filter-panel { display: none; margin: 20px auto; padding: 20px; background: #1a1a1a; border-radius: 8px; max-width: 500px; color: #fff; }
         #filter-panel.show { display: block; }
-        .filter-controls { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        .filter-group { margin-bottom: 15px; }
+        .range-inputs { display: flex; gap: 10px; align-items: center; }
+        select { padding: 8px; background: #333; color: #fff; border: 1px solid #ffd166; border-radius: 4px; flex: 1; }
         .toggle-btn { background: #ffd166; color: #0d0d0d; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; margin-bottom: 20px; }
-        select { padding: 8px; background: #333; color: #fff; border: 1px solid #ffd166; border-radius: 4px; width: 100%; max-width: 250px; }
     </style>
 </head>
 <body>
@@ -23,21 +24,36 @@
 </div>
 
 <div id="filter-panel">
-    <div class="filter-controls">
-        <label>Jaar vanaf:</label>
-        <select id="yearFilter">
-            <option value="0">Alle jaren</option>
-            <!-- Wordt via JS gevuld -->
-        </select>
-        
-        <label>Rating:</label>
-        <select id="ratingFilter">
-            <option value="0-5">Alles</option>
-            <option value="4-5">4 tot 5 sterren</option>
-            <option value="3-4">3 tot 4 sterren</option>
-            <option value="2-3">2 tot 3 sterren</option>
-            <option value="0-3">Minder dan 3 sterren</option>
-        </select>
+    <!-- Jaar Range -->
+    <div class="filter-group">
+        <label>Jaar bereik:</label>
+        <div class="range-inputs">
+            <select id="minYear"><option value="0">Vanaf</option></select>
+            <span>-</span>
+            <select id="maxYear"><option value="9999">Tot</option></select>
+        </div>
+    </div>
+    <!-- Rating Range -->
+    <div class="filter-group">
+        <label>Rating bereik:</label>
+        <div class="range-inputs">
+            <select id="minRate">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <span>-</span>
+            <select id="maxRate">
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -55,18 +71,18 @@ window.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById("searchInput");
     const toggleFilter = document.getElementById("toggle-filter");
     const filterPanel = document.getElementById("filter-panel");
-    const yearFilter = document.getElementById("yearFilter");
-    const ratingFilter = document.getElementById("ratingFilter");
+    const minYear = document.getElementById("minYear");
+    const maxYear = document.getElementById("maxYear");
+    const minRate = document.getElementById("minRate");
+    const maxRate = document.getElementById("maxRate");
 
     let currentList = (typeof reviewStories !== 'undefined') ? reviewStories : (typeof stories !== 'undefined' ? stories : []);
 
-    // Vul jaar filter
+    // Vul jaren in
     const years = [...new Set(currentList.map(item => item.year).filter(y => y))].sort((a, b) => b - a);
     years.forEach(year => {
-        const option = document.createElement("option");
-        option.value = year;
-        option.text = year;
-        yearFilter.appendChild(option);
+        minYear.innerHTML += `<option value="${year}">${year}</option>`;
+        maxYear.innerHTML += `<option value="${year}">${year}</option>`;
     });
 
     toggleFilter.addEventListener('click', () => filterPanel.classList.toggle('show'));
@@ -74,13 +90,11 @@ window.addEventListener('DOMContentLoaded', () => {
     function render() {
         container.innerHTML = "";
         const searchTerm = searchInput.value.toLowerCase();
-        const minYear = parseInt(yearFilter.value);
-        const [minRate, maxRate] = ratingFilter.value.split('-').map(Number);
-
+        
         const filtered = currentList.filter(item => {
             const matchesSearch = item.title.toLowerCase().includes(searchTerm);
-            const matchesYear = (minYear === 0 || item.year >= minYear);
-            const matchesRating = (item.rating >= minRate && item.rating <= maxRate);
+            const matchesYear = (item.year >= parseInt(minYear.value) && item.year <= parseInt(maxYear.value));
+            const matchesRating = (item.rating >= parseFloat(minRate.value) && item.rating <= parseFloat(maxRate.value));
             return matchesSearch && matchesYear && matchesRating;
         });
 
@@ -99,9 +113,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    searchInput.addEventListener('input', render);
-    yearFilter.addEventListener('change', render);
-    ratingFilter.addEventListener('change', render);
+    [searchInput, minYear, maxYear, minRate, maxRate].forEach(el => el.addEventListener('change', render));
     render();
 });
 </script>
