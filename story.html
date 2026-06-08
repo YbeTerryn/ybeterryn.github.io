@@ -213,6 +213,7 @@
 
             const firebaseDocId = story.id || slugify(story.title);
             const textPath = story.text || `reviews/${slugify(story.title)}.html`;
+            const imagePath = story.image || `Draft/${slugify(story.title)}.jpg`;
 
             fetch(textPath)
                 .then(res => res.text())
