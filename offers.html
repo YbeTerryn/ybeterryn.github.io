@@ -14,8 +14,8 @@
     <title>Offers voor Sesjat</title> 
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Zorgt dat de kaart als link gedraagt en geen blauwe tekst/onderstreping heeft */
-        .card { display: block; text-decoration: none; color: inherit; }
+        /* Maak de hele kaart een aanklikbare link zonder standaard link-opmaak */
+        .card { display: block; text-decoration: none; color: inherit; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -75,6 +75,8 @@ window.addEventListener('DOMContentLoaded', () => {
             const isExternal = !!item.link;
             const slug = slugify(item.title);
             const link = isExternal ? item.link : `story.html?id=${slug}`;
+            
+            // Probeer eerst item.image, dan images/slug.jpg
             const displayImage = item.image || `images/${slug}.jpg`;
             
             const card = document.createElement("a");
@@ -85,9 +87,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 card.rel = "noopener noreferrer";
             }
             
+            // De onerror zorgt dat hij bij een fout naar de Draft map springt met de .png extensie
             card.innerHTML = `
                 <div class="card-content">
-                    <img src="${displayImage}" alt="${item.title}" class="card-image">
+                    <img src="${displayImage}" 
+                         alt="${item.title}" 
+                         class="card-image" 
+                         onerror="this.onerror=null; this.src='Draft/${slug}storyid.png';">
                     <div class="card-text">
                         <h2>${item.title}</h2>
                         <p class="meta">${item.year || item.date || ""}</p>
