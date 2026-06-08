@@ -216,12 +216,14 @@ nav a.donate{
 
 /* ===== DASHBOARD ===== */
 .dashboard-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:2rem;
-  max-width:900px;
-  margin:2rem auto;
-  padding:0 2rem;
+    display:grid;
+    grid-template-columns: 2.2fr 0.8fr;
+    gap:2rem;
+
+    max-width:1200px;
+    margin:3rem auto;
+
+    align-items:start;
 }
 
 .featured-card,.updates-list{
@@ -230,9 +232,24 @@ nav a.donate{
 }
 
 .featured-card{
-  display:block;
-  padding:2rem;
-  border-left:4px solid var(--accent-color);
+    display:block;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,209,102,.05),
+            rgba(255,255,255,.02)
+        );
+
+    border-radius:12px;
+
+    padding:2rem;
+
+    transition:.25s ease;
+}
+
+.featured-card:hover{
+    transform:translateY(-4px);
 }
 
 .new-label,.updates-title{
@@ -371,4 +388,29 @@ nav a.donate{
     border-left:4px solid #ffd166;
     border-radius:12px;
     padding:2rem;
+}
+.updates-list{
+    background:transparent;
+    padding:0;
+}
+.updates-title{
+    font-family:"Cinzel",serif;
+    color:#ffd166;
+
+    margin-top:0;
+    margin-bottom:1.5rem;
+
+    font-size:1.6rem;
+}
+.update-item a{
+    color:#ddd;
+    transition:.2s;
+}
+
+.update-item a:hover{
+    color:#ffd166;
+}
+.update-item{
+    padding:.8rem 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
