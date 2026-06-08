@@ -86,3 +86,25 @@ nav a:hover { opacity: 0.8; }
     .card-image { width: 100%; height: auto; }
     .bio-image-wrap { float: none; display: block; margin: 0 auto 1.5rem; width: 100%; }
 }
+/* Hero Sectie */
+.hero-section { text-align: center; padding: 4rem 1rem; }
+.profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd166; margin-bottom: 1rem; }
+.hero-title { font-family: 'Cinzel', serif; font-size: 3rem; margin: 0; color: #fff; }
+.hero-subtitle { color: #ffd166; letter-spacing: 0.2rem; text-transform: uppercase; margin-bottom: 2rem; }
+
+/* Dashboard Lay-out */
+.content-wrapper { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+.intro-section { text-align: center; font-size: 1.2rem; font-style: italic; margin-bottom: 4rem; color: #a0a0a0; }
+
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: 2fr 1fr; 
+    gap: 3rem; 
+}
+
+/* Items in het dashboard */
+.dashboard-item { background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 8px; border-top: 1px solid #ffd166; }
+
+@media (max-width: 768px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+}
