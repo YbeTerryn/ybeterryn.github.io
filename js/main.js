@@ -37,13 +37,12 @@ window.addEventListener('load', () => {
         const listToShow = mixedItems.reverse().slice(0, 10);
 
         updatesContainer.innerHTML = `
-            <h3 class="updates-title">Recent</h3>
+            <h3 class="updates-title">Reviews</h3>
             ${listToShow.map(item => `
                 <div class="update-item">
                     <a href="${getLink(item)}">
                         <span class="bullet">${item.type === 'review' ? '★' : '•'}</span>
-                        <span class="item-title">${item.title}</span>
-                        <span class="item-meta">[${item.type}]</span>
+                        <span class="item-title">${item.title}</span
                     </a>
                 </div>
             `).join('')}
