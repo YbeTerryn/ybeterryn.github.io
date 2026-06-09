@@ -215,7 +215,7 @@
             const textPath = story.text || `reviews/${slugify(story.title)}.html`;
             const imagePath = story.image || `Draft/${slugify(story.title)}.jpg`;
 
-            fetch(textPath)
+fetch(textPath)
                 .then(res => res.text())
                 .then(htmlContent => {
                     titleElement.innerText = story.title;
@@ -224,41 +224,33 @@
                     // Meta gegevens
                     let metaText = (story.director && story.year) ? `${story.platform === 'serializd' ? 'Gemaakt' : 'Geregisseerd'} door ${story.director} (${story.year}) — Rating: ${story.rating}/5` : '';
                     metaElement.innerHTML = story.link ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #d4af37; font-size: 0.8rem; text-decoration: underline;">→ Bekijk online</a>` : metaText;
-// Ingesloten afbeelding logica
-let content = htmlContent;
 
-// 2. Veilig verwerken van de inhoud (Paragrafen + Drop-cap)
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = htmlContent;
+                    // 1. Verwerk de HTML veilig in een tijdelijke div
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = htmlContent;
 
-        // Als er geen p-tags zijn, wikkel alle tekst in een p
-        if (!tempDiv.querySelector('p')) {
-            tempDiv.innerHTML = `<p>${htmlContent.split('\n').filter(l => l.trim()).join('</p><p>')}</p>`;
-        }
+                    // 2. Als er geen <p> tags zijn, maak ze dan (optioneel)
+                    if (!tempDiv.querySelector('p')) {
+                        tempDiv.innerHTML = `<p>${htmlContent.split('\n').filter(l => l.trim()).join('</p><p>')}</p>`;
+                    }
 
-        const firstPara = tempDiv.querySelector('p');
-        if (firstPara && firstPara.innerText.trim().length > 0) {
-            const text = firstPara.innerText.trim();
-            const firstChar = text.charAt(0);
-            const remainingText = text.slice(1);
-            firstPara.innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
-        }
-        
-        let content = tempDiv.innerHTML;
-if (content.trim().length > 0) {
-    const firstChar = content.trim().charAt(0);
-    const remainingText = content.trim().slice(1);
-    formattedContent = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
-}
+                    // 3. Pas de drop-cap toe op de eerste paragraaf
+                    const firstPara = tempDiv.querySelector('p');
+                    if (firstPara && firstPara.innerText.trim().length > 0) {
+                        const text = firstPara.innerText.trim();
+                        const firstChar = text.charAt(0);
+                        const remainingText = text.slice(1);
+                        firstPara.innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
+                    }
 
-// 3. Bepaal de afbeelding (fallback naar Draft/slug.png)
-const slug = slugify(story.title);
-const displayImage = story.image || `Draft/${slug}.png`;
+                    // 4. Bepaal de afbeelding
+                    const slug = slugify(story.title);
+                    const displayImage = story.image || `Draft/${slug}.png`;
 
-// 4. Toon de content (met afbeelding en de drop-cap)
-textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + formattedContent;
+                    // 5. Plaats de verwerkte HTML in de container
+                    textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + tempDiv.innerHTML;
 
-setupLikes(firebaseDocId);
+                    setupLikes(firebaseDocId);
 
                     
                     // Suggesties
