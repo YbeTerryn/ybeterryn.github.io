@@ -227,13 +227,24 @@
 // Ingesloten afbeelding logica
 let content = htmlContent;
 
-// 1. Zorg voor paragrafen als die er niet zijn
-if (!htmlContent.includes('<p>') && !htmlContent.includes('<br>')) {
-    content = htmlContent.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
-}
+// 2. Veilig verwerken van de inhoud (Paragrafen + Drop-cap)
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
 
-// 2. Splits de eerste letter af voor de drop-cap (alleen als er tekst is)
-let formattedContent = content;
+        // Als er geen p-tags zijn, wikkel alle tekst in een p
+        if (!tempDiv.querySelector('p')) {
+            tempDiv.innerHTML = `<p>${htmlContent.split('\n').filter(l => l.trim()).join('</p><p>')}</p>`;
+        }
+
+        const firstPara = tempDiv.querySelector('p');
+        if (firstPara && firstPara.innerText.trim().length > 0) {
+            const text = firstPara.innerText.trim();
+            const firstChar = text.charAt(0);
+            const remainingText = text.slice(1);
+            firstPara.innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
+        }
+        
+        let content = tempDiv.innerHTML;
 if (content.trim().length > 0) {
     const firstChar = content.trim().charAt(0);
     const remainingText = content.trim().slice(1);
