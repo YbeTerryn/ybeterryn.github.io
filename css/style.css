@@ -658,3 +658,34 @@ nav a.donate:hover {
     display: block;
     cursor: pointer;
 }
+/* Mobiele optimalisatie voor je homepagina */
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        display: flex;
+        flex-direction: column; /* Zet items onder elkaar op mobiel */
+        gap: 30px;
+    }
+
+    .hero-section {
+        padding: 40px 20px;
+    }
+
+    .profile-img {
+        width: 150px; /* Iets kleiner op mobiel */
+        height: 150px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-nav {
+        flex-wrap: wrap; /* Zorg dat nav-items op nieuwe regel springen */
+        justify-content: center;
+    }
+}
