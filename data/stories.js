@@ -1408,5 +1408,13 @@ const reviewStories = [
       rating: 4,
     link: "https://letterboxd.com/pieterpaultybbe/film/exotica/",
     platform: "letterboxd"
-  }
+  },
+  {
+    title: "Une Femme est une Femme",
+    year: "1961",
+    director: "Jean-Luc Godard",
+    rating: 4,
+    platform: "letterboxd",
+   link: "https://letterboxd.com/film/a-woman-is-a-woman/"
+},
 ];
