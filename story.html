@@ -245,7 +245,7 @@ fetch(textPath)
 
                     // 4. Bepaal de afbeelding
                     const slug = slugify(story.title);
-                    const displayImage = story.image || `Draft/${slug}.png`;
+                    const displayImage = story.image || `Draft/${slug}.jpg`;
 
                     // 5. Plaats de verwerkte HTML in de container
                     textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + tempDiv.innerHTML;
