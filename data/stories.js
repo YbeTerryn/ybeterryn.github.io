@@ -1417,4 +1417,11 @@ const reviewStories = [
     platform: "letterboxd",
    link: "https://letterboxd.com/film/a-woman-is-a-woman/"
 },
+  {
+     title: "Joker: Folie à Deux",
+    year: "2024",
+    director: "Todd Phillips",
+    rating: 4,
+    platform: "letterboxd",
+   link: "https://letterboxd.com/pieterpaultybbe/film/joker-folie-a-deux/"
 ];
