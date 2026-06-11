@@ -1424,4 +1424,5 @@ const reviewStories = [
     rating: 4,
     platform: "letterboxd",
    link: "https://letterboxd.com/pieterpaultybbe/film/joker-folie-a-deux/"
+     },
 ];
