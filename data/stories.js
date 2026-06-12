@@ -1417,12 +1417,19 @@ const reviewStories = [
     platform: "letterboxd",
    link: "https://letterboxd.com/film/a-woman-is-a-woman/"
 },
-  {
-     title: "Joker: Folie à Deux",
+  {title: "Joker: Folie à Deux",
     year: "2024",
     director: "Todd Phillips",
     rating: 4,
     platform: "letterboxd",
    link: "https://letterboxd.com/pieterpaultybbe/film/joker-folie-a-deux/"
      },
+   {title: "Truly Naked",
+year: "2026",
+director: "Muriel d’Ansembourg",
+rating: 4,
+platform: "letterboxd",
+link: "https://letterboxd.com/film/truly-naked/review/"
+     },
+  
 ];
