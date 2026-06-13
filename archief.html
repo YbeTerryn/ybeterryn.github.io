@@ -72,27 +72,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Toon de kaartjes (Nieuwste eerst)
         filtered.slice().reverse().forEach(item => {
-            const card = document.createElement("article");
-            card.className = "card";
-            
-            const isExternal = item.link ? true : false;
-            const link = isExternal ? item.link : `story.html?id=${item.id}`;
-            const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+const card = document.createElement("a");
+card.className = "card";
+card.href = link;
 
-            // De hele kaart is nu een klikbare link
-            card.innerHTML = `
-                <a href="${link}" ${target} class="card-link-overlay">
-                    <div class="card-content">
-                        <img src="${item.image}" alt="${item.title}" class="card-image">
-                        <div class="card-text">
-                            <h2>${item.title}</h2>
-                            <p class="meta">${item.year || item.date || ""}</p>
-                            ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                            <span class="read-text">${isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES'}</span>
-                        </div>
-                    </div>
-                </a>
-            `;
+if (isExternal) {
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+}
+
+card.innerHTML = `
+    <div class="card-content">
+        <img src="${item.image}" alt="${item.title}" class="card-image">
+        <div class="card-text">
+            <h2>${item.title}</h2>
+            <p class="meta">${item.year || item.date || ""}</p>
+            ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+            <span class="read-text">${isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES'}</span>
+        </div>
+    </div>
+`;
+            const isExternal = item.link ? true : false;
+            con
             container.appendChild(card);
         });
 
