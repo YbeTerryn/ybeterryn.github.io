@@ -247,11 +247,37 @@ fetch(textPath)
                     const slug = slugify(story.title);
                     const displayImage = story.image || `Draft/${slug}.jpg`;
 
-                    // 5. Plaats de verwerkte HTML in de container
-                    textContainer.innerHTML = `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` + tempDiv.innerHTML;
+// 5. Rating tonen boven de tekst (alleen bij reviews)
+let ratingHtml = '';
 
-                    setupLikes(firebaseDocId);
+if (story.rating) {
+    const fullStars = Math.floor(story.rating);
+    const halfStar = (story.rating % 1) >= 0.5;
 
+    const stars =
+        '★'.repeat(fullStars) +
+        (halfStar ? '½' : '') +
+        '☆'.repeat(5 - fullStars - (halfStar ? 1 : 0));
+
+    ratingHtml = `
+        <div style="text-align:center; margin-bottom:25px;">
+            <div style="font-size:2.5rem; color:#d4af37;">
+                ${stars}
+            </div>
+            <div style="font-size:1rem; color:#70685e; margin-top:5px;">
+                ${story.rating}/5
+            </div>
+        </div>
+    `;
+}
+
+// 6. Plaats alles in de container
+textContainer.innerHTML =
+    ratingHtml +
+    `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` +
+    tempDiv.innerHTML;
+
+setupLikes(firebaseDocId);
                     
                     // Suggesties
 // Suggesties
