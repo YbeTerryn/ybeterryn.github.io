@@ -307,11 +307,17 @@ async function setupLikes(storyId) {
                 const snap = await getDoc(docRef);
                 countDisplay.innerText = snap.exists() ? snap.data().count : "0";
             } catch(e) { countDisplay.innerText = "0"; }
-            document.getElementById('like-button').onclick = async () => {
-                await updateDoc(docRef, { count: increment(1) });
-                countDisplay.innerText = (await getDoc(docRef)).data().count;
-            };
-        }
+           document.getElementById('like-button').onclick = async () => {
+    const snap = await getDoc(docRef);
+
+    if (!snap.exists()) {
+        await setDoc(docRef, { count: 1 });
+        countDisplay.innerText = "1";
+    } else {
+        await updateDoc(docRef, { count: increment(1) });
+        countDisplay.innerText = (await getDoc(docRef)).data().count;
+    }
+};
     </script>
     <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
