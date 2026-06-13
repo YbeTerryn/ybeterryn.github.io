@@ -689,3 +689,72 @@ nav a.donate:hover {
         justify-content: center;
     }
 }
+  @media (max-width: 768px) {
+
+    .content-wrapper {
+        padding: 15px;
+    }
+
+    .hero-section {
+        padding: 30px 15px;
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        line-height: 1.1;
+        margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        letter-spacing: 0.08em;
+    }
+
+    .hero-nav {
+        gap: 12px;
+        font-size: 0.95rem;
+    }
+
+    .intro-text {
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+
+    .dashboard-item {
+        padding: 1rem;
+    }
+
+    .featured-card {
+        padding: 1.5rem;
+    }
+
+    .featured-card h4 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .featured-desc {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .read-more-btn {
+        display: block;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .updates-card {
+        padding: 1rem;
+    }
+
+    .updates-title {
+        font-size: 1.2rem;
+    }
+}
