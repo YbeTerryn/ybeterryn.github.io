@@ -307,7 +307,7 @@ async function setupLikes(storyId) {
                 const snap = await getDoc(docRef);
                 countDisplay.innerText = snap.exists() ? snap.data().count : "0";
             } catch(e) { countDisplay.innerText = "0"; }
-           document.getElementById('like-button').onclick = async () => {
+document.getElementById('like-button').onclick = async () => {
     const snap = await getDoc(docRef);
 
     if (!snap.exists()) {
@@ -318,8 +318,9 @@ async function setupLikes(storyId) {
         countDisplay.innerText = (await getDoc(docRef)).data().count;
     }
 };
-    }
-    </script>
+}   // <-- toevoegen
+
+</script>
     <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
 </html>
