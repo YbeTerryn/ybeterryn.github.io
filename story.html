@@ -222,7 +222,7 @@ fetch(textPath)
                     document.title = `${story.title} | Pieter Paul Tybbe`;
                     
                     // Meta gegevens
-                    let metaText = (story.director && story.year) ? `${story.platform === 'serializd' ? 'Gemaakt' : 'Geregisseerd'} door ${story.director} (${story.year}) — Rating: ${story.rating}/5` : '';
+                    let metaText = (story.director && story.year) ? `${story.platform === 'serializd' ? 'Gemaakt' : 'Geregisseerd'} door ${story.director} (${story.year}) 
                     metaElement.innerHTML = story.link ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #d4af37; font-size: 0.8rem; text-decoration: underline;">→ Bekijk online</a>` : metaText;
 
                     // 1. Verwerk de HTML veilig in een tijdelijke div
