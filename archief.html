@@ -70,32 +70,36 @@ window.addEventListener('DOMContentLoaded', () => {
                    (item.date && item.date.toLowerCase().includes(searchTerm));
         });
 
-        // Toon de kaartjes (Nieuwste eerst)
-        filtered.slice().reverse().forEach(item => {
-const card = document.createElement("a");
-card.className = "card";
-card.href = link;
+filtered.slice().reverse().forEach(item => {
 
-if (isExternal) {
-    card.target = "_blank";
-    card.rel = "noopener noreferrer";
-}
+    const isExternal = !!item.link;
+    const link = isExternal
+        ? item.link
+        : `story.html?id=${item.id}`;
 
-card.innerHTML = `
-    <div class="card-content">
-        <img src="${item.image}" alt="${item.title}" class="card-image">
-        <div class="card-text">
-            <h2>${item.title}</h2>
-            <p class="meta">${item.year || item.date || ""}</p>
-            ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-            <span class="read-text">${isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES'}</span>
+    const card = document.createElement("a");
+    card.className = "card";
+    card.href = link;
+
+    if (isExternal) {
+        card.target = "_blank";
+        card.rel = "noopener noreferrer";
+    }
+
+    card.innerHTML = `
+        <div class="card-content">
+            <img src="${item.image}" alt="${item.title}" class="card-image">
+            <div class="card-text">
+                <h2>${item.title}</h2>
+                <p class="meta">${item.year || item.date || ""}</p>
+                ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+                <span class="read-text">${isExternal ? 'LEES OP LETTERBOXD ↗' : 'LEES'}</span>
+            </div>
         </div>
-    </div>
-`;
-            const isExternal = item.link ? true : false;
-            con
-            container.appendChild(card);
-        });
+    `;
+
+    container.appendChild(card);
+});
 
         // Lege status
         if (filtered.length === 0) {
