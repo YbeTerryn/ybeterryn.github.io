@@ -658,6 +658,7 @@ nav a.donate:hover {
     display: block;
     cursor: pointer;
 }
+  }  
 /* Mobiele optimalisatie voor je homepagina */
 
 @media (max-width: 768px) {
