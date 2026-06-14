@@ -1333,5 +1333,11 @@ rating: 4,
 platform: "letterboxd",
 link: "https://letterboxd.com/film/truly-naked/review/"
      },
+ { title: "Ladri di biciclette",
+year: "1948",
+director: "Vittorio De Sica",
+rating: 4,
+platform: "letterboxd",
+link: "https://letterboxd.com/pieterpaultybbe/film/bicycle-thieves/"
   
 ];
