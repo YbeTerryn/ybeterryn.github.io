@@ -1338,6 +1338,6 @@ year: "1948",
 director: "Vittorio De Sica",
 rating: 4,
 platform: "letterboxd",
-link: "https://letterboxd.com/pieterpaultybbe/film/bicycle-thieves/"
+link: "https://letterboxd.com/pieterpaultybbe/film/bicycle-thieves/" },
   
 ];
