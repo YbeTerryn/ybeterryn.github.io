@@ -1340,4 +1340,10 @@ rating: 4,
 platform: "letterboxd",
 link: "https://letterboxd.com/pieterpaultybbe/film/bicycle-thieves/" },
   
+  { title: "Amarga Navidad",
+year: "2026",
+director: "Pedro Almodóvar",
+rating: 2.5,
+platform: "letterboxd",
+link: "https://letterboxd.com/pieterpaultybbe/film/bitter-christmas/" }, 
 ];
