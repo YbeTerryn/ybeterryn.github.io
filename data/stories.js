@@ -1346,4 +1346,12 @@ director: "Pedro Almodóvar",
 rating: 2.5,
 platform: "letterboxd",
 link: "https://letterboxd.com/pieterpaultybbe/film/bitter-christmas/" }, 
+  
+  { title: "Swiss Army Man",
+year: "2016",
+director: "Daniel Kwan, Daniel Scheinert",
+rating: 3.5,
+platform: "letterboxd",
+link: "https://letterboxd.com/pieterpaultybbe/film/swiss-army-man/" }, 
+  
 ];
