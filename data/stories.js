@@ -1356,7 +1356,7 @@ link: "https://letterboxd.com/pieterpaultybbe/film/swiss-army-man/" },
   {title: "Backrooms",
 year: "2026",
 director: "Kane Parsons",
-rating: 2.5,
+rating: 3,
 platform: "letterboxd",
 link: "https://letterboxd.com/pieterpaultybbe/film/backrooms-2026/" },   
 ];
