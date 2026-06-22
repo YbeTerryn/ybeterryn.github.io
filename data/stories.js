@@ -1353,5 +1353,10 @@ director: "Daniel Kwan, Daniel Scheinert",
 rating: 3.5,
 platform: "letterboxd",
 link: "https://letterboxd.com/pieterpaultybbe/film/swiss-army-man/" }, 
-  
+  {title: "Backrooms",
+year: "2026",
+director: "Kane Parsons",
+rating: 2.5,
+platform: "letterboxd",
+link: "https://letterboxd.com/pieterpaultybbe/film/backrooms-2026/" },   
 ];
