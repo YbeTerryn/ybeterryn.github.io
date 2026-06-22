@@ -155,11 +155,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 <div class="card-type-icon">${icon}</div>
                 <div class="card-content">
                     <img src="${item.image || `Draft/${storySlug}.jpg`}" alt="${item.title}" class="card-image">
-                    <div class="card-text">
-                        <h2>${item.title}</h2>
-                        ${getStarsHtml(item.rating)}
-                        <div class="meta">${item.year}</div>
-                    </div>
+<div class="card-text">
+    <h2>${item.title}</h2>
+    ${getStarsHtml(item.rating)}
+    <div class="meta">
+        ${item.director}
+        ${item.director && item.year ? ' • ' : ''}
+        ${item.year}
+    </div>
+</div>
                 </div>`;
             container.appendChild(card);
         });
