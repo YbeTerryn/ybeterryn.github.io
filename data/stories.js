@@ -1393,4 +1393,10 @@ director: "Kane Parsons",
     text: "reviews/the-backrooms-series.html",
           platform: "serializd"
   },
+  {title: "Jongens uit het leven",
+year: "1955",
+director: "Pier Paolo Pasolini",
+rating: 3.5,
+platform: "storygraph",
+link: "https://app.thestorygraph.com/reviews/8a9d8c05-76da-4750-9e45-5b21d4d38f0b"},
 ];
