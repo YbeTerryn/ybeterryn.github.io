@@ -215,183 +215,199 @@
             const slug = slugify(story.title);
             
             // Auto-detect text path: try texts/ folder first, then reviews/ folder
-            let textPath = story.text;
-            if (!textPath) {
-                textPath = `texts/${slug}.html`;
-            }
-            
-            const imagePath = story.image || `Draft/${slug}.jpg`;
-
-fetch(textPath)
-                .then(res => {
-                    if (!res.ok && !story.text) {
-                        // If texts/ folder didn't work and no explicit text was set, try reviews/
-                        return fetch(`reviews/${slug}.html`).then(res2 => res2.text());
-                    }
-                    return res.text();
-                })
-                .then(htmlContent => {
-                    titleElement.innerText = story.title;
-                    document.title = `${story.title} | Pieter Paul Tybbe`;
-                    
-                  // Meta gegevens
-// Meta gegevens
-const creatorLabel =
-    story.platform === 'serializd'
-        ? 'Gemaakt'
-        : story.platform === 'storygraph'
-        ? 'Geschreven'
-        : 'Geregisseerd';
-
-let metaText = (story.director && story.year)
-    ? `${creatorLabel} door ${story.director} (${story.year})`
-    : '';
-
-metaElement.innerHTML = story.link
-    ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #d4af37; font-size: 0.8rem; text-decoration: underline;">→ Bekijk online</a>`
-    : metaText;
-
-                    // 1. Verwerk de HTML veilig in een tijdelijke div
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = htmlContent;
-
-                    // 2. Als er geen <p> tags zijn, maak ze dan (optioneel)
-                    if (!tempDiv.querySelector('p')) {
-                        tempDiv.innerHTML = `<p>${htmlContent.split('\n').filter(l => l.trim()).join('</p><p>')}</p>`;
-                    }
-
-                    // 3. Pas de drop-cap toe op de eerste paragraaf
-                    const firstPara = tempDiv.querySelector('p');
-                    if (firstPara && firstPara.innerText.trim().length > 0) {
-                        const text = firstPara.innerText.trim();
-                        // Find the first letter (skip non-letter characters like quotes)
-                        let charIndex = 0;
-                        while (charIndex < text.length && !/[a-zA-Z]/.test(text[charIndex])) {
-                            charIndex++;
+            const loadStory = async () => {
+                let textPath = story.text;
+                let htmlContent = null;
+                
+                if (textPath) {
+                    // If explicit text path is provided, use it
+                    try {
+                        const res = await fetch(textPath);
+                        if (res.ok) {
+                            htmlContent = await res.text();
                         }
-                        const firstChar = text.charAt(charIndex);
-                        const prefixText = text.slice(0, charIndex);
-                        const remainingText = text.slice(charIndex + 1);
-                        firstPara.innerHTML = `${prefixText}<span class="drop-cap">${firstChar}</span>${remainingText}`;
+                    } catch (err) {
+                        console.error('Error loading explicit text path:', err);
                     }
-
-                    // 4. Bepaal de afbeelding
-                    const displayImage = story.image || `Draft/${slug}.jpg`;
-
-// 5. Rating tonen boven de tekst (alleen bij reviews)
-let ratingHtml = '';
-
-if (story.rating) {
-    const fullStars = Math.floor(story.rating);
-const halfStar = (story.rating % 1) >= 0.5;
-const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
-let stars = '';
-
-for (let i = 0; i < fullStars; i++) {
-    stars += '<i class="fas fa-star"></i>';
-}
-
-if (halfStar) {
-    stars += '<i class="fas fa-star-half-stroke"></i>';
-}
-
-for (let i = 0; i < emptyStars; i++) {
-    stars += '<i class="far fa-star"></i>';
-}
-ratingHtml = `
-    <div style="text-align:center; margin-bottom:25px; color:#d4af37;">
-        <span style="font-size:2.5rem;">
-            ${stars}
-        </span>
-        <span style="font-size:1.2rem; margin-left:10px;">
-            ${story.rating}/5
-        </span>
-    </div>
-`;
-}
-
-// 6. Plaats alles in de container
-textContainer.innerHTML =
-    ratingHtml +
-    `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` +
-    tempDiv.innerHTML;
-
-setupLikes(firebaseDocId);
-                    
-                    // Suggesties
-// Suggesties
-const suggestionsContainer = document.getElementById('suggestions-container');
-
-if (suggestionsContainer) {
-    const allWrittenContent = [...(typeof stories !== 'undefined' ? stories : []), ...(typeof archiveStories !== 'undefined' ? archiveStories : [])];
-    const otherStories = allWrittenContent.filter(s => s.title !== story.title);
-    const allReviews = typeof reviewStories !== 'undefined' ? reviewStories : [];
-
-    let selected = [];
-
-    // 1. Kies TWEE willekeurige verhalen
-    const shuffledStories = [...otherStories].sort(() => 0.5 - Math.random());
-    shuffledStories.slice(0, 2).forEach(s => selected.push({ ...s, isReview: false }));
-
-    // 2. Kies TWEE willekeurige reviews
-    const shuffledReviews = [...allReviews].filter(r => r.title !== story.title).sort(() => 0.5 - Math.random());
-    shuffledReviews.slice(0, 2).forEach(r => selected.push({ ...r, isReview: true }));
-
-// 3. HTML opbouw
-let html = `<div style="text-align:center; margin-top:50px;"><h3>Meer leesvoer</h3><div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">`;
-
-selected.forEach(s => {
-    // AANPASSING: Gebruik altijd de lokale URL structuur voor zowel verhalen als reviews
-    const slug = slugify(s.title);
-    const url = `?id=${slug}`;
-    
-    const suggestionImage = s.image || `Draft/${slug}.png`; 
-    
-    html += `
-        <a href="${url}" class="suggestion-card">
-            <img src="${suggestionImage}" alt="${s.title}" style="width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:10px;" 
-                 onerror="this.src='Draft/${slug}.jpg'; this.onerror=null;">
-            <strong>${s.title}</strong>
-            <small style="display:block; color:#70685e;">${s.isReview ? 'Review' : 'Verhaal'}</small>
-        </a>
-    `;
-});
-
-suggestionsContainer.innerHTML = html + `</div></div>`;
-}
-
-                })
-                .catch(err => {
-                    console.error('Error loading story:', err);
+                } else {
+                    // Try texts/ folder first
+                    try {
+                        const res = await fetch(`texts/${slug}.html`);
+                        if (res.ok) {
+                            htmlContent = await res.text();
+                        } else {
+                            // If texts/ failed, try reviews/ folder
+                            const res2 = await fetch(`reviews/${slug}.html`);
+                            if (res2.ok) {
+                                htmlContent = await res2.text();
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Error loading story file:', err);
+                    }
+                }
+                
+                if (!htmlContent) {
                     titleElement.innerText = "Fout bij laden";
                     textContainer.innerText = "Het verhaal kon niet geladen worden.";
-                }); // einde fetch
-        });         // einde window.load
+                    return;
+                }
+                
+                titleElement.innerText = story.title;
+                document.title = `${story.title} | Pieter Paul Tybbe`;
+                
+                // Meta gegevens
+                const creatorLabel =
+                    story.platform === 'serializd'
+                        ? 'Gemaakt'
+                        : story.platform === 'storygraph'
+                        ? 'Geschreven'
+                        : 'Geregisseerd';
 
-async function setupLikes(storyId) {
+                let metaText = (story.director && story.year)
+                    ? `${creatorLabel} door ${story.director} (${story.year})`
+                    : '';
+
+                metaElement.innerHTML = story.link
+                    ? `${metaText}<br><a href="${story.link}" target="_blank" rel="noopener noreferrer" style="color: #d4af37; font-size: 0.8rem; text-decoration: underline;">→ Bekijk online</a>`
+                    : metaText;
+
+                // 1. Verwerk de HTML veilig in een tijdelijke div
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = htmlContent;
+
+                // 2. Als er geen <p> tags zijn, maak ze dan (optioneel)
+                if (!tempDiv.querySelector('p')) {
+                    tempDiv.innerHTML = `<p>${htmlContent.split('\n').filter(l => l.trim()).join('</p><p>')}</p>`;
+                }
+
+                // 3. Pas de drop-cap toe op de eerste paragraaf
+                const firstPara = tempDiv.querySelector('p');
+                if (firstPara && firstPara.innerText.trim().length > 0) {
+                    const text = firstPara.innerText.trim();
+                    // Find the first letter (skip non-letter characters like quotes)
+                    let charIndex = 0;
+                    while (charIndex < text.length && !/[a-zA-Z]/.test(text[charIndex])) {
+                        charIndex++;
+                    }
+                    const firstChar = text.charAt(charIndex);
+                    const prefixText = text.slice(0, charIndex);
+                    const remainingText = text.slice(charIndex + 1);
+                    firstPara.innerHTML = `${prefixText}<span class="drop-cap">${firstChar}</span>${remainingText}`;
+                }
+
+                // 4. Bepaal de afbeelding
+                const displayImage = story.image || `Draft/${slug}.jpg`;
+
+                // 5. Rating tonen boven de tekst (alleen bij reviews)
+                let ratingHtml = '';
+
+                if (story.rating) {
+                    const fullStars = Math.floor(story.rating);
+                    const halfStar = (story.rating % 1) >= 0.5;
+                    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+                    let stars = '';
+
+                    for (let i = 0; i < fullStars; i++) {
+                        stars += '<i class="fas fa-star"></i>';
+                    }
+
+                    if (halfStar) {
+                        stars += '<i class="fas fa-star-half-stroke"></i>';
+                    }
+
+                    for (let i = 0; i < emptyStars; i++) {
+                        stars += '<i class="far fa-star"></i>';
+                    }
+                    ratingHtml = `
+                        <div style="text-align:center; margin-bottom:25px; color:#d4af37;">
+                            <span style="font-size:2.5rem;">
+                                ${stars}
+                            </span>
+                            <span style="font-size:1.2rem; margin-left:10px;">
+                                ${story.rating}/5
+                            </span>
+                        </div>
+                    `;
+                }
+
+                // 6. Plaats alles in de container
+                textContainer.innerHTML =
+                    ratingHtml +
+                    `<img src="${displayImage}" alt="${story.title}" class="story-image-float" onerror="this.style.display='none'">` +
+                    tempDiv.innerHTML;
+
+                setupLikes(firebaseDocId);
+                
+                // Suggesties
+                const suggestionsContainer = document.getElementById('suggestions-container');
+
+                if (suggestionsContainer) {
+                    const allWrittenContent = [...(typeof stories !== 'undefined' ? stories : []), ...(typeof archiveStories !== 'undefined' ? archiveStories : [])];
+                    const otherStories = allWrittenContent.filter(s => s.title !== story.title);
+                    const allReviews = typeof reviewStories !== 'undefined' ? reviewStories : [];
+
+                    let selected = [];
+
+                    // 1. Kies TWEE willekeurige verhalen
+                    const shuffledStories = [...otherStories].sort(() => 0.5 - Math.random());
+                    shuffledStories.slice(0, 2).forEach(s => selected.push({ ...s, isReview: false }));
+
+                    // 2. Kies TWEE willekeurige reviews
+                    const shuffledReviews = [...allReviews].filter(r => r.title !== story.title).sort(() => 0.5 - Math.random());
+                    shuffledReviews.slice(0, 2).forEach(r => selected.push({ ...r, isReview: true }));
+
+                    // 3. HTML opbouw
+                    let html = `<div style="text-align:center; margin-top:50px;"><h3>Meer leesvoer</h3><div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">`;
+
+                    selected.forEach(s => {
+                        // AANPASSING: Gebruik altijd de lokale URL structuur voor zowel verhalen als reviews
+                        const slug = slugify(s.title);
+                        const url = `?id=${slug}`;
+                        
+                        const suggestionImage = s.image || `Draft/${slug}.png`; 
+                        
+                        html += `
+                            <a href="${url}" class="suggestion-card">
+                                <img src="${suggestionImage}" alt="${s.title}" style="width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:10px;" 
+                                     onerror="this.src='Draft/${slug}.jpg'; this.onerror=null;">
+                                <strong>${s.title}</strong>
+                                <small style="display:block; color:#70685e;">${s.isReview ? 'Review' : 'Verhaal'}</small>
+                            </a>
+                        `;
+                    });
+
+                    suggestionsContainer.innerHTML = html + `</div></div>`;
+                }
+            };
+            
+            loadStory();
+        });
+
+        async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
             const docRef = doc(db, "likes", storyId);
-            likeContainer.innerHTML = `<div style="text-align:center; font-family: 'Cinzel', serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; trans[...]
+            likeContainer.innerHTML = `<div style="text-align:center; font-family: 'Cinzel', serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s;"><i class="fas fa-heart" style="font-size:2rem;"></i></button><br><span id="like-count" style="font-size:1.2rem; margin-top:5px; display:block;">0</span></div>`;
             const countDisplay = document.getElementById('like-count');
             try {
                 const snap = await getDoc(docRef);
                 countDisplay.innerText = snap.exists() ? snap.data().count : "0";
             } catch(e) { countDisplay.innerText = "0"; }
-document.getElementById('like-button').onclick = async () => {
-    const snap = await getDoc(docRef);
+            document.getElementById('like-button').onclick = async () => {
+                const snap = await getDoc(docRef);
 
-    if (!snap.exists()) {
-        await setDoc(docRef, { count: 1 });
-        countDisplay.innerText = "1";
-    } else {
-        await updateDoc(docRef, { count: increment(1) });
-        countDisplay.innerText = (await getDoc(docRef)).data().count;
-    }
-};
-}   // <-- toevoegen
+                if (!snap.exists()) {
+                    await setDoc(docRef, { count: 1 });
+                    countDisplay.innerText = "1";
+                } else {
+                    await updateDoc(docRef, { count: increment(1) });
+                    countDisplay.innerText = (await getDoc(docRef)).data().count;
+                }
+            };
+        }
 
-</script>
+    </script>
     <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
 </html>
