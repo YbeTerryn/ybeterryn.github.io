@@ -212,11 +212,24 @@
             }
 
             const firebaseDocId = story.id || slugify(story.title);
-            const textPath = story.text || `reviews/${slugify(story.title)}.html`;
-            const imagePath = story.image || `Draft/${slugify(story.title)}.jpg`;
+            const slug = slugify(story.title);
+            
+            // Auto-detect text path: try texts/ folder first, then reviews/ folder
+            let textPath = story.text;
+            if (!textPath) {
+                textPath = `texts/${slug}.html`;
+            }
+            
+            const imagePath = story.image || `Draft/${slug}.jpg`;
 
 fetch(textPath)
-                .then(res => res.text())
+                .then(res => {
+                    if (!res.ok && !story.text) {
+                        // If texts/ folder didn't work and no explicit text was set, try reviews/
+                        return fetch(`reviews/${slug}.html`).then(res2 => res2.text());
+                    }
+                    return res.text();
+                })
                 .then(htmlContent => {
                     titleElement.innerText = story.title;
                     document.title = `${story.title} | Pieter Paul Tybbe`;
@@ -263,7 +276,6 @@ metaElement.innerHTML = story.link
                     }
 
                     // 4. Bepaal de afbeelding
-                    const slug = slugify(story.title);
                     const displayImage = story.image || `Draft/${slug}.jpg`;
 
 // 5. Rating tonen boven de tekst (alleen bij reviews)
@@ -349,13 +361,18 @@ selected.forEach(s => {
 suggestionsContainer.innerHTML = html + `</div></div>`;
 }
 
+                })
+                .catch(err => {
+                    console.error('Error loading story:', err);
+                    titleElement.innerText = "Fout bij laden";
+                    textContainer.innerText = "Het verhaal kon niet geladen worden.";
                 }); // einde fetch
         });         // einde window.load
 
 async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
             const docRef = doc(db, "likes", storyId);
-            likeContainer.innerHTML = `<div style="text-align:center; font-family: 'Cinzel', serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s ease;"><i class="fas fa-heart" style="font-size:2rem; color:#d4af37;"></i></button><span id="like-count" style="margin-left:10px; font-size:1.2rem;">0</span></div>`;
+            likeContainer.innerHTML = `<div style="text-align:center; font-family: 'Cinzel', serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; trans[...]
             const countDisplay = document.getElementById('like-count');
             try {
                 const snap = await getDoc(docRef);
