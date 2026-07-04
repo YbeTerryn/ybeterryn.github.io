@@ -46,12 +46,6 @@ const stories = [
     date: "Offer 6",
     text: "texts/kroniekvaneenfabriek.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
-            {
-    id: "Offer 7",
-    title: "CTRL+ALT+DEL",
-    date: "Offer 7",
-    text: "texts/ctrl-alt-del.html" // Dit klopt, want op GitHub is dit ook kleine letters
-  }
 ];
 
 const archiveStories = [
