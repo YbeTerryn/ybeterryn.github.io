@@ -42,12 +42,8 @@
 <script src="data/stories.js"></script>
 
 <script>
-function slugify(text) {
-    return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^\w\-]+/g, '')
-        .replace(/\-\-+/g, '-');
-}
+// Unified slugify function matching story.html and reviews.html
+const slugify = (text) => text?.toLowerCase().replace(/['']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
