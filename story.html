@@ -251,9 +251,15 @@ metaElement.innerHTML = story.link
                     const firstPara = tempDiv.querySelector('p');
                     if (firstPara && firstPara.innerText.trim().length > 0) {
                         const text = firstPara.innerText.trim();
-                        const firstChar = text.charAt(0);
-                        const remainingText = text.slice(1);
-                        firstPara.innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
+                        // Find the first letter (skip non-letter characters like quotes)
+                        let charIndex = 0;
+                        while (charIndex < text.length && !/[a-zA-Z]/.test(text[charIndex])) {
+                            charIndex++;
+                        }
+                        const firstChar = text.charAt(charIndex);
+                        const prefixText = text.slice(0, charIndex);
+                        const remainingText = text.slice(charIndex + 1);
+                        firstPara.innerHTML = `${prefixText}<span class="drop-cap">${firstChar}</span>${remainingText}`;
                     }
 
                     // 4. Bepaal de afbeelding
@@ -349,7 +355,7 @@ suggestionsContainer.innerHTML = html + `</div></div>`;
 async function setupLikes(storyId) {
             const likeContainer = document.getElementById('like-container');
             const docRef = doc(db, "likes", storyId);
-            likeContainer.innerHTML = `<div style="text-align:center; font-family: 'Cinzel', serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s; font-size: 2rem;">💛</button> <span id="like-count">0</span> likes</div>`;
+            likeContainer.innerHTML = `<div style="text-align:center; font-family: 'Cinzel', serif;"><button id="like-button" style="background:none; border:none; cursor:pointer; padding:0; transition: transform 0.2s ease;"><i class="fas fa-heart" style="font-size:2rem; color:#d4af37;"></i></button><span id="like-count" style="margin-left:10px; font-size:1.2rem;">0</span></div>`;
             const countDisplay = document.getElementById('like-count');
             try {
                 const snap = await getDoc(docRef);
