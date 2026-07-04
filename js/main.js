@@ -1,7 +1,11 @@
-window.addEventListener('load', () => {
-    const getLink = (item) => `story.html?id=${item.id || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+const slugify = (text) => text?.toLowerCase().replace(/['']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-    // 1. Highlight (Nieuwste offer) - CENTERPIECE
+window.addEventListener('load', () => {
+    // Gebruik slugify consistent voor zowel links als bestandsnamen
+    const getLink = (item) => `story.html?id=${item.id || slugify(item.title)}`;
+    const getFilePath = (item) => `texts/${slugify(item.title)}.html`;
+
+    // 1. Highlight (Nieuwste offer)
     if (typeof stories !== 'undefined' && stories.length > 0) {
         const latestOffer = stories[stories.length - 1];
         const container = document.getElementById('featured-container');
@@ -14,17 +18,20 @@ window.addEventListener('load', () => {
                     <span class="read-more-btn">Verder lezen</span>
                 </a>
             `;
-            fetch(latestOffer.text)
+            
+            // Gebruik hier de nieuwe getFilePath functie
+            fetch(getFilePath(latestOffer))
                 .then(r => r.text())
                 .then(html => {
                     const p = new DOMParser().parseFromString(html, 'text/html').querySelector('p');
                     const el = document.getElementById('featured-preview');
                     if (el) el.innerText = p ? p.innerText.substring(0, 450) + '...' : 'Geen preview.';
-                });
+                })
+                .catch(err => console.error("Fout bij laden preview:", err));
         }
     }
 
-    // 2. Recent lijst (Met sterretjes hersteld)
+    // 2. Recent lijst
     const updatesContainer = document.getElementById('updates-list-container');
     if (updatesContainer) {
         const items = [
@@ -33,16 +40,17 @@ window.addEventListener('load', () => {
         ].reverse().slice(0, 5);
 
         updatesContainer.innerHTML = `
-<div class="updates-card">
-    <h3 class="updates-title">Recente reviews</h3>
-            ${items.map(item => `
-                <div class="update-item">
-                    <a href="${getLink(item)}">
-                        <span class="bullet">${item.type === 'review' ? '★' : '•'}</span>
-                        ${item.title}
-                    </a>
-                </div>
-            `).join('')}
+            <div class="updates-card">
+                <h3 class="updates-title">Recente reviews</h3>
+                ${items.map(item => `
+                    <div class="update-item">
+                        <a href="${getLink(item)}">
+                            <span class="bullet">${item.type === 'review' ? '★' : '•'}</span>
+                            ${item.title}
+                        </a>
+                    </div>
+                `).join('')}
+            </div>
         `;
     }
 });
