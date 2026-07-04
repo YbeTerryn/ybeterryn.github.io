@@ -50,6 +50,7 @@ const stories = [
   
     title: "Ctrl+alt+del",
     date: "Offer 7",
+   image: "Draft/ctrl-alt-del.jpg",
     text: "texts/ctrl-alt-del.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
 ];
