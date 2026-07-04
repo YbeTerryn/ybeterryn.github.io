@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const link = isExternal ? item.link : `story.html?id=${slug}`;
             
             // Probeer eerst item.image, dan images/slug.jpg
-            const displayImage = item.image || `images/${slug}.jpg`;
+            const displayImage = item.image || `Draft/${slug}.jpg`;
             
             const card = document.createElement("a");
             card.className = "card";
