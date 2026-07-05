@@ -56,20 +56,7 @@ const stories = [
 const archiveStories = [
   
  
-  {
-    id: "archief-02",
-    title: "De nacht is duisternis",
-    image: "Draft/archief.jpg",
-    date: "Proza",
-    text: "texts/duisternis.html" 
-  },
-    {
-    id: "archief-05",
-    title: "Kanker",
-    image: "Draft/archief.jpg",
-    date: "Proza",
-    text: "texts/Kanker.html" 
-  },
+  
      {
     id: "archief-09",
     title: "One Night Stand",
