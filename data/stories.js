@@ -1394,7 +1394,7 @@ link: "https://app.thestorygraph.com/reviews/8a9d8c05-76da-4750-9e45-5b21d4d38f0
   {title: "Sommaren med Monika",
 year: "1953",
 director: "Ingmar Bergman",
-rating: 3,,
+rating: 3,
 platform: "letterboxd",
 link: "https://letterboxd.com/pieterpaultybbe/film/summer-with-monika/"},
    { title: "I Was a Teenage Sex Pistol",
