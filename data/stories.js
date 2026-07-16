@@ -1418,6 +1418,12 @@ link: "https://letterboxd.com/pieterpaultybbe/film/silverado/"},
   {title: "Het Eiland (Seizoen 1)",
 year: "2004",
 director: "Jan Eelen",
-rating: 4.5,
-platform: "streamz",},
+rating: 3.5,
+platform: "serializd",},
+
+{title: "Bugonia",
+year: "2026",
+director: "Yorgos Lanthimos",
+rating: 3.5,
+platform: "letterboxd",}
 ];
