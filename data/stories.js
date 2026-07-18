@@ -1430,6 +1430,10 @@ platform: "letterboxd",},
 year: "2024",
 director: "Jane Schoenbrun",
 rating: 2.5,
-platform: "letterboxd",}
-
+platform: "letterboxd",},
+{title: "Max Havelaar",
+year: "1860",
+director: "Multatuli (Eduard Douwes Dekker)",
+rating: 2.75,
+platform: "storygraph",},
 ];
