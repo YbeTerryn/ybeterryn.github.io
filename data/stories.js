@@ -1425,5 +1425,11 @@ platform: "serializd",},
 year: "2026",
 director: "Yorgos Lanthimos",
 rating: 3.5,
+platform: "letterboxd",},
+  {title: "I Saw the TV Glow",
+year: "2024",
+director: "Jane Schoenbrun",
+rating: 2.5,
 platform: "letterboxd",}
+
 ];
