@@ -1441,4 +1441,10 @@ year: "1998",
 director: "Herman de Coninck",
 rating: 4.5,
 platform: "storygraph",},
+
+  {title: "Een Gelukkige Jeugd",
+year: "2018",
+director: "Don Duyns",
+rating: 3,
+platform: "storygraph"},
 ];
