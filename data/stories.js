@@ -1450,6 +1450,6 @@ platform: "storygraph"},
   {title: "A Cure for Wellness",
 year: "2016",
 director: "Gore Verbinski",
-rating: 3,5,
-platform: "letterboxd",},
+rating: 3.5,
+platform: "letterboxd"},
 ];
