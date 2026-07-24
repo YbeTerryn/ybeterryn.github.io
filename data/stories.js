@@ -1457,4 +1457,10 @@ year: "2025",
 director: "Daniel Roher",
 rating: 3.5,
 platform: "letterboxd"},
+
+  {title: "Down by Law",
+year: "1986",
+director: "Jim Jarmusch",
+rating: 4.5,
+platform: "letterboxd"},
 ];
