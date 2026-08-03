@@ -1497,5 +1497,10 @@ year: "2022",
 director: "Luca Guadagnino",
 rating: 3,
 platform: "letterboxd"},
- 
+ { title: "De Tijdreiziger",
+year: "2023",
+director: "Hans Bourlon",
+rating: 2,
+platform: "storygraph"},
+  
 ];
