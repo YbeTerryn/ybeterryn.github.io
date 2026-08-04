@@ -1512,6 +1512,10 @@ year: "2023",
 director: "Hans Bourlon",
 rating: 2,
 platform: "storygraph"},
- 
+  {title: "Les Rendez-vous d'Anna",
+year: "1978",
+director: "Chantal Akerman",
+rating: 4,
+platform: "letterboxd"},
   
 ];
