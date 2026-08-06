@@ -1517,5 +1517,9 @@ year: "1978",
 director: "Chantal Akerman",
 rating: 4,
 platform: "letterboxd"},
-  
+  {title: "The French Connection",
+year: "1971",
+director: "William Friedkin",
+rating: 4.5,
+platform: "letterboxd"},
 ];
