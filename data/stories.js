@@ -1522,9 +1522,16 @@ year: "1971",
 director: "William Friedkin",
 rating: 4,
 platform: "letterboxd"},
-   {title: "Child's Play",
+  {
+title: "Child's Play",
 year: "1988",
 director: "Tom Holland",
 rating: 3.5,
+platform: "letterboxd"},
+  {
+  title: "Jeune et Jolie",
+year: "2013",
+director: "François Ozon",
+rating: 3,
 platform: "letterboxd"},
 ];
