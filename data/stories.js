@@ -1538,5 +1538,5 @@ platform: "letterboxd"},
 year: "1953",
 director: "Gösta Werner",
 rating: 3.5,
-platform: "letterboxd",
+platform: "letterboxd"},
 ];
