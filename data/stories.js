@@ -1549,4 +1549,4 @@ year: "2002",
 director: "Sam Mendes",
 rating: 3,
 platform: "letterboxd"},
-  ],
+ ];
