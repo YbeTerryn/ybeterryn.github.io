@@ -1547,6 +1547,6 @@ platform: "storygraph"},
   {title: "Road to Perdition",
 year: "2002",
 director: "Sam Mendes",
-rating: 3,
+rating: 3.5,
 platform: "letterboxd"},
  ];
