@@ -1562,6 +1562,6 @@ platform: "letterboxd"},
  {title: "Big Trouble in Little China",
 year: "1986",
 director: "John Carpenter",
-rating: 3,
+rating: 2.5,
 platform: "letterboxd"},
  ];
