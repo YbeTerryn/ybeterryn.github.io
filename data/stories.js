@@ -1571,7 +1571,7 @@ rating: 4,
 platform: "letterboxd"},
   {title: "Rick and Morty (Seizoen 9)",
 year: "2026",
-director: "Dan Harmon, Justin Roiland",
+director: "Dan Harmon",
 rating: 4,
 platform: "letterboxd"},
  ];
