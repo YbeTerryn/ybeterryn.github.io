@@ -1568,5 +1568,10 @@ platform: "letterboxd"},
 year: "1988",
 director: "Katsuhiro Otomo",
 rating: 4,
-platform: "letterboxd"}
+platform: "letterboxd"},
+  {title: "Rick and Morty (Seizoen 9)",
+year: "2026",
+director: "Dan Harmon, Justin Roiland",
+rating: 4,
+platform: "letterboxd"},
  ];
