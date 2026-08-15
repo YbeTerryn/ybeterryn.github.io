@@ -1564,4 +1564,9 @@ year: "1986",
 director: "John Carpenter",
 rating: 2.5,
 platform: "letterboxd"},
+  {title: "Akira",
+year: "1988",
+director: "Katsuhiro Otomo",
+rating: 4,
+platform: "letterboxd"}
  ];
