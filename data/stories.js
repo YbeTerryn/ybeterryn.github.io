@@ -1581,7 +1581,7 @@ rating: 2.5,
 platform: "letterboxd"},
   {title: "Misery",
 year: "1987",
-author: "Stephen King",
+director: "Stephen King",
 rating: 4,
 platform: "storygraph"},
  ];
