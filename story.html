@@ -213,13 +213,10 @@
 
             const firebaseDocId = story.id || slugify(story.title);
             const slug = slugify(story.title);
-            
-            // Auto-detect text path: try texts/ folder first, then reviews/ folder
-         // Auto-detect text path: try explicit story.text first, then texts/, then reviews/
-            const loadStory = async () => {
+const loadStory = async () => {
                 let htmlContent = null;
                 
-                // 1. Probeer eerst het expliciete pad als dat in de data staat (bijv. "reviews/misery-film.html")
+                // 1. ALTIJD ALS EERSTE: Check of er expliciet een 'text' pad in de data staat (zoals bij Misery)
                 if (story.text) {
                     try {
                         const res = await fetch(story.text);
@@ -230,26 +227,20 @@
                         console.error('Error loading explicit text path:', err);
                     }
                 }
-                
-                // 2. Als er nog geen content is, probeer automatische paden op basis van de slug
-                if (!htmlContent) {
-                    const possiblePaths = [
-                        `texts/${slug}.html`,
-                        `reviews/${slug}.html`,
-                        // Extra optie voor als de bestandsnaam "-film" of iets dergelijks gebruikt
-                        `reviews/${slug}-film.html`
-                    ];
 
-                    for (const path of possiblePaths) {
-                        try {
-                            const res = await fetch(path);
-                            if (res.ok) {
-                                htmlContent = await res.text();
-                                break; // Stop zodra we een werkend bestand vinden
-                            }
-                        } catch (err) {
-                            // Ga door naar de volgende optie
+                // 2. PAS ALS ER GEEN 'text' PROPERTY IS: Bepaal automatisch de map op basis van het type item
+                if (!htmlContent) {
+                    const isReview = typeof story.rating !== 'undefined' || (typeof reviewStories !== 'undefined' && reviewStories.some(r => r.title === story.title));
+                    const folder = isReview ? 'reviews' : 'texts';
+                    const fallbackPath = `${folder}/${slug}.html`;
+
+                    try {
+                        const res = await fetch(fallbackPath);
+                        if (res.ok) {
+                            htmlContent = await res.text();
                         }
+                    } catch (err) {
+                        console.error('Error loading automatic path:', err);
                     }
                 }
                 
