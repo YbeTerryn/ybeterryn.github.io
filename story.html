@@ -215,41 +215,47 @@
             const slug = slugify(story.title);
             
             // Auto-detect text path: try texts/ folder first, then reviews/ folder
+         // Auto-detect text path: try explicit story.text first, then texts/, then reviews/
             const loadStory = async () => {
-                let textPath = story.text;
                 let htmlContent = null;
                 
-                if (textPath) {
-                    // If explicit text path is provided, use it
+                // 1. Probeer eerst het expliciete pad als dat in de data staat (bijv. "reviews/misery-film.html")
+                if (story.text) {
                     try {
-                        const res = await fetch(textPath);
+                        const res = await fetch(story.text);
                         if (res.ok) {
                             htmlContent = await res.text();
                         }
                     } catch (err) {
                         console.error('Error loading explicit text path:', err);
                     }
-                } else {
-                    // Try texts/ folder first
-                    try {
-                        const res = await fetch(`texts/${slug}.html`);
-                        if (res.ok) {
-                            htmlContent = await res.text();
-                        } else {
-                            // If texts/ failed, try reviews/ folder
-                            const res2 = await fetch(`reviews/${slug}.html`);
-                            if (res2.ok) {
-                                htmlContent = await res2.text();
+                }
+                
+                // 2. Als er nog geen content is, probeer automatische paden op basis van de slug
+                if (!htmlContent) {
+                    const possiblePaths = [
+                        `texts/${slug}.html`,
+                        `reviews/${slug}.html`,
+                        // Extra optie voor als de bestandsnaam "-film" of iets dergelijks gebruikt
+                        `reviews/${slug}-film.html`
+                    ];
+
+                    for (const path of possiblePaths) {
+                        try {
+                            const res = await fetch(path);
+                            if (res.ok) {
+                                htmlContent = await res.text();
+                                break; // Stop zodra we een werkend bestand vinden
                             }
+                        } catch (err) {
+                            // Ga door naar de volgende optie
                         }
-                    } catch (err) {
-                        console.error('Error loading story file:', err);
                     }
                 }
                 
                 if (!htmlContent) {
                     titleElement.innerText = "Fout bij laden";
-                    textContainer.innerText = "Het verhaal kon niet geladen worden.";
+                    textContainer.innerText = "Het verhaal of de review kon niet geladen worden.";
                     return;
                 }
                 
