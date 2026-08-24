@@ -1620,6 +1620,6 @@ platform: "letterboxd"},
   {title: "Spiklenci slasti",
 year: "1996",
 director: "Jan Švankmajer",
-rating: 4,
+rating: 4.5,
 platform: "letterboxd"},
  ];
