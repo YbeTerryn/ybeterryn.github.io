@@ -1628,5 +1628,9 @@ year: "1996",
 director: "Jan Švankmajer",
 rating: 4.5,
 platform: "letterboxd"},
-                
+  {title: "Friday the 13th",
+year: "1980",
+director: "Sean S. Cunningham",
+rating: 3,
+platform: "letterboxd"},               
  ];
