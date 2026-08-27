@@ -1636,6 +1636,6 @@ platform: "letterboxd"},
   {title: "Nuit et Brouillard",
 year: "1956",
 director: "Alain Resnais",
-rating: 4.5,
+rating: 4,
 platform: "letterboxd"}, 
  ];
