@@ -1652,5 +1652,5 @@ platform: "letterboxd"},
 year: "2024",
 director: "Laura Mora & Alex García López",
 rating: 4.5,
-platform: "letterboxd"},
+platform: "serializd"},
  ];
