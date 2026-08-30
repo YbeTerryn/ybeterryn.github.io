@@ -1661,6 +1661,6 @@ platform: "letterboxd"},
    {title: "Obsession",
 year: "2024",
 director: "Curry Barker",
-rating: 4.5,
+rating: 5,
 platform: "letterboxd"},
  ];
