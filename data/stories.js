@@ -1666,6 +1666,6 @@ platform: "letterboxd"},
    {title: "Moeder atoomhart",
 year: "2024",
 director: "Agustín Fernández Mallo",
-rating: 2,
+rating: 1.5,
 platform: "storygraph"},
  ];
