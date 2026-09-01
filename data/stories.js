@@ -1676,6 +1676,6 @@ platform: "letterboxd"},
    {title: "L'Inconnue",
 year: "2026",
 director: "Arthur Harari",
-rating: 3,
+rating: 3.5,
 platform: "letterboxd"},
  ];
