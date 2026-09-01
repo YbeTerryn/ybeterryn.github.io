@@ -1686,6 +1686,6 @@ platform: "letterboxd"},
  { title: "Trafic",
 year: "1971",
 director: "Jacques Tati",
-rating: 3,
+rating: 2.5,
 platform: "letterboxd"},
  ];
