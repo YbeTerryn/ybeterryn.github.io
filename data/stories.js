@@ -1715,7 +1715,7 @@ rating: 3.5,
 platform: "letterboxd"},
 
   {title: "Poetica",
-year: "335 V.C.",
+year: "335",
 director: "Aristoteles",
 rating: 3.5,
 platform: "storygraph"},
