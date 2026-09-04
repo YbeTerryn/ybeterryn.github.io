@@ -1719,4 +1719,10 @@ year: "335",
 director: "Aristoteles",
 rating: 3.5,
 platform: "storygraph"},
+  
+  {title: "A Nightmare on Elm Street",
+year: "1984",
+director: "Wes Craven",
+rating: 4,
+platform: "letterboxd"},
  ];
