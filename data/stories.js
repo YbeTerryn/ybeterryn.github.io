@@ -55,6 +55,10 @@ const stories = [
     title: "Sesjats Tirade",
     date: "Offer 8", // Dit klopt, want op GitHub is dit ook kleine letters
   },
+     {
+    title: "De Gokkliniek",
+    date: "Offer 9", // Dit klopt, want op GitHub is dit ook kleine letters
+  },
 ];
 
 const archiveStories = [
