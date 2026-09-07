@@ -21,7 +21,7 @@ const stories = [
     text: "texts/veelteveeldj.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
   
-    {title: "Ctrl+alt+del",
+    {title: "De Bliksemschicht van Het Archief",
     date: "Offer 3",
      award: "Shortlist Verhaal van de Maand"
       
