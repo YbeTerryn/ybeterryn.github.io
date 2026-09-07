@@ -788,35 +788,50 @@ nav a.donate:hover {
 }
 
 /* De badge duwt zichzelf automatisch naar rechts op desktop */
-.award-badge {
-    margin-left: auto; /* Dit duwt hem naar de rechterkant! */
-    background-color: #f39c12;
-    color: #fff;
+/* De rij waarin de tekst links staat en de badge rechts */
+.card-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Zorg dat het tekstblok netjes meegroeit */
+.card-text {
+    flex-grow: 1;
+}
+
+/* Strakke zwarte badge */
+.card-text .award-badge {
+    background-color: #1a1a1a !important; /* Diepzwart / antraciet */
+    color: #ffffff !important;           /* Witte tekst */
     font-size: 0.75rem;
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 4px;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    white-space: nowrap; /* Voorkomt dat de tekst van de prijs lelijk afbreekt */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    gap: 6px;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    margin-left: 15px;
+    text-decoration: none;
 }
 
-.award-badge i {
+.card-text .award-badge i {
     font-size: 0.7rem;
+    color: #ffffff !important; /* Ook het trofee-icoontje wit */
 }
 
-/* Speciaal voor mobiel (kleine schermen): als het te krap wordt, springt de badge netjes onder de tekst */
+/* Voor mobiel: als het scherm te smal wordt, zet hem weer onder elkaar */
 @media (max-width: 600px) {
-    .card-content {
-        flex-wrap: wrap;
+    .card-info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
     
-    .award-badge {
+    .card-text .award-badge {
         margin-left: 0;
-        width: 100%;
-        justify-content: center;
-        margin-top: 5px;
     }
 }
