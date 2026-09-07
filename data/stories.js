@@ -25,39 +25,42 @@ const stories = [
     title: "Sophie met PH",
     image: "Draft/Sesjat.jpg",
     date: "Offer 3",
-    text: "texts/sophiemetph.html" // Dit klopt, want op GitHub is dit ook kleine letters
+    text: "texts/sophiemetph.html", 
+   award: "Longlist Verhaal van de Maand"// Dit klopt, want op GitHub is dit ook kleine letters
   },
       {
     id: "Offer 4",
     title: "Bewijsstuk",
     image: "Draft/Sesjat.jpg",
-    date: "Offer 4",
-    text: "texts/bewijsstuk.html" // Dit klopt, want op GitHub is dit ook kleine letters
+    date: "Offer 5",
+    text: "texts/bewijsstuk.html",
+    award: "Longlist Verhaal van de Maand"// Dit klopt, want op GitHub is dit ook kleine letters
   },
         {
     id: "Offer 5",
     title: "Over Boeren en Bezit",
-    date: "Offer 5",
+    date: "Offer 6",
     text: "texts/overboerenenbezit.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
           {
     id: "Offer 6",
     title: "Kroniek van een Fabriek",
-    date: "Offer 6",
+    date: "Offer 7",
     text: "texts/kroniekvaneenfabriek.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
             {
   
     title: "Ctrl+alt+del",
-    date: "Offer 7", // Dit klopt, want op GitHub is dit ook kleine letters
+    date: "Offer 8", // Dit klopt, want op GitHub is dit ook kleine letters
   },
    {
     title: "Sesjats Tirade",
-    date: "Offer 8", // Dit klopt, want op GitHub is dit ook kleine letters
+    date: "Offer 9", // Dit klopt, want op GitHub is dit ook kleine letters
   },
      {
     title: "Gokkliniek",
-    date: "Offer 9", // Dit klopt, want op GitHub is dit ook kleine letters
+    date: "Offer 10",
+   award: "Longlist Verhaal van de Maand"// Dit klopt, want op GitHub is dit ook kleine letters
   },
 ];
 
