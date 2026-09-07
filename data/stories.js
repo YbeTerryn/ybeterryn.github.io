@@ -23,6 +23,7 @@ const stories = [
   
     {title: "De Bliksemschicht van Het Archief",
     date: "Offer 3",
+       image: "Draft/Sesjat.jpg",
      award: "Shortlist Verhaal van de Maand"
       
       },
