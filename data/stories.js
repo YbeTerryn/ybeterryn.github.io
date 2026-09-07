@@ -30,7 +30,7 @@ const stories = [
     id: "Offer 3",
     title: "Sophie met PH",
     image: "Draft/Sesjat.jpg",
-    date: "Offer 3",
+    date: "Offer 4",
     text: "texts/sophiemetph.html", 
    award: "Longlist Verhaal van de Maand"// Dit klopt, want op GitHub is dit ook kleine letters
   },
