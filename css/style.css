@@ -766,5 +766,33 @@ nav a.donate:hover {
         font-size: 1rem;
         padding: 6px;
     }
+/* Zorg dat de kaart-inhoud als referentie dient */
+.card-content {
+    position: relative;
+    display: flex;
+    align-items: center; /* Zorgt dat alles verticaal mooi gecentreerd staat */
+}
+
+/* De badge strak aan de rechterkant in de cirkel */
+.award-badge {
+    position: absolute;
+    right: 20px; /* Ruimte vanaf de rechterrand van de kaart */
+    top: 50%;
+    transform: translateY(-50%); /* Verticaal perfect gecentreerd */
+    background-color: #f39c12; /* Jouw goud/oranje kleur */
+    color: #fff;
+    font-size: 0.80rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+.award-badge i {
+    font-size: 0.75rem;
 
 }
