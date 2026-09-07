@@ -20,6 +20,12 @@ const stories = [
     date: "Offer 2",
     text: "texts/veelteveeldj.html" // Dit klopt, want op GitHub is dit ook kleine letters
   },
+  
+    {title: "Ctrl+alt+del",
+    date: "Offer 3",
+     award: "Shortlist Verhaal van de Maand"
+      
+      },
     {
     id: "Offer 3",
     title: "Sophie met PH",
