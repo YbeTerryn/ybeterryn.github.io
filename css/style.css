@@ -774,25 +774,49 @@ nav a.donate:hover {
 }
 
 /* De badge strak aan de rechterkant in de cirkel */
+/* Maak van de kaart-inhoud een flex-container */
+.card-content {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Ruimte tussen de onderdelen */
+    position: relative;
+}
+
+/* Zorg dat de tekst netjes de ruimte opvult */
+.card-text {
+    flex-grow: 1;
+}
+
+/* De badge duwt zichzelf automatisch naar rechts op desktop */
 .award-badge {
-    position: absolute;
-    right: 20px; /* Ruimte vanaf de rechterrand van de kaart */
-    top: 50%;
-    transform: translateY(-50%); /* Verticaal perfect gecentreerd */
-    background-color: #f39c12; /* Jouw goud/oranje kleur */
+    margin-left: auto; /* Dit duwt hem naar de rechterkant! */
+    background-color: #f39c12;
     color: #fff;
-    font-size: 0.80rem;
-    padding: 6px 12px;
+    font-size: 0.75rem;
+    padding: 6px 10px;
     border-radius: 4px;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
+    white-space: nowrap; /* Voorkomt dat de tekst van de prijs lelijk afbreekt */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 2;
 }
 
 .award-badge i {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+}
 
+/* Speciaal voor mobiel (kleine schermen): als het te krap wordt, springt de badge netjes onder de tekst */
+@media (max-width: 600px) {
+    .card-content {
+        flex-wrap: wrap;
+    }
+    
+    .award-badge {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+        margin-top: 5px;
+    }
 }
