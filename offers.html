@@ -74,7 +74,7 @@ window.addEventListener('DOMContentLoaded', () => {
             
             // Probeer eerst item.image, dan images/slug.jpg
             const displayImage = item.image || `Draft/${slug}.jpg`;
-            
+            const awardBadge = item.award ? `<div class="award-badge"><i class="fas fa-trophy"></i> ${item.award}</div>` : "";
             const card = document.createElement("a");
             card.className = "card";
             card.href = link;
@@ -94,6 +94,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         <h2>${item.title}</h2>
                         <p class="meta">${item.year || item.date || ""}</p>
                         ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+                        ${awardBadge}
                     </div>
                 </div>
             `;
