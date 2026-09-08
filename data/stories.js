@@ -1752,6 +1752,6 @@ platform: "letterboxd"},
    {title: "The Bridge on the River Kwai",
 year: "1957",
 director: "David Lean",
-rating: 4.5,
+rating: 4,
 platform: "letterboxd"},
  ];
