@@ -67,7 +67,7 @@ const stories = [
      {
     title: "Gokkliniek",
     date: "Offer 10",
-   award: "Longlist Verhaal van de Maand"// Dit klopt, want op GitHub is dit ook kleine letters
+   award: "Shortlist Verhaal van de Maand"// Dit klopt, want op GitHub is dit ook kleine letters
   },
 ];
 
