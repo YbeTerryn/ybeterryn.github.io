@@ -1824,5 +1824,9 @@ year: "2013",
 director: "Paolo Sorrentino",
 rating: 4.5,
 platform: "letterboxd"},
-
+  {title: "Coffy",
+year: "1973",
+director: "Jack Hill",
+rating: 3.5,
+platform: "letterboxd"},
  ];
