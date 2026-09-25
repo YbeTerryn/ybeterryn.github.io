@@ -1837,6 +1837,6 @@ platform: "letterboxd"},
 { title: "Desperado",
 year: "1995",
 director: "Robert Rodriguez",
-rating: 3,
+rating: 3.5,
 platform: "letterboxd"},
  ];
