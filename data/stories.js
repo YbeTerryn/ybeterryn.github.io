@@ -69,6 +69,11 @@ const stories = [
     date: "Offer 10",
    award: "Shortlist Verhaal van de Maand"// Dit klopt, want op GitHub is dit ook kleine letters
   },
+   {
+    title: "Het Uur van de Waarheid",
+    date: "Offer 11",
+  // Dit klopt, want op GitHub is dit ook kleine letters
+  },
 ];
 
 const archiveStories = [
