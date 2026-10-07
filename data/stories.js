@@ -1887,5 +1887,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Dexter",
+  "year": "2006",
+  "director": "James Manos Jr.",
+  "rating": 3.75,
+  "platform": "serializd",
+},
   
  ];
