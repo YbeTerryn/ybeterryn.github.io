@@ -1899,7 +1899,7 @@ platform: "letterboxd"},
   "year": "1959",
   "director": "Lúcio Cardoso",
   "rating": 4,
-  "platform": "letterboxd",
+  "platform": "storygraph",
   "link": ""
 },
   {
