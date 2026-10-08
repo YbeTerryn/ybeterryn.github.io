@@ -112,63 +112,105 @@ window.addEventListener('DOMContentLoaded', () => {
         render();
     }));
 
-    function getStarsHtml(rating) {
-        if (!rating) return "";
-        let stars = '<div class="rating">';
-        for (let i = 1; i <= 5; i++) {
-            if (rating >= i) stars += '<i class="fas fa-star"></i>';
-            else if (rating >= i - 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
-            else stars += '<i class="far fa-star"></i>';
+   async function render() {
+    container.innerHTML = "";
+    const term = searchInput.value.toLowerCase();
+    const minY = parseInt(document.getElementById('minYear').value);
+    const maxY = parseInt(document.getElementById('maxYear').value);
+    const minR = parseFloat(document.getElementById('minRate').value);
+    const maxR = parseFloat(document.getElementById('maxRate').value);
+
+    const filtered = currentList.filter(item => {
+        const matchesSearch = item.title.toLowerCase().includes(term);
+        const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
+        const matchesYear = (item.year >= minY && item.year <= maxY);
+        const matchesRating = (item.rating >= minR && item.rating <= maxR);
+
+        return matchesSearch && matchesPlatform && matchesYear && matchesRating;
+    });
+
+    const slugify = (text) => text
+        ?.toLowerCase()
+        .replace(/[’']/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+
+    const items = [...filtered].reverse();
+
+    // Eerst de kaarten aanmaken
+    for (const item of items) {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const storySlug = item.id || slugify(item.title);
+
+        let icon = '<i class="fas fa-scroll"></i>';
+        if (item.platform === 'storygraph') icon = '<i class="fas fa-book"></i>';
+        if (item.platform === 'letterboxd') icon = '<i class="fas fa-film"></i>';
+        if (item.platform === 'serializd') icon = '<i class="fas fa-tv"></i>';
+
+        card.innerHTML = `
+            <a href="story.html?id=${storySlug}" class="card-link-overlay"></a>
+            <div class="card-type-icon">${icon}</div>
+
+            <div class="card-content">
+                <img src="${item.image || `Draft/${storySlug}.jpg`}"
+                     alt="${item.title}"
+                     class="card-image">
+
+                <div class="card-text">
+                    <h2>${item.title}</h2>
+
+                    ${getStarsHtml(item.rating)}
+
+                    <div class="meta">
+                        ${item.director || ''}
+                        ${item.director && item.year ? ' • ' : ''}
+                        ${item.year || ''}
+                    </div>
+
+                    <div class="review-preview">
+                        Review laden...
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(card);
+
+        // Reviewbestand ophalen
+        try {
+            const response = await fetch(`reviews/${storySlug}.html`);
+
+            if (!response.ok) {
+                throw new Error("Review niet gevonden");
+            }
+
+            const html = await response.text();
+
+            // HTML van de review omzetten naar een DOM-document
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Eerste alinea zoeken
+            const firstParagraph = doc.querySelector('p');
+
+            const preview = card.querySelector('.review-preview');
+
+            if (firstParagraph) {
+                preview.textContent = firstParagraph.textContent.trim();
+            } else {
+                preview.textContent = '';
+            }
+
+        } catch (error) {
+            console.warn(`Review kon niet geladen worden voor ${item.title}:`, error);
+
+            const preview = card.querySelector('.review-preview');
+            preview.textContent = '';
         }
-        return stars + `</div>`;
     }
-
-    function render() {
-        container.innerHTML = "";
-        const term = searchInput.value.toLowerCase();
-        const minY = parseInt(document.getElementById('minYear').value);
-        const maxY = parseInt(document.getElementById('maxYear').value);
-        const minR = parseFloat(document.getElementById('minRate').value);
-        const maxR = parseFloat(document.getElementById('maxRate').value);
-        
-        const filtered = currentList.filter(item => {
-            const matchesSearch = item.title.toLowerCase().includes(term);
-            const matchesPlatform = (selectedPlatform === "all" || item.platform === selectedPlatform);
-            const matchesYear = (item.year >= minY && item.year <= maxY);
-            const matchesRating = (item.rating >= minR && item.rating <= maxR);
-            return matchesSearch && matchesPlatform && matchesYear && matchesRating;
-        });
-
-        const slugify = (text) => text?.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
-        [...filtered].reverse().forEach(item => {
-            const card = document.createElement("article");
-            card.className = "card";
-            const storySlug = item.id || slugify(item.title);
-            let icon = '<i class="fas fa-scroll"></i>';
-            if (item.platform === 'storygraph') icon = '<i class="fas fa-book"></i>';
-            if (item.platform === 'letterboxd') icon = '<i class="fas fa-film"></i>';
-            if (item.platform === 'serializd') icon = '<i class="fas fa-tv"></i>';
-            
-            card.innerHTML = `
-                <a href="story.html?id=${storySlug}" class="card-link-overlay"></a>
-                <div class="card-type-icon">${icon}</div>
-                <div class="card-content">
-                    <img src="${item.image || `Draft/${storySlug}.jpg`}" alt="${item.title}" class="card-image">
-<div class="card-text">
-    <h2>${item.title}</h2>
-    ${getStarsHtml(item.rating)}
-    <div class="meta">
-        ${item.director}
-        ${item.director && item.year ? ' • ' : ''}
-        ${item.year}
-    </div>
-</div>
-                </div>`;
-            container.appendChild(card);
-        });
-    }
-
+}
     [searchInput, document.getElementById('minYear'), document.getElementById('maxYear'), document.getElementById('minRate'), document.getElementById('maxRate')].forEach(el => el.addEventListener('change', render));
     searchInput.addEventListener('input', render);
     render();
