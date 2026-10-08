@@ -1896,7 +1896,7 @@ platform: "letterboxd"},
 },
   {
   "title": "Kroniek van het vermoorde huis",
-  "year": "1947",
+  "year": "1959",
   "director": "Lúcio Cardoso",
   "rating": 4,
   "platform": "letterboxd",
