@@ -621,27 +621,48 @@ window.addEventListener('DOMContentLoaded', () => {
                  * reviewbestand nemen.
                  */
 
-                const firstParagraph =
-                    doc.querySelector('p');
+              const paragraphs = [
+    ...doc.querySelectorAll('p')
+];
 
+const preview =
+    card.querySelector('.review-preview');
 
-                const preview =
-                    card.querySelector(
-                        '.review-preview'
-                    );
+if (paragraphs.length > 0) {
 
+    let previewText = '';
 
-                if (firstParagraph) {
+    /*
+     * Neem zoveel alinea's als nodig zijn
+     * om voldoende tekst te hebben.
+     * CSS zal uiteindelijk de tekst afkappen
+     * op 3 regels en automatisch ... tonen.
+     */
+    for (const paragraph of paragraphs) {
 
-                    preview.textContent =
-                        firstParagraph
-                            .textContent
-                            .trim();
+        const text =
+            paragraph.textContent.trim();
 
-                } else {
+        if (!text) continue;
 
-                    preview.textContent = '';
-                }
+        previewText +=
+            (previewText ? ' ' : '') + text;
+
+        /*
+         * Rond 350 tekens is ruim voldoende
+         * om de kaart te vullen.
+         */
+        if (previewText.length >= 350) {
+            break;
+        }
+    }
+
+    preview.textContent = previewText;
+
+} else {
+
+    preview.textContent = '';
+}
 
 
             } catch (error) {
