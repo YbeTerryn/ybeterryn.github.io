@@ -1894,5 +1894,13 @@ platform: "letterboxd"},
   "rating": 3.75,
   "platform": "serializd",
 },
+  {
+  "title": "Kroniek van het vermoorde huis",
+  "year": "1947",
+  "director": "Lúcio Cardoso",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
+},
   
  ];
