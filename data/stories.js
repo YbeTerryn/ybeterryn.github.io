@@ -1902,5 +1902,13 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "A Bay of Blood",
+  "year": "1971",
+  "director": "Mario Bava",
+  "rating": 2.5,
+  "platform": "letterboxd",
+  "link": ""
+}
   
  ];
