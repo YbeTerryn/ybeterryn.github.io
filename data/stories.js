@@ -1910,5 +1910,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 }
+  {
+  "title": "Crimewave",
+  "year": "1985",
+  "director": "Sam Raimi",
+  "rating": 2,
+  "platform": "letterboxd",
+}
   
  ];
