@@ -1909,7 +1909,7 @@ platform: "letterboxd"},
   "rating": 2.5,
   "platform": "letterboxd",
   "link": ""
-}
+},
   {
   "title": "Crimewave",
   "year": "1985",
