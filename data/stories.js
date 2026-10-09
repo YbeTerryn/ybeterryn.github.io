@@ -1916,6 +1916,6 @@ platform: "letterboxd"},
   "director": "Sam Raimi",
   "rating": 2,
   "platform": "letterboxd",
-}
+},
   
  ];
