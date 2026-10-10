@@ -1917,5 +1917,13 @@ platform: "letterboxd"},
   "rating": 2,
   "platform": "letterboxd",
 },
+  {
+  "title": "The Evil Dead",
+  "year": "1981",
+  "director": "Sam Raimi",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
+},
   
  ];
