@@ -1925,5 +1925,13 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Benedetta",
+  "year": "2021",
+  "director": "Paul Verhoeven",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
+},
   
  ];
