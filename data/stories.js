@@ -1933,5 +1933,13 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Evil Dead II",
+  "year": "1987",
+  "director": "Sam Raimi",
+  "rating": 3.5,
+  "platform": "letterboxd",
+  "link": ""
+},
   
  ];
