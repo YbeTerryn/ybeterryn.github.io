@@ -1941,5 +1941,13 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "De komst van Joachim Stiller",
+  "year": "1960",
+  "director": "Hubert Lampo",
+  "rating": 3.5,
+  "platform": "storygraph",
+  "link": ""
+}
   
  ];
