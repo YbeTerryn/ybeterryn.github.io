@@ -1948,7 +1948,7 @@ platform: "letterboxd"},
   "rating": 3.75,
   "platform": "storygraph",
   "link": ""
-}
+},
   {
   "title": "Alma",
   "year": "2009",
@@ -1956,5 +1956,5 @@ platform: "letterboxd"},
   "rating": 3.5,
   "platform": "letterboxd",
   "link": ""
-}
+},
  ];
