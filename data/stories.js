@@ -1945,9 +1945,16 @@ platform: "letterboxd"},
   "title": "De komst van Joachim Stiller",
   "year": "1960",
   "director": "Hubert Lampo",
-  "rating": 3.5,
+  "rating": 3.75,
   "platform": "storygraph",
   "link": ""
 }
-  
+  {
+  "title": "Alma",
+  "year": "2009",
+  "director": "Rodrigo Blaas",
+  "rating": 3.5,
+  "platform": "letterboxd",
+  "link": ""
+}
  ];
