@@ -1957,4 +1957,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Army of Darkness",
+  "year": "1992",
+  "director": "Sam Raimi",
+  "rating": 2,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
