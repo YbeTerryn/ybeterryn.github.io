@@ -1965,4 +1965,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Camping Cosmos",
+  "year": "1996",
+  "director": "Jan Bucquoy",
+  "rating": 3.5,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
