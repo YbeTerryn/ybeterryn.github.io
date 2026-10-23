@@ -1974,6 +1974,14 @@ platform: "letterboxd"},
   "link": ""
 },
   {
+  "title": "Infinite Jest",
+  "year": "1996",
+  "director": "David Foster Wallace",
+  "rating": 2.5,
+  "platform": "storygraph",
+  "link": ""
+},
+  {
   "title": "Idyllen",
   "year": "2015",
   "director": "Ilja Leonard Pfeijffer",
