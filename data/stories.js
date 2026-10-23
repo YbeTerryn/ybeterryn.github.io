@@ -1989,4 +1989,12 @@ platform: "letterboxd"},
   "platform": "storygraph",
   "link": ""
 },
+  {
+  "title": "Fermeture de l’usine Renault à Vilvoorde",
+  "year": "1998",
+  "director": "Jan Bucquoy",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
+}
  ];
