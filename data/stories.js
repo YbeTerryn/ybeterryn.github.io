@@ -1996,5 +1996,13 @@ platform: "letterboxd"},
   "rating": 4,
   "platform": "letterboxd",
   "link": ""
+},
+  {
+  "title": "Norm: The Tale of Norm Macdonald",
+  "year": "2026",
+  "director": "Judd Apatow",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
 }
  ];
