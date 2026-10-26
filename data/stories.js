@@ -2004,5 +2004,13 @@ platform: "letterboxd"},
   "rating": 4,
   "platform": "letterboxd",
   "link": ""
-}
+},
+  {
+  "title": "Norm Macdonald: Nothing Special",
+  "year": "2022",
+  "director": "Norm Macdonald",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
