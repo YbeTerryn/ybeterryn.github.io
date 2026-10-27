@@ -2013,4 +2013,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Weapons",
+  "year": "2026",
+  "director": "Zach Cregger",
+  "rating": 3,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
