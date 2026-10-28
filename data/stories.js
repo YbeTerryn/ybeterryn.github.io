@@ -2021,4 +2021,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Hereditary",
+  "year": "2018",
+  "director": "Ari Aster",
+  "rating": 3,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
