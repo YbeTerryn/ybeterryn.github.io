@@ -41,6 +41,12 @@
 <script src="data/stories.js"></script>
 
 <script>
+  function slugify(text) {
+    return text?.toLowerCase()
+        .replace(/[’']/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+}
 window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
@@ -72,10 +78,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 filtered.slice().reverse().forEach(item => {
 
-    const isExternal = !!item.link;
-    const link = isExternal
-        ? item.link
-        : `story.html?id=${item.id}`;
+const isExternal = !!item.link;
+const link = isExternal
+    ? item.link
+    : `story.html?id=${encodeURIComponent(item.id || slugify(item.title))}`;
 
     const card = document.createElement("a");
     card.className = "card";
