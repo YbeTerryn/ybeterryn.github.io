@@ -161,6 +161,11 @@ const archiveStories = [
     image: "Draft/archief.jpg",
     date: "Column",
   },
+   {
+    title: "Eindeloos Vertier",
+    image: "Draft/archief.jpg",
+    date: "Essay",
+  },
 ];
 const reviewStories = [
 
