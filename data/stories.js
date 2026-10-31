@@ -2034,7 +2034,7 @@ platform: "letterboxd"},
   "year": "2025",
   "director": "Nelio Biedermann",
   "rating": 3,
-  "platform": "letterboxd",
+  "platform": "storygraph",
   "link": ""
 },
   {
@@ -2042,7 +2042,15 @@ platform: "letterboxd"},
   "year": "1977",
   "director": "J.M.H. Berckmans",
   "rating": 4,
+  "platform": "storygraph",
+  "link": ""
+},
+  {
+  "title": "The Witch",
+  "year": "2015",
+  "director": "Robert Eggers",
+  "rating": 4,
   "platform": "letterboxd",
   "link": ""
-}
+},
  ];
