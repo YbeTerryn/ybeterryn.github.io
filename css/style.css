@@ -30,8 +30,8 @@ body {
 }
 
 a {
-  color: var(--accent-color);
-  text-decoration: none;
+    color: #000000;
+    text-decoration: none;
 }
 
 body::before {
