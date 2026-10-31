@@ -162,6 +162,11 @@ const archiveStories = [
     date: "Column",
   },
    {
+    title: "Tussenmensen, verenigt u!",
+    image: "Draft/archief.jpg",
+    date: "Column",
+  },
+     {
     title: "Eindeloos Vertier",
     image: "Draft/archief.jpg",
     date: "Essay",
