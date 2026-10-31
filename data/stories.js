@@ -138,7 +138,7 @@ const archiveStories = [
     id: "archief-08",
     title: "De Menselijke Geest Belichaamd",
     image: "Draft/archief.jpg",
-    date: "Column",
+    date: "Monoloog",
     text: "texts/menselijkegeest.html" 
   },
      {
