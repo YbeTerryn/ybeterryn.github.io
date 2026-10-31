@@ -74,6 +74,11 @@ const stories = [
     date: "Offer 11",
   // Dit klopt, want op GitHub is dit ook kleine letters
   },
+     {
+    title: "Onevenbeeld",
+    date: "Offer 12",
+  // Dit klopt, want op GitHub is dit ook kleine letters
+  },
 ];
 
 const archiveStories = [
