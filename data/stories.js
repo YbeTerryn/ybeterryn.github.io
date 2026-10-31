@@ -124,7 +124,7 @@ const archiveStories = [
     id: "archief-07",
     title: "Over de verloren wijs van het lijdend onderwerp",
     image: "Draft/archief.jpg",
-    date: "Proza",
+    date: "Column",
     text: "texts/verloren_wijs.html" 
   },
      {
@@ -138,7 +138,7 @@ const archiveStories = [
     id: "archief-08",
     title: "De Menselijke Geest Belichaamd",
     image: "Draft/archief.jpg",
-    date: "Proza",
+    date: "Column",
     text: "texts/menselijkegeest.html" 
   },
      {
