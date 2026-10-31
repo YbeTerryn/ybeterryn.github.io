@@ -2029,4 +2029,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Lázár",
+  "year": "2025",
+  "director": "Nelio Biedermann",
+  "rating": 3,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
