@@ -155,7 +155,12 @@ const archiveStories = [
     image: "Draft/archief.jpg",
     date: "Proza",
     text: "texts/Drie-gebroken-principes.html" 
-  }
+  },
+    {
+    title: "Bakstenen voor mezelf",
+    image: "Draft/archief.jpg",
+    date: "Column",
+  },
 ];
 const reviewStories = [
 
