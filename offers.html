@@ -98,64 +98,64 @@ window.addEventListener('DOMContentLoaded', () => {
     else if (pageTitle.includes("Archief")) currentList = typeof archiveStories !== 'undefined' ? archiveStories : [];
     else if (pageTitle.includes("Reviews")) currentList = typeof reviewStories !== 'undefined' ? reviewStories : [];
 
-    function render(filter = "") {
-        container.innerHTML = "";
-        const searchTerm = filter.toLowerCase();
+   ```js
+function render(filter = "") {
+    container.innerHTML = "";
+    const searchTerm = filter.toLowerCase();
 
-        const filtered = currentList.filter(item => {
-            return item.title.toLowerCase().includes(searchTerm) || 
-                   (item.year && item.year.toString().includes(searchTerm)) ||
-                   (item.director && item.director.toLowerCase().includes(searchTerm)) ||
-                   (item.date && item.date.toLowerCase().includes(searchTerm));
-        });
+    const filtered = currentList.filter(item => {
+        return item.title.toLowerCase().includes(searchTerm) ||
+               (item.year && item.year.toString().includes(searchTerm)) ||
+               (item.director && item.director.toLowerCase().includes(searchTerm)) ||
+               (item.date && item.date.toLowerCase().includes(searchTerm));
+    });
 
-        filtered.slice().reverse().forEach(item => {
-            const isExternal = !!item.link;
-            const slug = slugify(item.title);
-            const link = isExternal ? item.link : `story.html?id=${slug}`;
-            
-            // Probeer eerst item.image, dan images/slug.jpg
-            const displayImage = item.image || `Draft/${slug}.jpg`;
-            const awardBadge = item.award ? `<div class="award-badge"><i class="fas fa-trophy"></i> ${item.award}</div>` : "";
-            const card = document.createElement("a");
-            card.className = "card";
-            card.href = link;
-            if (isExternal) {
-                card.target = "_blank";
-                card.rel = "noopener noreferrer";
-            }
-            
-            // De onerror zorgt dat hij bij een fout naar de Draft map springt met de .png extensie
-            card.innerHTML = `
-                <div class="card-content">
-                    <img src="${displayImage}" 
-                         alt="${item.title}" 
-                         class="card-image" 
-                         onerror="this.onerror=null; this.src='Draft/${slug}.png';">
-                    <div class="card-text">
-                   <h2>${item.title}</h2>
-<p class="meta">${item.year || item.date || ""}</p>
+    filtered.slice().reverse().forEach(item => {
+        const isExternal = !!item.link;
+        const slug = slugify(item.title);
+        const link = isExternal ? item.link : `story.html?id=${slug}`;
 
-<p class="card-preview" data-preview hidden></p>
+        const displayImage = item.image || `Draft/${slug}.jpg`;
+        const awardBadge = item.award
+            ? `<div class="award-badge"><i class="fas fa-trophy"></i> ${item.award}</div>`
+            : "";
 
-${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                       
-                    </div>
-                      ${awardBadge}
-                </div>
-            `;
-container.appendChild(card);
-loadPreview(item, card.querySelector('[data-preview]'));
+        const card = document.createElement("a");
+        card.className = "card";
+        card.href = link;
 
-        if (filtered.length === 0) {
-            container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
+        if (isExternal) {
+            card.target = "_blank";
+            card.rel = "noopener noreferrer";
         }
-    }
 
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => render(e.target.value));
-    }
+        card.innerHTML = `
+            <div class="card-content">
+                <img src="${displayImage}"
+                     alt="${item.title}"
+                     class="card-image"
+                     onerror="this.onerror=null; this.src='Draft/${slug}.png';">
 
+                <div class="card-text">
+                    <h2>${item.title}</h2>
+                    <p class="meta">${item.year || item.date || ""}</p>
+                    <p class="card-preview" data-preview hidden></p>
+                    ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
+                </div>
+
+                ${awardBadge}
+            </div>
+        `;
+
+        container.appendChild(card);
+        loadPreview(item, card.querySelector('[data-preview]'));
+    });
+
+    if (filtered.length === 0) {
+        container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
+    }
+}
+```
     render();
 });
 
