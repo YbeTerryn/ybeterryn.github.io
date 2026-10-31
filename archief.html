@@ -47,6 +47,48 @@
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '');
 }
+  async function loadPreview(item, previewElement) {
+    if (!previewElement || item.link) {
+        return;
+    }
+
+    const slug = slugify(item.title);
+    const paths = item.text
+        ? [item.text, `texts/${slug}.html`]
+        : [`texts/${slug}.html`];
+
+    for (const path of [...new Set(paths)]) {
+        try {
+            const response = await fetch(path);
+
+            if (!response.ok) {
+                continue;
+            }
+
+            const html = await response.text();
+            const parser = new DOMParser();
+            const document = parser.parseFromString(html, 'text/html');
+
+            const text = document.body.textContent
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            if (text) {
+                previewElement.textContent =
+                    text.length > 180
+                        ? text.substring(0, 180).trimEnd() + '…'
+                        : text;
+
+                previewElement.hidden = false;
+                return;
+            }
+        } catch (error) {
+            console.error(`Preview kon niet geladen worden: ${path}`, error);
+        }
+    }
+
+    previewElement.hidden = true;
+}
 window.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("main-container");
     const searchInput = document.getElementById("searchInput");
@@ -96,15 +138,18 @@ const link = isExternal
         <div class="card-content">
             <img src="${item.image}" alt="${item.title}" class="card-image">
             <div class="card-text">
-                <h2>${item.title}</h2>
-                <p class="meta">${item.year || item.date || ""}</p>
-                ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-              
+               <h2>${item.title}</h2>
+<p class="meta">${item.year || item.date || ""}</p>
+
+<p class="card-preview" data-preview hidden></p>
+
+${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
             </div>
         </div>
     `;
 
-    container.appendChild(card);
+  container.appendChild(card);
+loadPreview(item, card.querySelector('[data-preview]'));
 });
 
         // Lege status
