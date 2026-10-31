@@ -8,162 +8,185 @@
         gtag('js', new Date());
         gtag('config', 'G-MJ1V2PREL6');
     </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Offers voor Sesjat</title> 
+    <title>Offers voor Sesjat</title>
     <link rel="stylesheet" href="css/style.css">
+
     <style>
         /* Maak de hele kaart een aanklikbare link zonder standaard link-opmaak */
-        .card { display: block; text-decoration: none; color: inherit; cursor: pointer; }
+        .card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
- <header class="sesjat-header">
-    <p class="glyph">𓇇</p>
-    <h1>Offers voor Sesjat</h1>
-    <p class="subtitle">Maandelijks een literair werk <br>Een offer voor de godin van het schrift</p>
-</header> 
-<header id="main-header">
-    <nav id="main-nav"></nav>
-</header>
+    <header class="sesjat-header">
+        <p class="glyph">𓇇</p>
+        <h1>Offers voor Sesjat</h1>
+        <p class="subtitle">Maandelijks een literair werk <br>Een offer voor de godin van het schrift</p>
+    </header>
 
+    <header id="main-header">
+        <nav id="main-nav"></nav>
+    </header>
 
-
-<div class="filter-section">
-    <div class="search-wrapper">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" class="search-bar" placeholder="Offers zoeken...">
+    <div class="filter-section">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-bar" placeholder="Offers zoeken...">
+        </div>
     </div>
-</div>
-  
-<main class="grid" id="main-container"></main>
 
-<script src="data/stories.js"></script>
+    <main class="grid" id="main-container"></main>
 
-<script>
-    async function loadPreview(item, previewElement) {
-    if (!previewElement || item.link) {
-        return;
-    }
+    <script src="data/stories.js"></script>
 
-    const slug = slugify(item.title);
-    const paths = item.text
-        ? [item.text, `texts/${slug}.html`]
-        : [`texts/${slug}.html`];
+    <script>
+        // Slugify-functie afgestemd op story.html en reviews.html.
+        const slugify = (text) => text?.toLowerCase()
+            .replace(/[’']/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
 
-    for (const path of [...new Set(paths)]) {
-        try {
-            const response = await fetch(path);
-
-            if (!response.ok) {
-                continue;
-            }
-
-            const html = await response.text();
-            const parser = new DOMParser();
-            const document = parser.parseFromString(html, 'text/html');
-
-            const text = document.body.textContent
-                .replace(/\s+/g, ' ')
-                .trim();
-
-            if (text) {
-                previewElement.textContent =
-                    text.length > 180
-                        ? text.substring(0, 180).trimEnd() + '…'
-                        : text;
-
-                previewElement.hidden = false;
+        async function loadPreview(item, previewElement) {
+            if (!previewElement || item.link) {
                 return;
             }
-        } catch (error) {
-            console.error(`Preview kon niet geladen worden: ${path}`, error);
-        }
-    }
 
-    previewElement.hidden = true;
-}
-// Unified slugify function matching story.html and reviews.html
-const slugify = (text) => text?.toLowerCase().replace(/['']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            const slug = slugify(item.title);
+            // Probeer eerst het expliciet opgegeven tekstbestand.
+            // Gebruik het slugbestand als terugvaloptie.
+            const paths = item.text
+                ? [item.text, `texts/${slug}.html`]
+                : [`texts/${slug}.html`];
 
-window.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById("main-container");
-    const searchInput = document.getElementById("searchInput");
+            for (const path of [...new Set(paths)]) {
+                try {
+                    const response = await fetch(path);
 
-    let currentList = [];
-    const pageTitle = document.title;
-    
-    if (pageTitle.includes("Offers")) currentList = typeof stories !== 'undefined' ? stories : [];
-    else if (pageTitle.includes("Archief")) currentList = typeof archiveStories !== 'undefined' ? archiveStories : [];
-    else if (pageTitle.includes("Reviews")) currentList = typeof reviewStories !== 'undefined' ? reviewStories : [];
+                    if (!response.ok) {
+                        continue;
+                    }
 
-   ```js
-function render(filter = "") {
-    container.innerHTML = "";
-    const searchTerm = filter.toLowerCase();
+                    const html = await response.text();
+                    const parser = new DOMParser();
+                    const parsedDocument = parser.parseFromString(html, 'text/html');
 
-    const filtered = currentList.filter(item => {
-        return item.title.toLowerCase().includes(searchTerm) ||
-               (item.year && item.year.toString().includes(searchTerm)) ||
-               (item.director && item.director.toLowerCase().includes(searchTerm)) ||
-               (item.date && item.date.toLowerCase().includes(searchTerm));
-    });
+                    const text = parsedDocument.body.textContent
+                        .replace(/\s+/g, ' ')
+                        .trim();
 
-    filtered.slice().reverse().forEach(item => {
-        const isExternal = !!item.link;
-        const slug = slugify(item.title);
-        const link = isExternal ? item.link : `story.html?id=${slug}`;
+                    if (text) {
+                        previewElement.textContent = text.length > 180
+                            ? text.substring(0, 180).trimEnd() + '…'
+                            : text;
 
-        const displayImage = item.image || `Draft/${slug}.jpg`;
-        const awardBadge = item.award
-            ? `<div class="award-badge"><i class="fas fa-trophy"></i> ${item.award}</div>`
-            : "";
+                        previewElement.hidden = false;
+                        return;
+                    }
+                } catch (error) {
+                    console.error(`Preview kon niet geladen worden: ${path}`, error);
+                }
+            }
 
-        const card = document.createElement("a");
-        card.className = "card";
-        card.href = link;
-
-        if (isExternal) {
-            card.target = "_blank";
-            card.rel = "noopener noreferrer";
+            previewElement.hidden = true;
         }
 
-        card.innerHTML = `
-            <div class="card-content">
-                <img src="${displayImage}"
-                     alt="${item.title}"
-                     class="card-image"
-                     onerror="this.onerror=null; this.src='Draft/${slug}.png';">
+        window.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('main-container');
+            const searchInput = document.getElementById('searchInput');
 
-                <div class="card-text">
-                    <h2>${item.title}</h2>
-                    <p class="meta">${item.year || item.date || ""}</p>
-                    <p class="card-preview" data-preview hidden></p>
-                    ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ""}
-                </div>
+            let currentList = [];
+            const pageTitle = document.title;
 
-                ${awardBadge}
-            </div>
-        `;
+            if (pageTitle.includes('Offers')) {
+                currentList = typeof stories !== 'undefined' ? stories : [];
+            } else if (pageTitle.includes('Archief')) {
+                currentList = typeof archiveStories !== 'undefined' ? archiveStories : [];
+            } else if (pageTitle.includes('Reviews')) {
+                currentList = typeof reviewStories !== 'undefined' ? reviewStories : [];
+            }
 
-        container.appendChild(card);
-        loadPreview(item, card.querySelector('[data-preview]'));
-    });
+            function render(filter = '') {
+                container.innerHTML = '';
+                const searchTerm = filter.toLowerCase();
 
-    if (filtered.length === 0) {
-        container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
-    }
-}
-```
-    render();
-});
+                const filtered = currentList.filter(item => {
+                    return item.title.toLowerCase().includes(searchTerm) ||
+                        (item.year && item.year.toString().includes(searchTerm)) ||
+                        (item.director && item.director.toLowerCase().includes(searchTerm)) ||
+                        (item.date && item.date.toLowerCase().includes(searchTerm));
+                });
 
-fetch('nav.html').then(res => res.text()).then(data => {
-    const nav = document.getElementById('main-nav');
-    if(nav) nav.innerHTML = data;
-});
-</script>
+                filtered.slice().reverse().forEach(item => {
+                    const isExternal = !!item.link;
+                    const slug = slugify(item.title);
+                    const link = isExternal ? item.link : `story.html?id=${slug}`;
 
+                    const displayImage = item.image || `Draft/${slug}.jpg`;
+                    const awardBadge = item.award
+                        ? `<div class="award-badge"><i class="fas fa-trophy"></i> ${item.award}</div>`
+                        : '';
+
+                    const card = document.createElement('a');
+                    card.className = 'card';
+                    card.href = link;
+
+                    if (isExternal) {
+                        card.target = '_blank';
+                        card.rel = 'noopener noreferrer';
+                    }
+
+                    card.innerHTML = `
+                        <div class="card-content">
+                            <img src="${displayImage}"
+                                 alt="${item.title}"
+                                 class="card-image"
+                                 onerror="this.onerror=null; this.src='Draft/${slug}.png';">
+
+                            <div class="card-text">
+                                <h2>${item.title}</h2>
+                                <p class="meta">${item.year || item.date || ''}</p>
+                                <p class="card-preview" data-preview hidden></p>
+                                ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ''}
+                            </div>
+
+                            ${awardBadge}
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                    loadPreview(item, card.querySelector('[data-preview]'));
+                });
+
+                if (filtered.length === 0) {
+                    container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (event) => render(event.target.value));
+            }
+
+            render();
+        });
+
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                const nav = document.getElementById('main-nav');
+                if (nav) {
+                    nav.innerHTML = data;
+                }
+            })
+            .catch(error => console.error('Navigatie kon niet geladen worden:', error));
+    </script>
 </body>
 </html>
