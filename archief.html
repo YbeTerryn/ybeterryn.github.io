@@ -112,16 +112,7 @@
       const container = document.getElementById('main-container');
       const searchInput = document.getElementById('searchInput');
 
-      const pageTitle = document.title.toLowerCase();
-      let currentList = [];
-
-      if (pageTitle.includes('offer')) {
-        currentList = Array.isArray(stories) ? stories : [];
-      } else if (pageTitle.includes('archief')) {
-        currentList = Array.isArray(archiveStories) ? archiveStories : [];
-      } else if (pageTitle.includes('review')) {
-        currentList = Array.isArray(reviewStories) ? reviewStories : [];
-      }
+      const currentList = Array.isArray(archiveStories) ? archiveStories : [];
 
       function render(filter = '') {
         container.innerHTML = '';
