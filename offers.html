@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="nl">
-   
-
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MJ1V2PREL6');
+    </script>
 
-    gtag('config', 'G-MJ1V2PREL6');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <title>Literair Archief | Andere werken en poëzie</title> 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Offers voor Sesjat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 
     <style>
@@ -155,157 +153,153 @@
         }
     </style>
 </head>
+
 <body>
-  <header class="sesjat-header">
-   <p class="glyph">𓏟</p>
-   <h1>Het Archief</h1>
-   <p class="subtitle">Een verzameling zonlichtschuwe werken, voor wie zich echt niet kan weerhouden</p>
-  </header>
-  
-  <header id="main-header">
-   <nav id="main-nav"></nav>
-  </header>
+    <header class="sesjat-header">
+        <p class="glyph">𓇇</p>
+        <h1>Offers voor Sesjat</h1>
+        <p class="subtitle">Maandelijks een literair werk <br>Een offer voor de godin van het schrift</p>
+    </header>
 
-  <div class="filter-section">
-   <div class="search-wrapper">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" class="search-bar" placeholder="Zoek in het archief...">
-   </div>
-  </div>
+    <header id="main-header">
+        <nav id="main-nav"></nav>
+    </header>
 
-  <main class="grid" id="main-container">
-  </main>
+    <div class="filter-section">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-bar" placeholder="Offers zoeken...">
+        </div>
+    </div>
 
-  <script src="data/stories.js"></script>
+    <main class="grid" id="main-container"></main>
 
-  <script>
-    function slugify(text) {
-      return text?.toLowerCase()
-        .replace(/[’']/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '');
-    }
+    <script src="data/stories.js"></script>
 
-    function extractPreviewText(html) {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const paragraphs = [...doc.querySelectorAll('p')];
+    <script>
+        const slugify = (text) => text?.toLowerCase()
+            .replace(/[’']/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
 
-      let previewText = '';
-      for (const paragraph of paragraphs) {
-        const text = paragraph.textContent.trim();
-        if (!text) continue;
+        function extractPreviewText(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const paragraphs = [...doc.querySelectorAll('p')];
+            let previewText = '';
 
-        previewText += (previewText ? ' ' : '') + text;
-        if (previewText.length >= 350) break;
-      }
+            for (const paragraph of paragraphs) {
+                const text = paragraph.textContent.trim();
+                if (!text) continue;
+                previewText += (previewText ? ' ' : '') + text;
+                if (previewText.length >= 350) break;
+            }
 
-      return previewText.trim();
-    }
-
-    async function loadPreview(item, previewElement) {
-      if (!previewElement || item.link) {
-        return;
-      }
-
-      const slug = slugify(item.title);
-      const paths = item.text
-        ? [item.text, `texts/${slug}.html`]
-        : [`texts/${slug}.html`];
-
-      for (const path of [...new Set(paths)]) {
-        try {
-          const response = await fetch(path);
-          if (!response.ok) continue;
-
-          const html = await response.text();
-          const previewText = extractPreviewText(html);
-
-          if (previewText) {
-            previewElement.textContent = previewText;
-            previewElement.hidden = false;
-            return;
-          }
-        } catch (error) {
-          console.error(`Preview kon niet geladen worden: ${path}`, error);
+            return previewText.trim();
         }
-      }
 
-      previewElement.hidden = true;
-    }
+        async function loadPreview(item, previewElement) {
+            if (!previewElement || item.link) return;
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById("main-container");
-      const searchInput = document.getElementById("searchInput");
+            const slug = slugify(item.title);
+            const paths = item.text ? [item.text, `texts/${slug}.html`] : [`texts/${slug}.html`];
 
-      let currentList = [];
-      const pageTitle = document.title;
-      
-      if (pageTitle.includes("Offers")) {
-        currentList = stories;
-      } else if (pageTitle.includes("Archief")) {
-        currentList = archiveStories;
-      } else if (pageTitle.includes("Reviews")) {
-        currentList = reviewStories;
-      }
+            for (const path of [...new Set(paths)]) {
+                try {
+                    const response = await fetch(path);
+                    if (!response.ok) continue;
 
-      function render(filter = "") {
-        container.innerHTML = "";
-        const searchTerm = filter.toLowerCase();
+                    const html = await response.text();
+                    const previewText = extractPreviewText(html);
 
-        const filtered = currentList.filter(item => {
-          return item.title.toLowerCase().includes(searchTerm) || 
-                 (item.year && item.year.includes(searchTerm)) ||
-                 (item.director && item.director.toLowerCase().includes(searchTerm)) ||
-                 (item.date && item.date.toLowerCase().includes(searchTerm));
+                    if (previewText) {
+                        previewElement.textContent = previewText;
+                        previewElement.hidden = false;
+                        return;
+                    }
+                } catch (error) {
+                    console.error(`Preview kon niet geladen worden: ${path}`, error);
+                }
+            }
+
+            previewElement.hidden = true;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('main-container');
+            const searchInput = document.getElementById('searchInput');
+
+            const pageTitle = document.title.toLowerCase();
+            let currentList = [];
+
+            if (pageTitle.includes('offer')) {
+                currentList = Array.isArray(stories) ? stories : [];
+            } else if (pageTitle.includes('archief')) {
+                currentList = Array.isArray(archiveStories) ? archiveStories : [];
+            } else if (pageTitle.includes('review')) {
+                currentList = Array.isArray(reviewStories) ? reviewStories : [];
+            }
+
+            function render(filter = '') {
+                container.innerHTML = '';
+                const searchTerm = filter.toLowerCase();
+
+                const filtered = currentList.filter(item => {
+                    const title = (item && item.title) ? item.title.toLowerCase() : '';
+                    return title.includes(searchTerm) ||
+                        (item.year && String(item.year).includes(searchTerm)) ||
+                        (item.director && item.director.toLowerCase().includes(searchTerm)) ||
+                        (item.date && item.date.toLowerCase().includes(searchTerm));
+                });
+
+                filtered.slice().reverse().forEach(item => {
+                    const isExternal = !!item.link;
+                    const slug = slugify(item.title);
+                    const link = isExternal ? item.link : `story.html?id=${encodeURIComponent(item.id || slug)}`;
+                    const displayImage = item.image || `Draft/${slug}.jpg`;
+
+                    const card = document.createElement('article');
+                    card.className = 'card';
+
+                    card.innerHTML = `
+                        <a href="${link}" class="card-link-overlay" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}></a>
+                        <div class="card-type-icon"><i class="fas fa-scroll"></i></div>
+                        <div class="card-content">
+                            <img src="${displayImage}" alt="${item.title || 'Offer'}" class="card-image" onerror="this.onerror=null; this.src='Draft/${slug}.png';">
+                            <div class="card-text">
+                                <h2>${item.title || ''}</h2>
+                                <div class="meta">${item.year || item.date || ''}</div>
+                                <div class="review-preview" data-preview hidden></div>
+                                ${item.director ? `<div class="meta-info"><em>${item.director}</em></div>` : ''}
+                            </div>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                    loadPreview(item, card.querySelector('[data-preview]'));
+                });
+
+                if (filtered.length === 0) {
+                    container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (event) => render(event.target.value));
+            }
+
+            render();
         });
 
-        filtered.slice().reverse().forEach(item => {
-          const isExternal = !!item.link;
-          const slug = slugify(item.title);
-          const link = isExternal
-            ? item.link
-            : `story.html?id=${encodeURIComponent(item.id || slug)}`;
-
-          const card = document.createElement("article");
-          card.className = "card";
-
-          card.innerHTML = `
-            <a href="${link}" class="card-link-overlay" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}></a>
-            <div class="card-type-icon"><i class="fas fa-scroll"></i></div>
-            <div class="card-content">
-              <img src="${item.image}" alt="${item.title}" class="card-image">
-              <div class="card-text">
-                <h2>${item.title}</h2>
-                <div class="meta">${item.year || item.date || ""}</div>
-                <div class="review-preview" data-preview hidden></div>
-                ${item.director ? `<div class="meta-info"><em>${item.director}</em></div>` : ""}
-              </div>
-            </div>
-          `;
-
-          container.appendChild(card);
-          loadPreview(item, card.querySelector('[data-preview]'));
-        });
-
-        if (filtered.length === 0) {
-          container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
-        }
-      }
-
-      if (searchInput) {
-        searchInput.addEventListener('input', (e) => render(e.target.value));
-      }
-
-      render();
-    });
-  </script>
-
-  <script>
-    fetch('nav.html').then(res => res.text()).then(data => {
-      document.getElementById('main-nav').innerHTML = data;
-    });
-  </script>
-
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                const nav = document.getElementById('main-nav');
+                if (nav) {
+                    nav.innerHTML = data;
+                }
+            })
+            .catch(error => console.error('Navigatie kon niet geladen worden:', error));
+    </script>
 </body>
 </html>
