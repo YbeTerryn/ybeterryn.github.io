@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="nl">
-<head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-MJ1V2PREL6');
-    </script>
+   
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Offers voor Sesjat</title>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ1V2PREL6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-MJ1V2PREL6');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <title>Literair Archief | Andere werken en poëzie</title> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 
     <style>
@@ -141,14 +143,11 @@
             z-index: 5;
         }
 
-        /* Eerste alinea van de review */
         .review-preview {
             margin-top: 12px;
             color: #6d6455;
             font-size: 0.95rem;
             line-height: 1.5;
-
-            /* Maximaal 3 regels tonen */
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -156,168 +155,157 @@
         }
     </style>
 </head>
-
 <body>
-    <header class="sesjat-header">
-        <p class="glyph">𓇇</p>
-        <h1>Offers voor Sesjat</h1>
-        <p class="subtitle">Maandelijks een literair werk <br>Een offer voor de godin van het schrift</p>
-    </header>
+  <header class="sesjat-header">
+   <p class="glyph">𓏟</p>
+   <h1>Het Archief</h1>
+   <p class="subtitle">Een verzameling zonlichtschuwe werken, voor wie zich echt niet kan weerhouden</p>
+  </header>
+  
+  <header id="main-header">
+   <nav id="main-nav"></nav>
+  </header>
 
-    <header id="main-header">
-        <nav id="main-nav"></nav>
-    </header>
+  <div class="filter-section">
+   <div class="search-wrapper">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" class="search-bar" placeholder="Zoek in het archief...">
+   </div>
+  </div>
 
-    <div class="filter-section">
-        <div class="search-wrapper">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-bar" placeholder="Offers zoeken...">
-        </div>
-    </div>
+  <main class="grid" id="main-container">
+  </main>
 
-    <main class="grid" id="main-container"></main>
+  <script src="data/stories.js"></script>
 
-    <script src="data/stories.js"></script>
+  <script>
+    function slugify(text) {
+      return text?.toLowerCase()
+        .replace(/[’']/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+    }
 
-    <script>
-        // Slugify-functie afgestemd op story.html en reviews.html.
-        const slugify = (text) => text?.toLowerCase()
-            .replace(/[’']/g, '')
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-|-$/g, '');
+    function extractPreviewText(html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const paragraphs = [...doc.querySelectorAll('p')];
 
-        async function loadPreview(item, previewElement) {
-            if (!previewElement || item.link) {
-                return;
-            }
+      let previewText = '';
+      for (const paragraph of paragraphs) {
+        const text = paragraph.textContent.trim();
+        if (!text) continue;
 
-            const slug = slugify(item.title);
-            // Probeer eerst het expliciet opgegeven tekstbestand.
-            // Gebruik het slugbestand als terugvaloptie.
-            const paths = item.text
-                ? [item.text, `texts/${slug}.html`]
-                : [`texts/${slug}.html`];
+        previewText += (previewText ? ' ' : '') + text;
+        if (previewText.length >= 350) break;
+      }
 
-            for (const path of [...new Set(paths)]) {
-                try {
-                    const response = await fetch(path);
+      return previewText.trim();
+    }
 
-                    if (!response.ok) {
-                        continue;
-                    }
+    async function loadPreview(item, previewElement) {
+      if (!previewElement || item.link) {
+        return;
+      }
 
-                    const html = await response.text();
-                    const parser = new DOMParser();
-                    const parsedDocument = parser.parseFromString(html, 'text/html');
+      const slug = slugify(item.title);
+      const paths = item.text
+        ? [item.text, `texts/${slug}.html`]
+        : [`texts/${slug}.html`];
 
-                    const text = parsedDocument.body.textContent
-                        .replace(/\s+/g, ' ')
-                        .trim();
+      for (const path of [...new Set(paths)]) {
+        try {
+          const response = await fetch(path);
+          if (!response.ok) continue;
 
-                    if (text) {
-                        previewElement.textContent = text.length > 180
-                            ? text.substring(0, 180).trimEnd() + '…'
-                            : text;
+          const html = await response.text();
+          const previewText = extractPreviewText(html);
 
-                        previewElement.hidden = false;
-                        return;
-                    }
-                } catch (error) {
-                    console.error(`Preview kon niet geladen worden: ${path}`, error);
-                }
-            }
-
-            previewElement.hidden = true;
+          if (previewText) {
+            previewElement.textContent = previewText;
+            previewElement.hidden = false;
+            return;
+          }
+        } catch (error) {
+          console.error(`Preview kon niet geladen worden: ${path}`, error);
         }
+      }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('main-container');
-            const searchInput = document.getElementById('searchInput');
+      previewElement.hidden = true;
+    }
 
-            let currentList = [];
-            const pageTitle = document.title;
+    window.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById("main-container");
+      const searchInput = document.getElementById("searchInput");
 
-            if (pageTitle.includes('Offers')) {
-                currentList = typeof stories !== 'undefined' ? stories : [];
-            } else if (pageTitle.includes('Archief')) {
-                currentList = typeof archiveStories !== 'undefined' ? archiveStories : [];
-            } else if (pageTitle.includes('Reviews')) {
-                currentList = typeof reviewStories !== 'undefined' ? reviewStories : [];
-            }
+      let currentList = [];
+      const pageTitle = document.title;
+      
+      if (pageTitle.includes("Offers")) {
+        currentList = stories;
+      } else if (pageTitle.includes("Archief")) {
+        currentList = archiveStories;
+      } else if (pageTitle.includes("Reviews")) {
+        currentList = reviewStories;
+      }
 
-            function render(filter = '') {
-                container.innerHTML = '';
-                const searchTerm = filter.toLowerCase();
+      function render(filter = "") {
+        container.innerHTML = "";
+        const searchTerm = filter.toLowerCase();
 
-                const filtered = currentList.filter(item => {
-                    return item.title.toLowerCase().includes(searchTerm) ||
-                        (item.year && item.year.toString().includes(searchTerm)) ||
-                        (item.director && item.director.toLowerCase().includes(searchTerm)) ||
-                        (item.date && item.date.toLowerCase().includes(searchTerm));
-                });
-
-                filtered.slice().reverse().forEach(item => {
-                    const isExternal = !!item.link;
-                    const slug = slugify(item.title);
-                    const link = isExternal ? item.link : `story.html?id=${slug}`;
-
-                    const displayImage = item.image || `Draft/${slug}.jpg`;
-                    const awardBadge = item.award
-                        ? `<div class="award-badge"><i class="fas fa-trophy"></i> ${item.award}</div>`
-                        : '';
-
-                    const card = document.createElement('a');
-                    card.className = 'card';
-                    card.href = link;
-
-                    if (isExternal) {
-                        card.target = '_blank';
-                        card.rel = 'noopener noreferrer';
-                    }
-
-                    card.innerHTML = `
-                        <div class="card-content">
-                            <img src="${displayImage}"
-                                 alt="${item.title}"
-                                 class="card-image"
-                                 onerror="this.onerror=null; this.src='Draft/${slug}.png';">
-
-                            <div class="card-text">
-                                <h2>${item.title}</h2>
-                                <p class="meta">${item.year || item.date || ''}</p>
-                                <p class="card-preview" data-preview hidden></p>
-                                ${item.director ? `<p class="meta-info"><em>${item.director}</em></p>` : ''}
-                            </div>
-
-                            ${awardBadge}
-                        </div>
-                    `;
-
-                    container.appendChild(card);
-                    loadPreview(item, card.querySelector('[data-preview]'));
-                });
-
-                if (filtered.length === 0) {
-                    container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
-                }
-            }
-
-            if (searchInput) {
-                searchInput.addEventListener('input', (event) => render(event.target.value));
-            }
-
-            render();
+        const filtered = currentList.filter(item => {
+          return item.title.toLowerCase().includes(searchTerm) || 
+                 (item.year && item.year.includes(searchTerm)) ||
+                 (item.director && item.director.toLowerCase().includes(searchTerm)) ||
+                 (item.date && item.date.toLowerCase().includes(searchTerm));
         });
 
-        fetch('nav.html')
-            .then(response => response.text())
-            .then(data => {
-                const nav = document.getElementById('main-nav');
-                if (nav) {
-                    nav.innerHTML = data;
-                }
-            })
-            .catch(error => console.error('Navigatie kon niet geladen worden:', error));
-    </script>
+        filtered.slice().reverse().forEach(item => {
+          const isExternal = !!item.link;
+          const slug = slugify(item.title);
+          const link = isExternal
+            ? item.link
+            : `story.html?id=${encodeURIComponent(item.id || slug)}`;
+
+          const card = document.createElement("article");
+          card.className = "card";
+
+          card.innerHTML = `
+            <a href="${link}" class="card-link-overlay" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}></a>
+            <div class="card-type-icon"><i class="fas fa-scroll"></i></div>
+            <div class="card-content">
+              <img src="${item.image}" alt="${item.title}" class="card-image">
+              <div class="card-text">
+                <h2>${item.title}</h2>
+                <div class="meta">${item.year || item.date || ""}</div>
+                <div class="review-preview" data-preview hidden></div>
+                ${item.director ? `<div class="meta-info"><em>${item.director}</em></div>` : ""}
+              </div>
+            </div>
+          `;
+
+          container.appendChild(card);
+          loadPreview(item, card.querySelector('[data-preview]'));
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = "<p class='no-results'>Niets gevonden...</p>";
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => render(e.target.value));
+      }
+
+      render();
+    });
+  </script>
+
+  <script>
+    fetch('nav.html').then(res => res.text()).then(data => {
+      document.getElementById('main-nav').innerHTML = data;
+    });
+  </script>
+
 </body>
 </html>
