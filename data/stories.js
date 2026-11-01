@@ -2073,4 +2073,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Scream",
+  "year": "1996",
+  "director": "Wes Craven",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
