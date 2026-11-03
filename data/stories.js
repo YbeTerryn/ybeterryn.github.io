@@ -2089,4 +2089,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Dexter (Seizoen 2)",
+  "year": "2007",
+  "director": "James Manos Jr.",
+  "rating": 3,
+  "platform": "letterboxd",
+  "link": ""
+}
  ];
