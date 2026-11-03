@@ -2096,5 +2096,13 @@ platform: "letterboxd"},
   "rating": 3,
   "platform": "letterboxd",
   "link": ""
-}
+},
+  {
+  "title": "La jouissance des hystériques",
+  "year": "2000",
+  "director": "Jan Bucquoy",
+  "rating": 2.5,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
