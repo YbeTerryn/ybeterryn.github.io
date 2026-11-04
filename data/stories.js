@@ -2105,4 +2105,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Empire of Passion",
+  "year": "1978",
+  "director": "Nagisa Ōshima",
+  "rating": 2.5,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
