@@ -2113,4 +2113,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Vortex",
+  "year": "2021",
+  "director": "Gaspar Noé",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
