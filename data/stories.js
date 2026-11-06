@@ -2121,4 +2121,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Wild Horse Nine",
+  "year": "2026",
+  "director": "Martin McDonagh",
+  "rating": 4.5,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
