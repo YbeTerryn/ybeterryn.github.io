@@ -2129,4 +2129,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "The Devils",
+  "year": "1971",
+  "director": "Ken Russell",
+  "rating": 5,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
