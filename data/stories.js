@@ -2137,4 +2137,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Digger",
+  "year": "2026",
+  "director": "Alejandro G. Iñárritu",
+  "rating": 3,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
