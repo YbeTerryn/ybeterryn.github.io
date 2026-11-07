@@ -77,6 +77,7 @@ const stories = [
      {
     title: "Onevenbeeld",
     date: "Offer 12",
+    award: "Longlist Verhaal van de Maand"
   // Dit klopt, want op GitHub is dit ook kleine letters
   },
 ];
