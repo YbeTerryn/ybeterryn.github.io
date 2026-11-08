@@ -2095,7 +2095,7 @@ platform: "letterboxd"},
   "year": "2007",
   "director": "James Manos Jr.",
   "rating": 3,
-  "platform": "letterboxd",
+  "platform": "serializd",
   "link": ""
 },
   {
@@ -2154,4 +2154,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "De Zwarte Hand",
+  "year": "1976",
+  "director": "Louis Paul Boon",
+  "rating": 3.5,
+  "platform": "storygraph",
+  "link": ""
+}
  ];
