@@ -2158,7 +2158,7 @@ platform: "letterboxd"},
   "title": "De Zwarte Hand",
   "year": "1976",
   "director": "Louis Paul Boon",
-  "rating": 3.5,
+  "rating": 3,
   "platform": "storygraph",
   "link": ""
 }
