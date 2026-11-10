@@ -2167,7 +2167,7 @@ platform: "letterboxd"},
   "year": "1939",
   "director": "George King",
   "rating": 2.5,
-  "platform": "netflix",
+  "platform": "storygraph",
   "link": ""
 },
  ];
