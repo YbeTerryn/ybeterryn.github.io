@@ -2170,4 +2170,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Midnight in Paris",
+  "year": "2011",
+  "director": "Woody Allen",
+  "rating": 3,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
