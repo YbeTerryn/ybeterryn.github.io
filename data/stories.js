@@ -2178,4 +2178,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Minotaure",
+  "year": "2026",
+  "director": "Andrey Zvyagintsev",
+  "rating": 4,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
