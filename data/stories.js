@@ -2186,4 +2186,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "General Massacre",
+  "year": "1973",
+  "director": "Burr Jerger",
+  "rating": 1.5,
+  "platform": "letterboxd",
+  "link": ""
+}
  ];
