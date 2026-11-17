@@ -2218,4 +2218,12 @@ platform: "letterboxd"},
   "platform": "storygraph",
   "link": ""
 },
+  {
+  "title": "Manhunter",
+  "year": "1986",
+  "director": "Michael Mann",
+  "rating": 3.5,
+  "platform": "letterboxd",
+  "link": ""
+},
  ];
