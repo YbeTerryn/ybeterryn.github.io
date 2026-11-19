@@ -2238,7 +2238,7 @@ platform: "letterboxd"},
   "title": "Vergeet niet wat de zevenslaper zei",
   "year": "1989",
   "director": "J.M.H. Berckmans",
-  "rating": 3,75,
+  "rating": 3.75,
   "platform": "storygraph",
   "link": ""
 },
