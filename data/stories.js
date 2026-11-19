@@ -2238,8 +2238,16 @@ platform: "letterboxd"},
   "title": "Vergeet niet wat de zevenslaper zei",
   "year": "1989",
   "director": "J.M.H. Berckmans",
-  "rating": 4,
+  "rating": 3,75,
   "platform": "storygraph",
+  "link": ""
+},
+  {
+  "title": "Heysel 85",
+  "year": "2026",
+  "director": "Teodora Ana Mihai",
+  "rating": 3.75,
+  "platform": "letterboxd",
   "link": ""
 },
  ];
