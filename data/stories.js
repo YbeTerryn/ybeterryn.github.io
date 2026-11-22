@@ -2258,4 +2258,12 @@ platform: "letterboxd"},
   "platform": "letterboxd",
   "link": ""
 },
+  {
+  "title": "Zei Lila",
+  "year": "1996",
+  "director": "Chimo",
+  "rating": 3.5,
+  "platform": "storygraph",
+  "link": ""
+},
  ];
